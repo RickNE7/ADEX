@@ -43,15 +43,21 @@
             display: flex;
             opacity: 1;
         }
+        #bg-container {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: background-image 0.8s ease-in-out;
+        }
     </style>
 </head>
 <body class="bg-navy-950 text-slate-100 overflow-hidden min-h-screen flex flex-col justify-between relative">
 
     <!-- CONTENEDOR GLOBAL DE FONDO DINÁMICO (Toda la pantalla) -->
-    <div id="bg-container" class="fixed inset-0 w-full h-full bg-cover bg-center transition-all duration-750 ease-in-out z-0"></div>
+    <div id="bg-container" class="fixed inset-0 w-full h-full z-0"></div>
     
     <!-- Filtro de oscurecimiento degradado de alta gama sobre el fondo para garantizar extrema legibilidad -->
-    <div class="fixed inset-0 bg-gradient-to-tr from-navy-950 via-navy-950/85 to-navy-900/60 z-0"></div>
+    <div class="fixed inset-0 bg-gradient-to-tr from-navy-950 via-navy-950/80 to-navy-900/55 z-0"></div>
 
     <!-- Top Navigation Bar (Branding) -->
     <header class="w-full px-6 py-4 flex justify-between items-center border-b border-slate-800/80 bg-navy-950/90 backdrop-blur-md z-10">
@@ -179,82 +185,95 @@
             </div>
         </section>
 
-        <!-- SLIDE 3: PORTAFOLIO DE ACTIVOS CON IMÁGENES REALES (M1-M4) -->
+        <!-- SLIDE 3: PORTAFOLIO CON REPRODUCTORES DE YOUTUBE SHORTS EN DIRECTO -->
         <section class="slide w-full flex-col justify-between h-[68vh] md:h-[62vh] bg-transparent p-2" id="slide-3">
             <div class="text-center md:text-left">
-                <span class="px-3 py-1 bg-gold-500/10 text-gold-400 text-xs font-bold rounded-md tracking-widest uppercase border border-gold-500/20 backdrop-blur-sm">Hardware & Software de Origen</span>
-                <h2 class="text-2xl md:text-4xl font-black text-white mt-2 drop-shadow-md">Nuestras Cuatro Líneas Tecnológicas</h2>
+                <span class="px-3 py-1 bg-gold-500/10 text-gold-400 text-xs font-bold rounded-md tracking-widest uppercase border border-gold-500/20 backdrop-blur-sm">Demostración en Tiempo Real</span>
+                <h2 class="text-2xl md:text-4xl font-black text-white mt-2 drop-shadow-md">Líneas Tecnológicas e Interacción</h2>
             </div>
 
-            <!-- Grid de Productos con Imágenes Reales -->
+            <!-- Grid de Productos con Reproductores en Formato Vertical 9:16 -->
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 my-auto">
                 <!-- Producto 1: Glam & Motion 360 -->
                 <div class="group bg-navy-950/85 border border-slate-800/80 rounded-xl overflow-hidden hover:border-gold-500/50 transition duration-300 shadow-xl backdrop-blur-md flex flex-col justify-between">
-                    <div class="h-28 md:h-36 overflow-hidden relative bg-slate-900">
-                        <img src="https://raw.githubusercontent.com/RickNE7/ADEX/main/M1.jpg" 
-                             alt="Glam & Motion 360" 
-                             class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="hidden absolute inset-0 items-center justify-center bg-slate-950 text-slate-500 text-[10px] uppercase font-mono">Imposible cargar imagen</div>
-                        <span class="absolute top-2 right-2 bg-gold-500/90 text-navy-950 text-[9px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider">TOP 1</span>
+                    <!-- Contenedor del video vertical (Simula pantalla de celular) -->
+                    <div class="relative w-full aspect-[9/16] max-h-[30vh] lg:max-h-[35vh] overflow-hidden bg-black">
+                        <iframe 
+                            class="absolute top-0 left-0 w-full h-full" 
+                            src="https://www.youtube.com/embed/gEtlLU762IA?autoplay=1&mute=1&loop=1&playlist=gEtlLU762IA&controls=0&modestbranding=1&rel=0&playsinline=1&enablejsapi=1&iv_load_policy=3" 
+                            title="Glam & Motion 360 Video" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                        <span class="absolute top-2 left-2 bg-gold-500/95 text-navy-950 text-[8px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider z-10">LÍNEA 360°</span>
                     </div>
-                    <div class="p-3">
-                        <h4 class="font-bold text-xs md:text-sm text-white">Glam & Motion 360°</h4>
-                        <p class="text-slate-300 text-[10px] md:text-xs mt-1 font-light leading-snug">Plataformas motorizadas ultra estables de fibra de carbono.</p>
+                    <div class="p-2.5 border-t border-slate-800/50">
+                        <h4 class="font-bold text-xs text-white leading-tight">Glam & Motion 360°</h4>
+                        <p class="text-slate-300 text-[10px] mt-0.5 font-light leading-snug">Plataforma motorizada premium con captura de alta velocidad.</p>
                     </div>
                 </div>
 
                 <!-- Producto 2: Interactive Mirror -->
                 <div class="group bg-navy-950/85 border border-slate-800/80 rounded-xl overflow-hidden hover:border-gold-500/50 transition duration-300 shadow-xl backdrop-blur-md flex flex-col justify-between">
-                    <div class="h-28 md:h-36 overflow-hidden relative bg-slate-900">
-                        <img src="https://raw.githubusercontent.com/RickNE7/ADEX/main/M2.jpg" 
-                             alt="Interactive Mirror" 
-                             class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="hidden absolute inset-0 items-center justify-center bg-slate-950 text-slate-500 text-[10px] uppercase font-mono">Imposible cargar imagen</div>
-                        <span class="absolute top-2 right-2 bg-navy-950/80 border border-slate-700/80 text-gold-400 text-[9px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider">Premium</span>
+                    <div class="relative w-full aspect-[9/16] max-h-[30vh] lg:max-h-[35vh] overflow-hidden bg-black">
+                        <iframe 
+                            class="absolute top-0 left-0 w-full h-full" 
+                            src="https://www.youtube.com/embed/5J2pTWaQPI8?autoplay=1&mute=1&loop=1&playlist=5J2pTWaQPI8&controls=0&modestbranding=1&rel=0&playsinline=1&enablejsapi=1&iv_load_policy=3" 
+                            title="Interactive Mirror Video" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                        <span class="absolute top-2 left-2 bg-amber-500/90 text-navy-950 text-[8px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider z-10">FOTO ESPEJO</span>
                     </div>
-                    <div class="p-3">
-                        <h4 class="font-bold text-xs md:text-sm text-white">Interactive Mirror</h4>
-                        <p class="text-slate-300 text-[10px] md:text-xs mt-1 font-light leading-snug">Espejos táctiles inteligentes y captura DSLR integrada.</p>
+                    <div class="p-2.5 border-t border-slate-800/50">
+                        <h4 class="font-bold text-xs text-white leading-tight">Interactive Mirror</h4>
+                        <p class="text-slate-300 text-[10px] mt-0.5 font-light leading-snug">Pantalla táctil oculta detrás de un espejo unidireccional.</p>
                     </div>
                 </div>
 
                 <!-- Producto 3: Immersive LED -->
                 <div class="group bg-navy-950/85 border border-slate-800/80 rounded-xl overflow-hidden hover:border-gold-500/50 transition duration-300 shadow-xl backdrop-blur-md flex flex-col justify-between">
-                    <div class="h-28 md:h-36 overflow-hidden relative bg-slate-900">
-                        <img src="https://raw.githubusercontent.com/RickNE7/ADEX/main/M3.jpg" 
-                             alt="Immersive LED Booth" 
-                             class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="hidden absolute inset-0 items-center justify-center bg-slate-950 text-slate-500 text-[10px] uppercase font-mono">Imposible cargar imagen</div>
-                        <span class="absolute top-2 right-2 bg-cyan-500/20 text-cyan-300 text-[9px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider">Smart LED</span>
+                    <div class="relative w-full aspect-[9/16] max-h-[30vh] lg:max-h-[35vh] overflow-hidden bg-black">
+                        <iframe 
+                            class="absolute top-0 left-0 w-full h-full" 
+                            src="https://www.youtube.com/embed/Xf7DQ9Ta8VU?autoplay=1&mute=1&loop=1&playlist=Xf7DQ9Ta8VU&controls=0&modestbranding=1&rel=0&playsinline=1&enablejsapi=1&iv_load_policy=3" 
+                            title="Immersive LED Video" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                        <span class="absolute top-2 left-2 bg-cyan-500/90 text-navy-950 text-[8px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider z-10">LED CABINA</span>
                     </div>
-                    <div class="p-3">
-                        <h4 class="font-bold text-xs md:text-sm text-white">Immersive LED</h4>
-                        <p class="text-slate-300 text-[10px] md:text-xs mt-1 font-light leading-snug">Cabinas inflables con fondos interactivos y croma.</p>
+                    <div class="p-2.5 border-t border-slate-800/50">
+                        <h4 class="font-bold text-xs text-white leading-tight">Immersive LED</h4>
+                        <p class="text-slate-300 text-[10px] mt-0.5 font-light leading-snug">Cabina inflable con luces LED inteligentes rítmicas.</p>
                     </div>
                 </div>
 
                 <!-- Producto 4: Audio-Guestbooks -->
                 <div class="group bg-navy-950/85 border border-slate-800/80 rounded-xl overflow-hidden hover:border-gold-500/50 transition duration-300 shadow-xl backdrop-blur-md flex flex-col justify-between">
-                    <div class="h-28 md:h-36 overflow-hidden relative bg-slate-900">
-                        <img src="https://raw.githubusercontent.com/RickNE7/ADEX/main/M4.jpg" 
-                             alt="Audio Guestbooks" 
-                             class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="hidden absolute inset-0 items-center justify-center bg-slate-950 text-slate-500 text-[10px] uppercase font-mono">Imposible cargar imagen</div>
-                        <span class="absolute top-2 right-2 bg-emerald-500/20 text-emerald-300 text-[9px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider">Retro</span>
+                    <div class="relative w-full aspect-[9/16] max-h-[30vh] lg:max-h-[35vh] overflow-hidden bg-black">
+                        <iframe 
+                            class="absolute top-0 left-0 w-full h-full" 
+                            src="https://www.youtube.com/embed/1W6ITS_yiBs?autoplay=1&mute=1&loop=1&playlist=1W6ITS_yiBs&controls=0&modestbranding=1&rel=0&playsinline=1&enablejsapi=1&iv_load_policy=3" 
+                            title="Audio Guestbook Video" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                        <span class="absolute top-2 left-2 bg-emerald-500/90 text-navy-950 text-[8px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider z-10">RETRO AUDIO</span>
                     </div>
-                    <div class="p-3">
-                        <h4 class="font-bold text-xs md:text-sm text-white">Audio-Guestbooks</h4>
-                        <p class="text-slate-300 text-[10px] md:text-xs mt-1 font-light leading-snug">Teléfonos vintage adaptados para mensajes de audio.</p>
+                    <div class="p-2.5 border-t border-slate-800/50">
+                        <h4 class="font-bold text-xs text-white leading-tight">Audio-Guestbooks</h4>
+                        <p class="text-slate-300 text-[10px] mt-0.5 font-light leading-snug">Teléfonos retro modificados para almacenar dedicatorias de voz.</p>
                     </div>
                 </div>
             </div>
 
             <div class="text-center text-[10px] md:text-xs text-slate-400 font-mono">
-                Portafolio exclusivo importado directamente por nuestra empresa de origen en Shenzhen.
+                Demostración real de interacción en eventos de alta gama.
             </div>
         </section>
 
@@ -416,7 +435,7 @@
         let currentSlide = 1;
         const totalSlides = 6;
 
-        // Nuevos enlaces de fondos actualizados a JPG y formato full-viewport
+        // Enlaces de fondos actualizados a JPG cubriendo todo el viewport
         const backgroundUrls = {
             1: 'https://raw.githubusercontent.com/RickNE7/ADEX/main/P1.jpg',
             2: 'https://raw.githubusercontent.com/RickNE7/ADEX/main/P2.jpg',
