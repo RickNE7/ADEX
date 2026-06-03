@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Event Imports - Presentación Ejecutiva</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind Custom Config for Theme -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#0F172A',
+                            900: '#0B0F19',
+                            950: '#030712'
+                        },
+                        gold: {
+                            100: '#FEF3C7',
+                            400: '#F59E0B',
+                            500: '#D97706',
+                            600: '#B45309'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .slide {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .slide.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        /* Estilos de fondo inmersivos e independientes por diapositiva con overlay para legibilidad */
+        #slide-1 {
+            background-image: linear-gradient(135deg, rgba(11, 15, 25, 0.95) 0%, rgba(15, 23, 42, 0.8) 50%, rgba(3, 7, 18, 0.95) 100%), 
+                              url('https://raw.githubusercontent.com/RickNE7/AuxSOS/main/P1.png');
+        }
+        #slide-2 {
+            background-image: linear-gradient(135deg, rgba(11, 15, 25, 0.95) 0%, rgba(15, 23, 42, 0.8) 50%, rgba(3, 7, 18, 0.95) 100%), 
+                              url('https://raw.githubusercontent.com/RickNE7/AuxSOS/main/P2.png');
+        }
+        #slide-3 {
+            background-image: linear-gradient(135deg, rgba(11, 15, 25, 0.95) 0%, rgba(15, 23, 42, 0.8) 50%, rgba(3, 7, 18, 0.95) 100%), 
+                              url('https://raw.githubusercontent.com/RickNE7/AuxSOS/main/P3.png');
+        }
+        #slide-4 {
+            background-image: linear-gradient(135deg, rgba(11, 15, 25, 0.95) 0%, rgba(15, 23, 42, 0.8) 50%, rgba(3, 7, 18, 0.95) 100%), 
+                              url('https://raw.githubusercontent.com/RickNE7/AuxSOS/main/P4.png');
+        }
+        #slide-5 {
+            background-image: linear-gradient(135deg, rgba(11, 15, 25, 0.95) 0%, rgba(15, 23, 42, 0.8) 50%, rgba(3, 7, 18, 0.95) 100%), 
+                              url('https://raw.githubusercontent.com/RickNE7/AuxSOS/main/P5.png');
+        }
+        #slide-6 {
+            background-image: linear-gradient(135deg, rgba(11, 15, 25, 0.95) 0%, rgba(15, 23, 42, 0.8) 50%, rgba(3, 7, 18, 0.95) 100%), 
+                              url('https://raw.githubusercontent.com/RickNE7/AuxSOS/main/P6.png');
+        }
+    </style>
+</head>
+<body class="bg-navy-950 text-slate-100 overflow-hidden min-h-screen flex flex-col justify-between">
+
+    <!-- Top Navigation Bar (Branding) -->
+    <header class="w-full px-6 py-4 flex justify-between items-center border-b border-slate-800 bg-navy-900/90 backdrop-blur-md z-10">
+        <div class="flex items-center space-x-3">
+            <!-- Luxury Custom Geometric SVG Logo -->
+            <svg class="w-8 h-8 text-gold-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 2 7 12 12 22 7 12 2" fill="rgba(217,119,6,0.2)"/>
+                <polyline points="2 17 12 22 22 17"/>
+                <polyline points="2 12 12 17 22 12"/>
+            </svg>
+            <div>
+                <span class="font-extrabold text-lg tracking-wider text-white">GLOBAL EVENT</span>
+                <span class="text-xs text-gold-400 font-semibold block uppercase tracking-widest leading-none">Imports</span>
+            </div>
+        </div>
+        
+        <!-- Quick Nav Info -->
+        <div class="flex items-center space-x-6 text-xs text-slate-400">
+            <span class="bg-navy-800 px-3 py-1.5 rounded-full border border-slate-700/50">ADEX | Planificación en Negocios</span>
+            <span class="font-mono text-gold-400" id="slide-indicator">1 / 6</span>
+        </div>
+    </header>
+
+    <!-- Main Slide Deck Area -->
+    <main class="flex-grow flex items-center justify-center relative px-4 md:px-8 py-6 w-full max-w-7xl mx-auto">
+        
+        <!-- SLIDE 1: PORTADA -->
+        <section class="slide active w-full flex-col justify-between h-[68vh] md:h-[62vh] bg-cover bg-center rounded-2xl border border-slate-800/60 p-6 md:p-8 shadow-2xl" id="slide-1">
+            <div class="text-center md:text-left mt-2">
+                <span class="px-3 py-1 bg-gold-500/10 text-gold-400 text-[10px] md:text-xs font-bold rounded-md tracking-widest uppercase border border-gold-500/20">Modelo de Negocio de Importación</span>
+                <h1 class="text-3xl md:text-5xl lg:text-6xl font-black text-white mt-3 tracking-tight leading-none">
+                    GLOBAL EVENT <span class="text-gold-500">IMPORTS</span>
+                </h1>
+                <p class="text-slate-300 text-xs md:text-sm lg:text-base mt-2 max-w-2xl font-light">
+                    Importación, alquiler y operación de ecosistemas tecnológicos interactivos de vanguardia para eventos sociales y corporativos de alta gama en el Perú.
+                </p>
+            </div>
+
+            <!-- Team Roles Breakdown Matrix -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-auto">
+                <!-- Group 1: Inversionistas -->
+                <div class="bg-navy-950/70 p-4 rounded-xl border border-slate-800/80 backdrop-blur-sm">
+                    <div class="flex items-center space-x-2 mb-2.5">
+                        <span class="w-2.5 h-2.5 bg-amber-500 rounded-full animate-pulse"></span>
+                        <h3 class="text-gold-400 font-bold text-[10px] md:text-xs uppercase tracking-widest">Directorio de Socios Inversionistas (CAPITAL)</h3>
+                    </div>
+                    <ul class="space-y-1.5 text-[11px] md:text-xs">
+                        <li class="flex justify-between items-center py-1 border-b border-slate-800/40">
+                            <span class="font-semibold text-slate-200">Marilin Andrea Medina Apolinario</span>
+                            <span class="text-slate-400 font-mono text-[9px] bg-slate-800/80 px-2 py-0.5 rounded">Presidenta del Directorio</span>
+                        </li>
+                        <li class="flex justify-between items-center py-1 border-b border-slate-800/40">
+                            <span class="font-semibold text-slate-200">Jostin Alexander Chavez Estela</span>
+                            <span class="text-slate-400 font-mono text-[9px] bg-slate-800/80 px-2 py-0.5 rounded">Director de Finanzas</span>
+                        </li>
+                        <li class="flex justify-between items-center py-1">
+                            <span class="font-semibold text-slate-200">Jahir Azael Castillo Paucas</span>
+                            <span class="text-slate-400 font-mono text-[9px] bg-slate-800/80 px-2 py-0.5 rounded">Director de Expansión</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Group 2: Operadores -->
+                <div class="bg-navy-950/70 p-4 rounded-xl border border-slate-800/80 backdrop-blur-sm">
+                    <div class="flex items-center space-x-2 mb-2.5">
+                        <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse"></span>
+                        <h3 class="text-emerald-400 font-bold text-[10px] md:text-xs uppercase tracking-widest">Socios Operativos en Planilla (OPERACIÓN B2B)</h3>
+                    </div>
+                    <ul class="space-y-1.5 text-[11px] md:text-xs">
+                        <li class="flex justify-between items-center py-1 border-b border-slate-800/40">
+                            <span class="font-semibold text-slate-200">Maria Fernanda Ruiz Luna</span>
+                            <span class="text-slate-400 font-mono text-[9px] bg-slate-800/80 px-2 py-0.5 rounded">CEO / Gerente General</span>
+                        </li>
+                        <li class="flex justify-between items-center py-1 border-b border-slate-800/40">
+                            <span class="font-semibold text-slate-200">Eric Laureano Mozombite Shishco</span>
+                            <span class="text-slate-400 font-mono text-[9px] bg-slate-800/80 px-2 py-0.5 rounded">COO / Gerente Operaciones</span>
+                        </li>
+                        <li class="flex justify-between items-center py-1">
+                            <span class="font-semibold text-slate-200">Yhurem Steven García Piedra</span>
+                            <span class="text-slate-400 font-mono text-[9px] bg-slate-800/80 px-2 py-0.5 rounded">CMO / Gerente Marketing</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 2: EL DOLOR Y LA OPORTUNIDAD B2B -->
+        <section class="slide w-full flex-col justify-between h-[68vh] md:h-[62vh] bg-cover bg-center rounded-2xl border border-slate-800/60 p-6 md:p-8 shadow-2xl" id="slide-2">
+            <div class="text-center md:text-left">
+                <span class="px-3 py-1 bg-amber-500/10 text-amber-400 text-xs font-bold rounded-md tracking-widest uppercase border border-amber-500/20">Análisis del Mercado local</span>
+                <h2 class="text-2xl md:text-4xl font-black text-white mt-2">La Gran Oportunidad B2B</h2>
+            </div>
+
+            <!-- Visual Comparison Matrix -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-auto">
+                <div class="p-5 md:p-6 bg-slate-950/80 border border-slate-800/80 rounded-xl flex flex-col justify-between backdrop-blur-sm">
+                    <div>
+                        <div class="text-red-500 text-2xl md:text-3xl font-bold mb-2">✗ El Dolor Tradicional</div>
+                        <p class="text-slate-300 text-xs md:text-sm font-light leading-relaxed">
+                            La decoración estática y la florería tradicional están saturadas de competidores informales que canibalizan precios y sufren altas mermas físicas por rotura.
+                        </p>
+                    </div>
+                    <div class="mt-4 border-t border-slate-800/50 pt-3 flex justify-between text-[10px] md:text-xs text-slate-400 font-mono">
+                        <span>Margen de Ganancia: Bajo</span>
+                        <span>Mermas: 10% - 15%</span>
+                    </div>
+                </div>
+
+                <div class="p-5 md:p-6 bg-gold-950/40 border border-gold-500/20 rounded-xl flex flex-col justify-between backdrop-blur-sm">
+                    <div>
+                        <div class="text-gold-500 text-2xl md:text-3xl font-bold mb-2">✓ Nuestra Solución Tech</div>
+                        <p class="text-slate-200 text-xs md:text-sm font-light leading-relaxed">
+                            Alquiler de activos tecnológicos fijos (CAPEX) reutilizables con entrega digital inmediata en la nube, garantizando ingresos recurrentes y escalabilidad masiva.
+                        </p>
+                    </div>
+                    <div class="mt-4 border-t border-slate-800/50 pt-3 flex justify-between text-[10px] md:text-xs text-gold-400 font-mono">
+                        <span>Margen de Ganancia: Alto (80%)</span>
+                        <span>Mermas físicas: &lt;1.5%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center text-[10px] md:text-xs text-slate-400 bg-navy-950/40 py-1 rounded">
+                Segmentación clave: Agencias de Wedding Planning y Productoras de Eventos B2B corporativas en Lima.
+            </div>
+        </section>
+
+        <!-- SLIDE 3: PORTAFOLIO DE ACTIVOS (CAPEX) -->
+        <section class="slide w-full flex-col justify-between h-[68vh] md:h-[62vh] bg-cover bg-center rounded-2xl border border-slate-800/60 p-6 md:p-8 shadow-2xl" id="slide-3">
+            <div class="text-center md:text-left">
+                <span class="px-3 py-1 bg-gold-500/10 text-gold-400 text-xs font-bold rounded-md tracking-widest uppercase border border-gold-500/20">Hardware & Software de Origen</span>
+                <h2 class="text-2xl md:text-4xl font-black text-white mt-2">Nuestras Cuatro Líneas Tecnológicas</h2>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-auto">
+                <!-- Card 1 -->
+                <div class="p-3 md:p-4 bg-navy-950/80 border border-slate-800/80 rounded-xl hover:border-gold-500/40 transition duration-300 backdrop-blur-sm">
+                    <div class="w-8 h-8 md:w-10 md:h-10 bg-gold-500/10 text-gold-400 rounded-lg flex items-center justify-center mb-2.5">
+                        <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h4 class="font-bold text-xs md:text-sm text-white">Glam & Motion 360°</h4>
+                    <p class="text-slate-300 text-[10px] md:text-xs mt-1 font-light leading-snug">Estructuras de fibra de carbono motorizadas.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="p-3 md:p-4 bg-navy-950/80 border border-slate-800/80 rounded-xl hover:border-gold-500/40 transition duration-300 backdrop-blur-sm">
+                    <div class="w-8 h-8 md:w-10 md:h-10 bg-gold-500/10 text-gold-400 rounded-lg flex items-center justify-center mb-2.5">
+                        <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
+                    </div>
+                    <h4 class="font-bold text-xs md:text-sm text-white">Interactive Mirror</h4>
+                    <p class="text-slate-300 text-[10px] md:text-xs mt-1 font-light leading-snug">Espejos táctiles inteligentes y foto-captura rápida.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="p-3 md:p-4 bg-navy-950/80 border border-slate-800/80 rounded-xl hover:border-gold-500/40 transition duration-300 backdrop-blur-sm">
+                    <div class="w-8 h-8 md:w-10 md:h-10 bg-gold-500/10 text-gold-400 rounded-lg flex items-center justify-center mb-2.5">
+                        <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    </div>
+                    <h4 class="font-bold text-xs md:text-sm text-white">Immersive LED</h4>
+                    <p class="text-slate-300 text-[10px] md:text-xs mt-1 font-light leading-snug">Cabinas inflables con fondos interactivos LED.</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="p-3 md:p-4 bg-navy-950/80 border border-slate-800/80 rounded-xl hover:border-gold-500/40 transition duration-300 backdrop-blur-sm">
+                    <div class="w-8 h-8 md:w-10 md:h-10 bg-gold-500/10 text-gold-400 rounded-lg flex items-center justify-center mb-2.5">
+                        <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                    </div>
+                    <h4 class="font-bold text-xs md:text-sm text-white">Audio-Guestbooks</h4>
+                    <p class="text-slate-300 text-[10px] md:text-xs mt-1 font-light leading-snug">Teléfonos vintage adaptados para mensajes de voz.</p>
+                </div>
+            </div>
+
+            <div class="text-center text-[10px] md:text-xs text-slate-400 font-mono">
+                Hardware importado directamente desde el hub tecnológico de Shenzhen, China.
+            </div>
+        </section>
+
+        <!-- SLIDE 4: DIRECCIÓN ESTRATÉGICA -->
+        <section class="slide w-full flex-col justify-between h-[68vh] md:h-[62vh] bg-cover bg-center rounded-2xl border border-slate-800/60 p-6 md:p-8 shadow-2xl" id="slide-4">
+            <div class="text-center md:text-left">
+                <span class="px-3 py-1 bg-amber-500/10 text-amber-400 text-xs font-bold rounded-md tracking-widest uppercase border border-amber-500/20">Identidad Corporativa</span>
+                <h2 class="text-2xl md:text-4xl font-black text-white mt-2">Nuestra Brújula de Negocios</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-auto">
+                <div class="p-4 md:p-5 bg-slate-950/80 border border-slate-800/80 rounded-xl backdrop-blur-sm">
+                    <div class="text-gold-400 font-bold uppercase tracking-wider text-xs mb-2">Misión</div>
+                    <p class="text-slate-200 text-xs leading-relaxed font-light">
+                        Transformar eventos en experiencias digitales memorables mediante el alquiler y operación eficiente de tecnología de captura interactiva, asegurando entregas impecables y oportunas <span class="text-gold-400 font-semibold">(OTIF)</span>.
+                    </p>
+                </div>
+
+                <div class="p-4 md:p-5 bg-slate-950/80 border border-slate-800/80 rounded-xl backdrop-blur-sm">
+                    <div class="text-gold-400 font-bold uppercase tracking-wider text-xs mb-2">Visión (Al 2034)</div>
+                    <p class="text-slate-200 text-xs leading-relaxed font-light">
+                        Consolidar la marca en Lima Metropolitana expandiendo nuestra infraestructura de almacenes y operaciones logísticas estables a las ciudades de **Trujillo** y **Arequipa** en un horizonte de 8 años.
+                    </p>
+                </div>
+
+                <div class="p-4 md:p-5 bg-slate-950/80 border border-slate-800/80 rounded-xl backdrop-blur-sm">
+                    <div class="text-gold-400 font-bold uppercase tracking-wider text-xs mb-2">Valores Clave</div>
+                    <ul class="text-xs space-y-2 text-slate-200 font-light">
+                        <li><strong class="text-gold-400">Confiabilidad OTIF:</strong> Logística exacta y sin retrasos.</li>
+                        <li><strong class="text-gold-400">Vanguardia Operativa:</strong> Equipamiento siempre moderno.</li>
+                        <li><strong class="text-gold-400">Integridad:</strong> Transparencia total en el servicio.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="text-center text-[10px] md:text-xs text-slate-400 font-mono">
+                La visión al 2034 responde coherentemente a la escala temporal exigida en el curso de Planificación.
+            </div>
+        </section>
+
+        <!-- SLIDE 5: PLANIFICACIÓN FINANCIERA REALISTA -->
+        <section class="slide w-full flex-col justify-between h-[68vh] md:h-[62vh] bg-cover bg-center rounded-2xl border border-slate-800/60 p-6 md:p-8 shadow-2xl" id="slide-5">
+            <div class="text-center md:text-left">
+                <span class="px-3 py-1 bg-gold-500/10 text-gold-400 text-xs font-bold rounded-md tracking-widest uppercase border border-gold-500/20">Presupuestos sin Idealismos</span>
+                <h2 class="text-2xl md:text-4xl font-black text-white mt-2">Estructura Real de Arranque</h2>
+            </div>
+
+            <!-- Financial Metrics Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-auto">
+                
+                <!-- Stat 1 -->
+                <div class="p-4 md:p-5 bg-navy-950/80 border border-slate-800/80 rounded-xl text-center flex flex-col justify-between backdrop-blur-sm">
+                    <span class="text-slate-400 text-xs uppercase tracking-wider">Formalización Legal</span>
+                    <div class="text-3xl md:text-4xl font-black text-gold-500 my-2.5">S/. 800</div>
+                    <p class="text-[10px] text-slate-400 font-light leading-snug">Costo real e inmediato proyectado para notarías, minutas y registro ante SUNARP.</p>
+                </div>
+
+                <!-- Stat 2 -->
+                <div class="p-4 md:p-5 bg-navy-950/80 border border-slate-800/80 rounded-xl text-center flex flex-col justify-between backdrop-blur-sm">
+                    <span class="text-slate-400 text-xs uppercase tracking-wider">Fondo de Planilla (6 Meses)</span>
+                    <div class="text-3xl md:text-4xl font-black text-emerald-500 my-2.5">S/. 41,400</div>
+                    <p class="text-[10px] text-slate-400 font-light leading-snug">Resguardo financiero intocable de sueldos para proteger la operación inicial.</p>
+                </div>
+
+                <!-- Stat 3 -->
+                <div class="p-4 md:p-5 bg-navy-950/80 border border-slate-800/80 rounded-xl text-center flex flex-col justify-between backdrop-blur-sm">
+                    <span class="text-slate-400 text-xs uppercase tracking-wider">Punto de Equilibrio</span>
+                    <div class="text-3xl md:text-4xl font-black text-white my-2.5">14 <span class="text-xs md:text-sm font-medium text-slate-400">servicios/mes</span></div>
+                    <p class="text-[10px] text-slate-400 font-light leading-snug">Volumen mensual para cubrir costos fijos (S/. 9,900) de alquiler y personal.</p>
+                </div>
+
+            </div>
+
+            <div class="text-center text-[10px] md:text-xs text-slate-200 font-semibold bg-navy-950/70 py-2.5 rounded-lg border border-slate-800/60 backdrop-blur-sm">
+                Inversión Inicial Total Proyectada: S/. 113,200 (70% Capital Propio - 30% Financiamiento)
+            </div>
+        </section>
+
+        <!-- SLIDE 6: CONTROL DE GESTIÓN (BALANCED SCORECARD) -->
+        <section class="slide w-full flex-col justify-between h-[68vh] md:h-[62vh] bg-cover bg-center rounded-2xl border border-slate-800/60 p-6 md:p-8 shadow-2xl" id="slide-6">
+            <div class="text-center md:text-left">
+                <span class="px-3 py-1 bg-amber-500/10 text-amber-400 text-xs font-bold rounded-md tracking-widest uppercase border border-amber-500/20">Control & Supervisión Operativa</span>
+                <h2 class="text-2xl md:text-4xl font-black text-white mt-2">Dashboard Ejecutivo de Contingencias</h2>
+            </div>
+
+            <!-- Scorecard Table mockup -->
+            <div class="bg-navy-950/80 border border-slate-800/80 rounded-xl overflow-hidden my-auto backdrop-blur-sm">
+                <table class="w-full text-left text-[11px] md:text-xs">
+                    <thead class="bg-slate-900/90 text-slate-400 uppercase text-[9px] tracking-wider">
+                        <tr>
+                            <th class="p-3 md:p-4">Indicador Clave (KPI)</th>
+                            <th class="p-3 md:p-4 text-center">Meta</th>
+                            <th class="p-3 md:p-4 text-center">Estado</th>
+                            <th class="p-3 md:p-4">Acción de Contingencia</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800/60 font-light text-slate-200">
+                        <tr>
+                            <td class="p-3 md:p-4 font-semibold">1. Entregas a Tiempo (OTIF)</td>
+                            <td class="p-3 md:p-4 text-center font-mono">&gt;= 96%</td>
+                            <td class="p-3 md:p-4 text-center"><span class="px-2 py-0.5 md:py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-[9px] md:text-[10px] font-bold">Verde</span></td>
+                            <td class="p-3 md:p-4 text-slate-300 text-[10px] md:text-[11px]">Mantener procesos estandarizados en check-lists.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 md:p-4 font-semibold">2. Disponibilidad de Tecnología</td>
+                            <td class="p-3 md:p-4 text-center font-mono">98%</td>
+                            <td class="p-3 md:p-4 text-center"><span class="px-2 py-0.5 md:py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-[9px] md:text-[10px] font-bold">Verde</span></td>
+                            <td class="p-3 md:p-4 text-slate-300 text-[10px] md:text-[11px]">Soporte técnico preventivo y backups semanales.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 md:p-4 font-semibold">3. Tiempo de Descarga Digital QR</td>
+                            <td class="p-3 md:p-4 text-center font-mono">&lt; 12s</td>
+                            <td class="p-3 md:p-4 text-center"><span class="px-2 py-0.5 md:py-1 bg-red-500/20 text-red-400 rounded-full text-[9px] md:text-[10px] font-bold">Crítico</span></td>
+                            <td class="p-3 md:p-4 text-gold-400 text-[10px] md:text-[11px] font-medium">Activar routers de contingencia multi-carrier de doble SIM.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="text-center text-[10px] md:text-xs text-slate-400 font-mono">
+                La matriz integra 10 KPIs distribuidos bajo la metodología del Balanced Scorecard para el Hito 3.
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Bottom Controls & Navigation -->
+    <footer class="w-full px-6 py-4 border-t border-slate-800 bg-navy-900/80 backdrop-blur-md flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 z-10">
+        <!-- Interactive Controls -->
+        <div class="flex items-center space-x-2">
+            <button onclick="changeSlide(-1)" class="p-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white transition focus:outline-none focus:ring-2 focus:ring-gold-500" aria-label="Anterior diapositiva">
+                <!-- Left Arrow SVG -->
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+            <button onclick="changeSlide(1)" class="p-2.5 rounded-lg bg-gold-500 hover:bg-gold-600 text-slate-900 font-bold transition focus:outline-none focus:ring-2 focus:ring-gold-500" aria-label="Siguiente diapositiva">
+                <!-- Right Arrow SVG -->
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+        </div>
+
+        <!-- Slide Thumbnails (Interactivas) -->
+        <div class="flex space-x-2">
+            <button onclick="goToSlide(1)" class="dot w-3 h-3 rounded-full bg-gold-500 transition-all duration-300" aria-label="Ir a diapositiva 1"></button>
+            <button onclick="goToSlide(2)" class="dot w-3 h-3 rounded-full bg-slate-700 hover:bg-slate-500 transition-all duration-300" aria-label="Ir a diapositiva 2"></button>
+            <button onclick="goToSlide(3)" class="dot w-3 h-3 rounded-full bg-slate-700 hover:bg-slate-500 transition-all duration-300" aria-label="Ir a diapositiva 3"></button>
+            <button onclick="goToSlide(4)" class="dot w-3 h-3 rounded-full bg-slate-700 hover:bg-slate-500 transition-all duration-300" aria-label="Ir a diapositiva 4"></button>
+            <button onclick="goToSlide(5)" class="dot w-3 h-3 rounded-full bg-slate-700 hover:bg-slate-500 transition-all duration-300" aria-label="Ir a diapositiva 5"></button>
+            <button onclick="goToSlide(6)" class="dot w-3 h-3 rounded-full bg-slate-700 hover:bg-slate-500 transition-all duration-300" aria-label="Ir a diapositiva 6"></button>
+        </div>
+
+        <!-- Hint -->
+        <div class="text-[10px] text-slate-500 font-mono hidden md:block">
+            Usa las teclas ← y → en tu laptop o desliza en tu smartphone.
+        </div>
+    </footer>
+
+    <!-- Interactive Navigation Logic -->
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 6;
+
+        function showSlide(slideIndex) {
+            // Guardrail bounds
+            if (slideIndex < 1) slideIndex = totalSlides;
+            if (slideIndex > totalSlides) slideIndex = 1;
+            
+            // Hide all slides
+            for (let i = 1; i <= totalSlides; i++) {
+                const s = document.getElementById(`slide-${i}`);
+                if (s) s.classList.remove('active');
+            }
+            
+            // Show target slide
+            const target = document.getElementById(`slide-${slideIndex}`);
+            if (target) {
+                target.classList.add('active');
+            }
+            
+            currentSlide = slideIndex;
+            
+            // Update Indicator Text
+            document.getElementById('slide-indicator').innerText = `${currentSlide} / ${totalSlides}`;
+            
+            // Update dots
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, index) => {
+                if (index + 1 === currentSlide) {
+                    dot.classList.remove('bg-slate-700');
+                    dot.classList.add('bg-gold-500', 'w-6');
+                } else {
+                    dot.classList.remove('bg-gold-500', 'w-6');
+                    dot.classList.add('bg-slate-700');
+                }
+            });
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        function goToSlide(index) {
+            showSlide(index);
+        }
+
+        // Keyboard arrow controls support
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight') {
+                changeSlide(1);
+            } else if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            }
+        });
+
+        // Touch gestures implementation for fluid swipe
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        const mainElement = document.querySelector('main');
+        mainElement.addEventListener('touchstart', function(event) {
+            touchStartX = event.changedTouches[0].screenX;
+        }, false);
+        
+        mainElement.addEventListener('touchend', function(event) {
+            touchEndX = event.changedTouches[0].screenX;
+            handleSwipe();
+        }, false);
+        
+        function handleSwipe() {
+            const threshold = 50; // Minimum distance
+            if (touchStartX - touchEndX > threshold) {
+                changeSlide(1); // Swipe Left -> Next
+            }
+            if (touchEndX - touchStartX > threshold) {
+                changeSlide(-1); // Swipe Right -> Prev
+            }
+        }
+
+        // Initialize display state
+        window.onload = function() {
+            showSlide(1);
+        }
+    </script>
+</body>
+</html>
