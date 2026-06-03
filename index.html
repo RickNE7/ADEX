@@ -51,15 +51,15 @@
         }
     </style>
 </head>
-<body class="bg-navy-950 text-slate-100 overflow-hidden min-h-screen flex flex-col justify-between relative">
+<body class="bg-navy-950 text-slate-100 overflow-y-auto md:overflow-hidden min-h-screen flex flex-col justify-between relative">
 
-    <!-- CONTENEDOR GLOBAL DE FONDO DINÁMICO (Toda la pantalla) -->
+    <!-- CONTENEDOR GLOBAL DE FONDO DINÁMICO (Ocupa absolutamente toda la pantalla) -->
     <div id="bg-container" class="fixed inset-0 w-full h-full z-0"></div>
     
     <!-- Filtro de oscurecimiento degradado de alta gama sobre el fondo para garantizar extrema legibilidad -->
-    <div class="fixed inset-0 bg-gradient-to-tr from-navy-950 via-navy-950/80 to-navy-900/55 z-0"></div>
+    <div class="fixed inset-0 bg-gradient-to-tr from-navy-950 via-navy-950/85 to-navy-900/55 z-0"></div>
 
-    <!-- Top Navigation Bar (Branding) -->
+    <!-- Top Navigation Bar (Branding & Versión) -->
     <header class="w-full px-6 py-4 flex justify-between items-center border-b border-slate-800/80 bg-navy-950/90 backdrop-blur-md z-10">
         <div class="flex items-center space-x-3">
             <!-- Luxury Custom Geometric SVG Logo -->
@@ -68,24 +68,27 @@
                 <polyline points="2 17 12 22 22 17"/>
                 <polyline points="2 12 12 17 22 12"/>
             </svg>
-            <div>
-                <span class="font-extrabold text-lg tracking-wider text-white">GLOBAL EVENT</span>
-                <span class="text-xs text-gold-400 font-semibold block uppercase tracking-widest leading-none">Imports</span>
+            <div class="flex items-center space-x-2">
+                <div>
+                    <span class="font-extrabold text-lg tracking-wider text-white">GLOBAL EVENT</span>
+                    <span class="text-xs text-gold-400 font-semibold block uppercase tracking-widest leading-none">Imports</span>
+                </div>
+                <span class="bg-gold-500/10 text-gold-400 border border-gold-500/20 px-2 py-0.5 rounded text-[10px] font-mono ml-2">v3.2.0</span>
             </div>
         </div>
         
         <!-- Quick Nav Info -->
         <div class="flex items-center space-x-6 text-xs text-slate-400">
-            <span class="bg-navy-900/80 px-3 py-1.5 rounded-full border border-slate-800/80 backdrop-blur-sm">ADEX | Planificación en Negocios</span>
+            <span class="bg-navy-900/80 px-3 py-1.5 rounded-full border border-slate-800/80 backdrop-blur-sm hidden sm:inline">ADEX | Planificación en Negocios</span>
             <span class="font-mono text-gold-400" id="slide-indicator">1 / 6</span>
         </div>
     </header>
 
-    <!-- Main Slide Deck Area -->
-    <main class="flex-grow flex items-center justify-center relative px-4 md:px-8 py-4 w-full max-w-7xl mx-auto z-10">
+    <!-- Main Slide Deck Area (Scrollable en móviles si el contenido excede la pantalla) -->
+    <main class="flex-grow flex items-center justify-center relative px-4 md:px-8 py-4 w-full max-w-7xl mx-auto z-10 overflow-y-auto md:overflow-visible">
         
         <!-- SLIDE 1: PORTADA -->
-        <section class="slide active w-full flex-col justify-between h-[68vh] md:h-[62vh] bg-transparent p-2" id="slide-1">
+        <section class="slide active w-full flex-col justify-between min-h-[68vh] md:min-h-0 h-auto md:h-[62vh] bg-transparent p-2" id="slide-1">
             <div class="text-center md:text-left mt-2">
                 <span class="px-3 py-1 bg-gold-500/10 text-gold-400 text-[10px] md:text-xs font-bold rounded-md tracking-widest uppercase border border-gold-500/20 backdrop-blur-sm">Modelo de Negocio de Importación</span>
                 <h1 class="text-3xl md:text-5xl lg:text-6xl font-black text-white mt-3 tracking-tight leading-none drop-shadow-lg">
@@ -97,7 +100,7 @@
             </div>
 
             <!-- Team Roles Breakdown Matrix -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-auto mt-6 md:mt-0">
                 <!-- Group 1: Inversionistas -->
                 <div class="bg-navy-950/75 p-4 rounded-xl border border-slate-800/80 backdrop-blur-md shadow-xl">
                     <div class="flex items-center space-x-2 mb-2.5">
@@ -145,14 +148,14 @@
         </section>
 
         <!-- SLIDE 2: EL DOLOR Y LA OPORTUNIDAD B2B -->
-        <section class="slide w-full flex-col justify-between h-[68vh] md:h-[62vh] bg-transparent p-2" id="slide-2">
+        <section class="slide w-full flex-col justify-between h-auto md:h-[62vh] bg-transparent p-2" id="slide-2">
             <div class="text-center md:text-left">
                 <span class="px-3 py-1 bg-amber-500/10 text-amber-400 text-xs font-bold rounded-md tracking-widest uppercase border border-amber-500/20 backdrop-blur-sm">Análisis del Mercado local</span>
                 <h2 class="text-2xl md:text-4xl font-black text-white mt-2 drop-shadow-md">La Gran Oportunidad B2B</h2>
             </div>
 
             <!-- Visual Comparison Matrix -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-auto mt-6 md:mt-0">
                 <div class="p-5 md:p-6 bg-slate-950/80 border border-slate-800/80 rounded-xl flex flex-col justify-between backdrop-blur-md shadow-xl">
                     <div>
                         <div class="text-red-500 text-2xl md:text-3xl font-bold mb-2">✗ El Dolor Tradicional</div>
@@ -180,33 +183,45 @@
                 </div>
             </div>
             
-            <div class="text-center text-[10px] md:text-xs text-slate-300 bg-navy-950/80 py-1.5 rounded border border-slate-800/40 backdrop-blur-sm">
+            <div class="text-center text-[10px] md:text-xs text-slate-300 bg-navy-950/80 py-1.5 rounded border border-slate-800/40 backdrop-blur-sm mt-4 md:mt-0">
                 Segmentación clave: Agencias de Wedding Planning y Productoras de Eventos B2B en Lima.
             </div>
         </section>
 
-        <!-- SLIDE 3: PORTAFOLIO CON REPRODUCTORES DE YOUTUBE SHORTS EN DIRECTO -->
-        <section class="slide w-full flex-col justify-between h-[68vh] md:h-[62vh] bg-transparent p-2" id="slide-3">
+        <!-- SLIDE 3: PORTAFOLIO INTERACTIVO (FOTO Y VIDEO AL ANCHO TOTAL) -->
+        <section class="slide w-full flex-col justify-between h-auto md:h-[62vh] bg-transparent p-2" id="slide-3">
             <div class="text-center md:text-left">
                 <span class="px-3 py-1 bg-gold-500/10 text-gold-400 text-xs font-bold rounded-md tracking-widest uppercase border border-gold-500/20 backdrop-blur-sm">Demostración en Tiempo Real</span>
                 <h2 class="text-2xl md:text-4xl font-black text-white mt-2 drop-shadow-md">Líneas Tecnológicas e Interacción</h2>
             </div>
 
-            <!-- Grid de Productos con Reproductores en Formato Vertical 9:16 -->
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 my-auto">
+            <!-- Grid de Productos con Visión Dual (Imagen y Video en Ancho Total) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 my-auto mt-6 md:mt-0">
                 <!-- Producto 1: Glam & Motion 360 -->
                 <div class="group bg-navy-950/85 border border-slate-800/80 rounded-xl overflow-hidden hover:border-gold-500/50 transition duration-300 shadow-xl backdrop-blur-md flex flex-col justify-between">
-                    <!-- Contenedor del video vertical (Simula pantalla de celular) -->
-                    <div class="relative w-full aspect-[9/16] max-h-[30vh] lg:max-h-[35vh] overflow-hidden bg-black">
-                        <iframe 
-                            class="absolute top-0 left-0 w-full h-full" 
-                            src="https://www.youtube.com/embed/gEtlLU762IA?autoplay=1&mute=1&loop=1&playlist=gEtlLU762IA&controls=0&modestbranding=1&rel=0&playsinline=1&enablejsapi=1&iv_load_policy=3" 
-                            title="Glam & Motion 360 Video" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen>
-                        </iframe>
-                        <span class="absolute top-2 left-2 bg-gold-500/95 text-navy-950 text-[8px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider z-10">LÍNEA 360°</span>
+                    <!-- Contenedor de Medios (Ancho Total) -->
+                    <div class="relative w-full aspect-[16/10] sm:aspect-[9/16] max-h-[22vh] sm:max-h-[30vh] lg:max-h-[35vh] overflow-hidden bg-black">
+                        <!-- Vista 1: Imagen Estática -->
+                        <img id="img-m1" src="https://raw.githubusercontent.com/RickNE7/ADEX/main/M1.jpg" alt="Glam & Motion 360" class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-300 opacity-100">
+                        
+                        <!-- Vista 2: Video Embebido en Bucle sin Títulos -->
+                        <div id="video-m1" class="absolute inset-0 w-full h-full z-0 opacity-0 transition-opacity duration-300 pointer-events-none">
+                            <iframe 
+                                class="w-full h-full border-0" 
+                                src="https://www.youtube.com/embed/gEtlLU762IA?autoplay=1&mute=1&loop=1&playlist=gEtlLU762IA&controls=0&modestbranding=1&rel=0&playsinline=1&enablejsapi=1&iv_load_policy=3&showinfo=0" 
+                                title="Glam & Motion 360 Video" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+
+                        <!-- Badge Superior de Categoría -->
+                        <span class="absolute top-2 left-2 bg-gold-500/95 text-navy-950 text-[8px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider z-20">LÍNEA 360°</span>
+
+                        <!-- Botón de Conmutación de Medios -->
+                        <button onclick="toggleMedia('m1')" class="absolute bottom-2 right-2 bg-navy-950/90 hover:bg-gold-500 hover:text-navy-950 text-[9px] font-bold px-2 py-1 rounded transition duration-200 z-20 flex items-center space-x-1 shadow-md">
+                            <span id="btn-text-m1">Ver Video 🎥</span>
+                        </button>
                     </div>
                     <div class="p-2.5 border-t border-slate-800/50">
                         <h4 class="font-bold text-xs text-white leading-tight">Glam & Motion 360°</h4>
@@ -216,16 +231,24 @@
 
                 <!-- Producto 2: Interactive Mirror -->
                 <div class="group bg-navy-950/85 border border-slate-800/80 rounded-xl overflow-hidden hover:border-gold-500/50 transition duration-300 shadow-xl backdrop-blur-md flex flex-col justify-between">
-                    <div class="relative w-full aspect-[9/16] max-h-[30vh] lg:max-h-[35vh] overflow-hidden bg-black">
-                        <iframe 
-                            class="absolute top-0 left-0 w-full h-full" 
-                            src="https://www.youtube.com/embed/-XgU6MFUqGs?autoplay=1&mute=1&loop=1&playlist=-XgU6MFUqGs&controls=0&modestbranding=1&rel=0&playsinline=1&enablejsapi=1&iv_load_policy=3" 
-                            title="Interactive Mirror Video" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen>
-                        </iframe>
-                        <span class="absolute top-2 left-2 bg-amber-500/90 text-navy-950 text-[8px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider z-10">FOTO ESPEJO</span>
+                    <div class="relative w-full aspect-[16/10] sm:aspect-[9/16] max-h-[22vh] sm:max-h-[30vh] lg:max-h-[35vh] overflow-hidden bg-black">
+                        <img id="img-m2" src="https://raw.githubusercontent.com/RickNE7/ADEX/main/M2.jpg" alt="Interactive Mirror" class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-300 opacity-100">
+                        
+                        <div id="video-m2" class="absolute inset-0 w-full h-full z-0 opacity-0 transition-opacity duration-300 pointer-events-none">
+                            <iframe 
+                                class="w-full h-full border-0" 
+                                src="https://www.youtube.com/embed/-XgU6MFUqGs?autoplay=1&mute=1&loop=1&playlist=-XgU6MFUqGs&controls=0&modestbranding=1&rel=0&playsinline=1&enablejsapi=1&iv_load_policy=3&showinfo=0" 
+                                title="Interactive Mirror Video" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+
+                        <span class="absolute top-2 left-2 bg-amber-500/90 text-navy-950 text-[8px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider z-20">FOTO ESPEJO</span>
+
+                        <button onclick="toggleMedia('m2')" class="absolute bottom-2 right-2 bg-navy-950/90 hover:bg-gold-500 hover:text-navy-950 text-[9px] font-bold px-2 py-1 rounded transition duration-200 z-20 flex items-center space-x-1 shadow-md">
+                            <span id="btn-text-m2">Ver Video 🎥</span>
+                        </button>
                     </div>
                     <div class="p-2.5 border-t border-slate-800/50">
                         <h4 class="font-bold text-xs text-white leading-tight">Interactive Mirror</h4>
@@ -235,16 +258,24 @@
 
                 <!-- Producto 3: Immersive LED -->
                 <div class="group bg-navy-950/85 border border-slate-800/80 rounded-xl overflow-hidden hover:border-gold-500/50 transition duration-300 shadow-xl backdrop-blur-md flex flex-col justify-between">
-                    <div class="relative w-full aspect-[9/16] max-h-[30vh] lg:max-h-[35vh] overflow-hidden bg-black">
-                        <iframe 
-                            class="absolute top-0 left-0 w-full h-full" 
-                            src="https://www.youtube.com/embed/Xf7DQ9Ta8VU?autoplay=1&mute=1&loop=1&playlist=Xf7DQ9Ta8VU&controls=0&modestbranding=1&rel=0&playsinline=1&enablejsapi=1&iv_load_policy=3" 
-                            title="Immersive LED Video" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen>
-                        </iframe>
-                        <span class="absolute top-2 left-2 bg-cyan-500/90 text-navy-950 text-[8px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider z-10">LED CABINA</span>
+                    <div class="relative w-full aspect-[16/10] sm:aspect-[9/16] max-h-[22vh] sm:max-h-[30vh] lg:max-h-[35vh] overflow-hidden bg-black">
+                        <img id="img-m3" src="https://raw.githubusercontent.com/RickNE7/ADEX/main/M3.jpg" alt="Immersive LED" class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-300 opacity-100">
+                        
+                        <div id="video-m3" class="absolute inset-0 w-full h-full z-0 opacity-0 transition-opacity duration-300 pointer-events-none">
+                            <iframe 
+                                class="w-full h-full border-0" 
+                                src="https://www.youtube.com/embed/Xf7DQ9Ta8VU?autoplay=1&mute=1&loop=1&playlist=Xf7DQ9Ta8VU&controls=0&modestbranding=1&rel=0&playsinline=1&enablejsapi=1&iv_load_policy=3&showinfo=0" 
+                                title="Immersive LED Video" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+
+                        <span class="absolute top-2 left-2 bg-cyan-500/90 text-navy-950 text-[8px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider z-20">LED CABINA</span>
+
+                        <button onclick="toggleMedia('m3')" class="absolute bottom-2 right-2 bg-navy-950/90 hover:bg-gold-500 hover:text-navy-950 text-[9px] font-bold px-2 py-1 rounded transition duration-200 z-20 flex items-center space-x-1 shadow-md">
+                            <span id="btn-text-m3">Ver Video 🎥</span>
+                        </button>
                     </div>
                     <div class="p-2.5 border-t border-slate-800/50">
                         <h4 class="font-bold text-xs text-white leading-tight">Immersive LED</h4>
@@ -254,16 +285,24 @@
 
                 <!-- Producto 4: Audio-Guestbooks -->
                 <div class="group bg-navy-950/85 border border-slate-800/80 rounded-xl overflow-hidden hover:border-gold-500/50 transition duration-300 shadow-xl backdrop-blur-md flex flex-col justify-between">
-                    <div class="relative w-full aspect-[9/16] max-h-[30vh] lg:max-h-[35vh] overflow-hidden bg-black">
-                        <iframe 
-                            class="absolute top-0 left-0 w-full h-full" 
-                            src="https://www.youtube.com/embed/1W6ITS_yiBs?autoplay=1&mute=1&loop=1&playlist=1W6ITS_yiBs&controls=0&modestbranding=1&rel=0&playsinline=1&enablejsapi=1&iv_load_policy=3" 
-                            title="Audio Guestbook Video" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen>
-                        </iframe>
-                        <span class="absolute top-2 left-2 bg-emerald-500/90 text-navy-950 text-[8px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider z-10">RETRO AUDIO</span>
+                    <div class="relative w-full aspect-[16/10] sm:aspect-[9/16] max-h-[22vh] sm:max-h-[30vh] lg:max-h-[35vh] overflow-hidden bg-black">
+                        <img id="img-m4" src="https://raw.githubusercontent.com/RickNE7/ADEX/main/M4.jpg" alt="Audio Guestbooks" class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-300 opacity-100">
+                        
+                        <div id="video-m4" class="absolute inset-0 w-full h-full z-0 opacity-0 transition-opacity duration-300 pointer-events-none">
+                            <iframe 
+                                class="w-full h-full border-0" 
+                                src="https://www.youtube.com/embed/1W6ITS_yiBs?autoplay=1&mute=1&loop=1&playlist=1W6ITS_yiBs&controls=0&modestbranding=1&rel=0&playsinline=1&enablejsapi=1&iv_load_policy=3&showinfo=0" 
+                                title="Audio Guestbook Video" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+
+                        <span class="absolute top-2 left-2 bg-emerald-500/90 text-navy-950 text-[8px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider z-20">RETRO AUDIO</span>
+
+                        <button onclick="toggleMedia('m4')" class="absolute bottom-2 right-2 bg-navy-950/90 hover:bg-gold-500 hover:text-navy-950 text-[9px] font-bold px-2 py-1 rounded transition duration-200 z-20 flex items-center space-x-1 shadow-md">
+                            <span id="btn-text-m4">Ver Video 🎥</span>
+                        </button>
                     </div>
                     <div class="p-2.5 border-t border-slate-800/50">
                         <h4 class="font-bold text-xs text-white leading-tight">Audio-Guestbooks</h4>
@@ -272,19 +311,19 @@
                 </div>
             </div>
 
-            <div class="text-center text-[10px] md:text-xs text-slate-400 font-mono">
-                Demostración real de interacción en eventos de alta gama.
+            <div class="text-center text-[10px] md:text-xs text-slate-400 font-mono mt-4 md:mt-0">
+                Demostración e interacción real de productos de origen en eventos.
             </div>
         </section>
 
         <!-- SLIDE 4: DIRECCIÓN ESTRATÉGICA -->
-        <section class="slide w-full flex-col justify-between h-[68vh] md:h-[62vh] bg-transparent p-2" id="slide-4">
+        <section class="slide w-full flex-col justify-between h-auto md:h-[62vh] bg-transparent p-2" id="slide-4">
             <div class="text-center md:text-left">
                 <span class="px-3 py-1 bg-amber-500/10 text-amber-400 text-xs font-bold rounded-md tracking-widest uppercase border border-amber-500/20 backdrop-blur-sm">Identidad Corporativa</span>
                 <h2 class="text-2xl md:text-4xl font-black text-white mt-2 drop-shadow-md">Nuestra Brújula de Negocios</h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-auto mt-6 md:mt-0">
                 <div class="p-4 md:p-5 bg-navy-950/80 border border-slate-800/80 rounded-xl backdrop-blur-md shadow-xl">
                     <div class="text-gold-400 font-bold uppercase tracking-wider text-xs mb-2">Misión</div>
                     <p class="text-slate-200 text-xs leading-relaxed font-light">
@@ -309,20 +348,20 @@
                 </div>
             </div>
 
-            <div class="text-center text-[10px] md:text-xs text-slate-400 font-mono">
+            <div class="text-center text-[10px] md:text-xs text-slate-400 font-mono mt-4 md:mt-0">
                 La visión al 2034 responde coherentemente a la escala temporal exigida en el curso de Planificación.
             </div>
         </section>
 
         <!-- SLIDE 5: PLANIFICACIÓN FINANCIERA REALISTA -->
-        <section class="slide w-full flex-col justify-between h-[68vh] md:h-[62vh] bg-transparent p-2" id="slide-5">
+        <section class="slide w-full flex-col justify-between h-auto md:h-[62vh] bg-transparent p-2" id="slide-5">
             <div class="text-center md:text-left">
                 <span class="px-3 py-1 bg-gold-500/10 text-gold-400 text-xs font-bold rounded-md tracking-widest uppercase border border-gold-500/20 backdrop-blur-sm">Presupuestos sin Idealismos</span>
                 <h2 class="text-2xl md:text-4xl font-black text-white mt-2 drop-shadow-md">Estructura Real de Arranque</h2>
             </div>
 
             <!-- Financial Metrics Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-auto mt-6 md:mt-0">
                 
                 <!-- Stat 1 -->
                 <div class="p-4 md:p-5 bg-navy-950/80 border border-slate-800/80 rounded-xl text-center flex flex-col justify-between backdrop-blur-md shadow-xl">
@@ -347,20 +386,20 @@
 
             </div>
 
-            <div class="text-center text-[10px] md:text-xs text-slate-200 font-semibold bg-navy-950/80 py-2.5 rounded-lg border border-slate-800/60 backdrop-blur-md shadow-xl">
+            <div class="text-center text-[10px] md:text-xs text-slate-200 font-semibold bg-navy-950/80 py-2.5 rounded-lg border border-slate-800/60 backdrop-blur-md shadow-xl mt-4 md:mt-0">
                 Inversión Inicial Total Proyectada: S/. 113,200 (70% Capital Propio - 30% Financiamiento)
             </div>
         </section>
 
         <!-- SLIDE 6: CONTROL DE GESTIÓN (BALANCED SCORECARD) -->
-        <section class="slide w-full flex-col justify-between h-[68vh] md:h-[62vh] bg-transparent p-2" id="slide-6">
+        <section class="slide w-full flex-col justify-between h-auto md:h-[62vh] bg-transparent p-2" id="slide-6">
             <div class="text-center md:text-left">
                 <span class="px-3 py-1 bg-amber-500/10 text-amber-400 text-xs font-bold rounded-md tracking-widest uppercase border border-amber-500/20 backdrop-blur-sm">Control & Supervisión Operativa</span>
                 <h2 class="text-2xl md:text-4xl font-black text-white mt-2 drop-shadow-md">Dashboard Ejecutivo de Contingencias</h2>
             </div>
 
             <!-- Scorecard Table mockup -->
-            <div class="bg-navy-950/80 border border-slate-800/80 rounded-xl overflow-hidden my-auto backdrop-blur-md shadow-xl">
+            <div class="bg-navy-950/80 border border-slate-800/80 rounded-xl overflow-hidden my-auto backdrop-blur-md shadow-xl mt-6 md:mt-0">
                 <table class="w-full text-left text-[11px] md:text-xs">
                     <thead class="bg-slate-900/90 text-slate-400 uppercase text-[9px] tracking-wider">
                         <tr>
@@ -393,7 +432,7 @@
                 </table>
             </div>
 
-            <div class="text-center text-[10px] md:text-xs text-slate-400 font-mono">
+            <div class="text-center text-[10px] md:text-xs text-slate-400 font-mono mt-4 md:mt-0">
                 La matriz integra 10 KPIs distribuidos bajo la metodología del Balanced Scorecard para el Hito 3.
             </div>
         </section>
@@ -404,11 +443,11 @@
     <footer class="w-full px-6 py-4 border-t border-slate-800/80 bg-navy-950/90 backdrop-blur-md flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 z-10">
         <!-- Interactive Controls -->
         <div class="flex items-center space-x-2">
-            <button onclick="changeSlide(-1)" class="p-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white transition focus:outline-none focus:ring-2 focus:ring-gold-500" aria-label="Anterior diapositiva">
+            <button id="btn-prev" onclick="changeSlide(-1)" class="p-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white transition focus:outline-none focus:ring-2 focus:ring-gold-500" aria-label="Anterior diapositiva">
                 <!-- Left Arrow SVG -->
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
             </button>
-            <button onclick="changeSlide(1)" class="p-2.5 rounded-lg bg-gold-500 hover:bg-gold-600 text-slate-900 font-bold transition focus:outline-none focus:ring-2 focus:ring-gold-500" aria-label="Siguiente diapositiva">
+            <button id="btn-next" onclick="changeSlide(1)" class="p-2.5 rounded-lg bg-gold-500 hover:bg-gold-600 text-slate-900 font-bold transition focus:outline-none focus:ring-2 focus:ring-gold-500" aria-label="Siguiente diapositiva">
                 <!-- Right Arrow SVG -->
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </button>
@@ -445,11 +484,50 @@
             6: 'https://raw.githubusercontent.com/RickNE7/ADEX/main/P6.jpg'
         };
 
-        function showSlide(slideIndex) {
-            // Guardrail bounds
-            if (slideIndex < 1) slideIndex = totalSlides;
-            if (slideIndex > totalSlides) slideIndex = 1;
+        // Función interactiva para conmutar entre Imagen Estática y Video en la Diapositiva 3
+        function toggleMedia(cardId) {
+            const img = document.getElementById(`img-${cardId}`);
+            const videoContainer = document.getElementById(`video-${cardId}`);
+            const btnText = document.getElementById(`btn-text-${cardId}`);
             
+            if (img.classList.contains('opacity-100')) {
+                // Cambiar a Vista de Video
+                img.classList.replace('opacity-100', 'opacity-0');
+                img.classList.add('pointer-events-none');
+                videoContainer.classList.replace('opacity-0', 'opacity-100');
+                videoContainer.classList.remove('pointer-events-none');
+                btnText.innerText = 'Ver Foto 📷';
+            } else {
+                // Cambiar a Vista de Foto
+                img.classList.replace('opacity-0', 'opacity-100');
+                img.classList.remove('pointer-events-none');
+                videoContainer.classList.replace('opacity-100', 'opacity-0');
+                videoContainer.classList.add('pointer-events-none');
+                btnText.innerText = 'Ver Video 🎥';
+            }
+        }
+
+        function showSlide(slideIndex) {
+            // Lógica de navegación lineal para que no regrese abruptamente a la primera diapositiva
+            if (slideIndex < 1) slideIndex = 1;
+            if (slideIndex > totalSlides) slideIndex = totalSlides;
+            
+            // Actualizar botones de navegación para dar feedback visual de límite
+            const btnPrev = document.getElementById('btn-prev');
+            const btnNext = document.getElementById('btn-next');
+            
+            if (slideIndex === 1) {
+                btnPrev.classList.add('opacity-40', 'cursor-not-allowed');
+            } else {
+                btnPrev.classList.remove('opacity-40', 'cursor-not-allowed');
+            }
+            
+            if (slideIndex === totalSlides) {
+                btnNext.classList.add('opacity-40', 'cursor-not-allowed');
+            } else {
+                btnNext.classList.remove('opacity-40', 'cursor-not-allowed');
+            }
+
             // Actualizar el contenedor de fondo dinámico de pantalla completa con transiciones fluidas
             const bgContainer = document.getElementById('bg-container');
             if (bgContainer) {
