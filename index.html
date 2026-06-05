@@ -3,796 +3,736 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Event Imports - Presentación Ejecutiva</title>
-    
-    <!-- Meta tags SEO y Accesibilidad -->
-    <meta name="description" content="Plan de negocios de importación, distribución y alquiler de tecnología interactiva para eventos sociales y corporativos premium en el Perú.">
-    <meta name="keywords" content="Global Event Imports, tecnología para eventos, cabinas de fotos, 360 photo booth, ADEX, plan de negocios">
-    <meta name="author" content="Global Event Imports S.A.C.">
-    <link rel="canonical" href="https://globaleventimports.pe/presentacion">
-    
-    <!-- Open Graph (Compartido en Redes Sociales) -->
-    <meta property="og:title" content="Global Event Imports - Presentación Ejecutiva">
-    <meta property="og:description" content="Propuesta de negocio de importación y alquiler de estaciones tecnológicas interactivas para bodas, aniversarios y activaciones B2B.">
-    <meta property="og:image" content="https://raw.githubusercontent.com/RickNE7/ADEX/main/M1.jpg">
-    <meta property="og:url" content="https://globaleventimports.pe/presentacion">
-    <meta property="og:type" content="website">
-
-    <!-- Favicon Inline SVG (Evita errores de recurso faltante) -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👑</text></svg>">
-
-    <!-- Preconectar fuentes externas para optimizar rendimiento de carga -->
+    <title>Cava Intel - BTC-USD Proyecciones & Lado Oscuro</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
                     colors: {
-                        navy: {
-                            800: '#0F172A',
-                            900: '#0B0F19',
-                            950: '#030712'
-                        },
-                        gold: {
-                            100: '#FEF3C7',
-                            400: '#FBBF24', /* Color dorado/ámbar optimizado para alto contraste A11Y */
-                            500: '#F59E0B',
-                            600: '#D97706'
-                        }
+                        darkBg: '#090D16',
+                        panelBg: '#111827',
+                        accentBlue: '#2563EB',
+                        accentGold: '#D97706',
+                        accentGreen: '#10B981',
+                        accentRed: '#EF4444',
+                        borderGray: '#1F2937'
                     }
                 }
             }
         }
     </script>
-
     <style>
         body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #030712;
+            background-color: #090D16;
+            color: #F3F4F6;
         }
-        .slide {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.4s ease-in-out;
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
         }
-        .slide.active {
-            display: flex;
-            opacity: 1;
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #111827;
         }
-        #bg-container {
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            will-change: background-image; /* Optimiza rendimiento de hardware */
-            transition: background-image 0.8s ease-in-out;
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #374151;
+            border-radius: 3px;
         }
-        /* Contenedor de recorte para ocultar barras de título de YouTube en reproductores */
-        .video-wrapper {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 125%; 
-            transform: translate(-50%, -50%) scale(1.12);
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #4B5563;
+        }
+        .glow-green {
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
+        }
+        .glow-red {
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.25);
+        }
+        .glow-gold {
+            box-shadow: 0 0 15px rgba(217, 119, 6, 0.25);
+        }
+        .tab-active {
+            border-bottom: 2px solid #2563EB;
+            color: #F3F4F6;
         }
     </style>
 </head>
-<body class="text-slate-100 min-h-screen flex flex-col justify-between relative overflow-x-hidden">
+<body class="font-sans antialiased">
 
-    <!-- ENLACE DE ACCESIBILIDAD (Skip Link) -->
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:bg-navy-900 " style="color: #FBBF24; padding: 16px; border: 2px solid #FBBF24; border-radius: 6px; z-index: 50; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);">
-        Saltar al contenido principal
-    </a>
-
-    <!-- CONTENEDOR GLOBAL DE FONDO DINÁMICO (Ocupa absolutamente toda la pantalla) -->
-    <div id="bg-container" class="fixed inset-0 w-full h-full z-0 pointer-events-none" aria-hidden="true"></div>
-    
-    <!-- Filtro de oscurecimiento degradado de alta gama sobre el fondo para garantizar extrema legibilidad -->
-    <div class="fixed inset-0 bg-gradient-to-tr from-navy-950 via-navy-950/85 to-navy-900/60 z-0 pointer-events-none" aria-hidden="true"></div>
-
-    <!-- Barra de Navegación Superior Semántica (Header & Nav) -->
-    <header class="w-full px-6 py-4 border-b border-slate-800/80 bg-navy-950/95 backdrop-blur-md z-10">
-        <nav class="flex justify-between items-center w-full max-w-7xl mx-auto" aria-label="Navegación principal">
-            <div class="flex items-center space-x-3">
-                <!-- SVG Logo Corporativo de Alta Gama -->
-                <svg class="w-8 h-8 text-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <polygon points="12 2 2 7 12 12 22 7 12 2" fill="rgba(251,191,36,0.15)"/>
-                    <polyline points="2 17 12 22 22 17"/>
-                    <polyline points="2 12 12 17 22 12"/>
-                </svg>
-                <div class="flex items-center space-x-2">
-                    <div>
-                        <span class="font-extrabold text-lg tracking-wider text-white">GLOBAL EVENT</span>
-                        <span class="text-xs text-gold-400 font-semibold block uppercase tracking-widest leading-none">Imports</span>
-                    </div>
-                    <span class="bg-gold-500/10 text-gold-400 border border-gold-500/20 px-2.5 py-0.5 rounded text-[11px] font-mono ml-2 font-bold" aria-label="Versión del documento">v3.4.0</span>
+    <!-- Header -->
+    <header class="border-b border-borderGray bg-panelBg/80 backdrop-blur-md sticky top-0 z-50 px-4 py-3">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-gradient-to-tr from-accentBlue to-accentGreen p-2 rounded-lg">
+                    <i class="fa-solid fa-chart-line text-white text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-extrabold tracking-tight flex items-center gap-2">
+                        CAVA INTEL <span class="text-xs bg-accentBlue text-blue-100 px-2 py-0.5 rounded-full font-semibold uppercase">Especuladores de Bien</span>
+                    </h1>
+                    <p class="text-xs text-gray-400">Análisis Macroeconómico, Geopolítico y del "Lado Oscuro" en directo</p>
                 </div>
             </div>
-            
-            <!-- Información Contextual de ADEX -->
-            <div class="flex items-center space-x-6 text-xs text-slate-300">
-                <span class="bg-navy-900/80 px-3 py-1.5 rounded-full border border-slate-800/80 backdrop-blur-sm hidden sm:inline font-medium">ADEX | Planificación en Negocios</span>
-                <span class="font-mono text-gold-400 font-bold bg-navy-950 px-2.5 py-1 rounded" id="slide-indicator" aria-live="polite">1 / 6</span>
+
+            <!-- Real-time price tracker styled like Yahoo Finance -->
+            <div class="flex items-center gap-4 bg-darkBg px-4 py-2 rounded-xl border border-borderGray w-full md:w-auto justify-between">
+                <div class="flex items-center gap-2">
+                    <span class="font-mono text-xs text-gray-400">BTC-USD (Yahoo! Feed)</span>
+                    <span id="price-badge" class="w-2.5 h-2.5 rounded-full bg-accentGreen animate-ping"></span>
+                </div>
+                <div class="text-right">
+                    <div class="font-mono text-lg font-bold text-gray-100" id="current-price">Cargando...</div>
+                    <div class="text-xs font-semibold flex items-center gap-1 justify-end" id="price-change">
+                        <i class="fa-solid fa-caret-down"></i> <span id="change-pct">0.00%</span>
+                    </div>
+                </div>
             </div>
-        </nav>
-        
-        <!-- BARRA DE PROGRESO DE LA PRESENTACIÓN (A11Y & UX) -->
-        <div class="w-full bg-slate-800/40 h-1.5 mt-4 rounded-full overflow-hidden" aria-hidden="true">
-            <div id="progress-bar" class="h-full bg-gold-400 w-1/6 transition-all duration-500 ease-out"></div>
         </div>
     </header>
 
-    <!-- Área de Diapositivas Semántica (Main) -->
-    <main id="main-content" class="flex-grow flex items-center justify-center relative px-4 md:px-8 py-6 w-full max-w-7xl mx-auto z-10 overflow-y-auto md:overflow-visible">
-        
-        <!-- DIAPOSITIVA 1: PORTADA -->
-        <section class="slide active w-full flex-col justify-between min-h-[68vh] md:min-h-0 h-auto md:h-[62vh] bg-transparent p-2" id="slide-1" aria-label="Portada de Presentación">
-            <div class="text-center md:text-left mt-2">
-                <span class="px-3 py-1 bg-gold-500/10 text-gold-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-gold-500/20 backdrop-blur-sm">Modelo de Negocio de Importación</span>
-                <h1 class="text-3xl md:text-5xl lg:text-6xl font-black text-white mt-3 tracking-tight leading-none drop-shadow-lg">
-                    GLOBAL EVENT <span class="text-gold-400">IMPORTS</span>
-                </h1>
-                <p class="text-slate-300 text-sm md:text-base mt-3 max-w-2xl font-light leading-relaxed">
-                    Importación, alquiler y operación de ecosistemas tecnológicos interactivos de vanguardia para eventos sociales y corporativos de alta gama en el Perú.
-                </p>
-            </div>
+    <main class="max-w-7xl mx-auto p-4 space-y-6">
 
-            <!-- Estructura de Socios e Inversionistas -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-auto mt-6 md:mt-0">
-                <!-- Grupo 1: Inversionistas -->
-                <article class="bg-navy-950/80 p-5 rounded-xl border border-slate-800/80 backdrop-blur-md shadow-2xl">
-                    <div class="flex items-center space-x-2 mb-3">
-                        <span class="w-2.5 h-2.5 bg-amber-500 rounded-full animate-pulse" aria-hidden="true"></span>
-                        <h2 class="text-gold-400 font-bold text-xs uppercase tracking-wider">Directorio de Socios Inversionistas (CAPITAL)</h2>
-                    </div>
-                    <ul class="space-y-2 text-xs md:text-sm">
-                        <li class="flex justify-between items-center py-1.5 border-b border-slate-800/40">
-                            <span class="font-semibold text-slate-200">Marilin Andrea Medina Apolinario</span>
-                            <span class="text-slate-300 font-mono text-[10px] bg-slate-800/80 px-2 py-0.5 rounded">Presidenta del Directorio</span>
-                        </li>
-                        <li class="flex justify-between items-center py-1.5 border-b border-slate-800/40">
-                            <span class="font-semibold text-slate-200">Jostin Alexander Chavez Estela</span>
-                            <span class="text-slate-300 font-mono text-[10px] bg-slate-800/80 px-2 py-0.5 rounded">Director de Finanzas</span>
-                        </li>
-                        <li class="flex justify-between items-center py-1.5">
-                            <span class="font-semibold text-slate-200">Jahir Azael Castillo Paucas</span>
-                            <span class="text-slate-300 font-mono text-[10px] bg-slate-800/80 px-2 py-0.5 rounded">Director de Expansión</span>
-                        </li>
-                    </ul>
-                </article>
-
-                <!-- Group 2: Operadores -->
-                <article class="bg-navy-950/80 p-5 rounded-xl border border-slate-800/80 backdrop-blur-md shadow-2xl">
-                    <div class="flex items-center space-x-2 mb-3">
-                        <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse" aria-hidden="true"></span>
-                        <h2 class="text-emerald-400 font-bold text-xs uppercase tracking-wider">Socios Operativos en Planilla (OPERACIÓN B2B)</h2>
-                    </div>
-                    <ul class="space-y-2 text-xs md:text-sm">
-                        <li class="flex justify-between items-center py-1.5 border-b border-slate-800/40">
-                            <span class="font-semibold text-slate-200">Maria Fernanda Ruiz Luna</span>
-                            <span class="text-slate-300 font-mono text-[10px] bg-slate-800/80 px-2 py-0.5 rounded">CEO / Gerente General</span>
-                        </li>
-                        <li class="flex justify-between items-center py-1.5 border-b border-slate-800/40">
-                            <span class="font-semibold text-slate-200">Eric Laureano Mozombite Shishco</span>
-                            <span class="text-slate-300 font-mono text-[10px] bg-slate-800/80 px-2 py-0.5 rounded">COO / Gerente Operaciones</span>
-                        </li>
-                        <li class="flex justify-between items-center py-1.5">
-                            <span class="font-semibold text-slate-200">Yhurem Steven García Piedra</span>
-                            <span class="text-slate-300 font-mono text-[10px] bg-slate-800/80 px-2 py-0.5 rounded">CMO / Gerente Marketing</span>
-                        </li>
-                    </ul>
-                </article>
-            </div>
-        </section>
-
-        <!-- DIAPOSITIVA 2: EL DOLOR Y LA OPORTUNIDAD B2B -->
-        <section class="slide w-full flex-col justify-between h-auto md:h-[62vh] bg-transparent p-2" id="slide-2" aria-label="El Dolor del Mercado y la Oportunidad Comercial">
-            <div class="text-center md:text-left">
-                <span class="px-3 py-1 bg-amber-500/10 text-amber-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-amber-500/20 backdrop-blur-sm">Análisis del Mercado local</span>
-                <h2 class="text-2xl md:text-4xl font-black text-white mt-2 drop-shadow-md">La Gran Oportunidad B2B</h2>
-            </div>
-
-            <!-- Comparación Visual -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-auto mt-6 md:mt-0">
-                <article class="p-5 md:p-6 bg-slate-950/85 border border-slate-800/80 rounded-xl flex flex-col justify-between backdrop-blur-md shadow-2xl">
-                    <div>
-                        <h3 class="text-red-500 text-xl md:text-2xl font-bold mb-3">✗ El Dolor Tradicional</h3>
-                        <p class="text-slate-200 text-xs md:text-sm font-light leading-relaxed">
-                            La decoración estática y la florería tradicional están saturadas de competidores informales que canibalizan precios y sufren altas mermas físicas por rotura de materiales.
-                        </p>
-                    </div>
-                    <div class="mt-4 border-t border-slate-800/50 pt-3 flex justify-between text-xs text-slate-400 font-mono font-medium">
-                        <span>Margen de Ganancia: Bajo</span>
-                        <span>Mermas: 10% - 15%</span>
-                    </div>
-                </article>
-
-                <article class="p-5 md:p-6 bg-gold-950/60 border border-gold-500/30 rounded-xl flex flex-col justify-between backdrop-blur-md shadow-2xl">
-                    <div>
-                        <h3 class="text-gold-400 text-xl md:text-2xl font-bold mb-3">✓ Nuestra Solución Tech</h3>
-                        <p class="text-slate-100 text-xs md:text-sm font-light leading-relaxed">
-                            Alquiler de activos tecnológicos fijos (CAPEX) reutilizables con entrega digital inmediata en la nube, garantizando ingresos recurrentes y escalabilidad masiva.
-                        </p>
-                    </div>
-                    <div class="mt-4 border-t border-slate-800/50 pt-3 flex justify-between text-xs text-gold-400 font-mono font-bold">
-                        <span>Margen de Ganancia: Alto (80%)</span>
-                        <span>Mermas físicas: &lt;1.5%</span>
-                    </div>
-                </article>
-            </div>
-            
-            <div class="text-center text-xs text-slate-300 bg-navy-950/90 py-2 px-4 rounded-lg border border-slate-800/40 backdrop-blur-sm mt-4 md:mt-0">
-                <strong>Segmentación clave:</strong> Agencias de Wedding Planning y Productoras de Eventos B2B en Lima Metropolitana.
-            </div>
-        </section>
-
-        <!-- DIAPOSITIVA 3: PORTAFOLIO INTERACTIVO (FOTO Y VIDEO AL ANCHO TOTAL) -->
-        <section class="slide w-full flex-col justify-between h-auto md:h-[62vh] bg-transparent p-2" id="slide-3" aria-label="Portafolio de Líneas Tecnológicas">
-            <div class="text-center md:text-left">
-                <span class="px-3 py-1 bg-gold-500/10 text-gold-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-gold-500/20 backdrop-blur-sm">Demostración en Tiempo Real</span>
-                <h2 class="text-2xl md:text-4xl font-black text-white mt-2 drop-shadow-md font-sans">Líneas Tecnológicas e Interacción</h2>
-            </div>
-
-            <!-- Grid de Productos con Visión Dual -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 my-auto mt-6 md:mt-0">
-                <!-- Producto 1: Glam & Motion 360 -->
-                <article class="group bg-navy-950/85 border border-slate-800/80 rounded-xl overflow-hidden hover:border-gold-500/50 transition duration-300 shadow-xl backdrop-blur-md flex flex-col justify-between">
-                    <div class="relative w-full aspect-square sm:aspect-[9/16] overflow-hidden bg-black">
-                        <!-- Vista 1: Imagen Estática -->
-                        <img id="img-m1" src="https://raw.githubusercontent.com/RickNE7/ADEX/main/M1.jpg" alt="Estructura de plataforma giratoria motorizada Glam and Motion 360 de fibra de carbono" loading="lazy" class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-300 opacity-100">
-                        
-                        <!-- Vista 2: Video Embebido con Máscara de Ocultamiento de Títulos -->
-                        <div id="video-m1" class="absolute inset-0 w-full h-full z-0 opacity-0 transition-opacity duration-300 pointer-events-none overflow-hidden">
-                            <iframe 
-                                class="video-wrapper border-0" 
-                                src="https://www.youtube.com/embed/gEtlLU762IA?autoplay=1&mute=1&loop=1&playlist=gEtlLU762IA&controls=0&modestbranding=1&rel=0&playsinline=1&enablejsapi=1&iv_load_policy=3&showinfo=0&fs=0" 
-                                title="Video demostrativo de la plataforma interactiva Glam and Motion 360 en funcionamiento" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
-                            </iframe>
-                        </div>
-
-                        <!-- Badge Superior de Categoría -->
-                        <span class="absolute top-2 left-2 bg-gold-500 text-navy-950 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase tracking-wider z-20">LÍNEA 360°</span>
-
-                        <!-- Botón de Conmutación de Medios -->
-                        <button onclick="toggleMedia('m1')" class="absolute bottom-2 right-2 bg-navy-950/90 hover:bg-gold-500 hover:text-navy-950 text-[10px] font-bold px-2.5 py-1.5 rounded transition duration-200 z-20 flex items-center space-x-1 shadow-md focus:ring-2 focus:ring-gold-400 focus:outline-none" aria-label="Alternar entre foto y video de Glam and Motion 360">
-                            <span id="btn-text-m1">Ver Video 🎥</span>
-                        </button>
-                    </div>
-                    <div class="p-3 border-t border-slate-800/50">
-                        <h3 class="font-bold text-xs md:text-sm text-white leading-tight">Glam & Motion 360°</h3>
-                        <p class="text-slate-300 text-xs mt-1 font-light leading-snug">Plataforma motorizada premium con captura de video de alta velocidad.</p>
-                    </div>
-                </article>
-
-                <!-- Producto 2: Interactive Mirror -->
-                <article class="group bg-navy-950/85 border border-slate-800/80 rounded-xl overflow-hidden hover:border-gold-500/50 transition duration-300 shadow-xl backdrop-blur-md flex flex-col justify-between">
-                    <div class="relative w-full aspect-square sm:aspect-[9/16] overflow-hidden bg-black">
-                        <img id="img-m2" src="https://raw.githubusercontent.com/RickNE7/ADEX/main/M2.jpg" alt="Gabinete de espejo táctil interactivo premium con marco dorado" loading="lazy" class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-300 opacity-100">
-                        
-                        <div id="video-m2" class="absolute inset-0 w-full h-full z-0 opacity-0 transition-opacity duration-300 pointer-events-none overflow-hidden">
-                            <iframe 
-                                class="video-wrapper border-0" 
-                                src="https://www.youtube.com/embed/-XgU6MFUqGs?autoplay=1&mute=1&loop=1&playlist=-XgU6MFUqGs&controls=0&modestbranding=1&rel=0&playsinline=1&enablejsapi=1&iv_load_policy=3&showinfo=0&fs=0" 
-                                title="Video demostrativo de cabina fotográfica Interactive Mirror" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
-                            </iframe>
-                        </div>
-
-                        <span class="absolute top-2 left-2 bg-amber-500 text-navy-950 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase tracking-wider z-20">FOTO ESPEJO</span>
-
-                        <button onclick="toggleMedia('m2')" class="absolute bottom-2 right-2 bg-navy-950/90 hover:bg-gold-500 hover:text-navy-950 text-[10px] font-bold px-2.5 py-1.5 rounded transition duration-200 z-20 flex items-center space-x-1 shadow-md focus:ring-2 focus:ring-gold-400 focus:outline-none" aria-label="Alternar entre foto y video de Interactive Mirror">
-                            <span id="btn-text-m2">Ver Video 🎥</span>
-                        </button>
-                    </div>
-                    <div class="p-3 border-t border-slate-800/50">
-                        <h3 class="font-bold text-xs md:text-sm text-white leading-tight">Interactive Mirror</h3>
-                        <p class="text-slate-300 text-xs mt-1 font-light leading-snug">Pantalla táctil de alta definición detrás de un elegante espejo de diseño.</p>
-                    </div>
-                </article>
-
-                <!-- Producto 3: Immersive LED -->
-                <article class="group bg-navy-950/85 border border-slate-800/80 rounded-xl overflow-hidden hover:border-gold-500/50 transition duration-300 shadow-xl backdrop-blur-md flex flex-col justify-between">
-                    <div class="relative w-full aspect-square sm:aspect-[9/16] overflow-hidden bg-black">
-                        <img id="img-m3" src="https://raw.githubusercontent.com/RickNE7/ADEX/main/M3.jpg" alt="Cabina fotográfica inflable con sistema de iluminación LED rítmica" loading="lazy" class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-300 opacity-100">
-                        
-                        <div id="video-m3" class="absolute inset-0 w-full h-full z-0 opacity-0 transition-opacity duration-300 pointer-events-none overflow-hidden">
-                            <iframe 
-                                class="video-wrapper border-0" 
-                                src="https://www.youtube.com/embed/Xf7DQ9Ta8VU?autoplay=1&mute=1&loop=1&playlist=Xf7DQ9Ta8VU&controls=0&modestbranding=1&rel=0&playsinline=1&enablejsapi=1&iv_load_policy=3&showinfo=0&fs=0" 
-                                title="Video demostrativo de cabina inflable LED para eventos" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
-                            </iframe>
-                        </div>
-
-                        <span class="absolute top-2 left-2 bg-cyan-500/90 text-navy-950 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase tracking-wider z-20">LED CABINA</span>
-
-                        <button onclick="toggleMedia('m3')" class="absolute bottom-2 right-2 bg-navy-950/90 hover:bg-gold-500 hover:text-navy-950 text-[10px] font-bold px-2.5 py-1.5 rounded transition duration-200 z-20 flex items-center space-x-1 shadow-md focus:ring-2 focus:ring-gold-400 focus:outline-none" aria-label="Alternar entre foto y video de Immersive LED">
-                            <span id="btn-text-m3">Ver Video 🎥</span>
-                        </button>
-                    </div>
-                    <div class="p-3 border-t border-slate-800/50">
-                        <h3 class="font-bold text-xs md:text-sm text-white leading-tight">Immersive LED</h3>
-                        <p class="text-slate-300 text-xs mt-1 font-light leading-snug">Cabina portátil inflable con iluminación interactiva y efectos.</p>
-                    </div>
-                </article>
-
-                <!-- Producto 4: Audio-Guestbooks -->
-                <article class="group bg-navy-950/85 border border-slate-800/80 rounded-xl overflow-hidden hover:border-gold-500/50 transition duration-300 shadow-xl backdrop-blur-md flex flex-col justify-between">
-                    <div class="relative w-full aspect-square sm:aspect-[9/16] overflow-hidden bg-black">
-                        <img id="img-m4" src="https://raw.githubusercontent.com/RickNE7/ADEX/main/M4.jpg" alt="Teléfono clásico azul marino con detalles dorados para grabación de dedicatorias de audio" loading="lazy" class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-300 opacity-100">
-                        
-                        <div id="video-m4" class="absolute inset-0 w-full h-full z-0 opacity-0 transition-opacity duration-300 pointer-events-none overflow-hidden">
-                            <iframe 
-                                class="video-wrapper border-0" 
-                                src="https://www.youtube.com/embed/1W6ITS_yiBs?autoplay=1&mute=1&loop=1&playlist=1W6ITS_yiBs&controls=0&modestbranding=1&rel=0&playsinline=1&enablejsapi=1&iv_load_policy=3&showinfo=0&fs=0" 
-                                title="Video demostrativo de teléfono audio libro de visitas retro" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
-                            </iframe>
-                        </div>
-
-                        <span class="absolute top-2 left-2 bg-emerald-500/90 text-navy-950 text-[10px] font-extrabold px-2 py-0.5 rounded uppercase tracking-wider z-20">RETRO AUDIO</span>
-
-                        <button onclick="toggleMedia('m4')" class="absolute bottom-2 right-2 bg-navy-950/90 hover:bg-gold-500 hover:text-navy-950 text-[10px] font-bold px-2.5 py-1.5 rounded transition duration-200 z-20 flex items-center space-x-1 shadow-md focus:ring-2 focus:ring-gold-400 focus:outline-none" aria-label="Alternar entre foto y video de Audio Guestbook">
-                            <span id="btn-text-m4">Ver Video 🎥</span>
-                        </button>
-                    </div>
-                    <div class="p-3 border-t border-slate-800/50">
-                        <h3 class="font-bold text-xs md:text-sm text-white leading-tight">Audio-Guestbooks</h3>
-                        <p class="text-slate-300 text-xs mt-1 font-light leading-snug">Teléfonos retro de disco adaptados digitalmente para almacenar mensajes de voz.</p>
-                    </div>
-                </article>
-            </div>
-
-            <div class="text-center text-xs text-slate-400 font-mono mt-4 md:mt-0">
-                Demostración e interacción real de productos de origen en eventos.
-            </div>
-        </section>
-
-        <!-- DIAPOSITIVA 4: BRÚJULA ESTRATÉGICA Y POLÍTICAS (SELECTOR DE PESTAÑAS INTERACTIVO) -->
-        <section class="slide w-full flex-col justify-between h-auto md:h-[62vh] bg-transparent p-2" id="slide-4" aria-label="Dirección Estratégica y Políticas Corporativas">
-            
-            <!-- Encabezado de Diapositiva con Control de Pestañas Interactivas -->
-            <div class="flex flex-col md:flex-row justify-between items-center border-b border-slate-800 pb-3 gap-3">
-                <div class="text-center md:text-left">
-                    <span class="px-3 py-1 bg-amber-500/10 text-amber-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-amber-500/20 backdrop-blur-sm">Gobierno de la Empresa</span>
-                    <h2 class="text-xl md:text-3xl font-black text-white mt-1 drop-shadow-md">Estrategia, Valores y Políticas</h2>
+        <!-- Key stats row & Macro markers -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-panelBg p-4 rounded-xl border border-borderGray flex items-center justify-between">
+                <div>
+                    <span class="text-xs text-gray-400 uppercase tracking-wider block">Petróleo Brent</span>
+                    <span class="font-mono text-xl font-bold block mt-1 text-accentGold">$95.79</span>
+                    <span class="text-xs text-accentGreen"><i class="fa-solid fa-circle-arrow-up"></i> +0.80% (Geopolítica)</span>
                 </div>
+                <i class="fa-solid fa-oil-well text-accentGold/20 text-3xl"></i>
+            </div>
+            
+            <div class="bg-panelBg p-4 rounded-xl border border-borderGray flex items-center justify-between">
+                <div>
+                    <span class="text-xs text-gray-400 uppercase tracking-wider block">OPV SpaceX (12-Jun)</span>
+                    <span class="font-mono text-xl font-bold block mt-1 text-accentBlue">$1.75 - $2.00T</span>
+                    <span class="text-xs text-accentRed"><i class="fa-solid fa-circle-arrow-down"></i> Succión de Liquidez</span>
+                </div>
+                <i class="fa-solid fa-rocket text-accentBlue/20 text-3xl"></i>
+            </div>
+
+            <div class="bg-panelBg p-4 rounded-xl border border-borderGray flex items-center justify-between">
+                <div>
+                    <span class="text-xs text-gray-400 uppercase tracking-wider block">Degradación Monetaria</span>
+                    <span class="font-mono text-xl font-bold block mt-1 text-accentRed">8.00% anual</span>
+                    <span class="text-xs text-gray-400">"El Fiat es Basura Pura"</span>
+                </div>
+                <i class="fa-solid fa-money-bill-trend-up text-accentRed/20 text-3xl"></i>
+            </div>
+
+            <div class="bg-panelBg p-4 rounded-xl border border-borderGray flex items-center justify-between">
+                <div>
+                    <span class="text-xs text-gray-400 uppercase tracking-wider block">Sentimiento General</span>
+                    <span class="font-mono text-xl font-bold block mt-1 text-accentRed uppercase">Miedo Extremo</span>
+                    <span class="text-xs text-accentGreen">Excelente zona operativa</span>
+                </div>
+                <i class="fa-solid fa-face-grimace text-accentRed/20 text-3xl"></i>
+            </div>
+        </div>
+
+        <!-- Main Chart & Projections Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- Left 2 Cols: Interactive Projection Chart -->
+            <div class="lg:col-span-2 bg-panelBg p-6 rounded-2xl border border-borderGray flex flex-col gap-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-borderGray pb-4">
+                    <div>
+                        <h2 class="text-lg font-bold flex items-center gap-2">
+                            <i class="fa-solid fa-chart-area text-accentBlue"></i> Proyección Interactiva BTC-USD a 4 Semanas
+                        </h2>
+                        <p class="text-xs text-gray-400">Interactúa con los controles para simular los escenarios del analista para junio-julio de 2026</p>
+                    </div>
+                    <div class="flex bg-darkBg p-1 rounded-lg border border-borderGray">
+                        <button onclick="changeScenario('base')" id="btn-scen-base" class="px-3 py-1 text-xs rounded-md font-semibold transition bg-accentBlue text-white">Escenario Lateral</button>
+                        <button onclick="changeScenario('bull')" id="btn-scen-bull" class="px-3 py-1 text-xs rounded-md font-semibold transition text-gray-400 hover:text-white">Escenario Alcista</button>
+                        <button onclick="changeScenario('bear')" id="btn-scen-bear" class="px-3 py-1 text-xs rounded-md font-semibold transition text-gray-400 hover:text-white">Escenario Bajista</button>
+                    </div>
+                </div>
+
+                <!-- Projection Chart Container -->
+                <div class="relative w-full h-[320px] md:h-[400px]">
+                    <canvas id="btcProjectionChart"></canvas>
+                </div>
+
+                <!-- Scenario Details Footer -->
+                <div id="scenario-explanation" class="p-4 rounded-xl bg-darkBg border border-borderGray">
+                    <!-- Dynamic details injected here -->
+                </div>
+            </div>
+
+            <!-- Right 1 Col: Dynamic Controls & Semaphore -->
+            <div class="space-y-6">
                 
-                <!-- Botonera de Navegación de Pestañas con Foco para A11Y -->
-                <div class="flex bg-navy-900/90 border border-slate-800 p-1 rounded-xl shadow-lg" role="tablist" aria-label="Secciones Estratégicas">
-                    <button id="btn-tab-mvv" onclick="switchTab('mvv')" class="px-4 py-2 text-xs md:text-sm font-bold rounded-lg transition-all duration-200 bg-gold-400 text-navy-950 focus:outline-none focus:ring-2 focus:ring-gold-400" role="tab" aria-selected="true" aria-controls="tab-mvv">
-                        1. Brújula y Valores 🧭
-                    </button>
-                    <button id="btn-tab-politicas" onclick="switchTab('politicas')" class="px-4 py-2 text-xs md:text-sm font-bold rounded-lg transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-800/60 focus:outline-none focus:ring-2 focus:ring-gold-400" role="tab" aria-selected="false" aria-controls="tab-politicas">
-                        2. Políticas Organizacionales 📜
-                    </button>
+                <!-- Risk Traffic Light (Semaphore) -->
+                <div class="bg-panelBg p-6 rounded-2xl border border-borderGray space-y-4">
+                    <h3 class="text-md font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-traffic-light"></i> Semáforo de Control Cava
+                    </h3>
+                    <p class="text-xs text-gray-400">Vigila las siguientes zonas para validar la teoría del "Lado Oscuro"</p>
+                    
+                    <div class="space-y-3">
+                        <div id="alarm-green" class="flex items-start gap-3 p-3 rounded-xl border border-borderGray bg-darkBg transition-all">
+                            <span class="w-4 h-4 rounded-full bg-accentGreen mt-1 flex-shrink-0 glow-green"></span>
+                            <div>
+                                <span class="font-bold text-sm block">Señal de Compra Verde (Ruptura > $67,500)</span>
+                                <span class="text-xs text-gray-400 block mt-0.5">Fuerza a los bajistas a cerrar cortos de forma violenta hacia objetivos de $71,700 y $73,750.</span>
+                            </div>
+                        </div>
+
+                        <div id="alarm-yellow" class="flex items-start gap-3 p-3 rounded-xl border border-borderGray bg-darkBg transition-all border-l-4 border-l-accentGold">
+                            <span class="w-4 h-4 rounded-full bg-accentGold mt-1 flex-shrink-0 glow-gold"></span>
+                            <div>
+                                <span class="font-bold text-sm block">Fase de Acumulación Lateral ($62K - $65K)</span>
+                                <span class="text-xs text-gray-400 block mt-0.5">El precio "languidece". Los cuidadores absorben el papel mientras el mercado asimila la OPV de SpaceX.</span>
+                            </div>
+                        </div>
+
+                        <div id="alarm-red" class="flex items-start gap-3 p-3 rounded-xl border border-borderGray bg-darkBg transition-all">
+                            <span class="w-4 h-4 rounded-full bg-accentRed mt-1 flex-shrink-0"></span>
+                            <div>
+                                <span class="font-bold text-sm block">Alerta Roja de Capitulación (< $60,000)</span>
+                                <span class="text-xs text-gray-400 block mt-0.5">Perforar este soporte psicológico invalida el rebote táctico y profundiza la corrección.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weekly Milestones / Chronogram -->
+                <div class="bg-panelBg p-6 rounded-2xl border border-borderGray space-y-4">
+                    <h3 class="text-md font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-calendar-week text-accentGold"></i> Cronograma de Eventos Críticos
+                    </h3>
+                    <div class="relative pl-6 border-l-2 border-borderGray space-y-5 text-sm">
+                        
+                        <div class="relative">
+                            <span class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-accentBlue border-4 border-panelBg"></span>
+                            <span class="font-bold text-gray-200 block">Semana 1: Barrida Inicial</span>
+                            <p class="text-xs text-gray-400 mt-0.5">El lado oscuro tira de los hilos para barrer las posiciones por debajo de $65,000.</p>
+                        </div>
+
+                        <div class="relative">
+                            <span class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-accentGold border-4 border-panelBg"></span>
+                            <span class="font-bold text-gray-200 block">Semana 2: Hito SpaceX (12 de Junio)</span>
+                            <p class="text-xs text-gray-400 mt-0.5">Drenaje de liquidez masivo de las manos institucionales hacia las carteras de SpaceX en el Nasdaq 100.</p>
+                        </div>
+
+                        <div class="relative">
+                            <span class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-gray-600 border-4 border-panelBg"></span>
+                            <span class="font-bold text-gray-200 block">Semana 3: Definición del Rebote</span>
+                            <p class="text-xs text-gray-400 mt-0.5">Se evalúa el testeo de soportes clave. Romper los $67,500 reactiva el combustible alcista.</p>
+                        </div>
+
+                        <div class="relative">
+                            <span class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-accentRed border-4 border-panelBg"></span>
+                            <span class="font-bold text-gray-200 block">Semana 4: Cierre de Mes (Fin de Junio)</span>
+                            <p class="text-xs text-gray-400 mt-0.5">Preparación de balances institucionales frente a la dura caída macroeconómica esperada para Agosto.</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Bottom Row: Lado Oscuro Monitor & Gemini Interactive Chat -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- El Lado Oscuro Terminal (Left) -->
+            <div class="lg:col-span-1 bg-panelBg p-6 rounded-2xl border border-borderGray flex flex-col gap-4">
+                <h3 class="text-md font-bold flex items-center gap-2 text-accentRed">
+                    <i class="fa-solid fa-mask"></i> Monitor del "Lado Oscuro"
+                </h3>
+                <p class="text-xs text-gray-400">Estadísticas de opciones de cobertura e institucionales asociadas a Bitcoin.</p>
+                
+                <div class="space-y-4 font-mono text-sm">
+                    <div class="bg-darkBg p-3 rounded-xl border border-borderGray flex justify-between items-center">
+                        <div>
+                            <span class="text-xs text-gray-500 block">ETF IBIT Put Target</span>
+                            <span class="text-accentGold font-bold">$35.00 - $36.00</span>
+                        </div>
+                        <span class="text-xs bg-accentGold/10 text-accentGold px-2 py-1 rounded border border-accentGold/20">Zona Opciones</span>
+                    </div>
+
+                    <div class="bg-darkBg p-3 rounded-xl border border-borderGray flex justify-between items-center">
+                        <div>
+                            <span class="text-xs text-gray-500 block">MSTR Put Wall</span>
+                            <span class="text-accentRed font-bold">$120.00</span>
+                        </div>
+                        <span class="text-xs bg-accentRed/10 text-accentRed px-2 py-1 rounded border border-accentRed/20">Soporte Saylor</span>
+                    </div>
+
+                    <div class="bg-darkBg p-3 rounded-xl border border-borderGray flex justify-between items-center">
+                        <div>
+                            <span class="text-xs text-gray-500 block">Soporte Concentrado BTC</span>
+                            <span class="text-accentGreen font-bold">$60,074.20</span>
+                        </div>
+                        <span class="text-xs bg-accentGreen/10 text-accentGreen px-2 py-1 rounded border border-accentGreen/20">Mínimo Anual</span>
+                    </div>
+
+                    <div class="bg-darkBg p-3 rounded-xl border border-borderGray">
+                        <span class="text-xs text-gray-500 block mb-1">Métrica del "Lado Oscuro" (Presión Algorítmica)</span>
+                        <div class="w-full bg-gray-800 rounded-full h-2.5">
+                            <div class="bg-gradient-to-r from-accentBlue to-accentRed h-2.5 rounded-full" style="width: 78%"></div>
+                        </div>
+                        <div class="flex justify-between text-[10px] text-gray-500 mt-1">
+                            <span>Soporte Cuidadores</span>
+                            <span>Distribución</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- CONTENIDO PESTAÑA A: BRÚJULA ESTRATÉGICA (Misión, Visión, Valores) -->
-            <div id="tab-mvv" class="grid grid-cols-1 md:grid-cols-3 gap-4 my-auto mt-4 md:mt-2" role="tabpanel" aria-labelledby="btn-tab-mvv">
-                <!-- Misión -->
-                <article class="p-4 bg-navy-950/80 border border-slate-800/80 rounded-xl backdrop-blur-md shadow-2xl flex flex-col justify-between">
+            <!-- Interactive Gemini Chat Widget (Right) -->
+            <div class="lg:col-span-2 bg-panelBg p-6 rounded-2xl border border-borderGray flex flex-col gap-4">
+                <div class="flex justify-between items-center border-b border-borderGray pb-3">
                     <div>
-                        <h3 class="text-gold-400 font-bold uppercase tracking-wider text-xs mb-2 border-b border-slate-800/40 pb-1 flex items-center">
-                            <span class="w-2 h-2 rounded-full bg-gold-400 mr-2"></span>Misión
+                        <h3 class="text-md font-bold flex items-center gap-2">
+                            <i class="fa-solid fa-brain text-accentBlue"></i> Terminal de Consulta: Cava AI
                         </h3>
-                        <p class="text-slate-200 text-xs md:text-sm leading-relaxed font-light">
-                            Transformar eventos en experiencias digitales memorables mediante el alquiler y operación eficiente de tecnología de captura interactiva, asegurando entregas impecables y oportunas <span class="text-gold-400 font-bold">(OTIF)</span>.
-                        </p>
+                        <p class="text-xs text-gray-400">Pregúntame sobre el "Lado Oscuro", SpaceX, el Brent o las predicciones semanales.</p>
                     </div>
-                </article>
-
-                <!-- Visión -->
-                <article class="p-4 bg-navy-950/80 border border-slate-800/80 rounded-xl backdrop-blur-md shadow-2xl flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-gold-400 font-bold uppercase tracking-wider text-xs mb-2 border-b border-slate-800/40 pb-1 flex items-center">
-                            <span class="w-2 h-2 rounded-full bg-gold-400 mr-2"></span>Visión (Al 2034)
-                        </h3>
-                        <p class="text-slate-200 text-xs md:text-sm leading-relaxed font-light">
-                            Consolidar la marca en Lima Metropolitana expandiendo nuestra infraestructura de almacenes y operaciones logísticas estables a las ciudades de **Trujillo** y **Arequipa** en un horizonte de 8 años.
-                        </p>
+                    <!-- API Key Configuration Modal link or status indicator -->
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs text-gray-400 font-mono">Modo: Gemini Live</span>
+                        <div class="w-2.5 h-2.5 rounded-full bg-accentGreen" id="api-status"></div>
                     </div>
-                </article>
+                </div>
 
-                <!-- Valores Operacionalizados -->
-                <article class="p-4 bg-navy-950/80 border border-slate-800/80 rounded-xl backdrop-blur-md shadow-2xl max-h-[30vh] md:max-h-none overflow-y-auto">
-                    <h3 class="text-gold-400 font-bold uppercase tracking-wider text-xs mb-2 border-b border-slate-800/40 pb-1 flex items-center">
-                        <span class="w-2 h-2 rounded-full bg-gold-400 mr-2"></span>Valores Corporativos
-                    </h3>
-                    <ul class="text-[11px] md:text-xs space-y-2 text-slate-200 font-light">
-                        <li><strong class="text-gold-400">1. Confiabilidad OTIF:</strong> Montajes testeados 45 min antes.</li>
-                        <li><strong class="text-gold-400">2. Vanguardia e Innovación:</strong> Importación directa desde Shenzhen.</li>
-                        <li><strong class="text-gold-400">3. Transparencia:</strong> Costeo estricto sin cobros ni tasas ocultas.</li>
-                        <li><strong class="text-gold-400">4. Sostenibilidad:</strong> Activos reusables; mermas anuales &lt; 1.5%.</li>
-                        <li><strong class="text-gold-400">5. Resiliencia Táctica:</strong> Kit de repuesto físico clase A en campo.</li>
-                    </ul>
-                </article>
-            </div>
-
-            <!-- CONTENIDO PESTAÑA B: POLÍTICAS CORPORATIVAS (Acordeones y Grilla Compacta) -->
-            <div id="tab-politicas" class="hidden grid grid-cols-1 md:grid-cols-5 gap-3 my-auto mt-4 md:mt-2" role="tabpanel" aria-labelledby="btn-tab-politicas">
-                <!-- Políticas Generales -->
-                <article class="p-3 bg-navy-950/85 border border-slate-800/80 rounded-xl backdrop-blur-md shadow-2xl flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-gold-400 font-bold text-xs border-b border-slate-800/60 pb-1.5 mb-2 uppercase tracking-wide">1. Generales</h3>
-                        <p class="text-slate-200 text-[11px] leading-relaxed font-light">
-                            <strong>DIGEMID:</strong> Prohibida la importación de insumos restringidos de salud. <br class="my-1">
-                            <strong>INDECOPI:</strong> Marcas creadas desde cero, propiedad intelectual original.
-                        </p>
+                <!-- Chat history log -->
+                <div class="flex-grow h-48 overflow-y-auto space-y-3 p-3 bg-darkBg rounded-xl border border-borderGray text-sm custom-scrollbar" id="chat-box">
+                    <div class="flex gap-2">
+                        <span class="font-extrabold text-accentBlue shrink-0">Cava AI:</span>
+                        <p class="text-gray-300">¡Hola, qué tal! Muy buenos días desde Madrid. Soy tu terminal especializada de análisis de Bitcoin. ¿Quieres que hablemos de cómo el Lado Oscuro manipula las opciones o de por qué el fiat es basura pura? ¡Pregúntame!</p>
                     </div>
-                </article>
+                </div>
 
-                <!-- Políticas de Operaciones -->
-                <article class="p-3 bg-navy-950/85 border border-slate-800/80 rounded-xl backdrop-blur-md shadow-2xl flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-gold-400 font-bold text-xs border-b border-slate-800/60 pb-1.5 mb-2 uppercase tracking-wide">2. Operaciones</h3>
-                        <p class="text-slate-200 text-[11px] leading-relaxed font-light">
-                            <strong>Fábricas:</strong> Solo proveedores certificados ISO 9001 en Shenzhen.<br class="my-1">
-                            <strong>Aduana:</strong> Trámite marítimo vía Despacho Anticipado.
-                        </p>
+                <!-- Input area -->
+                <div class="flex gap-2">
+                    <input type="text" id="chat-input" class="flex-grow bg-darkBg border border-borderGray rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-accentBlue text-gray-100 font-sans" placeholder="Escribe tu consulta sobre BTC-USD...">
+                    <button onclick="sendChatMessage()" class="bg-accentBlue hover:bg-blue-700 transition px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 shrink-0">
+                        <span>Consultar</span> <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+                <!-- API Key inputs hidden/collapsed to preserve interface flow -->
+                <details class="text-[11px] text-gray-500 cursor-pointer">
+                    <summary>Configurar clave API propia (Opcional)</summary>
+                    <div class="flex gap-2 mt-2">
+                        <input type="password" id="user-api-key" class="bg-darkBg border border-borderGray px-2 py-1 rounded text-xs w-full" placeholder="Ingresa tu Gemini API Key...">
                     </div>
-                </article>
-
-                <!-- Políticas Financieras -->
-                <article class="p-3 bg-navy-950/85 border border-slate-800/80 rounded-xl backdrop-blur-md shadow-2xl flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-gold-400 font-bold text-xs border-b border-slate-800/60 pb-1.5 mb-2 uppercase tracking-wide">3. Finanzas</h3>
-                        <p class="text-slate-200 text-[11px] leading-relaxed font-light">
-                            <strong>Fondo Planilla:</strong> Reserva de 6 meses (S/. 41,400) intocable.<br class="my-1">
-                            <strong>Costeo SUNARP:</strong> Límite estricto de S/. 800 para minutas notariales.
-                        </p>
-                    </div>
-                </article>
-
-                <!-- Políticas de RRHH -->
-                <article class="p-3 bg-navy-950/85 border border-slate-800/80 rounded-xl backdrop-blur-md shadow-2xl flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-gold-400 font-bold text-xs border-b border-slate-800/60 pb-1.5 mb-2 uppercase tracking-wide">4. RR.HH.</h3>
-                        <p class="text-slate-200 text-[11px] leading-relaxed font-light">
-                            <strong>Selección:</strong> Mínimo 15 horas de inducción de software.<br class="my-1">
-                            <strong>SCTR:</strong> Seguro de riesgo obligatorio para montajes de campo.
-                        </p>
-                    </div>
-                </article>
-
-                <!-- Políticas de Calidad -->
-                <article class="p-3 bg-navy-950/85 border border-slate-800/80 rounded-xl backdrop-blur-md shadow-2xl flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-gold-400 font-bold text-xs border-b border-slate-800/60 pb-1.5 mb-2 uppercase tracking-wide">5. Calidad</h3>
-                        <p class="text-slate-200 text-[11px] leading-relaxed font-light">
-                            <strong>QR Instantáneo:</strong> Doble SIM multi-carrier (conmutación &lt; 12s).<br class="my-1">
-                            <strong>Privacidad:</strong> Depuración automática de datos en 15 días.
-                        </p>
-                    </div>
-                </article>
+                </details>
             </div>
 
-            <div class="text-center text-xs text-slate-400 font-mono mt-4 md:mt-0">
-                La visión al 2034 y políticas responden a la escala metodológica exigida en el curso de Planificación.
-            </div>
-        </section>
-
-        <!-- DIAPOSITIVA 5: PLANIFICACIÓN FINANCIERA REALISTA -->
-        <section class="slide w-full flex-col justify-between h-auto md:h-[62vh] bg-transparent p-2" id="slide-5" aria-label="Planificación Financiera y Viabilidad">
-            <div class="text-center md:text-left">
-                <span class="px-3 py-1 bg-gold-500/10 text-gold-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-gold-500/20 backdrop-blur-sm">Presupuestos sin Idealismos</span>
-                <h2 class="text-2xl md:text-4xl font-black text-white mt-2 drop-shadow-md">Estructura Real de Arranque</h2>
-            </div>
-
-            <!-- Grilla Métricas Financieras -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-auto mt-6 md:mt-0">
-                <!-- Stat 1 -->
-                <article class="p-5 bg-navy-950/85 border border-slate-800/80 rounded-xl text-center flex flex-col justify-between backdrop-blur-md shadow-2xl">
-                    <h3 class="text-slate-300 text-xs uppercase tracking-wider font-semibold">Formalización Legal</h3>
-                    <div class="text-3xl md:text-4xl font-black text-gold-400 my-3">S/. 800</div>
-                    <p class="text-xs text-slate-400 font-light leading-snug">Costo real e inmediato proyectado para notarías, minutas y registro societario formal ante la SUNARP.</p>
-                </article>
-
-                <!-- Stat 2 -->
-                <article class="p-5 bg-navy-950/85 border border-slate-800/80 rounded-xl text-center flex flex-col justify-between backdrop-blur-md shadow-2xl">
-                    <h3 class="text-slate-300 text-xs uppercase tracking-wider font-semibold">Fondo de Planilla (6 Meses)</h3>
-                    <div class="text-3xl md:text-4xl font-black text-emerald-400 my-3">S/. 41,400</div>
-                    <p class="text-xs text-slate-400 font-light leading-snug">Resguardo financiero intocable para proteger las operaciones básicas de los socios en planilla inicial.</p>
-                </article>
-
-                <!-- Stat 3 -->
-                <article class="p-5 bg-navy-950/85 border border-slate-800/80 rounded-xl text-center flex flex-col justify-between backdrop-blur-md shadow-2xl">
-                    <h3 class="text-slate-300 text-xs uppercase tracking-wider font-semibold">Punto de Equilibrio</h3>
-                    <div class="text-3xl md:text-4xl font-black text-white my-3">14 <span class="text-xs md:text-sm font-medium text-slate-400">servicios/mes</span></div>
-                    <p class="text-xs text-slate-400 font-light leading-snug">Volumen mensual necesario para cubrir costos fijos (alquiler de showroom en La Victoria y personal administrativo).</p>
-                </article>
-            </div>
-
-            <div class="text-center text-xs text-slate-200 font-semibold bg-navy-950/95 py-3 rounded-lg border border-slate-800/60 backdrop-blur-md shadow-2xl mt-4 md:mt-0">
-                Inversión Inicial de Capital de Trabajo Proyectada: S/. 113,200 (70% Capital de Socios - 30% Apoyo de Financiamiento Comercial)
-            </div>
-        </section>
-
-        <!-- DIAPOSITIVA 6: CONTROL DE GESTIÓN (BALANCED SCORECARD) -->
-        <section class="slide w-full flex-col justify-between h-auto md:h-[62vh] bg-transparent p-2" id="slide-6" aria-label="Control y Auditoría del Plan Operativo">
-            <div class="text-center md:text-left">
-                <span class="px-3 py-1 bg-amber-500/10 text-amber-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-amber-500/20 backdrop-blur-sm">Control & Supervisión Operativa</span>
-                <h2 class="text-2xl md:text-4xl font-black text-white mt-2 drop-shadow-md">Dashboard Ejecutivo de Contingencias</h2>
-            </div>
-
-            <!-- Tabla de KPI de Balanced Scorecard Semántica -->
-            <div class="bg-navy-950/90 border border-slate-800 rounded-xl overflow-hidden my-auto backdrop-blur-md shadow-2xl mt-6 md:mt-0">
-                <table class="w-full text-left text-xs md:text-sm">
-                    <thead class="bg-slate-900/90 text-slate-300 uppercase text-[10px] md:text-xs tracking-wider">
-                        <tr>
-                            <th scope="col" class="p-3 md:p-4">Indicador Clave (KPI)</th>
-                            <th scope="col" class="p-3 md:p-4 text-center">Meta</th>
-                            <th scope="col" class="p-3 md:p-4 text-center">Estado</th>
-                            <th scope="col" class="p-3 md:p-4">Acción de Contingencia</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-800/60 font-light text-slate-200">
-                        <tr>
-                            <td class="p-3 md:p-4 font-semibold text-slate-200">1. Entregas a Tiempo (OTIF)</td>
-                            <td class="p-3 md:p-4 text-center font-mono font-bold">&gt;= 96%</td>
-                            <td class="p-3 md:p-4 text-center">
-                                <span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-[10px] font-bold">Verde</span>
-                            </td>
-                            <td class="p-3 md:p-4 text-slate-300 text-xs">Mantener procesos estandarizados en check-lists.</td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 md:p-4 font-semibold text-slate-200">2. Disponibilidad de Tecnología</td>
-                            <td class="p-3 md:p-4 text-center font-mono font-bold">98%</td>
-                            <td class="p-3 md:p-4 text-center">
-                                <span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-[10px] font-bold">Verde</span>
-                            </td>
-                            <td class="p-3 md:p-4 text-slate-300 text-xs">Contratos de soporte técnico preventivo y backups semanales.</td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 md:p-4 font-semibold text-slate-200">3. Tiempo de Descarga Digital QR</td>
-                            <td class="p-3 md:p-4 text-center font-mono font-bold">&lt; 12s</td>
-                            <td class="p-3 md:p-4 text-center">
-                                <span class="px-2.5 py-1 bg-red-500/20 text-red-400 rounded-full text-[10px] font-bold">Crítico</span>
-                            </td>
-                            <td class="p-3 md:p-4 text-gold-400 text-xs font-semibold">Activar de inmediato routers portátiles multi-carrier de doble SIM.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="text-center text-xs text-slate-400 font-mono mt-4 md:mt-0">
-                La matriz integra 10 KPIs distribuidos bajo la metodología del Balanced Scorecard para el Hito 3.
-            </div>
-        </section>
+        </div>
 
     </main>
 
-    <!-- Controles de Navegación y Footer Semántico -->
-    <footer class="w-full px-6 py-4 border-t border-slate-800/80 bg-navy-950/95 backdrop-blur-md flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 z-10">
-        <!-- Botones de Control de Diapositivas con Estados Hover y Focus para A11Y -->
-        <div class="flex items-center space-x-3">
-            <button id="btn-prev" onclick="changeSlide(-1)" class="p-3 rounded-lg bg-slate-800 hover:bg-slate-700 hover:scale-105 active:scale-95 text-white transition-all duration-200 focus:ring-2 focus:ring-gold-400 focus:outline-none" aria-label="Diapositiva anterior">
-                <!-- Icono Flecha Izquierda -->
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                </svg>
-            </button>
-            <button id="btn-next" onclick="changeSlide(1)" class="p-3 rounded-lg bg-gold-500 hover:bg-gold-600 hover:scale-105 active:scale-95 text-slate-900 font-bold transition-all duration-200 focus:ring-2 focus:ring-gold-400 focus:outline-none" aria-label="Diapositiva siguiente">
-                <!-- Icono Flecha Derecha -->
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-            </button>
-        </div>
-
-        <!-- Puntos (Dots) de progreso interactivos -->
-        <div class="flex space-x-2" role="tablist" aria-label="Selector de diapositivas">
-            <button onclick="goToSlide(1)" class="dot w-3.5 h-3.5 rounded-full bg-gold-400 transition-all duration-300 focus:ring-2 focus:ring-gold-400 focus:outline-none" role="tab" aria-selected="true" aria-label="Ver Diapositiva 1"></button>
-            <button onclick="goToSlide(2)" class="dot w-3.5 h-3.5 rounded-full bg-slate-700 hover:bg-slate-500 transition-all duration-300 focus:ring-2 focus:ring-gold-400 focus:outline-none" role="tab" aria-selected="false" aria-label="Ver Diapositiva 2"></button>
-            <button onclick="goToSlide(3)" class="dot w-3.5 h-3.5 rounded-full bg-slate-700 hover:bg-slate-500 transition-all duration-300" role="tab" aria-selected="false" aria-label="Ver Diapositiva 3"></button>
-            <button onclick="goToSlide(4)" class="dot w-3.5 h-3.5 rounded-full bg-slate-700 hover:bg-slate-500 transition-all duration-300" role="tab" aria-selected="false" aria-label="Ver Diapositiva 4"></button>
-            <button onclick="goToSlide(5)" class="dot w-3.5 h-3.5 rounded-full bg-slate-700 hover:bg-slate-500 transition-all duration-300" role="tab" aria-selected="false" aria-label="Ver Diapositiva 5"></button>
-            <button onclick="goToSlide(6)" class="dot w-3.5 h-3.5 rounded-full bg-slate-700 hover:bg-slate-500 transition-all duration-300" role="tab" aria-selected="false" aria-label="Ver Diapositiva 6"></button>
-        </div>
-
-        <!-- Leyenda con Instrucción de Teclado -->
-        <div class="flex items-center space-x-2 text-xs text-slate-300 font-mono bg-navy-950/80 px-3.5 py-1.5 rounded-md border border-slate-800">
-            <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-            </svg>
-            <span>Laptop: Usa ← y → | Móvil: Desliza lateralmente</span>
+    <!-- Footer -->
+    <footer class="border-t border-borderGray bg-panelBg/50 mt-12 py-6 text-center text-xs text-gray-500">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p>"Nosotros no influimos en nada, simplemente nos adaptamos." — Especuladores de Bien.</p>
+            <p>Datos en tiempo real alimentados de feeds del mercado global. Las predicciones son meramente informativas y de estudio macroeconómico.</p>
         </div>
     </footer>
 
-    <!-- Lógica de Interactividad en Javascript -->
+    <!-- Core Application Script -->
     <script>
-        let currentSlide = 1;
-        const totalSlides = 6;
+        // Global State
+        let btcChartInstance = null;
+        let currentBtcPrice = 62621.15; // Safe default
+        let priceDirection = 'neutral';
+        let currentScenario = 'base';
+        
+        // Mocking historical values up to June 4, 2026
+        const historicalDates = [
+            "04 May", "08 May", "12 May", "16 May", "20 May", "24 May", "28 May", "01 Jun", "04 Jun (Hoy)"
+        ];
+        const historicalPrices = [
+            65200, 68000, 72500, 74200, 78200, 72400, 68500, 64900, 62621
+        ];
 
-        // Rutas completas de imágenes de fondo (ADEX JPGs)
-        const backgroundUrls = {
-            1: 'https://raw.githubusercontent.com/RickNE7/ADEX/main/P1.jpg',
-            2: 'https://raw.githubusercontent.com/RickNE7/ADEX/main/P2.jpg',
-            3: 'https://raw.githubusercontent.com/RickNE7/ADEX/main/P3.jpg',
-            4: 'https://raw.githubusercontent.com/RickNE7/ADEX/main/P4.jpg',
-            5: 'https://raw.githubusercontent.com/RickNE7/ADEX/main/P5.jpg',
-            6: 'https://raw.githubusercontent.com/RickNE7/ADEX/main/P6.jpg'
+        // 4 Week Projections Data
+        const projections = {
+            base: {
+                title: "Escenario Lateral (Probabilidad 50%)",
+                prices: [62621, 63100, 62400, 64200, 63800],
+                desc: "<strong>Diagnóstico:</strong> El Bitcoin languidece temporalmente. El 'lado oscuro' sigue barriendo posiciones y el capital institucional se mantiene plano esperando el desenlace de la salida a bolsa de SpaceX el 12 de junio. Rango esperado: <strong>$62,000 - $67,500</strong>.",
+                color: '#F59E0B' // Amber/Gold
+            },
+            bull: {
+                title: "Escenario Alcista (Probabilidad 20%)",
+                prices: [62621, 65500, 67800, 71700, 73750],
+                desc: "<strong>Diagnóstico:</strong> Se supera con fuerza el gatillo operativo de los <strong>$67,500</strong>. Esto activa un cierre de cortas de pánico institucional (*Short Squeeze*) y canaliza el rebote rápido proyectado por Cava hacia los <strong>$71,700 y $73,750</strong>.",
+                color: '#10B981' // Green
+            },
+            bear: {
+                title: "Escenario Bajista (Probabilidad 30%)",
+                prices: [62621, 61200, 59500, 57400, 55000],
+                desc: "<strong>Diagnóstico:</strong> Los cuidadores fallan en mantener la zona de los $60,000. Se desata una capitulación violenta amplificada por pánico bursátil antes de la gran caída de agosto de los índices. Proyección a la banda de los <strong>$55,000 - $58,000</strong>.",
+                color: '#EF4444' // Red
+            }
         };
 
-        // Cambiar entre Misión/Visión/Valores y Políticas en la Diapositiva 4
-        function switchTab(tabName) {
-            const mvvContent = document.getElementById('tab-mvv');
-            const politicasContent = document.getElementById('tab-politicas');
-            const btnMvv = document.getElementById('btn-tab-mvv');
-            const btnPoliticas = document.getElementById('btn-tab-politicas');
-
-            if (tabName === 'mvv') {
-                mvvContent.classList.remove('hidden');
-                politicasContent.classList.add('hidden');
+        // Fetch Realtime Price using a free API (fallback to Binance/Coinbase API)
+        async function fetchBtcPrice() {
+            try {
+                // Fetching from a direct public API that supports CORS without keys
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true');
+                if (!response.ok) throw new Error('API Fail');
+                const data = await response.json();
                 
-                // Estilizar botón activo
-                btnMvv.classList.add('bg-gold-400', 'text-navy-950');
-                btnMvv.classList.remove('text-slate-300', 'hover:bg-slate-800/60');
-                btnMvv.setAttribute('aria-selected', 'true');
+                const rawPrice = data.bitcoin.usd;
+                const change24h = data.bitcoin.usd_24h_change;
                 
-                // Estilizar botón inactivo
-                btnPoliticas.classList.remove('bg-gold-400', 'text-navy-950');
-                btnPoliticas.classList.add('text-slate-300', 'hover:bg-slate-800/60');
-                btnPoliticas.setAttribute('aria-selected', 'false');
-            } else {
-                mvvContent.classList.add('hidden');
-                politicasContent.classList.remove('hidden');
-                
-                // Estilizar botón activo
-                btnPoliticas.classList.add('bg-gold-400', 'text-navy-950');
-                btnPoliticas.classList.remove('text-slate-300', 'hover:bg-slate-800/60');
-                btnPoliticas.setAttribute('aria-selected', 'true');
-                
-                // Estilizar botón inactivo
-                btnMvv.classList.remove('bg-gold-400', 'text-navy-950');
-                btnMvv.classList.add('text-slate-300', 'hover:bg-slate-800/60');
-                btnMvv.setAttribute('aria-selected', 'false');
-            }
-        }
-
-        // Cambiar entre Foto de catálogo y Video de YouTube en la Diapositiva 3
-        function toggleMedia(cardId) {
-            const img = document.getElementById(`img-${cardId}`);
-            const videoContainer = document.getElementById(`video-${cardId}`);
-            const btnText = document.getElementById(`btn-text-${cardId}`);
-            
-            if (img.classList.contains('opacity-100')) {
-                // Modo Video
-                img.classList.replace('opacity-100', 'opacity-0');
-                img.classList.add('pointer-events-none');
-                videoContainer.classList.replace('opacity-0', 'opacity-100');
-                videoContainer.classList.remove('pointer-events-none');
-                btnText.innerText = 'Ver Foto 📷';
-            } else {
-                // Modo Foto
-                img.classList.replace('opacity-0', 'opacity-100');
-                img.classList.remove('pointer-events-none');
-                videoContainer.classList.replace('opacity-100', 'opacity-0');
-                videoContainer.classList.add('pointer-events-none');
-                btnText.innerText = 'Ver Video 🎥';
-            }
-        }
-
-        // Navegación de Diapositivas
-        function showSlide(slideIndex) {
-            // Control lineal estricto (No circular al llegar a los extremos)
-            if (slideIndex < 1) slideIndex = 1;
-            if (slideIndex > totalSlides) slideIndex = totalSlides;
-            
-            // Estilos deshabilitados en los botones de navegación de los bordes
-            const btnPrev = document.getElementById('btn-prev');
-            const btnNext = document.getElementById('btn-next');
-            
-            if (slideIndex === 1) {
-                btnPrev.classList.add('opacity-40', 'cursor-not-allowed');
-                btnPrev.setAttribute('disabled', 'true');
-            } else {
-                btnPrev.classList.remove('opacity-40', 'cursor-not-allowed');
-                btnPrev.removeAttribute('disabled');
-            }
-            
-            if (slideIndex === totalSlides) {
-                btnNext.classList.add('opacity-40', 'cursor-not-allowed');
-                btnNext.setAttribute('disabled', 'true');
-            } else {
-                btnNext.classList.remove('opacity-40', 'cursor-not-allowed');
-                btnNext.removeAttribute('disabled');
-            }
-
-            // Cambiar imagen de fondo en el contenedor principal
-            const bgContainer = document.getElementById('bg-container');
-            if (bgContainer) {
-                bgContainer.style.backgroundImage = `url('${backgroundUrls[slideIndex]}')`;
-            }
-
-            // Ocultar slides anteriores
-            for (let i = 1; i <= totalSlides; i++) {
-                const s = document.getElementById(`slide-${i}`);
-                if (s) s.classList.remove('active');
-            }
-            
-            // Mostrar slide activo
-            const target = document.getElementById(`slide-${slideIndex}`);
-            if (target) {
-                target.classList.add('active');
-            }
-            
-            currentSlide = slideIndex;
-            
-            // Actualizar número de paginador
-            document.getElementById('slide-indicator').innerText = `${currentSlide} / ${totalSlides}`;
-            
-            // Actualizar Barra de Progreso Superior
-            const percent = (currentSlide / totalSlides) * 100;
-            document.getElementById('progress-bar').style.width = `${percent}%`;
-            
-            // Actualizar dots interactivos y estado de accesibilidad
-            const dots = document.querySelectorAll('.dot');
-            dots.forEach((dot, index) => {
-                if (index + 1 === currentSlide) {
-                    dot.classList.remove('bg-slate-700');
-                    dot.classList.add('bg-gold-400', 'w-7');
-                    dot.setAttribute('aria-selected', 'true');
-                } else {
-                    dot.classList.remove('bg-gold-400', 'w-7');
-                    dot.classList.add('bg-slate-700');
-                    dot.setAttribute('aria-selected', 'false');
+                updatePriceUI(rawPrice, change24h);
+            } catch (err) {
+                // Secondary Fallback: Coinbase
+                try {
+                    const cbResponse = await fetch('https://api.coinbase.com/v2/prices/BTC-USD/spot');
+                    const cbData = await cbResponse.json();
+                    const rawPrice = parseFloat(cbData.data.amount);
+                    updatePriceUI(rawPrice, -0.74); // Hardcoded fallback change based on current snapshot
+                } catch(cbErr) {
+                    // Fail-safe default
+                    updatePriceUI(currentBtcPrice, -0.74);
                 }
+            }
+        }
+
+        function updatePriceUI(price, pctChange) {
+            currentBtcPrice = price;
+            const priceEl = document.getElementById('current-price');
+            const changeEl = document.getElementById('price-change');
+            const pctEl = document.getElementById('change-pct');
+            const badgeEl = document.getElementById('price-badge');
+
+            // Formatter for USD currency
+            const formatter = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD'
             });
+
+            priceEl.innerText = formatter.format(price);
+            pctEl.innerText = Math.abs(pctChange).toFixed(2) + '%';
+
+            // Change Colors dynamically
+            if (pctChange >= 0) {
+                changeEl.className = "text-xs font-semibold flex items-center gap-1 justify-end text-accentGreen";
+                changeEl.querySelector('i').className = "fa-solid fa-caret-up";
+                badgeEl.className = "w-2.5 h-2.5 rounded-full bg-accentGreen animate-ping";
+            } else {
+                changeEl.className = "text-xs font-semibold flex items-center gap-1 justify-end text-accentRed";
+                changeEl.querySelector('i').className = "fa-solid fa-caret-down";
+                badgeEl.className = "w-2.5 h-2.5 rounded-full bg-accentRed animate-ping";
+            }
+
+            // Sync risk traffic light statuses on base prices
+            const alarmGreen = document.getElementById('alarm-green');
+            const alarmYellow = document.getElementById('alarm-yellow');
+            const alarmRed = document.getElementById('alarm-red');
+
+            // Reset glow and active states
+            alarmGreen.className = "flex items-start gap-3 p-3 rounded-xl border border-borderGray bg-darkBg transition-all";
+            alarmYellow.className = "flex items-start gap-3 p-3 rounded-xl border border-borderGray bg-darkBg transition-all";
+            alarmRed.className = "flex items-start gap-3 p-3 rounded-xl border border-borderGray bg-darkBg transition-all";
+
+            if (price >= 67500) {
+                alarmGreen.className += " border-l-4 border-l-accentGreen glow-green bg-panelBg";
+            } else if (price < 60000) {
+                alarmRed.className += " border-l-4 border-l-accentRed glow-red bg-panelBg";
+            } else {
+                alarmYellow.className += " border-l-4 border-l-accentGold glow-gold bg-panelBg";
+            }
+
+            // Update live price in chart data dynamic slice
+            if (btcChartInstance) {
+                // Update modern point in dataset
+                btcChartInstance.data.datasets[0].data[historicalPrices.length - 1] = price;
+                btcChartInstance.update();
+            }
         }
 
-        function changeSlide(direction) {
-            showSlide(currentSlide + direction);
+        // Chart Initialization
+        function initChart() {
+            const ctx = document.getElementById('btcProjectionChart').getContext('2d');
+            
+            // Build extended labels for 4 weeks ahead
+            const chartLabels = [
+                ...historicalDates,
+                "Semana 1", "Semana 2", "Semana 3", "Semana 4"
+            ];
+
+            // Build historical points + projections (initial scenario: base)
+            const activeScenario = projections[currentScenario];
+            const datasetProjections = [
+                ...Array(historicalPrices.length - 1).fill(null),
+                historicalPrices[historicalPrices.length - 1], // connecting point
+                ...activeScenario.prices.slice(1)
+            ];
+
+            const data = {
+                labels: chartLabels,
+                datasets: [
+                    {
+                        label: 'Historial BTC-USD',
+                        data: [...historicalPrices, ...Array(4).fill(null)],
+                        borderColor: '#3B82F6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        borderWidth: 3,
+                        pointBackgroundColor: '#3B82F6',
+                        tension: 0.3,
+                        fill: true
+                    },
+                    {
+                        label: 'Proyección (Escenario)',
+                        data: datasetProjections,
+                        borderColor: activeScenario.color,
+                        borderDash: [6, 6],
+                        borderWidth: 3,
+                        pointBackgroundColor: activeScenario.color,
+                        tension: 0.3,
+                        fill: false
+                    }
+                ]
+            };
+
+            const config = {
+                type: 'line',
+                data: data,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#9CA3AF',
+                                font: { family: 'Inter' }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: '#1F2937' },
+                            ticks: { color: '#9CA3AF', font: { family: 'Inter' } }
+                        },
+                        y: {
+                            grid: { color: '#1F2937' },
+                            ticks: { 
+                                color: '#9CA3AF', 
+                                font: { family: 'JetBrains Mono' },
+                                callback: function(value) {
+                                    return '$' + value.toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            btcChartInstance = new Chart(ctx, config);
+            updateExplanationCard();
         }
 
-        function goToSlide(index) {
-            showSlide(index);
+        // Dynamic Scenario controls
+        function changeScenario(scen) {
+            currentScenario = scen;
+            const activeScenario = projections[scen];
+
+            // Reset buttons styling
+            const btnBase = document.getElementById('btn-scen-base');
+            const btnBull = document.getElementById('btn-scen-bull');
+            const btnBear = document.getElementById('btn-scen-bear');
+
+            btnBase.className = "px-3 py-1 text-xs rounded-md font-semibold transition text-gray-400 hover:text-white";
+            btnBull.className = "px-3 py-1 text-xs rounded-md font-semibold transition text-gray-400 hover:text-white";
+            btnBear.className = "px-3 py-1 text-xs rounded-md font-semibold transition text-gray-400 hover:text-white";
+
+            if (scen === 'base') {
+                btnBase.className = "px-3 py-1 text-xs rounded-md font-semibold transition bg-accentGold text-white";
+            } else if (scen === 'bull') {
+                btnBull.className = "px-3 py-1 text-xs rounded-md font-semibold transition bg-accentGreen text-white";
+            } else if (scen === 'bear') {
+                btnBear.className = "px-3 py-1 text-xs rounded-md font-semibold transition bg-accentRed text-white";
+            }
+
+            // Update chart data
+            const datasetProjections = [
+                ...Array(historicalPrices.length - 1).fill(null),
+                currentBtcPrice, // Current live price as joint
+                ...activeScenario.prices.slice(1)
+            ];
+
+            btcChartInstance.data.datasets[1].data = datasetProjections;
+            btcChartInstance.data.datasets[1].borderColor = activeScenario.color;
+            btcChartInstance.data.datasets[1].pointBackgroundColor = activeScenario.color;
+            btcChartInstance.update();
+
+            updateExplanationCard();
         }
 
-        // Navegación por teclado
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'ArrowRight') {
-                changeSlide(1);
-            } else if (event.key === 'ArrowLeft') {
-                changeSlide(-1);
+        function updateExplanationCard() {
+            const expEl = document.getElementById('scenario-explanation');
+            const data = projections[currentScenario];
+            
+            expEl.innerHTML = `
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="w-3 h-3 rounded-full" style="background-color: ${data.color}"></span>
+                    <h4 class="font-bold text-sm text-gray-200">${data.title}</h4>
+                </div>
+                <p class="text-xs text-gray-300 leading-relaxed">${data.desc}</p>
+            `;
+        }
+
+        // Chatbot Gemini AI logic
+        async function sendChatMessage() {
+            const chatBox = document.getElementById('chat-box');
+            const chatInput = document.getElementById('chat-input');
+            const prompt = chatInput.value.trim();
+            const userApiKey = document.getElementById('user-api-key').value.trim();
+
+            if (!prompt) return;
+
+            // Render User bubble immediately
+            chatBox.innerHTML += `
+                <div class="flex gap-2">
+                    <span class="font-extrabold text-accentGreen shrink-0">Especulador:</span>
+                    <p class="text-gray-300">${escapeHtml(prompt)}</p>
+                </div>
+            `;
+            chatInput.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Render loading indicator
+            const loadingId = 'loading-' + Date.now();
+            chatBox.innerHTML += `
+                <div class="flex gap-2 text-gray-500 font-mono text-xs" id="${loadingId}">
+                    <span>Procesando consulta en la terminal con José Luis Cava AI...</span>
+                    <i class="fa-solid fa-spinner animate-spin"></i>
+                </div>
+            `;
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            const systemPrompt = `Actúa como una simulación interactiva del analista financiero José Luis Cava. 
+            Habla con su característica jerga y entusiasmo ("¡Hola, qué tal!", "especuladores de bien", "monedas fiat basura pura", "el sistema está roto", "el lado oscuro", "hacer cositas"). 
+            Debes responder consultas de forma ágil basándote en la fecha actual (4 de junio de 2026), considerando los siguientes datos que tienes en tu terminal en tiempo real:
+            - Precio actual de Bitcoin: $${currentBtcPrice.toLocaleString()} USD (con un soporte en los $60,074 y un gatillo alcista en los $67,500).
+            - Petróleo Brent a $95.79 por tensiones geopolíticas entre EE.UU., China e Irán.
+            - OPV de SpaceX programada para el 12 de junio de 2026 que succionará $75,000 millones de liquidez, provocando una corrección bursátil profunda proyectada para agosto.
+            - ETFs de Bitcoin como IBIT con coberturas de opciones Put en el rango de $35-$36 y MicroStrategy (MSTR) en $120.
+            Tus respuestas deben ser entretenidas pero cargadas de análisis técnico riguroso. Mantén la respuesta en 2 o 3 párrafos como máximo.`;
+
+            try {
+                // Call Google Gemini API
+                const apiKey = userApiKey || ""; // Canvas auto-supplies if left blank, or uses user supplied key
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+                const payload = {
+                    contents: [{ parts: [{ text: prompt }] }],
+                    systemInstruction: {
+                        parts: [{ text: systemPrompt }]
+                    }
+                };
+
+                // Fetch implementation with exponential backoff
+                const fetchWithRetry = async (url, options, retries = 3, delay = 1000) => {
+                    try {
+                        const res = await fetch(url, options);
+                        if (!res.ok) {
+                            if (res.status === 429 && retries > 0) {
+                                await new Promise(resolve => setTimeout(resolve, delay));
+                                return fetchWithRetry(url, options, retries - 1, delay * 2);
+                            }
+                            throw new Error(`API returned HTTP ${res.status}`);
+                        }
+                        return res;
+                    } catch (err) {
+                        if (retries > 0) {
+                            await new Promise(resolve => setTimeout(resolve, delay));
+                            return fetchWithRetry(url, options, retries - 1, delay * 2);
+                        }
+                        throw err;
+                    }
+                };
+
+                const response = await fetchWithRetry(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+                const candidate = result.candidates?.[0];
+                let replyText = "";
+
+                if (candidate && candidate.content?.parts?.[0]?.text) {
+                    replyText = candidate.content.parts[0].text;
+                } else {
+                    replyText = "¡Ay mi madre! La conexión al lado oscuro ha fallado. El sistema de liquidez está roto en este instante. Inténtalo de nuevo, especulador de bien.";
+                }
+
+                // Remove loading spinner
+                document.getElementById(loadingId).remove();
+
+                // Append response
+                chatBox.innerHTML += `
+                    <div class="flex gap-2">
+                        <span class="font-extrabold text-accentBlue shrink-0">Cava AI:</span>
+                        <div class="text-gray-300 space-y-2">${formatReply(replyText)}</div>
+                    </div>
+                `;
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+            } catch (error) {
+                document.getElementById(loadingId).remove();
+                chatBox.innerHTML += `
+                    <div class="flex gap-2 text-accentRed">
+                        <span class="font-bold shrink-0">Error:</span>
+                        <p class="text-xs">No pudimos conectar con los cuidadores del mercado. ${error.message}. Asegúrate de ingresar tu clave de API si la sesión de Canvas se satura.</p>
+                    </div>
+                `;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        }
+
+        // Helper: Formatting and Escaping
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        function formatReply(text) {
+            // Basic markdown converter (bold highlights)
+            return text
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .split('\n').map(p => p ? `<p>${p}</p>` : '').join('');
+        }
+
+        // Handle enter key press on input
+        document.getElementById('chat-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendChatMessage();
             }
         });
 
-        // Soporte táctil para smartphones (Swipe)
-        let touchStartX = 0;
-        let touchEndX = 0;
-        
-        const mainElement = document.querySelector('main');
-        mainElement.addEventListener('touchstart', function(event) {
-            touchStartX = event.changedTouches[0].screenX;
-        }, { passive: true });
-        
-        mainElement.addEventListener('touchend', function(event) {
-            touchEndX = event.changedTouches[0].screenX;
-            handleSwipe();
-        }, { passive: true });
-        
-        function handleSwipe() {
-            const threshold = 50; 
-            if (touchStartX - touchEndX > threshold) {
-                changeSlide(1); // Deslizar izquierda -> Siguiente
-            }
-            if (touchEndX - touchStartX > threshold) {
-                changeSlide(-1); // Deslizar derecha -> Anterior
-            }
-        }
-
-        // Cargar primera diapositiva de forma limpia
+        // Initialize application on load
         window.onload = function() {
-            showSlide(1);
-        }
+            initChart();
+            fetchBtcPrice();
+            // Polling price feed every 10 seconds
+            setInterval(fetchBtcPrice, 10000);
+        };
     </script>
 </body>
 </html>
