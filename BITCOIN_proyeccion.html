@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cava Intel - BTC & OM Proyecciones y Análisis</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        darkBg: '#090D16',
+                        panelBg: '#111827',
+                        accentBlue: '#2563EB',
+                        accentGold: '#D97706',
+                        accentGreen: '#10B981',
+                        accentRed: '#EF4444',
+                        accentPurple: '#8B5CF6',
+                        borderGray: '#1F2937'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #090D16; color: #F3F4F6; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #111827; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #374151; border-radius: 3px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #4B5563; }
+        .glow-green { box-shadow: 0 0 15px rgba(16, 185, 129, 0.25); }
+        .glow-red { box-shadow: 0 0 15px rgba(239, 68, 68, 0.25); }
+        .glow-gold { box-shadow: 0 0 15px rgba(217, 119, 6, 0.25); }
+        
+        /* Tab Styles */
+        .tab-btn { padding: 0.75rem 1.5rem; font-weight: 600; color: #9CA3AF; border-bottom: 2px solid transparent; transition: all 0.2s; }
+        .tab-btn:hover { color: #F3F4F6; }
+        .tab-btn.active { color: #2563EB; border-bottom: 2px solid #2563EB; background: rgba(37, 99, 235, 0.05); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Custom Tooltip arrow */
+        .tooltip-arrow { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border-width: 6px; border-style: solid; border-color: #1F2937 transparent transparent transparent; }
+
+        /* Filter logic classes */
+        .metric-card { transition: all 0.3s ease; }
+        .metric-dimmed { opacity: 0.2; filter: grayscale(100%); pointer-events: none; }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <!-- Header -->
+    <header class="border-b border-borderGray bg-panelBg/80 backdrop-blur-md sticky top-0 z-50 px-4 py-3">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <a href="./index.html" class="bg-darkBg border border-borderGray p-2 rounded-lg text-gray-400 hover:text-white hover:border-gray-500 transition" title="Volver al Portafolio">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+                <div class="bg-gradient-to-tr from-accentBlue to-accentGreen p-2 rounded-lg">
+                    <i class="fa-solid fa-chart-line text-white text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-extrabold tracking-tight flex items-center gap-2">
+                        CAVA INTEL <span class="text-xs bg-accentBlue text-blue-100 px-2 py-0.5 rounded-full font-semibold uppercase">Grupo de Análisis</span>
+                    </h1>
+                    <p class="text-xs text-gray-400">Análisis Macroeconómico, BTC, OM y Reporte Académico</p>
+                </div>
+            </div>
+
+            <!-- Real-time price trackers -->
+            <div class="flex gap-4">
+                <div class="flex items-center gap-3 bg-darkBg px-3 py-1.5 rounded-xl border border-borderGray hover:border-accentBlue transition cursor-help relative group">
+                    <div>
+                        <span class="font-mono text-[10px] text-gray-400 block">BTC-USD</span>
+                        <div class="font-mono text-sm font-bold text-gray-100" id="current-price-btc">Cargando...</div>
+                    </div>
+                    <span id="price-badge-btc" class="w-2 h-2 rounded-full bg-gray-500"></span>
+                    <div class="absolute z-50 top-full mt-2 right-0 w-48 bg-gray-800 text-gray-200 text-xs rounded-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl border border-gray-700">
+                        <strong class="text-accentBlue">Bitcoin (BTC)</strong><br>Precio en tiempo real obtenido del mercado.
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 bg-darkBg px-3 py-1.5 rounded-xl border border-borderGray hover:border-accentPurple transition cursor-help relative group">
+                    <div>
+                        <span class="font-mono text-[10px] text-gray-400 block">OM-USD (Mantra)</span>
+                        <div class="font-mono text-sm font-bold text-gray-100" id="current-price-om">Cargando...</div>
+                    </div>
+                    <span id="price-badge-om" class="w-2 h-2 rounded-full bg-gray-500"></span>
+                    <div class="absolute z-50 top-full mt-2 right-0 w-48 bg-gray-800 text-gray-200 text-xs rounded-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl border border-gray-700">
+                        <strong class="text-accentPurple">MANTRA (OM)</strong><br>Criptomoneda L1 de "Tokenización RWA".
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tabs Navigation -->
+        <div class="max-w-7xl mx-auto mt-4 flex gap-2 border-b border-borderGray overflow-x-auto custom-scrollbar">
+            <button onclick="switchTab('tab-btc', this)" class="tab-btn active flex items-center gap-2 whitespace-nowrap">
+                <i class="fa-brands fa-bitcoin"></i> Dashboard BTC
+            </button>
+            <button onclick="switchTab('tab-om', this)" class="tab-btn flex items-center gap-2 whitespace-nowrap">
+                <i class="fa-solid fa-om"></i> Dashboard OM (MANTRA)
+            </button>
+            <button onclick="switchTab('tab-report', this)" class="tab-btn flex items-center gap-2 whitespace-nowrap">
+                <i class="fa-solid fa-file-contract"></i> Informe Académico
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto p-4 space-y-6">
+
+        <!-- ============================================== -->
+        <!-- TAB 1: BTC DASHBOARD -->
+        <!-- ============================================== -->
+        <div id="tab-btc" class="tab-content active space-y-6">
+            
+            <!-- Filters & Macros Section -->
+            <div class="space-y-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <h3 class="text-lg font-bold flex items-center gap-2 text-white">
+                        <i class="fa-solid fa-globe text-accentBlue"></i> Entorno Macroeconómico
+                    </h3>
+                    
+                    <!-- Didactic Filters -->
+                    <div class="flex items-center gap-2 bg-darkBg p-1.5 rounded-lg border border-borderGray overflow-x-auto">
+                        <span class="text-xs text-gray-400 font-semibold px-2">Filtrar impacto en BTC:</span>
+                        <button onclick="filterMetrics('all')" id="btn-filter-all" class="px-3 py-1 text-xs rounded-md font-bold transition bg-gray-700 text-white">Todos</button>
+                        <button onclick="filterMetrics('bear')" id="btn-filter-bear" class="px-3 py-1 text-xs rounded-md font-bold transition text-gray-400 hover:text-red-400 border border-transparent hover:border-red-900/50"><i class="fa-solid fa-arrow-down text-accentRed"></i> Presión Bajista</button>
+                        <button onclick="filterMetrics('bull')" id="btn-filter-bull" class="px-3 py-1 text-xs rounded-md font-bold transition text-gray-400 hover:text-green-400 border border-transparent hover:border-green-900/50"><i class="fa-solid fa-arrow-up text-accentGreen"></i> Presión Alcista</button>
+                    </div>
+                </div>
+
+                <!-- Metrics Grid (5 cards) -->
+                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                    
+                    <!-- Índice Dólar (DXY) [BEARISH] -->
+                    <div class="metric-card bg-panelBg p-4 rounded-xl border border-borderGray flex flex-col justify-between relative group cursor-help hover:bg-gray-800" data-impact="bear">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs text-gray-400 uppercase tracking-wider flex items-center gap-1">Dólar (DXY) <i class="fa-solid fa-circle-info text-gray-500"></i></span>
+                            <i class="fa-solid fa-money-bill-1-wave text-green-600/30 text-2xl"></i>
+                        </div>
+                        <div>
+                            <span class="font-mono text-xl font-bold block text-gray-100">104.50</span>
+                            <span class="text-xs text-accentRed"><i class="fa-solid fa-arrow-trend-up"></i> Fuerte (Baja BTC)</span>
+                        </div>
+                        <!-- Tooltip -->
+                        <div class="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-3 w-64 bg-gray-800 text-gray-200 text-xs rounded-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl border border-gray-600">
+                            <strong class="text-green-500">Correlación Inversa</strong><br>
+                            El DXY mide la fuerza del dólar contra otras monedas. Si el dólar está <strong>fuerte</strong>, la gente prefiere el efectivo seguro y vende inversiones de riesgo como Bitcoin.
+                            <div class="tooltip-arrow border-t-gray-600"></div>
+                        </div>
+                    </div>
+
+                    <!-- Petróleo Brent [BEARISH] -->
+                    <div class="metric-card bg-panelBg p-4 rounded-xl border border-borderGray flex flex-col justify-between relative group cursor-help hover:bg-gray-800" data-impact="bear">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs text-gray-400 uppercase tracking-wider flex items-center gap-1">Petróleo Brent <i class="fa-solid fa-circle-info text-gray-500"></i></span>
+                            <i class="fa-solid fa-oil-well text-accentGold/30 text-2xl"></i>
+                        </div>
+                        <div>
+                            <span class="font-mono text-xl font-bold block text-accentGold">$95.79</span>
+                            <span class="text-xs text-accentRed"><i class="fa-solid fa-arrow-trend-up"></i> Inflacionario (Baja BTC)</span>
+                        </div>
+                        <!-- Tooltip -->
+                        <div class="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-3 w-64 bg-gray-800 text-gray-200 text-xs rounded-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl border border-gray-600">
+                            <strong class="text-accentGold">Generador de Inflación</strong><br>
+                            Si el petróleo sube por guerras, hay inflación global. Esto obliga a los bancos centrales a subir las tasas de interés, quitando dinero al mercado cripto.
+                            <div class="tooltip-arrow border-t-gray-600"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- OPV SpaceX [BEARISH] -->
+                    <div class="metric-card bg-panelBg p-4 rounded-xl border border-borderGray flex flex-col justify-between relative group cursor-help hover:bg-gray-800" data-impact="bear">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs text-gray-400 uppercase tracking-wider flex items-center gap-1">OPV SpaceX <i class="fa-solid fa-circle-info text-gray-500"></i></span>
+                            <i class="fa-solid fa-rocket text-accentBlue/30 text-2xl"></i>
+                        </div>
+                        <div>
+                            <span class="font-mono text-xl font-bold block text-accentBlue">$2.00T</span>
+                            <span class="text-xs text-accentRed"><i class="fa-solid fa-circle-arrow-down"></i> Drena liquidez (Baja BTC)</span>
+                        </div>
+                        <!-- Tooltip -->
+                        <div class="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-3 w-64 bg-gray-800 text-gray-200 text-xs rounded-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl border border-gray-600">
+                            <strong class="text-accentBlue">Succión de dinero</strong><br>
+                            Una "OPV" (Oferta Pública de Venta) masiva hace que los grandes fondos vendan sus criptomonedas para tener dólares y poder comprar acciones de SpaceX.
+                            <div class="tooltip-arrow border-t-gray-600"></div>
+                        </div>
+                    </div>
+
+                    <!-- Degradación Monetaria [BULLISH] -->
+                    <div class="metric-card bg-panelBg p-4 rounded-xl border border-borderGray flex flex-col justify-between relative group cursor-help hover:bg-gray-800" data-impact="bull">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs text-gray-400 uppercase tracking-wider flex items-center gap-1">Deval. Monetaria <i class="fa-solid fa-circle-info text-gray-500"></i></span>
+                            <i class="fa-solid fa-money-bill-trend-up text-accentRed/30 text-2xl"></i>
+                        </div>
+                        <div>
+                            <span class="font-mono text-xl font-bold block text-accentRed">8.00%</span>
+                            <span class="text-xs text-accentGreen"><i class="fa-solid fa-shield-halved"></i> Refugio (Sube BTC)</span>
+                        </div>
+                        <!-- Tooltip -->
+                        <div class="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-3 w-64 bg-gray-800 text-gray-200 text-xs rounded-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl border border-gray-600">
+                            <strong class="text-accentRed">El dinero fiat pierde valor</strong><br>
+                            Los gobiernos imprimen dinero constantemente. Los inversores compran Bitcoin (que tiene un límite fijo de 21 millones) para proteger sus ahorros a largo plazo contra la devaluación.
+                            <div class="tooltip-arrow border-t-gray-600"></div>
+                        </div>
+                    </div>
+
+                    <!-- Sentimiento [BULLISH] -->
+                    <div class="metric-card bg-panelBg p-4 rounded-xl border border-borderGray flex flex-col justify-between relative group cursor-help hover:bg-gray-800" data-impact="bull">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs text-gray-400 uppercase tracking-wider flex items-center gap-1">Sentimiento <i class="fa-solid fa-circle-info text-gray-500"></i></span>
+                            <i class="fa-solid fa-face-grimace text-orange-500/30 text-2xl"></i>
+                        </div>
+                        <div>
+                            <span class="font-mono text-lg font-bold block text-orange-500">Miedo Extremo</span>
+                            <span class="text-xs text-accentGreen"><i class="fa-solid fa-cart-shopping"></i> Oportunidad (Sube BTC)</span>
+                        </div>
+                        <!-- Tooltip -->
+                        <div class="absolute z-50 bottom-full right-0 mb-3 w-64 bg-gray-800 text-gray-200 text-xs rounded-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl border border-gray-600">
+                            <strong class="text-orange-500">Paradoja del mercado</strong><br>
+                            El "Fear & Greed Index" mide la emoción del mercado. Cuando hay "Miedo Extremo" y la gente vende con pánico, los profesionales lo ven como una oportunidad inmejorable para comprar barato.
+                            <div class="absolute top-full right-6 border-width-6 border-solid border-t-gray-600 border-x-transparent border-b-transparent"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projections Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Left: Interactive Projection Chart -->
+                <div class="lg:col-span-2 bg-panelBg p-6 rounded-2xl border border-borderGray flex flex-col gap-4">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-borderGray pb-4">
+                        <div>
+                            <h2 class="text-lg font-bold flex items-center gap-2">
+                                <i class="fa-solid fa-chart-area text-accentBlue"></i> Proyección Histórica e Interactiva (BTC a 4 Semanas)
+                            </h2>
+                            <p class="text-xs text-gray-400">Datos históricos de los últimos 6 meses + Simulador de escenarios futuros.</p>
+                        </div>
+                        <div class="flex bg-darkBg p-1 rounded-lg border border-borderGray">
+                            <button onclick="changeScenarioBtc('base')" id="btn-btc-base" class="px-3 py-1 text-xs rounded-md font-semibold transition bg-blue-500 text-white">Lateral</button>
+                            <button onclick="changeScenarioBtc('bull')" id="btn-btc-bull" class="px-3 py-1 text-xs rounded-md font-semibold transition text-gray-400 hover:text-white">Alcista</button>
+                            <button onclick="changeScenarioBtc('bear')" id="btn-btc-bear" class="px-3 py-1 text-xs rounded-md font-semibold transition text-gray-400 hover:text-white">Bajista</button>
+                        </div>
+                    </div>
+                    <div class="relative w-full h-[320px] md:h-[400px]">
+                        <canvas id="btcProjectionChart"></canvas>
+                    </div>
+                    <div id="btc-scenario-explanation" class="p-4 rounded-xl bg-darkBg border border-borderGray"></div>
+                </div>
+
+                <!-- Right: Semaphores -->
+                <div class="space-y-6">
+                    <div class="bg-panelBg p-6 rounded-2xl border border-borderGray space-y-4">
+                        <h3 class="text-md font-bold flex items-center gap-2">
+                            <i class="fa-solid fa-traffic-light"></i> Semáforo de Riesgo BTC
+                            <span class="group relative cursor-help inline-block ml-1">
+                                <i class="fa-solid fa-circle-question text-gray-500 text-xs hover:text-white"></i>
+                                <div class="absolute z-50 bottom-full right-0 mb-2 w-48 bg-gray-800 text-gray-200 text-xs rounded-lg p-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none border border-gray-600 font-normal">
+                                    Los semáforos indican la confirmación de la tendencia según precios clave.
+                                </div>
+                            </span>
+                        </h3>
+                        <div class="space-y-3">
+                            <div id="alarm-green-btc" class="flex items-start gap-3 p-3 rounded-xl border border-borderGray bg-darkBg">
+                                <span class="w-4 h-4 rounded-full bg-accentGreen mt-1 flex-shrink-0 glow-green"></span>
+                                <div><span class="font-bold text-sm block">Compra Fuerte (> $67,500)</span><span class="text-xs text-gray-400 block mt-0.5">Ruptura técnica provoca un "Short Squeeze" (compras forzadas).</span></div>
+                            </div>
+                            <div id="alarm-yellow-btc" class="flex items-start gap-3 p-3 rounded-xl border border-borderGray bg-darkBg border-l-4 border-l-accentGold">
+                                <span class="w-4 h-4 rounded-full bg-accentGold mt-1 flex-shrink-0 glow-gold"></span>
+                                <div><span class="font-bold text-sm block">Acumulación ($62K - $65K)</span><span class="text-xs text-gray-400 block mt-0.5">El mercado "se mueve de costado" absorbiendo malas noticias macro.</span></div>
+                            </div>
+                            <div id="alarm-red-btc" class="flex items-start gap-3 p-3 rounded-xl border border-borderGray bg-darkBg">
+                                <span class="w-4 h-4 rounded-full bg-accentRed mt-1 flex-shrink-0"></span>
+                                <div><span class="font-bold text-sm block">Capitulación (< $60,000)</span><span class="text-xs text-gray-400 block mt-0.5">"Capitular" es rendirse. Caída masiva hacia los $55,000.</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 2: OM (MANTRA) DASHBOARD -->
+        <!-- ============================================== -->
+        <div id="tab-om" class="tab-content space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-panelBg p-4 rounded-xl border border-borderGray flex items-center justify-between group cursor-help relative">
+                    <div>
+                        <span class="text-xs text-gray-400 uppercase tracking-wider block flex items-center gap-1">Narrativa <i class="fa-solid fa-circle-info text-gray-500"></i></span>
+                        <span class="font-mono text-xl font-bold block mt-1 text-accentPurple">RWA</span>
+                        <span class="text-xs text-gray-400">Tokenización institucional</span>
+                    </div>
+                    <i class="fa-solid fa-city text-accentPurple/20 text-3xl"></i>
+                    <div class="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-3 w-64 bg-gray-800 text-gray-200 text-xs rounded-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl border border-gray-600">
+                        <strong class="text-accentPurple">Real World Assets (RWA)</strong><br>
+                        Tecnología que convierte propiedades reales (oro, bonos, casas) en tokens dentro de la blockchain.
+                        <div class="tooltip-arrow border-t-gray-600"></div>
+                    </div>
+                </div>
+                <div class="bg-panelBg p-4 rounded-xl border border-borderGray flex items-center justify-between group cursor-help relative">
+                    <div>
+                        <span class="text-xs text-gray-400 uppercase tracking-wider block flex items-center gap-1">Correlación BTC <i class="fa-solid fa-circle-info text-gray-500"></i></span>
+                        <span class="font-mono text-xl font-bold block mt-1 text-accentGold">Moderada-Baja</span>
+                        <span class="text-xs text-accentGreen"><i class="fa-solid fa-shield-halved"></i> Activo de cobertura</span>
+                    </div>
+                    <i class="fa-solid fa-link text-accentGold/20 text-3xl"></i>
+                    <div class="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-3 w-64 bg-gray-800 text-gray-200 text-xs rounded-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl border border-gray-600">
+                        <strong class="text-accentGold">Correlación Baja</strong><br>
+                        Significa que OM no copia al 100% los movimientos de Bitcoin. Puede subir o mantenerse estable aunque el resto del mercado cripto se esté hundiendo.
+                        <div class="tooltip-arrow border-t-gray-600"></div>
+                    </div>
+                </div>
+                <div class="bg-panelBg p-4 rounded-xl border border-borderGray flex items-center justify-between group cursor-help relative">
+                    <div>
+                        <span class="text-xs text-gray-400 uppercase tracking-wider block flex items-center gap-1">Volumen 24h <i class="fa-solid fa-circle-info text-gray-500"></i></span>
+                        <span class="font-mono text-xl font-bold block mt-1 text-blue-400">+$120M</span>
+                        <span class="text-xs text-gray-400">Fuerte interés en Asia</span>
+                    </div>
+                    <i class="fa-solid fa-water text-blue-400/20 text-3xl"></i>
+                    <div class="absolute z-50 bottom-full right-0 mb-3 w-64 bg-gray-800 text-gray-200 text-xs rounded-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl border border-gray-600">
+                        <strong class="text-blue-400">Liquidez del Volumen</strong><br>
+                        Un volumen altísimo demuestra que muchas instituciones están comprando o vendiendo a diario, lo que hace muy difícil que una sola persona (ballena) pueda manipular su precio.
+                        <div class="absolute top-full right-6 border-width-6 border-solid border-t-gray-600 border-x-transparent border-b-transparent"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Chart OM -->
+                <div class="lg:col-span-2 bg-panelBg p-6 rounded-2xl border border-borderGray flex flex-col gap-4">
+                    <div class="flex justify-between items-center border-b border-borderGray pb-4">
+                        <h2 class="text-lg font-bold"><i class="fa-solid fa-chart-area text-accentPurple"></i> Historial (6 Meses) y Proyección OM</h2>
+                        <div class="flex bg-darkBg p-1 rounded-lg border border-borderGray">
+                            <button onclick="changeScenarioOm('base')" id="btn-om-base" class="px-3 py-1 text-xs rounded-md font-semibold transition bg-purple-500 text-white">Lateral</button>
+                            <button onclick="changeScenarioOm('bull')" id="btn-om-bull" class="px-3 py-1 text-xs rounded-md font-semibold transition text-gray-400 hover:text-white">Alcista</button>
+                            <button onclick="changeScenarioOm('bear')" id="btn-om-bear" class="px-3 py-1 text-xs rounded-md font-semibold transition text-gray-400 hover:text-white">Bajista</button>
+                        </div>
+                    </div>
+                    <div class="relative w-full h-[320px] md:h-[400px]"><canvas id="omProjectionChart"></canvas></div>
+                    <div id="om-scenario-explanation" class="p-4 rounded-xl bg-darkBg border border-borderGray"></div>
+                </div>
+
+                <!-- Catalysts -->
+                <div class="bg-panelBg p-6 rounded-2xl border border-borderGray">
+                    <h3 class="text-md font-bold mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group text-accentPurple"></i> Catalizadores de OM
+                        <span class="group relative cursor-help inline-block ml-1">
+                            <i class="fa-solid fa-circle-question text-gray-500 text-xs hover:text-white"></i>
+                            <div class="absolute z-50 bottom-full right-0 mb-2 w-56 bg-gray-800 text-gray-200 text-xs rounded-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none border border-gray-600 font-normal">
+                                <strong>Catalizador:</strong> Es un evento próximo que actúa como "gasolina" para que el precio suba.
+                            </div>
+                        </span>
+                    </h3>
+                    <div class="space-y-4 text-sm">
+                        <div class="border-l-2 border-accentPurple pl-3 relative group cursor-help">
+                            <span class="font-bold text-gray-200 block">Adopción RWA Institucional</span>
+                            <p class="text-xs text-gray-400 mt-1">Los fondos de inversión buscan tokenizar activos reales. MANTRA al ser una L1 regulada captura este flujo.</p>
+                        </div>
+                        <div class="border-l-2 border-accentBlue pl-3 relative group cursor-help">
+                            <span class="font-bold text-gray-200 block">Mainnet y Staking</span>
+                            <p class="text-xs text-gray-400 mt-1">El lanzamiento y consolidación de la red principal extrae circulante del mercado (shock de oferta).</p>
+                        </div>
+                        <div class="border-l-2 border-accentGold pl-3">
+                            <span class="font-bold text-gray-200 block">Regulación Asiática</span>
+                            <p class="text-xs text-gray-400 mt-1">Avances en regulaciones cripto en Hong Kong y UAE benefician directamente a MANTRA.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 3: INFORME ACADÉMICO -->
+        <!-- ============================================== -->
+        <div id="tab-report" class="tab-content bg-panelBg p-8 rounded-2xl border border-borderGray space-y-8">
+            <div class="text-center border-b border-borderGray pb-6">
+                <h1 class="text-3xl font-extrabold text-white mb-2">Informe: Análisis y Pronóstico Cripto</h1>
+                <p class="text-gray-400">Evaluación de BTC y OM-USD (Últimos 6 meses y Proyección a 4 semanas)</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Parte 1: Análisis de los últimos 6 meses -->
+                <div class="space-y-4">
+                    <h2 class="text-xl font-bold text-accentBlue flex items-center gap-2">
+                        <i class="fa-solid fa-clock-rotate-left"></i> 1. Comportamiento (Últimos 6 Meses)
+                    </h2>
+                    
+                    <div class="bg-darkBg p-5 rounded-xl border border-borderGray space-y-3">
+                        <h3 class="font-bold text-white"><i class="fa-brands fa-bitcoin text-accentGold"></i> Bitcoin (BTC-USD)</h3>
+                        <p class="text-sm text-gray-300 leading-relaxed">
+                            Durante los últimos 6 meses (Enero a Junio 2026), Bitcoin ha experimentado una maduración institucional sin precedentes. Tras el éxito de los ETFs al contado, este semestre se caracterizó por un fuerte "holding" institucional. 
+                        </p>
+                        <p class="text-sm text-gray-300 leading-relaxed">
+                            A pesar de esto, BTC ha enfrentado fuertes vientos en contra macroeconómicos, principalmente la inflación persistente y las políticas monetarias restrictivas. Esto ha mantenido el precio en un canal lateral de acumulación entre los $60,000 y $72,000, un proceso necesario para purificar el apalancamiento excesivo en el mercado de derivados.
+                        </p>
+                    </div>
+
+                    <div class="bg-darkBg p-5 rounded-xl border border-borderGray space-y-3">
+                        <h3 class="font-bold text-white"><i class="fa-solid fa-om text-accentPurple"></i> MANTRA (OM-USD)</h3>
+                        <p class="text-sm text-gray-300 leading-relaxed">
+                            A diferencia de Bitcoin y de la mayoría de "Altcoins" que han sufrido grandes caídas, OM ha mostrado un comportamiento fuertemente desacoplado y en tendencia alcista semestral. Su motor principal ha sido la narrativa de los RWA (Real World Assets) y los acuerdos de tokenización firmados en Medio Oriente y Asia.
+                        </p>
+                        <p class="text-sm text-gray-300 leading-relaxed">
+                            Al ser una cadena de bloques de capa 1 (L1) regulada, atrajo liquidez institucional directa que buscaba alternativas a BTC, confirmándose como un activo de fuerte convicción tecnológica.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Parte 2: Pronóstico 3 a 4 Semanas -->
+                <div class="space-y-4">
+                    <h2 class="text-xl font-bold text-accentGreen flex items-center gap-2">
+                        <i class="fa-solid fa-forward-fast"></i> 2. Pronóstico (Próximas 3 a 4 Semanas)
+                    </h2>
+                    
+                    <div class="bg-darkBg p-5 rounded-xl border border-borderGray space-y-4">
+                        <h3 class="font-bold text-white border-b border-borderGray pb-2">Factores Externos y Geopolíticos</h3>
+                        
+                        <ul class="space-y-3 text-sm text-gray-300">
+                            <li class="flex gap-2">
+                                <i class="fa-solid fa-money-bill-1-wave text-green-500 mt-1"></i>
+                                <span><strong>Fuerza del Dólar (DXY):</strong> El DXY sostenido sobre los 104 puntos ejerce una fuerte presión bajista sobre los activos de riesgo. Los inversores prefieren el rendimiento seguro del dólar antes que exponerse a cripto a corto plazo.</span>
+                            </li>
+                            <li class="flex gap-2 relative group cursor-help">
+                                <i class="fa-solid fa-oil-well text-accentGold mt-1"></i>
+                                <span><strong>Tensiones en Medio Oriente y Petróleo:</strong> El Brent cerca de los $95 reaviva temores inflacionarios. Curiosamente, a mediano plazo esto fortalece a Bitcoin como activo de refugio alternativo fuera del sistema fiat.</span>
+                                <div class="absolute z-50 bottom-full left-10 mb-2 w-64 bg-gray-800 text-gray-200 text-xs rounded-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl border border-gray-600">
+                                    <strong>¿Activo Refugio?</strong> Es un activo que protege tus ahorros cuando el dinero normal pierde su valor debido a la inflación global por conflictos bélicos.
+                                </div>
+                            </li>
+                            <li class="flex gap-2">
+                                <i class="fa-solid fa-rocket text-accentBlue mt-1"></i>
+                                <span><strong>OPVs Institucionales:</strong> Eventos bursátiles masivos en EE.UU. (como la OPV de SpaceX) drenarán la liquidez excedente en el próximo mes, cortando el combustible para un repunte alcista inmediato de BTC.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Parte 3: Conclusión -->
+            <div class="bg-darkBg p-6 rounded-xl border border-borderGray">
+                <h3 class="font-bold text-white mb-2 text-lg">Predicción Final del Grupo</h3>
+                <p class="text-sm text-gray-300 leading-relaxed">
+                    <strong>Para Bitcoin (BTC):</strong> Pronosticamos un comportamiento <strong>Lateral-Bajista</strong> para el próximo mes. La fuerza del Dólar (DXY) y el drenaje de liquidez bursátil mantendrán el precio atrapado entre los $60,000 y $65,000. Existe un 30% de probabilidad de sufrir una "capitulación" hacia los $55,000 si los eventos geopolíticos desencadenan un pánico generalizado en Wall Street.
+                </p>
+                <p class="text-sm text-gray-300 leading-relaxed mt-3">
+                    <strong>Para MANTRA (OM):</strong> Pronosticamos un comportamiento <strong>Lateral-Alcista</strong>. Al depender más del desarrollo intrínseco B2B (empresas tokenizando activos en Asia) y tener poca correlación con el estrés financiero de EE.UU., OM probará resistencias por encima de los $0.90, consolidándose como uno de los líderes indiscutibles del sector RWA de este ciclo.
+                </p>
+            </div>
+        </div>
+
+        <!-- Chat AI Bottom Section -->
+        <div class="bg-panelBg p-6 rounded-2xl border border-borderGray flex flex-col gap-4 mt-8">
+            <div class="flex justify-between items-center border-b border-borderGray pb-3">
+                <div>
+                    <h3 class="text-md font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-brain text-accentBlue"></i> Terminal de Consulta AI: Asistente del Grupo
+                    </h3>
+                    <p class="text-xs text-gray-400">Hazme preguntas sobre los pronósticos, los 6 meses pasados o términos macroeconómicos.</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-xs text-gray-400 font-mono">Modo: Activo</span>
+                    <div class="w-2.5 h-2.5 rounded-full bg-accentGreen"></div>
+                </div>
+            </div>
+
+            <!-- Chat history log -->
+            <div class="flex-grow h-40 overflow-y-auto space-y-3 p-3 bg-darkBg rounded-xl border border-borderGray text-sm custom-scrollbar" id="chat-box">
+                <div class="flex gap-2">
+                    <span class="font-extrabold text-accentBlue shrink-0">AI del Grupo:</span>
+                    <p class="text-gray-300">¡Hola! Soy la IA integrada a este informe grupal. Pregúntame sobre el análisis de los últimos 6 meses, los factores geopolíticos o por qué usamos el DXY para pronosticar a Bitcoin.</p>
+                </div>
+            </div>
+
+            <!-- Input area -->
+            <div class="flex gap-2">
+                <input type="text" id="chat-input" class="flex-grow bg-darkBg border border-borderGray rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-accentBlue text-gray-100 font-sans" placeholder="Escribe tu consulta...">
+                <button onclick="sendChatMessage()" class="bg-accentBlue hover:bg-blue-700 transition px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 shrink-0">
+                    <span>Consultar</span> <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+            <!-- API Key -->
+            <details class="text-[11px] text-gray-500 cursor-pointer">
+                <summary>Configurar clave API propia Gemini (Opcional)</summary>
+                <div class="flex gap-2 mt-2">
+                    <input type="password" id="user-api-key" class="bg-darkBg border border-borderGray px-2 py-1 rounded text-xs w-full" placeholder="Ingresa tu Gemini API Key...">
+                </div>
+            </details>
+        </div>
+
+    </main>
+
+    <footer class="border-t border-borderGray bg-panelBg/50 mt-12 py-6 text-center text-xs text-gray-500">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p>Trabajo Grupal - Análisis de Datos para los Negocios. Las predicciones son meramente informativas y académicas.</p>
+        </div>
+    </footer>
+
+    <!-- Core Application Script -->
+    <script>
+        // Interactive Filter Logic
+        function filterMetrics(type) {
+            document.getElementById('btn-filter-all').className = "px-3 py-1 text-xs rounded-md font-bold transition text-gray-400 hover:text-white border border-transparent";
+            document.getElementById('btn-filter-bear').className = "px-3 py-1 text-xs rounded-md font-bold transition text-gray-400 hover:text-red-400 border border-transparent hover:border-red-900/50";
+            document.getElementById('btn-filter-bull').className = "px-3 py-1 text-xs rounded-md font-bold transition text-gray-400 hover:text-green-400 border border-transparent hover:border-green-900/50";
+            
+            if(type === 'all') {
+                document.getElementById('btn-filter-all').classList.add('bg-gray-700', 'text-white');
+                changeScenarioBtc('base');
+            }
+            if(type === 'bear') {
+                document.getElementById('btn-filter-bear').classList.add('bg-red-900/40', 'text-red-400', 'border-red-900');
+                changeScenarioBtc('bear');
+            }
+            if(type === 'bull') {
+                document.getElementById('btn-filter-bull').classList.add('bg-green-900/40', 'text-green-400', 'border-green-900');
+                changeScenarioBtc('bull');
+            }
+
+            const cards = document.querySelectorAll('.metric-card');
+            cards.forEach(card => {
+                if(type === 'all') {
+                    card.classList.remove('metric-dimmed');
+                } else {
+                    if(card.getAttribute('data-impact') === type) card.classList.remove('metric-dimmed');
+                    else card.classList.add('metric-dimmed');
+                }
+            });
+        }
+
+        // Tab Switcher
+        function switchTab(tabId, btnElement) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            btnElement.classList.add('active');
+        }
+
+        // --- HISTORICAL DATA (6 MONTHS) ---
+        const histDates = ["Ene 26", "Feb 26", "Mar 26", "Abr 26", "May 26", "Jun 26 (Hoy)", "Sem 1", "Sem 2", "Sem 3", "Sem 4"];
+        const btcHistPrices = [42000, 51000, 71000, 64000, 68000, 62621];
+        const omHistPrices = [0.15, 0.25, 0.50, 0.70, 0.95, 0.85];
+        
+        let btcChartInstance = null;
+        let omChartInstance = null;
+
+        // Projections
+        const projBtc = {
+            base: { title: "Escenario Lateral (50%)", prices: [62621, 63100, 62400, 64200, 63800], color: '#3B82F6', desc: "Consolidación en el rango de $62k-$65k. El mercado asimila los altos tipos de interés y la fuerza del DXY." },
+            bull: { title: "Escenario Alcista (20%)", prices: [62621, 65500, 67800, 71700, 73750], color: '#10B981', desc: "Una debilidad repentina del dólar propicia un rebote táctico y ruptura sobre los $67,500 (Short Squeeze)." },
+            bear: { title: "Escenario Bajista (30%)", prices: [62621, 61200, 59500, 57400, 55000], color: '#EF4444', desc: "Capitulación violenta. La falta de liquidez por OPVs institucionales hunde a BTC bajo los $60,000 temporalmente." }
+        };
+
+        const projOm = {
+            base: { title: "Escenario Lateral (60%)", prices: [0.85, 0.82, 0.86, 0.88, 0.90], color: '#8B5CF6', desc: "MANTRA absorbe lentamente el capital en Asia manteniendo una estructura constructiva superior a $0.80." },
+            bull: { title: "Escenario Alcista (30%)", prices: [0.85, 0.92, 1.05, 1.15, 1.25], color: '#10B981', desc: "La narrativa RWA explota gracias a una nueva alianza institucional, empujando el token parabólicamente sobre $1.00." },
+            bear: { title: "Escenario Bajista (10%)", prices: [0.85, 0.75, 0.65, 0.60, 0.55], color: '#EF4444', desc: "Una caída macro de Bitcoin arrastra forzosamente a todo el ecosistema de altcoins, perforando soportes." }
+        };
+
+        function initCharts() {
+            // Chart BTC
+            btcChartInstance = new Chart(document.getElementById('btcProjectionChart').getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: histDates,
+                    datasets: [
+                        {
+                            label: 'Histórico BTC (Ene-Jun)',
+                            data: [...btcHistPrices, null, null, null, null],
+                            borderColor: '#6B7280', backgroundColor: 'rgba(107, 114, 128, 0.1)', borderWidth: 2, fill: true, tension: 0.3
+                        },
+                        {
+                            label: 'Proyección 4 Semanas',
+                            data: [...Array(5).fill(null), ...projBtc.base.prices],
+                            borderColor: projBtc.base.color, borderDash: [5,5], borderWidth: 3, pointBackgroundColor: projBtc.base.color, fill: false, tension: 0.3
+                        }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { grid: { color: '#1F2937' }, ticks: { color: '#9CA3AF' } }, x: { grid: { color: '#1F2937' }, ticks: { color: '#9CA3AF' } } }, plugins: { legend: { labels: { color: '#9CA3AF' } } } }
+            });
+
+            // Chart OM
+            omChartInstance = new Chart(document.getElementById('omProjectionChart').getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: histDates,
+                    datasets: [
+                        {
+                            label: 'Histórico OM (Ene-Jun)',
+                            data: [...omHistPrices, null, null, null, null],
+                            borderColor: '#9CA3AF', backgroundColor: 'rgba(156, 163, 175, 0.1)', borderWidth: 2, fill: true, tension: 0.3
+                        },
+                        {
+                            label: 'Proyección 4 Semanas',
+                            data: [...Array(5).fill(null), ...projOm.base.prices],
+                            borderColor: projOm.base.color, borderDash: [5,5], borderWidth: 3, pointBackgroundColor: projOm.base.color, fill: false, tension: 0.3
+                        }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { grid: { color: '#1F2937' }, ticks: { color: '#9CA3AF' } }, x: { grid: { color: '#1F2937' }, ticks: { color: '#9CA3AF' } } }, plugins: { legend: { labels: { color: '#9CA3AF' } } } }
+            });
+            
+            updateExp('btc', 'base');
+            updateExp('om', 'base');
+        }
+
+        function changeScenarioBtc(scen) {
+            document.querySelectorAll('#tab-btc button').forEach(b => { if(b.id.startsWith('btn-btc-')) b.className="px-3 py-1 text-xs rounded-md font-semibold transition text-gray-400 hover:text-white" });
+            const colors = {base:'bg-blue-500 text-white', bull:'bg-green-500 text-white', bear:'bg-red-500 text-white'};
+            document.getElementById('btn-btc-'+scen).className = "px-3 py-1 text-xs rounded-md font-semibold transition " + colors[scen];
+            btcChartInstance.data.datasets[1].data = [...Array(5).fill(null), ...projBtc[scen].prices];
+            btcChartInstance.data.datasets[1].borderColor = projBtc[scen].color;
+            btcChartInstance.data.datasets[1].pointBackgroundColor = projBtc[scen].color;
+            btcChartInstance.update(); updateExp('btc', scen);
+        }
+
+        function changeScenarioOm(scen) {
+            document.querySelectorAll('#tab-om button').forEach(b => { if(b.id.startsWith('btn-om-')) b.className="px-3 py-1 text-xs rounded-md font-semibold transition text-gray-400 hover:text-white" });
+            const colors = {base:'bg-purple-500 text-white', bull:'bg-green-500 text-white', bear:'bg-red-500 text-white'};
+            document.getElementById('btn-om-'+scen).className = "px-3 py-1 text-xs rounded-md font-semibold transition " + colors[scen];
+            omChartInstance.data.datasets[1].data = [...Array(5).fill(null), ...projOm[scen].prices];
+            omChartInstance.data.datasets[1].borderColor = projOm[scen].color;
+            omChartInstance.data.datasets[1].pointBackgroundColor = projOm[scen].color;
+            omChartInstance.update(); updateExp('om', scen);
+        }
+
+        function updateExp(tab, scen) {
+            const data = tab === 'btc' ? projBtc[scen] : projOm[scen];
+            document.getElementById(tab+'-scenario-explanation').innerHTML = `
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="w-3 h-3 rounded-full" style="background-color: ${data.color}"></span>
+                    <h4 class="font-bold text-sm text-gray-200">${data.title}</h4>
+                </div>
+                <p class="text-xs text-gray-300 leading-relaxed">${data.desc}</p>
+            `;
+        }
+
+        // Live prices fetch
+        async function fetchPrices() {
+            try {
+                const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,mantra-dao&vs_currencies=usd');
+                const data = await res.json();
+                if (data.bitcoin) {
+                    document.getElementById('current-price-btc').innerText = '$' + data.bitcoin.usd.toLocaleString();
+                    document.getElementById('price-badge-btc').className = "w-2 h-2 rounded-full bg-accentGreen animate-pulse";
+                }
+                if (data['mantra-dao']) {
+                    document.getElementById('current-price-om').innerText = '$' + data['mantra-dao'].usd.toLocaleString();
+                    document.getElementById('price-badge-om').className = "w-2 h-2 rounded-full bg-accentPurple animate-pulse";
+                }
+            } catch (e) {
+                document.getElementById('current-price-btc').innerText = '$62,621';
+                document.getElementById('current-price-om').innerText = '$0.85';
+            }
+        }
+
+        // Full AI Chatbot implementation with robust fetch and retry
+        async function sendChatMessage() {
+            const chatBox = document.getElementById('chat-box');
+            const chatInput = document.getElementById('chat-input');
+            const prompt = chatInput.value.trim();
+            const userApiKey = document.getElementById('user-api-key').value.trim();
+
+            if (!prompt) return;
+
+            // User message
+            chatBox.innerHTML += `
+                <div class="flex gap-2">
+                    <span class="font-extrabold text-accentGreen shrink-0">Usuario:</span>
+                    <p class="text-gray-300">${prompt.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</p>
+                </div>
+            `;
+            chatInput.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Loading
+            const loadingId = 'loading-' + Date.now();
+            chatBox.innerHTML += `
+                <div class="flex gap-2 text-gray-500 font-mono text-xs" id="${loadingId}">
+                    <span>Procesando consulta técnica...</span>
+                    <i class="fa-solid fa-spinner animate-spin"></i>
+                </div>
+            `;
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            const systemPrompt = `Actúa como el asistente virtual integrado en un informe académico universitario de criptomonedas. 
+            Responde de manera educativa y pedagógica. 
+            Contexto del informe:
+            - Análisis retrospectivo de los últimos 6 meses: Bitcoin consolidó institucionalmente (ETF) pero sufrió por tasas altas. MANTRA (OM) tuvo tendencia alcista fuerte desacoplada gracias a adopción RWA (Real World Assets) en Asia.
+            - Pronóstico (próximas 4 semanas): Para BTC es lateral-bajista ($60k-$65k) debido a Dólar fuerte (DXY > 104), inflación por el petróleo Brent y drenaje de liquidez (ej. OPV de SpaceX). Para MANTRA (OM) es lateral-alcista (>$0.90) por fundamentales fuertes y baja correlación con BTC.
+            Utiliza formato Markdown (negritas) para destacar términos clave. Responde de forma clara en un par de párrafos cortos.`;
+
+            try {
+                // Determine API Key
+                const apiKey = userApiKey || "";
+                
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+                const payload = { contents: [{ parts: [{ text: prompt }] }], systemInstruction: { parts: [{ text: systemPrompt }] } };
+
+                // Exponential backoff fetch
+                const fetchWithRetry = async (url, options, retries = 3, delay = 1000) => {
+                    try {
+                        const res = await fetch(url, options);
+                        if (!res.ok) {
+                            if (res.status === 429 && retries > 0) {
+                                await new Promise(resolve => setTimeout(resolve, delay));
+                                return fetchWithRetry(url, options, retries - 1, delay * 2);
+                            }
+                            throw new Error(`HTTP ${res.status}`);
+                        }
+                        return res;
+                    } catch (err) {
+                        if (retries > 0) {
+                            await new Promise(resolve => setTimeout(resolve, delay));
+                            return fetchWithRetry(url, options, retries - 1, delay * 2);
+                        }
+                        throw err;
+                    }
+                };
+
+                const response = await fetchWithRetry(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+                const candidate = result.candidates?.[0];
+                let replyText = candidate?.content?.parts?.[0]?.text || "Disculpa, hubo un problema al generar la respuesta.";
+
+                // Markdown parsing (bold to HTML)
+                replyText = replyText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                replyText = replyText.replace(/\*(.*?)\*/g, '<em>$1</em>');
+                replyText = replyText.split('\n').map(p => p ? `<p>${p}</p>` : '').join('');
+
+                document.getElementById(loadingId).remove();
+                chatBox.innerHTML += `
+                    <div class="flex gap-2">
+                        <span class="font-extrabold text-accentBlue shrink-0">AI:</span>
+                        <div class="text-gray-300 space-y-2">${replyText}</div>
+                    </div>
+                `;
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+            } catch (error) {
+                document.getElementById(loadingId).remove();
+                chatBox.innerHTML += `
+                    <div class="flex gap-2 text-accentRed">
+                        <span class="font-bold shrink-0">Error de conexión:</span>
+                        <p class="text-xs">No se pudo acceder a la IA. Motivo: ${error.message}. Por favor, inserta tu clave de Gemini API en la configuración (abajo) si el servidor se encuentra congestionado.</p>
+                    </div>
+                `;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        }
+
+        document.getElementById('chat-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') sendChatMessage();
+        });
+
+        window.onload = function() {
+            initCharts();
+            fetchPrices();
+            setInterval(fetchPrices, 30000); // Polling every 30s
+            document.getElementById('btn-btc-base').classList.add('bg-blue-500');
+            document.getElementById('btn-filter-all').classList.add('bg-gray-700', 'text-white');
+            document.getElementById('btn-om-base').classList.add('bg-purple-500');
+        };
+    </script>
+</body>
+</html>
