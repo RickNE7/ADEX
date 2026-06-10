@@ -7,6 +7,10 @@
     
     <meta name="description" content="Evidencia de Aprendizaje 1 (EA1). Plan de negocios de importación, distribución y alquiler de tecnología interactiva para eventos.">
     <meta name="author" content="Global Event Imports S.A.C.">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#030712">
     
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👑</text></svg>">
 
@@ -51,6 +55,16 @@
             position: absolute;
             top: 0;
             left: 0;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            padding-top: 1rem;
+            padding-bottom: 2rem;
+        }
+        @media (min-width: 768px) {
+            .slide {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
         }
         .slide.active {
             display: flex;
@@ -101,7 +115,7 @@
         }
     </style>
 </head>
-<body class="text-slate-100 h-screen flex flex-col justify-between relative text-sm md:text-base">
+<body class="text-slate-100 h-[100dvh] flex flex-col justify-between relative text-sm md:text-base">
 
     <!-- CONTENEDOR DE FONDO -->
     <div id="bg-container" class="fixed inset-0 w-full h-full z-0 pointer-events-none" aria-hidden="true"></div>
@@ -120,15 +134,18 @@
                     <span class="font-black text-base md:text-lg tracking-wider text-white">GLOBAL EVENT</span>
                     <span class="text-[10px] md:text-xs text-gold-400 font-bold uppercase tracking-widest leading-none md:ml-1">Imports</span>
                 </div>
-                <span class="bg-gold-500/10 text-gold-400 border border-gold-500/20 px-2 py-0.5 rounded text-[10px] font-mono ml-2 font-bold hidden sm:inline">EA1 | v4.5.0</span>
+                <span class="bg-gold-500/10 text-gold-400 border border-gold-500/20 px-2 py-0.5 rounded text-[10px] font-mono ml-2 font-bold hidden sm:inline">EA1 | v4.6.0</span>
             </div>
             
-            <div class="flex items-center space-x-4 text-xs">
+            <div class="flex items-center space-x-2 md:space-x-4 text-xs">
+                <button onclick="toggleFullScreen()" class="flex items-center space-x-1 bg-slate-800/50 hover:bg-gold-500/20 text-slate-300 hover:text-gold-400 px-2 py-1.5 rounded border border-slate-700/80 hover:border-gold-500/50 transition-all shadow-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+                    <span class="font-semibold hidden md:inline">Pantalla Completa</span>
+                </button>
                 <a href="https://rickne7.github.io/ADEX/index_planificacion.html" class="flex items-center space-x-1 bg-slate-800/50 hover:bg-gold-500/20 text-slate-300 hover:text-gold-400 px-2 py-1.5 rounded border border-slate-700/80 hover:border-gold-500/50 transition-all shadow-sm">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                    <span class="font-semibold hidden md:inline">Volver al menú</span>
+                    <span class="font-semibold hidden lg:inline">Volver al menú</span>
                 </a>
-                <span class="bg-navy-900/80 px-2 py-1 rounded border border-slate-800/80 text-slate-300 hidden lg:inline">ADEX | Planificación en Negocios Internacionales</span>
                 <span class="font-mono text-gold-400 font-bold bg-navy-950 px-2 py-1.5 rounded border border-gold-500/30 shadow-inner" id="slide-indicator">1 / 9</span>
             </div>
         </nav>
@@ -143,7 +160,7 @@
     <main class="flex-grow flex items-center justify-center relative px-4 w-full max-w-7xl mx-auto z-10 py-4 overflow-hidden">
         
         <!-- SLIDE 1: PORTADA -->
-        <section class="slide active w-full flex-col justify-center" id="slide-1">
+        <section class="slide active flex-col justify-start md:justify-center" id="slide-1">
             <div class="text-center md:text-left animate-fade-in-up">
                 <span class="px-3 py-1 bg-gold-500/10 text-gold-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-gold-500/20">Evidencia de Aprendizaje 1 (EA1)</span>
                 <h1 class="text-4xl md:text-6xl lg:text-7xl font-black text-white mt-4 tracking-tight leading-none drop-shadow-2xl">
@@ -172,7 +189,7 @@
         </section>
 
         <!-- SLIDE 2: IDENTIDAD ESTRATÉGICA -->
-        <section class="slide w-full flex-col justify-center" id="slide-new-2">
+        <section class="slide flex-col justify-start md:justify-center" id="slide-new-2">
             <div class="text-center mb-6">
                 <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-blue-500/20">Identidad Corporativa</span>
                 <h2 class="text-3xl md:text-5xl font-black text-white mt-3 drop-shadow-md">¿Quiénes Somos?</h2>
@@ -212,7 +229,7 @@
         </section>
 
         <!-- SLIDE 3: DOLOR VS SOLUCIÓN -->
-        <section class="slide w-full flex-col justify-center" id="slide-2">
+        <section class="slide flex-col justify-start md:justify-center" id="slide-2">
             <div class="text-center mb-6">
                 <span class="px-3 py-1 bg-amber-500/10 text-amber-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-amber-500/20">Análisis del Mercado B2B</span>
                 <h2 class="text-3xl md:text-5xl font-black text-white mt-3 drop-shadow-md">El Dolor y Nuestra Solución</h2>
@@ -247,7 +264,7 @@
         </section>
 
         <!-- SLIDE 3: PORTAFOLIO -->
-        <section class="slide w-full flex-col justify-center" id="slide-3">
+        <section class="slide flex-col justify-start md:justify-center" id="slide-3">
             <div class="text-center mb-4">
                 <span class="px-3 py-1 bg-gold-500/10 text-gold-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-gold-500/20">Portafolio Tecnológico</span>
                 <h2 class="text-3xl md:text-4xl font-black text-white mt-2 drop-shadow-md">Líneas de Importación</h2>
@@ -313,7 +330,7 @@
         </section>
 
         <!-- SLIDE 4: ESTRUCTURA ORGANIZACIONAL -->
-        <section class="slide w-full flex-col justify-center" id="slide-4">
+        <section class="slide flex-col justify-start md:justify-center" id="slide-4">
             <div class="text-center mb-2 md:mb-4">
                 <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-cyan-500/20">Recursos Humanos</span>
                 <h2 class="text-3xl md:text-4xl font-black text-white mt-2 drop-shadow-md">Rediseño: Organigrama de Jefaturas</h2>
@@ -837,6 +854,17 @@
             }
             if(cardEl) {
                 cardEl.classList.add('bg-slate-700/60', 'scale-[1.02]', 'border-slate-500', 'shadow-lg');
+            }
+        }
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log(`Error attempting to enable full-screen mode: ${err.message}`);
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
             }
         }
     </script>
