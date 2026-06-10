@@ -45,7 +45,8 @@
             display: none;
             opacity: 0;
             transition: opacity 0.4s ease-in-out;
-            height: calc(100vh - 140px); /* Adjust height to fit between header and footer */
+            height: 100%;
+            width: 100%;
             overflow-y: auto;
         }
         .slide.active {
@@ -120,7 +121,7 @@
     </header>
 
     <!-- MAIN CONTENT -->
-    <main class="flex-grow flex items-center justify-center relative px-4 w-full max-w-7xl mx-auto z-10 py-4">
+    <main class="flex-grow flex items-center justify-center relative px-4 w-full max-w-7xl mx-auto z-10 py-4 overflow-hidden">
         
         <!-- SLIDE 1: PORTADA -->
         <section class="slide active w-full flex-col justify-center" id="slide-1">
@@ -151,7 +152,47 @@
             </div>
         </section>
 
-        <!-- SLIDE 2: DOLOR VS SOLUCIÓN -->
+        <!-- SLIDE 2: IDENTIDAD ESTRATÉGICA -->
+        <section class="slide w-full flex-col justify-center" id="slide-new-2">
+            <div class="text-center mb-6">
+                <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-blue-500/20">Identidad Corporativa</span>
+                <h2 class="text-3xl md:text-5xl font-black text-white mt-3 drop-shadow-md">¿Quiénes Somos?</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl mx-auto">
+                <article class="p-6 md:p-8 bg-navy-950/85 border border-slate-700/80 rounded-2xl flex flex-col justify-between backdrop-blur-md shadow-2xl border-t-4 border-t-blue-500">
+                    <div>
+                        <h3 class="text-blue-400 text-xl font-bold mb-3 uppercase tracking-wider">Visión</h3>
+                        <p class="text-slate-200 text-sm md:text-base font-light leading-relaxed">
+                            "Consolidarnos como la empresa líder en Entertainment Tech Rental en el Perú, alcanzando un 18% del mercado corporativo de Lima y expandiendo operaciones a Trujillo y Arequipa."
+                        </p>
+                    </div>
+                </article>
+
+                <article class="p-6 md:p-8 bg-navy-950/85 border border-slate-700/80 rounded-2xl flex flex-col justify-between backdrop-blur-md shadow-2xl border-t-4 border-t-gold-500">
+                    <div>
+                        <h3 class="text-gold-400 text-xl font-bold mb-3 uppercase tracking-wider">Misión</h3>
+                        <p class="text-slate-200 text-sm md:text-base font-light leading-relaxed">
+                            "Transformar los eventos sociales y corporativos en el Perú proveyendo a las productoras B2B soluciones audiovisuales automatizadas de alta calidad y una entrega logística eficiente y puntual."
+                        </p>
+                    </div>
+                </article>
+
+                <article class="p-6 md:p-8 bg-navy-950/85 border border-slate-700/80 rounded-2xl flex flex-col justify-between backdrop-blur-md shadow-2xl border-t-4 border-t-emerald-500">
+                    <div>
+                        <h3 class="text-emerald-400 text-xl font-bold mb-3 uppercase tracking-wider">Valores</h3>
+                        <ul class="text-slate-200 text-sm font-light leading-relaxed space-y-2 list-disc pl-4 marker:text-emerald-500">
+                            <li><strong class="text-white font-semibold">Confiabilidad:</strong> Montajes testeados 45 min antes.</li>
+                            <li><strong class="text-white font-semibold">Vanguardia:</strong> Relación directa con Shenzhen.</li>
+                            <li><strong class="text-white font-semibold">Sostenibilidad:</strong> Cero plásticos de un solo uso.</li>
+                            <li><strong class="text-white font-semibold">Transparencia:</strong> Operativa y táctica.</li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- SLIDE 3: DOLOR VS SOLUCIÓN -->
         <section class="slide w-full flex-col justify-center" id="slide-2">
             <div class="text-center mb-6">
                 <span class="px-3 py-1 bg-amber-500/10 text-amber-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-amber-500/20">Análisis del Mercado B2B</span>
@@ -583,6 +624,7 @@
             <button onclick="goToSlide(6)" class="dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-slate-700 transition"></button>
             <button onclick="goToSlide(7)" class="dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-slate-700 transition"></button>
             <button onclick="goToSlide(8)" class="dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-slate-700 transition"></button>
+            <button onclick="goToSlide(9)" class="dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-slate-700 transition"></button>
         </div>
 
         <div class="text-[10px] md:text-xs text-slate-500 font-mono hidden sm:block">
@@ -592,18 +634,19 @@
 
     <!-- Lógica JavaScript Principal -->
     <script>
-        const TOTAL_SLIDES = 8;
+        const TOTAL_SLIDES = 9;
         let currentSlide = 1;
 
         const backgrounds = {
             1: "url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
-            2: "url('https://images.unsplash.com/photo-1517457373958-b7bdd4587205?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
-            3: "url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
-            4: "url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
-            5: "url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
-            6: "url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
-            7: "url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
-            8: "url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')"
+            2: "url('https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+            3: "url('https://images.unsplash.com/photo-1517457373958-b7bdd4587205?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+            4: "url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+            5: "url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+            6: "url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+            7: "url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+            8: "url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+            9: "url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')"
         };
 
         function updateUI() {
