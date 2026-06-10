@@ -44,10 +44,13 @@
         .slide {
             display: none;
             opacity: 0;
-            transition: opacity 0.4s ease-in-out;
+            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
             height: 100%;
             width: 100%;
             overflow-y: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
         .slide.active {
             display: flex;
@@ -101,7 +104,7 @@
                     <span class="font-black text-base md:text-lg tracking-wider text-white">GLOBAL EVENT</span>
                     <span class="text-[10px] md:text-xs text-gold-400 font-bold uppercase tracking-widest leading-none md:ml-1">Imports</span>
                 </div>
-                <span class="bg-gold-500/10 text-gold-400 border border-gold-500/20 px-2 py-0.5 rounded text-[10px] font-mono ml-2 font-bold hidden sm:inline">EA1 | v3.9.0</span>
+                <span class="bg-gold-500/10 text-gold-400 border border-gold-500/20 px-2 py-0.5 rounded text-[10px] font-mono ml-2 font-bold hidden sm:inline">EA1 | v4.3.0</span>
             </div>
             
             <div class="flex items-center space-x-4 text-xs">
@@ -110,7 +113,7 @@
                     <span class="font-semibold hidden md:inline">Volver al menú</span>
                 </a>
                 <span class="bg-navy-900/80 px-2 py-1 rounded border border-slate-800/80 text-slate-300 hidden lg:inline">ADEX | Planificación en Negocios Internacionales</span>
-                <span class="font-mono text-gold-400 font-bold bg-navy-950 px-2 py-1.5 rounded border border-gold-500/30 shadow-inner" id="slide-indicator">1 / 8</span>
+                <span class="font-mono text-gold-400 font-bold bg-navy-950 px-2 py-1.5 rounded border border-gold-500/30 shadow-inner" id="slide-indicator">1 / 9</span>
             </div>
         </nav>
         
@@ -142,12 +145,12 @@
                     Equipo Fundador (Grupo 1)
                 </h2>
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-xs md:text-sm">
-                    <div class="flex flex-col"><span class="font-semibold text-white">Maria Ruiz</span></div>
-                    <div class="flex flex-col"><span class="font-semibold text-white">Marilin Medina</span></div>
-                    <div class="flex flex-col"><span class="font-semibold text-white">Jostin Chavez</span></div>
-                    <div class="flex flex-col"><span class="font-semibold text-white">Eric Mozombite</span></div>
-                    <div class="flex flex-col"><span class="font-semibold text-white">Yhurem García</span></div>
-                    <div class="flex flex-col"><span class="font-semibold text-white">Jahir Castillo</span></div>
+                    <div class="flex flex-col"><span class="font-semibold text-white">Maria Ruiz <span class="text-gold-400 text-[10px] ml-1">100%</span></span></div>
+                    <div class="flex flex-col"><span class="font-semibold text-white">Marilin Medina <span class="text-gold-400 text-[10px] ml-1">100%</span></span></div>
+                    <div class="flex flex-col"><span class="font-semibold text-white">Jostin Chavez <span class="text-gold-400 text-[10px] ml-1">100%</span></span></div>
+                    <div class="flex flex-col"><span class="font-semibold text-white">Eric Mozombite <span class="text-gold-400 text-[10px] ml-1">100%</span></span></div>
+                    <div class="flex flex-col"><span class="font-semibold text-white">Yhurem García <span class="text-gold-400 text-[10px] ml-1">100%</span></span></div>
+                    <div class="flex flex-col"><span class="font-semibold text-white">Jahir Castillo <span class="text-gold-400 text-[10px] ml-1">100%</span></span></div>
                 </div>
             </div>
         </section>
@@ -400,7 +403,7 @@
         </section>
 
         <!-- SLIDE 5: POLÍTICAS -->
-        <section class="slide w-full flex-col justify-center" id="slide-5">
+        <section class="slide absolute inset-0 w-full flex-col justify-center opacity-0 transition-all duration-600 ease-out" id="slide-5">
             <div class="text-center mb-6">
                 <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-emerald-500/20">Políticas Corporativas</span>
                 <h2 class="text-3xl md:text-4xl font-black text-white mt-2 drop-shadow-md">Marco Normativo Interno</h2>
@@ -427,7 +430,7 @@
         </section>
 
         <!-- SLIDE 6: MATRIZ DE ESTRATEGIAS -->
-        <section class="slide w-full flex-col justify-center" id="slide-6">
+        <section class="slide absolute inset-0 w-full flex-col justify-center opacity-0 transition-all duration-600 ease-out" id="slide-6">
             <div class="text-center mb-6">
                 <span class="px-3 py-1 bg-purple-500/10 text-purple-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-purple-500/20">Ejecución</span>
                 <h2 class="text-3xl md:text-4xl font-black text-white mt-2 drop-shadow-md">Matriz de Estrategias EA1</h2>
@@ -464,7 +467,7 @@
         </section>
 
         <!-- SLIDE 7: CONTROL FINANCIERO Y BSC -->
-        <section class="slide w-full flex-col justify-center" id="slide-7">
+        <section class="slide absolute inset-0 w-full flex-col justify-center opacity-0 transition-all duration-600 ease-out" id="slide-7">
             <div class="text-center mb-6">
                 <span class="px-3 py-1 bg-red-500/10 text-red-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-red-500/20">Balanced Scorecard</span>
                 <h2 class="text-3xl md:text-4xl font-black text-white mt-2 drop-shadow-md">Control de Viabilidad</h2>
@@ -521,7 +524,7 @@
         </section>
 
         <!-- SLIDE 8: DOCUMENTACIÓN OFICIAL (ENLACES ACROBAT) -->
-        <section class="slide w-full flex-col justify-center" id="slide-8">
+        <section class="slide absolute inset-0 w-full flex-col justify-center opacity-0 transition-all duration-600 ease-out" id="slide-8">
             <div class="text-center mb-4">
                 <span class="px-3 py-1 bg-red-600/20 text-red-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-red-500/30">Repositorio Final</span>
                 <h2 class="text-3xl md:text-4xl font-black text-white mt-2 drop-shadow-md">Documentación Oficial EA1</h2>
@@ -533,71 +536,83 @@
                 <div class="w-1/3 md:w-1/4 border-r border-slate-800 bg-navy-900/50 flex flex-col overflow-y-auto p-4 gap-4 shrink-0">
                     
                     <!-- Doc 1 -->
-                    <div onclick="loadDoc('./Informe General - EA1.pdf', 'desc-1', this)" class="doc-card group text-left bg-slate-800/40 hover:bg-slate-700/80 rounded-xl p-3 border border-slate-700 hover:border-red-500/50 transition-all cursor-pointer flex flex-col gap-2">
+                    <div onclick="loadDoc('./Informe General - EA1.pdf', 'desc-1', this)" class="doc-card group text-left bg-slate-800/40 hover:bg-slate-700/80 rounded-xl p-3 border border-slate-700 hover:border-red-500/50 transition-all duration-500 ease-in-out cursor-pointer flex flex-col">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-14 bg-slate-100 rounded shadow-sm border border-slate-300 flex-shrink-0 flex flex-col p-1.5 relative group-hover:scale-105 transition-transform">
-                                <div class="w-full h-2 bg-red-600 rounded-sm mb-1 opacity-90"></div>
+                            <div class="w-10 h-14 bg-slate-100 rounded shadow-sm border border-slate-300 flex-shrink-0 flex flex-col p-1.5 relative group-hover:scale-105 transition-transform duration-500 ease-in-out">
+                                <div class="w-full h-2 bg-red-600 rounded-sm mb-1 opacity-90 transition-opacity duration-500 group-hover:opacity-100"></div>
                                 <div class="w-3/4 h-1 bg-slate-300 rounded-full mb-1"></div>
                                 <div class="w-full h-1 bg-slate-300 rounded-full mb-1"></div>
                                 <div class="w-5/6 h-1 bg-slate-300 rounded-full mb-1"></div>
                                 <div class="absolute bottom-1 right-1 text-[7px] font-black text-slate-400">PDF</div>
                             </div>
                             <div>
-                                <h4 class="text-white text-xs md:text-sm font-bold group-hover:text-red-400 transition-colors">Informe General</h4>
+                                <h4 class="text-white text-xs md:text-sm font-bold group-hover:text-red-400 transition-colors duration-500">Informe General</h4>
                                 <p class="text-slate-400 text-[9px] md:text-[10px] mt-0.5">Plan Maestro EA1</p>
                             </div>
                         </div>
-                        <div id="desc-1" class="doc-desc hidden text-[10px] md:text-xs text-slate-300 border-t border-slate-700/50 pt-3 mt-2 pb-2 leading-relaxed">
-                            <span class="text-white font-semibold">Resumen General:</span><br>
-                            Contiene el resumen ejecutivo de Global Event Imports, el análisis del dolor de mercado B2B, la identidad estratégica y el planteamiento de los objetivos SMART.<br><br>
-                            <span class="text-white font-semibold">Puntos Clave:</span><br>
-                            Detalla el plan inicial de marketing y operaciones, la gestión de recursos humanos y presenta las matrices de estrategias comerciales y operativas con su respectiva justificación de viabilidad.
+                        <div id="desc-1" class="doc-desc-wrapper grid grid-rows-[0fr] opacity-0 transition-all duration-500 ease-in-out">
+                            <div class="overflow-hidden">
+                                <div class="text-[10px] md:text-xs text-slate-300 border-t border-slate-700/50 pt-3 mt-3 pb-1 leading-relaxed">
+                                    <span class="text-white font-semibold">Resumen General:</span><br>
+                                    Contiene el resumen ejecutivo de Global Event Imports, el análisis del dolor de mercado B2B, la identidad estratégica y el planteamiento de los objetivos SMART.<br><br>
+                                    <span class="text-white font-semibold">Puntos Clave:</span><br>
+                                    Detalla el plan inicial de marketing y operaciones, la gestión de recursos humanos y presenta las matrices de estrategias comerciales y operativas con su respectiva justificación de viabilidad.
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Doc 2 -->
-                    <div onclick="loadDoc('./Anexo 1 - Politicas Corporativas.pdf', 'desc-2', this)" class="doc-card group text-left bg-slate-800/40 hover:bg-slate-700/80 rounded-xl p-3 border border-slate-700 hover:border-gold-500/50 transition-all cursor-pointer flex flex-col gap-2">
+                    <div onclick="loadDoc('./Anexo 1 - Politicas Corporativas.pdf', 'desc-2', this)" class="doc-card group text-left bg-slate-800/40 hover:bg-slate-700/80 rounded-xl p-3 border border-slate-700 hover:border-gold-500/50 transition-all duration-500 ease-in-out cursor-pointer flex flex-col">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-14 bg-slate-100 rounded shadow-sm border border-slate-300 flex-shrink-0 flex flex-col p-1.5 relative group-hover:scale-105 transition-transform">
-                                <div class="w-full h-2 bg-gold-500 rounded-sm mb-1 opacity-90"></div>
+                            <div class="w-10 h-14 bg-slate-100 rounded shadow-sm border border-slate-300 flex-shrink-0 flex flex-col p-1.5 relative group-hover:scale-105 transition-transform duration-500 ease-in-out">
+                                <div class="w-full h-2 bg-gold-500 rounded-sm mb-1 opacity-90 transition-opacity duration-500 group-hover:opacity-100"></div>
                                 <div class="w-full h-1 bg-slate-300 rounded-full mb-1"></div>
                                 <div class="w-3/4 h-1 bg-slate-300 rounded-full mb-1"></div>
                                 <div class="w-full h-1 bg-slate-300 rounded-full mb-1"></div>
                                 <div class="absolute bottom-1 right-1 text-[7px] font-black text-slate-400">PDF</div>
                             </div>
                             <div>
-                                <h4 class="text-white text-xs md:text-sm font-bold group-hover:text-gold-400 transition-colors">Anexo 1: Políticas</h4>
+                                <h4 class="text-white text-xs md:text-sm font-bold group-hover:text-gold-400 transition-colors duration-500">Anexo 1: Políticas</h4>
                                 <p class="text-slate-400 text-[9px] md:text-[10px] mt-0.5">Normativa Interna</p>
                             </div>
                         </div>
-                        <div id="desc-2" class="doc-desc hidden text-[10px] md:text-xs text-slate-300 border-t border-slate-700/50 pt-3 mt-2 pb-2 leading-relaxed">
-                            <span class="text-white font-semibold">Resumen General:</span><br>
-                            Constituye el marco normativo e institucional que regula y alinea la toma de decisiones estratégicas, tácticas y operativas de la compañía.<br><br>
-                            <span class="text-white font-semibold">Puntos Clave:</span><br>
-                            Establece políticas de gobernanza corporativa, logísticas (importación y aduanas), financieras, de gestión de recursos humanos y de calidad de servicio (como el protocolo OTIF).
+                        <div id="desc-2" class="doc-desc-wrapper grid grid-rows-[0fr] opacity-0 transition-all duration-500 ease-in-out">
+                            <div class="overflow-hidden">
+                                <div class="text-[10px] md:text-xs text-slate-300 border-t border-slate-700/50 pt-3 mt-3 pb-1 leading-relaxed">
+                                    <span class="text-white font-semibold">Resumen General:</span><br>
+                                    Constituye el marco normativo e institucional que regula y alinea la toma de decisiones estratégicas, tácticas y operativas de la compañía.<br><br>
+                                    <span class="text-white font-semibold">Puntos Clave:</span><br>
+                                    Establece políticas de gobernanza corporativa, logísticas (importación y aduanas), financieras, de gestión de recursos humanos y de calidad de servicio (como el protocolo OTIF).
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Doc 3 -->
-                    <div onclick="loadDoc('./Anexo 2 - MOF y Organigrama.pdf', 'desc-3', this)" class="doc-card group text-left bg-slate-800/40 hover:bg-slate-700/80 rounded-xl p-3 border border-slate-700 hover:border-emerald-500/50 transition-all cursor-pointer flex flex-col gap-2">
+                    <div onclick="loadDoc('./Anexo 2 - MOF y Organigrama.pdf', 'desc-3', this)" class="doc-card group text-left bg-slate-800/40 hover:bg-slate-700/80 rounded-xl p-3 border border-slate-700 hover:border-emerald-500/50 transition-all duration-500 ease-in-out cursor-pointer flex flex-col">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-14 bg-slate-100 rounded shadow-sm border border-slate-300 flex-shrink-0 flex flex-col p-1.5 relative group-hover:scale-105 transition-transform">
-                                <div class="w-full h-2 bg-emerald-500 rounded-sm mb-1 opacity-90"></div>
+                            <div class="w-10 h-14 bg-slate-100 rounded shadow-sm border border-slate-300 flex-shrink-0 flex flex-col p-1.5 relative group-hover:scale-105 transition-transform duration-500 ease-in-out">
+                                <div class="w-full h-2 bg-emerald-500 rounded-sm mb-1 opacity-90 transition-opacity duration-500 group-hover:opacity-100"></div>
                                 <div class="w-4/5 h-1 bg-slate-300 rounded-full mb-1"></div>
                                 <div class="w-5/6 h-1 bg-slate-300 rounded-full mb-1"></div>
                                 <div class="w-3/4 h-1 bg-slate-300 rounded-full mb-1"></div>
                                 <div class="absolute bottom-1 right-1 text-[7px] font-black text-slate-400">PDF</div>
                             </div>
                             <div>
-                                <h4 class="text-white text-xs md:text-sm font-bold group-hover:text-emerald-400 transition-colors">Anexo 2: MOF</h4>
+                                <h4 class="text-white text-xs md:text-sm font-bold group-hover:text-emerald-400 transition-colors duration-500">Anexo 2: MOF</h4>
                                 <p class="text-slate-400 text-[9px] md:text-[10px] mt-0.5">Manual y Organigrama</p>
                             </div>
                         </div>
-                        <div id="desc-3" class="doc-desc hidden text-[10px] md:text-xs text-slate-300 border-t border-slate-700/50 pt-3 mt-2 pb-2 leading-relaxed">
-                            <span class="text-white font-semibold">Resumen General:</span><br>
-                            Presenta la estructura organizacional horizontal de la empresa y el Manual de Organización y Funciones (MOF) detallado para todas las jefaturas.<br><br>
-                            <span class="text-white font-semibold">Puntos Clave:</span><br>
-                            Define rigurosamente la descripción, funciones específicas, factores de evaluación (KPIs) y el perfil de competencias técnicas y blandas requeridas para cada puesto directivo y operativo.
+                        <div id="desc-3" class="doc-desc-wrapper grid grid-rows-[0fr] opacity-0 transition-all duration-500 ease-in-out">
+                            <div class="overflow-hidden">
+                                <div class="text-[10px] md:text-xs text-slate-300 border-t border-slate-700/50 pt-3 mt-3 pb-1 leading-relaxed">
+                                    <span class="text-white font-semibold">Resumen General:</span><br>
+                                    Presenta la estructura organizacional horizontal de la empresa y el Manual de Organización y Funciones (MOF) detallado para todas las jefaturas.<br><br>
+                                    <span class="text-white font-semibold">Puntos Clave:</span><br>
+                                    Define rigurosamente la descripción, funciones específicas, factores de evaluación (KPIs) y el perfil de competencias técnicas y blandas requeridas para cada puesto directivo y operativo.
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
@@ -615,7 +630,7 @@
                     </div>
                     <!-- Iframe -->
                     <div class="flex-grow w-full relative">
-                        <iframe id="pdf-viewer" src="./Informe General - EA1.pdf" class="absolute inset-0 w-full h-full border-0" allowfullscreen></iframe>
+                        <iframe id="pdf-viewer" src="./Informe General - EA1.pdf" class="absolute inset-0 w-full h-full border-0 transition-opacity duration-500 ease-in-out" allowfullscreen></iframe>
                     </div>
                 </div>
 
@@ -672,11 +687,23 @@
         };
 
         function updateUI() {
-            // Actualizar Diapositivas
+            // Actualizar Diapositivas con crossfade suave
             document.querySelectorAll('.slide').forEach((slide, idx) => {
-                slide.classList.remove('active');
-                if(idx + 1 === currentSlide) {
-                    slide.classList.add('active');
+                if (idx + 1 === currentSlide) {
+                    slide.style.display = 'flex';
+                    // Escalado inicial suave para el slide que entra
+                    slide.style.transform = 'scale(0.98)';
+                    slide.style.zIndex = '10';
+                    setTimeout(() => {
+                        slide.style.opacity = '1';
+                        slide.style.transform = 'scale(1)';
+                    }, 50);
+                } else {
+                    slide.style.opacity = '0';
+                    slide.style.transform = 'scale(1.02)';
+                    slide.style.zIndex = '0';
+                    // Esperar 600ms antes de hacer display none para permitir el crossfade
+                    setTimeout(() => slide.style.display = 'none', 600);
                 }
             });
 
@@ -760,18 +787,29 @@
 
         // Cargador de Documentos
         function loadDoc(src, descId, cardEl) {
-            document.getElementById('pdf-viewer').src = src;
+            // Animación suave de opacidad para el visor PDF
+            const viewer = document.getElementById('pdf-viewer');
+            viewer.style.opacity = 0.5;
+            setTimeout(() => {
+                viewer.src = src;
+                viewer.style.opacity = 1;
+            }, 300);
             
-            // Ocultar todas las descripciones y resetear estilos
-            document.querySelectorAll('.doc-desc').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.doc-card').forEach(el => el.classList.remove('bg-slate-700/60', 'scale-[1.02]', 'border-slate-500'));
+            // Ocultar todas las descripciones con transición suave
+            document.querySelectorAll('.doc-desc-wrapper').forEach(el => {
+                el.classList.remove('grid-rows-[1fr]', 'opacity-100');
+                el.classList.add('grid-rows-[0fr]', 'opacity-0');
+            });
+            document.querySelectorAll('.doc-card').forEach(el => el.classList.remove('bg-slate-700/60', 'scale-[1.02]', 'border-slate-500', 'shadow-lg'));
             
             // Mostrar la descripción activa y resaltar tarjeta
             if(descId) {
-                document.getElementById(descId).classList.remove('hidden');
+                const activeDesc = document.getElementById(descId);
+                activeDesc.classList.remove('grid-rows-[0fr]', 'opacity-0');
+                activeDesc.classList.add('grid-rows-[1fr]', 'opacity-100');
             }
             if(cardEl) {
-                cardEl.classList.add('bg-slate-700/60', 'scale-[1.02]', 'border-slate-500');
+                cardEl.classList.add('bg-slate-700/60', 'scale-[1.02]', 'border-slate-500', 'shadow-lg');
             }
         }
     </script>
