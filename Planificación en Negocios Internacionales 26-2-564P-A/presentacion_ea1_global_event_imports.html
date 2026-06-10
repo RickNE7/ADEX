@@ -101,6 +101,9 @@
             background: rgba(30, 41, 59, 0.5);
             border-radius: 4px;
         }
+        .custom-scrollbar {
+            -webkit-overflow-scrolling: touch;
+        }
         .custom-scrollbar::-webkit-scrollbar-thumb {
             background: rgba(251, 191, 36, 0.6);
             border-radius: 4px;
@@ -134,7 +137,7 @@
                     <span class="font-black text-base md:text-lg tracking-wider text-white">GLOBAL EVENT</span>
                     <span class="text-[10px] md:text-xs text-gold-400 font-bold uppercase tracking-widest leading-none md:ml-1">Imports</span>
                 </div>
-                <span class="bg-gold-500/10 text-gold-400 border border-gold-500/20 px-2 py-0.5 rounded text-[10px] font-mono ml-2 font-bold hidden sm:inline">EA1 | v4.7.0</span>
+                <span class="bg-gold-500/10 text-gold-400 border border-gold-500/20 px-2 py-0.5 rounded text-[10px] font-mono ml-2 font-bold hidden sm:inline">EA1 | v4.13.0</span>
             </div>
             
             <div class="flex items-center space-x-2 md:space-x-4 text-xs">
@@ -190,16 +193,16 @@
 
         <!-- SLIDE 2: IDENTIDAD ESTRATÉGICA -->
         <section class="slide flex-col justify-start md:justify-center" id="slide-new-2">
-            <div class="text-center mb-6">
+            <div class="text-center mb-3 md:mb-6">
                 <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-blue-500/20">Identidad Corporativa</span>
-                <h2 class="text-3xl md:text-5xl font-black text-white mt-3 drop-shadow-md">¿Quiénes Somos?</h2>
+                <h2 class="text-xl sm:text-2xl md:text-5xl font-black text-white mt-1 md:mt-3 drop-shadow-md">¿Quiénes Somos?</h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl mx-auto overflow-y-auto max-h-[60vh] md:max-h-none custom-scrollbar p-1">
                 <article class="p-6 md:p-8 bg-navy-950/85 border border-slate-700/80 rounded-2xl flex flex-col justify-between backdrop-blur-md shadow-2xl border-t-4 border-t-blue-500">
                     <div>
                         <h3 class="text-blue-400 text-xl font-bold mb-3 uppercase tracking-wider">Visión</h3>
-                        <p class="text-slate-200 text-sm md:text-base font-light leading-relaxed">
+                        <p class="text-slate-200 text-xs md:text-sm font-light leading-relaxed">
                             "Consolidarnos como la empresa líder en Entertainment Tech Rental en el Perú, alcanzando un 18% del mercado corporativo de Lima y expandiendo operaciones a Trujillo y Arequipa."
                         </p>
                     </div>
@@ -208,7 +211,7 @@
                 <article class="p-6 md:p-8 bg-navy-950/85 border border-slate-700/80 rounded-2xl flex flex-col justify-between backdrop-blur-md shadow-2xl border-t-4 border-t-gold-500">
                     <div>
                         <h3 class="text-gold-400 text-xl font-bold mb-3 uppercase tracking-wider">Misión</h3>
-                        <p class="text-slate-200 text-sm md:text-base font-light leading-relaxed">
+                        <p class="text-slate-200 text-xs md:text-sm font-light leading-relaxed">
                             "Transformar los eventos sociales y corporativos en el Perú proveyendo a las productoras B2B soluciones audiovisuales automatizadas de alta calidad y una entrega logística eficiente y puntual."
                         </p>
                     </div>
@@ -217,7 +220,7 @@
                 <article class="p-6 md:p-8 bg-navy-950/85 border border-slate-700/80 rounded-2xl flex flex-col justify-between backdrop-blur-md shadow-2xl border-t-4 border-t-emerald-500">
                     <div>
                         <h3 class="text-emerald-400 text-xl font-bold mb-3 uppercase tracking-wider">Valores</h3>
-                        <ul class="text-slate-200 text-sm font-light leading-relaxed space-y-2 list-disc pl-4 marker:text-emerald-500">
+                        <ul class="text-slate-200 text-xs md:text-sm font-light leading-relaxed space-y-2 list-disc pl-4 marker:text-emerald-500">
                             <li><strong class="text-white font-semibold">Confiabilidad:</strong> Montajes testeados 45 min antes.</li>
                             <li><strong class="text-white font-semibold">Vanguardia:</strong> Relación directa con Shenzhen.</li>
                             <li><strong class="text-white font-semibold">Sostenibilidad:</strong> Cero plásticos de un solo uso.</li>
@@ -230,33 +233,32 @@
 
         <!-- SLIDE 3: DOLOR VS SOLUCIÓN -->
         <section class="slide flex-col justify-start md:justify-center" id="slide-2">
-            <div class="text-center mb-6">
+            <div class="text-center mb-3 md:mb-6">
                 <span class="px-3 py-1 bg-amber-500/10 text-amber-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-amber-500/20">Análisis del Mercado B2B</span>
-                <h2 class="text-3xl md:text-5xl font-black text-white mt-3 drop-shadow-md">El Dolor y Nuestra Solución</h2>
+                <h2 class="text-xl sm:text-2xl md:text-5xl font-black text-white mt-1 md:mt-3 drop-shadow-md">El Dolor y Nuestra Solución</h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-5xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-5xl mx-auto overflow-y-auto max-h-[60vh] md:max-h-none custom-scrollbar p-1">
                 <article class="p-6 md:p-8 bg-slate-950/85 border border-red-500/30 rounded-2xl flex flex-col justify-between backdrop-blur-md shadow-2xl">
                     <div>
                         <div class="flex items-center mb-4">
                             <div class="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center text-red-500 mr-3 text-xl font-black">X</div>
-                            <h3 class="text-red-500 text-2xl font-bold">El Dolor Tradicional</h3>
+                            <h3 class="text-red-500 text-sm md:text-2xl font-bold uppercase">El Dolor Tradicional</h3>
                         </div>
-                        <p class="text-slate-200 text-sm md:text-base font-light leading-relaxed">
-                            La decoración estática está saturada de competidores informales. Sufren **altas mermas físicas (10%-15%)** por rotura de materiales en cada evento y canibalización de precios.
+                        <p class="text-slate-200 text-xs md:text-sm font-light leading-relaxed">
+                            La decoración estática está saturada de competidores informales. Sufren altas mermas físicas (10%-15%) por rotura de materiales en cada evento y canibalización de precios.
                         </p>
                     </div>
                 </article>
 
-                <article class="p-6 md:p-8 bg-gold-950/40 border border-gold-500/40 rounded-2xl flex flex-col justify-between backdrop-blur-md shadow-2xl relative overflow-hidden">
-                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-gold-500/10 rounded-full blur-2xl"></div>
-                    <div class="relative z-10">
+                <article class="p-6 md:p-8 bg-slate-950/85 border border-amber-500/30 rounded-2xl flex flex-col justify-between backdrop-blur-md shadow-2xl">
+                    <div>
                         <div class="flex items-center mb-4">
-                            <div class="w-10 h-10 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 mr-3 text-xl font-black">✓</div>
-                            <h3 class="text-gold-400 text-2xl font-bold">Nuestra Solución Tech</h3>
+                            <div class="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-500 mr-3 text-xl font-black">✓</div>
+                            <h3 class="text-amber-500 text-sm md:text-2xl font-bold uppercase">Nuestra Solución Tech</h3>
                         </div>
-                        <p class="text-slate-100 text-sm md:text-base font-light leading-relaxed">
-                            Importación de activos tecnológicos (CAPEX) reutilizables con entrega digital inmediata (QR). Garantizamos un margen operativo alto y escalabilidad masiva con **mermas menores al 1.5%**.
+                        <p class="text-slate-200 text-xs md:text-sm font-light leading-relaxed">
+                            Importación de activos tecnológicos (CAPEX) reutilizables con entrega digital inmediata (QR). Garantizamos un margen operativo alto y escalabilidad masiva con mermas menores al 1.5%.
                         </p>
                     </div>
                 </article>
@@ -265,9 +267,9 @@
 
         <!-- SLIDE 3: PORTAFOLIO -->
         <section class="slide flex-col justify-start md:justify-center" id="slide-3">
-            <div class="text-center mb-4">
+            <div class="text-center mb-2 md:mb-4">
                 <span class="px-3 py-1 bg-gold-500/10 text-gold-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-gold-500/20">Portafolio Tecnológico</span>
-                <h2 class="text-3xl md:text-4xl font-black text-white mt-2 drop-shadow-md">Líneas de Importación</h2>
+                <h2 class="text-xl sm:text-2xl md:text-4xl font-black text-white mt-1 md:mt-2 drop-shadow-md">Líneas de Importación</h2>
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 w-full">
@@ -333,15 +335,15 @@
         <section class="slide flex-col justify-start md:justify-center" id="slide-4">
             <div class="text-center mb-2 md:mb-4">
                 <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-cyan-500/20">Recursos Humanos</span>
-                <h2 class="text-3xl md:text-4xl font-black text-white mt-2 drop-shadow-md">Rediseño: Organigrama de Jefaturas</h2>
-                <p class="text-slate-300 text-sm mt-2 max-w-3xl mx-auto hidden md:block">Estructura operativa horizontal para evitar el sesgo de "hiper-gerenciamiento". Participación 100% activa en la operación.</p>
+                <h2 class="text-xl sm:text-2xl md:text-4xl font-black text-white mt-1 md:mt-2 drop-shadow-md">Organigrama</h2>
+                <p class="text-slate-300 text-sm mt-2 max-w-3xl mx-auto hidden md:block">Estructura ágil y eficiente diseñada para maximizar el control operativo y la capacidad de respuesta en cada evento.</p>
             </div>
 
             <div class="bg-navy-950/80 border border-slate-800/80 rounded-xl p-3 md:p-4 shadow-2xl backdrop-blur-md w-full max-w-6xl mx-auto mt-2 h-[65vh] md:h-auto overflow-hidden">
                 
                 <div class="flex flex-col md:items-center w-full py-2 md:py-4 relative h-full overflow-y-auto md:overflow-visible custom-scrollbar">
                     <!-- Gerencia General -->
-                    <div class="bg-navy-900 border border-gold-400 rounded-xl p-3 shadow-[0_0_20px_rgba(251,191,36,0.15)] w-full md:w-64 text-center z-10 relative shrink-0 mx-auto">
+                    <div class="bg-navy-900 border border-gold-400 rounded-xl p-3 shadow-[0_0_20px_rgba(251,191,36,0.15)] w-[85%] md:w-64 text-center z-10 relative shrink-0 mx-auto">
                         <h3 class="text-gold-400 font-black text-sm tracking-wider uppercase mb-1">Gerencia General</h3>
                         <p class="text-white text-xs font-semibold">Maria Ruiz</p>
                     </div>
@@ -360,9 +362,9 @@
                     <div class="flex flex-col md:flex-row justify-between w-full md:w-[85%] mt-4 gap-4 md:gap-0 relative z-10 md:items-stretch shrink-0">
                         
                         <!-- Rama Admin -->
-                        <div class="flex flex-col items-center w-full md:w-[30%] bg-slate-800/30 md:bg-transparent p-3 md:p-0 rounded-xl">
-                            <div class="bg-slate-800 border border-slate-500 rounded-lg p-2 w-full md:w-[85%] text-center shadow-md">
-                                <h4 class="text-slate-300 font-bold text-[10px] uppercase tracking-wide">Área de Administración y Finanzas</h4>
+                        <div class="flex flex-col items-center w-full md:w-[30%] bg-slate-800/30 md:bg-transparent py-3 px-0 md:p-0 rounded-xl">
+                            <div class="bg-slate-800 border border-slate-500 rounded-lg p-2 w-[85%] md:w-[85%] text-center shadow-md">
+                                <h4 class="text-slate-300 font-bold text-[11px] md:text-xs uppercase tracking-wide">Área de Administración y Finanzas</h4>
                             </div>
                             <div class="hidden md:block h-4 w-0.5 bg-emerald-500/60"></div>
                             
@@ -372,17 +374,17 @@
                             </div>
                             
                             <div class="flex justify-center w-full mt-2 md:mt-4 px-0 md:px-1 h-full">
-                                <div class="bg-navy-900 border border-emerald-400 rounded-lg p-2 w-full text-center hover:-translate-y-1 transition duration-300 shadow-[0_0_15px_rgba(52,211,153,0.15)] flex flex-col justify-center">
-                                    <h4 class="text-emerald-400 font-bold text-[10px] mb-1">Jefatura de Administración y Finanzas</h4>
-                                    <p class="text-slate-200 text-[9px] leading-tight">Marilin Medina</p>
+                                <div class="bg-navy-900 border border-emerald-400 rounded-lg p-2 w-[85%] md:w-full text-center hover:-translate-y-1 transition duration-300 shadow-[0_0_15px_rgba(52,211,153,0.15)] flex flex-col justify-center">
+                                    <h4 class="text-emerald-400 font-bold text-[11px] md:text-xs mb-1">Jefatura de Administración y Finanzas</h4>
+                                    <p class="text-slate-200 text-[10px] md:text-xs leading-tight">Marilin Medina</p>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Rama Ops -->
                         <div class="flex flex-col items-center w-full md:w-[34%] relative bg-slate-800/30 md:bg-transparent p-3 md:p-0 rounded-xl px-0 md:px-1">
-                            <div class="bg-slate-800 border border-slate-500 rounded-lg p-2 w-full md:w-[90%] text-center shadow-md">
-                                <h4 class="text-slate-300 font-bold text-[10px] uppercase tracking-wide">Área de Operaciones y Logística</h4>
+                            <div class="bg-slate-800 border border-slate-500 rounded-lg p-2 w-[85%] md:w-[90%] text-center shadow-md">
+                                <h4 class="text-slate-300 font-bold text-[11px] md:text-xs uppercase tracking-wide">Área de Operaciones y Logística</h4>
                             </div>
                             <div class="hidden md:block h-4 w-0.5 bg-sky-500/60"></div>
                             
@@ -392,22 +394,22 @@
                                 <div class="absolute right-0 top-0 h-4 w-[1px] bg-sky-500/60"></div>
                             </div>
                             
-                            <div class="flex flex-col md:flex-row justify-between w-full mt-2 md:mt-4 gap-2 h-full">
-                                <div class="bg-navy-900 border border-sky-400 rounded-lg p-2 w-full md:w-1/2 text-center hover:-translate-y-1 transition duration-300 shadow-[0_0_15px_rgba(56,189,248,0.15)] flex flex-col justify-center">
-                                    <h4 class="text-sky-400 font-bold text-[10px] mb-1">Jef. Operaciones y Soporte Técnico</h4>
-                                    <p class="text-slate-200 text-[9px] leading-tight">Eric Mozombite</p>
+                            <div class="flex flex-col md:flex-row items-center justify-center w-full mt-2 md:mt-4 gap-2 h-full">
+                                <div class="bg-navy-900 border border-sky-400 rounded-lg p-2 w-[85%] md:w-1/2 text-center hover:-translate-y-1 transition duration-300 shadow-[0_0_15px_rgba(56,189,248,0.15)] flex flex-col justify-center">
+                                    <h4 class="text-sky-400 font-bold text-[11px] md:text-xs mb-1">Jef. Operaciones y Soporte Técnico</h4>
+                                    <p class="text-slate-200 text-[10px] md:text-xs leading-tight">Eric Mozombite</p>
                                 </div>
-                                <div class="bg-navy-900 border border-sky-400 rounded-lg p-2 w-full md:w-1/2 text-center hover:-translate-y-1 transition duration-300 shadow-[0_0_15px_rgba(56,189,248,0.15)] flex flex-col justify-center">
-                                    <h4 class="text-sky-400 font-bold text-[10px] mb-1">Jef. Logística Inter. y Compras</h4>
-                                    <p class="text-slate-200 text-[9px] leading-tight">Jostin Chavez</p>
+                                <div class="bg-navy-900 border border-sky-400 rounded-lg p-2 w-[85%] md:w-1/2 text-center hover:-translate-y-1 transition duration-300 shadow-[0_0_15px_rgba(56,189,248,0.15)] flex flex-col justify-center">
+                                    <h4 class="text-sky-400 font-bold text-[11px] md:text-xs mb-1">Jef. Logística Inter. y Compras</h4>
+                                    <p class="text-slate-200 text-[10px] md:text-xs leading-tight">Jostin Chavez</p>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Rama Comercial -->
                         <div class="flex flex-col items-center w-full md:w-[34%] relative bg-slate-800/30 md:bg-transparent p-3 md:p-0 rounded-xl px-0 md:px-1">
-                            <div class="bg-slate-800 border border-slate-500 rounded-lg p-2 w-full md:w-[90%] text-center shadow-md">
-                                <h4 class="text-slate-300 font-bold text-[10px] uppercase tracking-wide">Área Comercial y Marketing</h4>
+                            <div class="bg-slate-800 border border-slate-500 rounded-lg p-2 w-[85%] md:w-[90%] text-center shadow-md">
+                                <h4 class="text-slate-300 font-bold text-[11px] md:text-xs uppercase tracking-wide">Área Comercial y Marketing</h4>
                             </div>
                             <div class="hidden md:block h-4 w-0.5 bg-rose-500/60"></div>
                             
@@ -417,14 +419,14 @@
                                 <div class="absolute right-0 top-0 h-4 w-[1px] bg-rose-500/60"></div>
                             </div>
                             
-                            <div class="flex flex-col md:flex-row justify-between w-full mt-2 md:mt-4 gap-2 h-full">
-                                <div class="bg-navy-900 border border-rose-400 rounded-lg p-2 w-full md:w-1/2 text-center hover:-translate-y-1 transition duration-300 shadow-[0_0_15px_rgba(244,63,94,0.15)] flex flex-col justify-center">
-                                    <h4 class="text-rose-400 font-bold text-[10px] mb-1">Jef. Canales Dig. y Marketing</h4>
-                                    <p class="text-slate-200 text-[9px] leading-tight">Yhurem García</p>
+                            <div class="flex flex-col md:flex-row items-center justify-center w-full mt-2 md:mt-4 gap-2 h-full">
+                                <div class="bg-navy-900 border border-rose-400 rounded-lg p-2 w-[85%] md:w-1/2 text-center hover:-translate-y-1 transition duration-300 shadow-[0_0_15px_rgba(244,63,94,0.15)] flex flex-col justify-center">
+                                    <h4 class="text-rose-400 font-bold text-[11px] md:text-xs mb-1">Jef. Canales Dig. y Marketing</h4>
+                                    <p class="text-slate-200 text-[10px] md:text-xs leading-tight">Yhurem García</p>
                                 </div>
-                                <div class="bg-navy-900 border border-rose-400 rounded-lg p-2 w-full md:w-1/2 text-center hover:-translate-y-1 transition duration-300 shadow-[0_0_15px_rgba(244,63,94,0.15)] flex flex-col justify-center">
-                                    <h4 class="text-rose-400 font-bold text-[10px] mb-1">Jef. Ventas y Expansión Com.</h4>
-                                    <p class="text-slate-200 text-[9px] leading-tight">Jahir Castillo</p>
+                                <div class="bg-navy-900 border border-rose-400 rounded-lg p-2 w-[85%] md:w-1/2 text-center hover:-translate-y-1 transition duration-300 shadow-[0_0_15px_rgba(244,63,94,0.15)] flex flex-col justify-center">
+                                    <h4 class="text-rose-400 font-bold text-[11px] md:text-xs mb-1">Jef. Ventas y Expansión Com.</h4>
+                                    <p class="text-slate-200 text-[10px] md:text-xs leading-tight">Jahir Castillo</p>
                                 </div>
                             </div>
                         </div>
@@ -437,62 +439,62 @@
 
         <!-- SLIDE 5: POLÍTICAS -->
         <section class="slide absolute inset-0 w-full flex-col justify-start md:justify-center opacity-0 transition-all duration-600 ease-out" id="slide-5">
-            <div class="text-center mb-6">
+            <div class="text-center mb-3 md:mb-6">
                 <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-emerald-500/20">Políticas Corporativas</span>
-                <h2 class="text-3xl md:text-4xl font-black text-white mt-2 drop-shadow-md">Marco Normativo Interno</h2>
+                <h2 class="text-xl sm:text-2xl md:text-4xl font-black text-white mt-1 md:mt-2 drop-shadow-md">Marco Normativo Interno</h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-6xl mx-auto overflow-y-auto max-h-[60vh] md:max-h-none custom-scrollbar p-1">
                 <article class="p-4 bg-navy-950/80 border border-slate-700/80 rounded-xl backdrop-blur-md shadow-xl border-t-4 border-t-gold-500">
                     <h3 class="text-gold-400 font-bold text-sm mb-2 uppercase">1. Gobernanza (DIGEMID/INDECOPI)</h3>
-                    <p class="text-slate-300 text-xs font-light">Prohibida la importación de insumos médicos restringidos para blindar la agilidad aduanera. Marcas 100% originales.</p>
+                    <p class="text-slate-300 text-xs md:text-sm font-light">Prohibida la importación de insumos médicos restringidos para blindar la agilidad aduanera. Marcas 100% originales.</p>
                 </article>
                 <article class="p-4 bg-navy-950/80 border border-slate-700/80 rounded-xl backdrop-blur-md shadow-xl border-t-4 border-t-blue-500">
                     <h3 class="text-blue-400 font-bold text-sm mb-2 uppercase">2. Logística (ISO 9001)</h3>
-                    <p class="text-slate-300 text-xs font-light">Homologación estricta de proveedores asiáticos. Despacho Anticipado obligatorio en aduanas para evitar almacenajes.</p>
+                    <p class="text-slate-300 text-xs md:text-sm font-light">Homologación estricta de proveedores asiáticos. Despacho Anticipado obligatorio en aduanas para evitar almacenajes.</p>
                 </article>
                 <article class="p-4 bg-navy-950/80 border border-slate-700/80 rounded-xl backdrop-blur-md shadow-xl border-t-4 border-t-emerald-500">
                     <h3 class="text-emerald-400 font-bold text-sm mb-2 uppercase">3. Finanzas (S/. 41,400)</h3>
-                    <p class="text-slate-300 text-xs font-light">Reserva intocable de 6 meses de planilla para proteger operaciones. Trámite SUNARP con tope de S/. 800.</p>
+                    <p class="text-slate-300 text-xs md:text-sm font-light">Reserva intocable de 6 meses de planilla para proteger operaciones. Trámite SUNARP con tope de S/. 800.</p>
                 </article>
                 <article class="p-4 bg-navy-950/80 border border-slate-700/80 rounded-xl backdrop-blur-md shadow-xl border-t-4 border-t-fuchsia-500">
                     <h3 class="text-fuchsia-400 font-bold text-sm mb-2 uppercase">4. Calidad & UX (OTIF & 12s)</h3>
-                    <p class="text-slate-300 text-xs font-light">Uso obligatorio de routers Multi-Carrier (Doble SIM) para garantizar descargas de códigos QR en menos de 12 segundos.</p>
+                    <p class="text-slate-300 text-xs md:text-sm font-light">Uso obligatorio de routers Multi-Carrier (Doble SIM) para garantizar descargas de códigos QR en menos de 12 segundos.</p>
                 </article>
             </div>
         </section>
 
         <!-- SLIDE 6: MATRIZ DE ESTRATEGIAS -->
         <section class="slide absolute inset-0 w-full flex-col justify-start md:justify-center opacity-0 transition-all duration-600 ease-out" id="slide-6">
-            <div class="text-center mb-6">
+            <div class="text-center mb-3 md:mb-6">
                 <span class="px-3 py-1 bg-purple-500/10 text-purple-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-purple-500/20">Ejecución</span>
-                <h2 class="text-3xl md:text-4xl font-black text-white mt-2 drop-shadow-md">Matriz de Estrategias EA1</h2>
+                <h2 class="text-xl sm:text-2xl md:text-4xl font-black text-white mt-1 md:mt-2 drop-shadow-md">Matriz de Estrategias EA1</h2>
             </div>
 
-            <div class="bg-navy-950/90 border border-slate-800 rounded-xl overflow-hidden backdrop-blur-md shadow-2xl w-full max-w-5xl mx-auto">
-                <table class="w-full text-left text-xs md:text-sm">
+            <div class="bg-navy-950/90 border border-slate-800 rounded-xl overflow-y-auto backdrop-blur-md shadow-2xl w-full max-w-5xl mx-auto max-h-[60vh] md:max-h-none custom-scrollbar">
+                <table class="w-full text-left text-[10px] sm:text-xs md:text-sm">
                     <thead class="bg-slate-900/90 text-slate-300 uppercase tracking-wider">
                         <tr>
-                            <th class="p-4 border-b border-slate-800">Área</th>
-                            <th class="p-4 border-b border-slate-800">Estrategia</th>
-                            <th class="p-4 border-b border-slate-800">Táctica (Acción)</th>
+                            <th class="p-2 md:p-4 border-b border-slate-800 w-[20%] md:w-auto">Área</th>
+                            <th class="p-2 md:p-4 border-b border-slate-800 w-[30%] md:w-auto">Estrategia</th>
+                            <th class="p-2 md:p-4 border-b border-slate-800 w-[50%] md:w-auto">Táctica (Acción)</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-800/60 font-light text-slate-200">
                         <tr class="hover:bg-slate-800/30 transition">
-                            <td class="p-4 font-bold text-gold-400">COMERCIAL (B2B)</td>
-                            <td class="p-4">Estrategia Push B2B (Demostración directa).</td>
-                            <td class="p-4">Auspiciar ferias de novios con la cabina 360° gratuita para recolectar datos de Wedding Planners.</td>
+                            <td class="p-2 md:p-4 font-bold text-gold-400">COMERCIAL (B2B)</td>
+                            <td class="p-2 md:p-4">Estrategia Push B2B (Demostración directa).</td>
+                            <td class="p-2 md:p-4">Auspiciar ferias de novios con la cabina 360° gratuita para recolectar datos de Wedding Planners.</td>
                         </tr>
                         <tr class="hover:bg-slate-800/30 transition">
-                            <td class="p-4 font-bold text-emerald-400">MARKETING</td>
-                            <td class="p-4">Estrategia Digital Inbound (Conversión rápida).</td>
-                            <td class="p-4">Campañas Google Ads dirigiendo tráfico a un catálogo digital interactivo de cotización inmediata.</td>
+                            <td class="p-2 md:p-4 font-bold text-emerald-400">MARKETING</td>
+                            <td class="p-2 md:p-4">Estrategia Digital Inbound (Conversión rápida).</td>
+                            <td class="p-2 md:p-4">Campañas Google Ads dirigiendo tráfico a un catálogo digital interactivo de cotización inmediata.</td>
                         </tr>
                         <tr class="hover:bg-slate-800/30 transition">
-                            <td class="p-4 font-bold text-cyan-400">OPERACIONES</td>
-                            <td class="p-4">Cadena de Suministro Preventiva y Contingencia.</td>
-                            <td class="p-4">Clasificación ABC del almacén y dotación obligatoria de un "Kit de Repuestos Clase A" en campo.</td>
+                            <td class="p-2 md:p-4 font-bold text-cyan-400">OPERACIONES</td>
+                            <td class="p-2 md:p-4">Cadena de Suministro Preventiva y Contingencia.</td>
+                            <td class="p-2 md:p-4">Clasificación ABC del almacén y dotación obligatoria de un "Kit de Repuestos Clase A" en campo.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -501,16 +503,16 @@
 
         <!-- SLIDE 7: CONTROL FINANCIERO Y BSC -->
         <section class="slide absolute inset-0 w-full flex-col justify-start md:justify-center opacity-0 transition-all duration-600 ease-out" id="slide-7">
-            <div class="text-center mb-6">
+            <div class="text-center mb-3 md:mb-6">
                 <span class="px-3 py-1 bg-red-500/10 text-red-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-red-500/20">Balanced Scorecard</span>
-                <h2 class="text-3xl md:text-4xl font-black text-white mt-2 drop-shadow-md">Control de Viabilidad</h2>
+                <h2 class="text-xl sm:text-2xl md:text-4xl font-black text-white mt-1 md:mt-2 drop-shadow-md">Control de Viabilidad</h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-5xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-5xl mx-auto overflow-y-auto max-h-[60vh] md:max-h-none custom-scrollbar p-1">
                 <!-- Finanzas -->
                 <article class="p-6 bg-navy-950/85 border border-slate-800/80 rounded-xl backdrop-blur-md shadow-2xl">
                     <h3 class="text-gold-400 font-bold text-sm uppercase tracking-wider mb-4 border-b border-slate-800 pb-2">Planificación Financiera</h3>
-                    <ul class="space-y-4 text-sm text-slate-200">
+                    <ul class="space-y-4 text-xs md:text-sm text-slate-200">
                         <li class="flex justify-between items-center">
                             <span>Presupuesto SUNARP:</span>
                             <span class="font-mono font-bold text-white">S/. 800</span>
@@ -521,7 +523,7 @@
                         </li>
                         <li class="flex justify-between items-center pt-3 border-t border-slate-800/60">
                             <span class="text-emerald-400 font-semibold">PUNTO DE EQUILIBRIO:</span>
-                            <span class="font-mono font-black text-emerald-400 text-lg">14 <span class="text-xs">servicios/mes</span></span>
+                            <span id="num-pe" class="font-mono font-black text-emerald-400 text-lg">0 <span class="text-xs">servicios/mes</span></span>
                         </li>
                     </ul>
                 </article>
@@ -529,27 +531,27 @@
                 <!-- BSC KPIs -->
                 <article class="p-6 bg-navy-950/85 border border-slate-800/80 rounded-xl backdrop-blur-md shadow-2xl">
                     <h3 class="text-blue-400 font-bold text-sm uppercase tracking-wider mb-4 border-b border-slate-800 pb-2">KPIs Críticos (Control OTIF)</h3>
-                    <ul class="space-y-4 text-sm text-slate-200">
+                    <ul class="space-y-4 text-xs md:text-sm text-slate-200">
                         <li class="flex flex-col">
                             <div class="flex justify-between mb-1">
                                 <span>Entregas a Tiempo (OTIF)</span>
-                                <span class="font-mono text-emerald-400">96%</span>
+                                <span id="num-otif" class="font-mono text-emerald-400">0%</span>
                             </div>
-                            <div class="w-full bg-slate-800 rounded-full h-1.5"><div class="bg-emerald-400 h-1.5 rounded-full w-[96%]"></div></div>
+                            <div class="w-full bg-slate-800 rounded-full h-1.5"><div id="bar-otif" class="bg-emerald-400 h-1.5 rounded-full w-0 transition-all duration-1000 ease-out"></div></div>
                         </li>
                         <li class="flex flex-col">
                             <div class="flex justify-between mb-1">
                                 <span>Disponibilidad de Hardware</span>
-                                <span class="font-mono text-emerald-400">98%</span>
+                                <span id="num-hw" class="font-mono text-emerald-400">0%</span>
                             </div>
-                            <div class="w-full bg-slate-800 rounded-full h-1.5"><div class="bg-emerald-400 h-1.5 rounded-full w-[98%]"></div></div>
+                            <div class="w-full bg-slate-800 rounded-full h-1.5"><div id="bar-hw" class="bg-emerald-400 h-1.5 rounded-full w-0 transition-all duration-1000 ease-out"></div></div>
                         </li>
                         <li class="flex flex-col">
                             <div class="flex justify-between mb-1">
                                 <span>Velocidad de Descarga QR</span>
-                                <span class="font-mono text-gold-400">&lt; 12s</span>
+                                <span id="num-qr" class="font-mono text-gold-400">&lt; 0s</span>
                             </div>
-                            <div class="w-full bg-slate-800 rounded-full h-1.5"><div class="bg-gold-400 h-1.5 rounded-full w-[80%]"></div></div>
+                            <div class="w-full bg-slate-800 rounded-full h-1.5"><div id="bar-qr" class="bg-gold-400 h-1.5 rounded-full w-0 transition-all duration-1000 ease-out"></div></div>
                         </li>
                     </ul>
                 </article>
@@ -558,15 +560,15 @@
 
         <!-- SLIDE 8: DOCUMENTACIÓN OFICIAL (ENLACES ACROBAT) -->
         <section class="slide absolute inset-0 w-full flex-col justify-start md:justify-center opacity-0 transition-all duration-600 ease-out" id="slide-8">
-            <div class="text-center mb-4">
+            <div class="text-center mb-2 md:mb-4">
                 <span class="px-3 py-1 bg-red-600/20 text-red-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-red-500/30">Repositorio Final</span>
-                <h2 class="text-3xl md:text-4xl font-black text-white mt-2 drop-shadow-md">Documentación Oficial EA1</h2>
+                <h2 class="text-xl sm:text-2xl md:text-4xl font-black text-white mt-1 md:mt-2 drop-shadow-md">Documentación Oficial EA1</h2>
             </div>
 
             <div class="w-full max-w-6xl mx-auto flex flex-col md:flex-row h-[75vh] md:h-[65vh] bg-navy-950/90 border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
                 
                 <!-- Sidebar (Miniaturas) -->
-                <div class="w-full md:w-1/4 h-[45%] md:h-full border-b md:border-b-0 md:border-r border-slate-800 bg-navy-900/50 flex flex-col overflow-y-auto p-3 md:p-4 gap-3 md:gap-4 shrink-0 custom-scrollbar">
+                <div class="w-full md:w-1/4 flex-grow md:h-full border-b md:border-b-0 md:border-r border-slate-800 bg-navy-900/50 flex flex-col overflow-y-auto p-3 md:p-4 gap-3 md:gap-4 shrink-0 custom-scrollbar">
                     
                     <!-- Doc 1 -->
                     <div onclick="loadDoc('./Informe General - EA1.pdf', 'desc-1', this)" class="doc-card group text-left bg-slate-800/40 hover:bg-slate-700/80 rounded-xl p-3 border border-slate-700 hover:border-red-500/50 transition-all duration-500 ease-in-out cursor-pointer flex flex-col">
@@ -580,12 +582,12 @@
                             </div>
                             <div>
                                 <h4 class="text-white text-xs md:text-sm font-bold group-hover:text-red-400 transition-colors duration-500">Informe General</h4>
-                                <p class="text-slate-400 text-[9px] md:text-[10px] mt-0.5">Plan Maestro EA1</p>
+                                <p class="text-slate-400 text-[10px] md:text-[11px] mt-0.5">Plan Maestro EA1</p>
                             </div>
                         </div>
                         <div id="desc-1" class="doc-desc-wrapper grid grid-rows-[0fr] opacity-0 transition-all duration-500 ease-in-out">
                             <div class="overflow-hidden">
-                                <div class="text-[10px] md:text-xs text-slate-300 border-t border-slate-700/50 pt-3 mt-3 pb-1 leading-relaxed">
+                                <div class="text-xs md:text-sm text-slate-300 border-t border-slate-700/50 pt-3 mt-3 pb-1 leading-relaxed">
                                     <span class="text-white font-semibold">Resumen General:</span><br>
                                     Contiene el resumen ejecutivo de Global Event Imports, el análisis del dolor de mercado B2B, la identidad estratégica y el planteamiento de los objetivos SMART.<br><br>
                                     <span class="text-white font-semibold">Puntos Clave:</span><br>
@@ -652,9 +654,9 @@
                 </div>
 
                 <!-- Visor Principal -->
-                <div class="w-full md:w-3/4 relative bg-slate-100 flex flex-col h-[55%] md:h-full">
+                <div class="w-full md:w-3/4 relative bg-slate-900/95 flex flex-col h-auto md:h-full shrink-0">
                     <!-- Toolbar Visor -->
-                    <div class="bg-slate-800 border-b border-slate-700 p-2 flex justify-between items-center shrink-0">
+                    <div class="bg-slate-800 border-b border-slate-700 p-2 hidden md:flex justify-between items-center shrink-0">
                         <span class="text-xs text-slate-400 font-mono ml-2">Visor Activo</span>
                         <button onclick="document.getElementById('pdf-viewer').requestFullscreen()" class="bg-slate-700 hover:bg-slate-600 text-white text-xs px-3 py-1.5 rounded flex items-center transition border border-slate-600 shadow-sm">
                             <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
@@ -662,17 +664,18 @@
                         </button>
                     </div>
                     <!-- Iframe y Overlay Móvil -->
-                    <div class="flex-grow w-full relative">
-                        <div class="absolute inset-0 bg-slate-900/95 z-10 flex md:hidden flex-col items-center justify-center p-6 text-center">
-                            <svg class="w-16 h-16 text-slate-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                            <h4 class="text-white font-bold mb-2 text-sm">Visor de PDF no compatible</h4>
-                            <p class="text-slate-400 text-xs mb-6 max-w-[250px]">Los navegadores móviles suelen bloquear esta vista. Toca el botón para abrir el archivo directamente.</p>
-                            <a id="mobile-pdf-btn" href="./Informe General - EA1.pdf" target="_blank" class="bg-red-600 hover:bg-red-500 text-white font-bold py-2.5 px-6 rounded-lg shadow-[0_0_15px_rgba(220,38,38,0.4)] text-xs flex items-center transition-all">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                                Abrir Documento PDF
+                    <div class="flex-grow w-full relative flex flex-col md:block">
+                        <div class="w-full z-10 flex md:hidden items-center justify-between p-3 border-t border-slate-800 bg-slate-900">
+                            <div class="flex items-center text-slate-400">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                <span class="text-xs font-bold">Ver Documento</span>
+                            </div>
+                            <a id="mobile-pdf-btn" href="./Informe General - EA1.pdf" target="_blank" class="bg-red-600 hover:bg-red-500 text-white font-bold py-1.5 px-4 rounded shadow-md text-xs flex items-center transition-all">
+                                <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                Abrir PDF
                             </a>
                         </div>
-                        <iframe id="pdf-viewer" src="./Informe General - EA1.pdf" class="absolute inset-0 w-full h-full border-0 transition-opacity duration-500 ease-in-out" allowfullscreen></iframe>
+                        <iframe id="pdf-viewer" src="./Informe General - EA1.pdf" class="hidden md:block absolute inset-0 w-full h-full border-0 transition-opacity duration-500 ease-in-out" allowfullscreen></iframe>
                     </div>
                 </div>
 
@@ -729,6 +732,27 @@
         };
 
         function updateUI() {
+            // Animaciones Diapo 8
+            if (currentSlide === 8) {
+                setTimeout(() => {
+                    document.getElementById('bar-otif').style.width = '96%';
+                    document.getElementById('bar-hw').style.width = '98%';
+                    document.getElementById('bar-qr').style.width = '80%';
+                    animateNumbers();
+                }, 300);
+            } else {
+                const barOtif = document.getElementById('bar-otif');
+                if(barOtif) {
+                    barOtif.style.width = '0%';
+                    document.getElementById('bar-hw').style.width = '0%';
+                    document.getElementById('bar-qr').style.width = '0%';
+                    document.getElementById('num-otif').innerText = "0%";
+                    document.getElementById('num-hw').innerText = "0%";
+                    document.getElementById('num-qr').innerText = "< 0s";
+                    document.getElementById('num-pe').innerHTML = '0 <span class="text-xs">servicios/mes</span>';
+                }
+            }
+
             // Actualizar Diapositivas con crossfade suave
             document.querySelectorAll('.slide').forEach((slide, idx) => {
                 if (idx + 1 === currentSlide) {
@@ -829,15 +853,8 @@
 
         // Cargador de Documentos
         function loadDoc(src, descId, cardEl) {
-            // Animación suave de opacidad para el visor PDF
-            const viewer = document.getElementById('pdf-viewer');
-            const mobileBtn = document.getElementById('mobile-pdf-btn');
-            viewer.style.opacity = 0.5;
-            setTimeout(() => {
-                viewer.src = src;
-                if(mobileBtn) mobileBtn.href = src;
-                viewer.style.opacity = 1;
-            }, 300);
+            const activeDesc = document.getElementById(descId);
+            const isOpen = activeDesc.classList.contains('opacity-100');
             
             // Ocultar todas las descripciones con transición suave
             document.querySelectorAll('.doc-desc-wrapper').forEach(el => {
@@ -846,15 +863,48 @@
             });
             document.querySelectorAll('.doc-card').forEach(el => el.classList.remove('bg-slate-700/60', 'scale-[1.02]', 'border-slate-500', 'shadow-lg'));
             
-            // Mostrar la descripción activa y resaltar tarjeta
-            if(descId) {
-                const activeDesc = document.getElementById(descId);
+            if (!isOpen) {
+                // Animación suave de opacidad para el visor PDF
+                const viewer = document.getElementById('pdf-viewer');
+                const mobileBtn = document.getElementById('mobile-pdf-btn');
+                viewer.style.opacity = 0.5;
+                setTimeout(() => {
+                    viewer.src = src;
+                    if(mobileBtn) mobileBtn.href = src;
+                    viewer.style.opacity = 1;
+                }, 300);
+                
+                // Mostrar la descripción activa y resaltar tarjeta
                 activeDesc.classList.remove('grid-rows-[0fr]', 'opacity-0');
                 activeDesc.classList.add('grid-rows-[1fr]', 'opacity-100');
+                if(cardEl) {
+                    cardEl.classList.add('bg-slate-700/60', 'scale-[1.02]', 'border-slate-500', 'shadow-lg');
+                }
             }
-            if(cardEl) {
-                cardEl.classList.add('bg-slate-700/60', 'scale-[1.02]', 'border-slate-500', 'shadow-lg');
-            }
+        }
+        
+        function animateNumbers() {
+            const otif = document.getElementById('num-otif');
+            const hw = document.getElementById('num-hw');
+            const qr = document.getElementById('num-qr');
+            const pe = document.getElementById('num-pe');
+            if(!otif) return;
+            let currentStep = 0;
+            const steps = 30; // 30 frames
+            const interval = setInterval(() => {
+                currentStep++;
+                otif.innerText = Math.round(96 * (currentStep/steps)) + "%";
+                hw.innerText = Math.round(98 * (currentStep/steps)) + "%";
+                qr.innerText = "< " + Math.round(12 * (currentStep/steps)) + "s";
+                pe.innerHTML = Math.round(14 * (currentStep/steps)) + ' <span class="text-xs">servicios/mes</span>';
+                if (currentStep >= steps) {
+                    clearInterval(interval);
+                    otif.innerText = "96%";
+                    hw.innerText = "98%";
+                    qr.innerText = "< 12s";
+                    pe.innerHTML = '14 <span class="text-xs">servicios/mes</span>';
+                }
+            }, 30);
         }
         function toggleFullScreen() {
             if (!document.fullscreenElement) {
