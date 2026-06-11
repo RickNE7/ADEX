@@ -105,6 +105,12 @@
         .ficha-legal { border-left: 4px solid var(--gris-texto); padding-left: 1rem; margin-bottom: 1.5rem; }
         .ficha-legal.active { border-left-color: var(--ambar-dato); }
 
+        /* Enlaces a fuentes (sutiles, estilo S6) */
+        .src-link { color: inherit; text-decoration: none; cursor: pointer; }
+        .src-link, .src-link * { transition: color 0.3s; }
+        .src-link:hover, .src-link:hover * { color: var(--morado-tinta) !important; }
+        .src-arrow { font-size: 0.7em; opacity: 0.7; }
+
         /* S6: Donas SVG */
         .dona-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 3rem; text-align: center; }
         .dona-wrapper { position: relative; width: 150px; height: 150px; margin: 0 auto 1rem; }
@@ -132,17 +138,17 @@
     <div class="ticker-wrapper">
         <div class="ticker-track">
             <!-- Duplicado para el bucle -->
-            <div class="ticker-item">ALERTA JNE: 3,499 MENCIONES FALSAS DETECTADAS</div>
+            <div class="ticker-item">JNE: 3,499 ALERTAS DE DESINFORMACIÓN EN EL PROCESO 2026</div>
             <div class="ticker-item">|</div>
-            <div class="ticker-item">DEEPFAKE: VIDEO FALSO EN TIKTOK SUPERA 460K VISTAS</div>
+            <div class="ticker-item">DEEPFAKE: AMA LLULLA DETECTA VIDEOS DE CAMPAÑA CREADOS CON IA</div>
             <div class="ticker-item">|</div>
             <div class="ticker-item">RENIEC: INVESTIGAN EXPOSICIÓN DE PADRÓN INICIAL</div>
             <div class="ticker-item">|</div>
             <div class="ticker-item">ENCUESTAS: MULTAS HASTA 100 UIT POR SONDEOS FALSOS</div>
             <div class="ticker-item">|</div>
-            <div class="ticker-item">ALERTA JNE: 3,499 MENCIONES FALSAS DETECTADAS</div>
+            <div class="ticker-item">JNE: 3,499 ALERTAS DE DESINFORMACIÓN EN EL PROCESO 2026</div>
             <div class="ticker-item">|</div>
-            <div class="ticker-item">DEEPFAKE: VIDEO FALSO EN TIKTOK SUPERA 460K VISTAS</div>
+            <div class="ticker-item">DEEPFAKE: AMA LLULLA DETECTA VIDEOS DE CAMPAÑA CREADOS CON IA</div>
             <div class="ticker-item">|</div>
             <div class="ticker-item">RENIEC: INVESTIGAN EXPOSICIÓN DE PADRÓN INICIAL</div>
             <div class="ticker-item">|</div>
@@ -173,10 +179,12 @@
         
         <div class="hero-counter-box">
             <div class="hero-counter animate-number" data-target="3499">0</div>
-            <div style="font-family: var(--ff-mono); color: var(--gris-texto); font-size: 0.9rem; text-transform: uppercase;">Alertas de desinformación (JNE)</div>
-            <div style="font-size: 0.85rem; color: #fff; margin-top: 0.5rem; background: rgba(224, 58, 71, 0.2); padding: 0.2rem 0.5rem; display: inline-block; border-radius: 4px;">
-                +1,948 solo entre 1ra y 2da vuelta (55%)
-            </div>
+            <a href="https://es-us.noticias.yahoo.com/jne-combate-desinformaci%C3%B3n-electoral-fake-202505740.html" target="_blank" title="Ver fuente: La República, 02/06/2026 (vía Yahoo Noticias) — JNE Fact Checking, mar 2025–27 may 2026" class="src-link" style="display: block;">
+                <div style="font-family: var(--ff-mono); color: var(--gris-texto); font-size: 0.9rem; text-transform: uppercase;">Alertas de desinformación (JNE) <span class="src-arrow">↗</span></div>
+                <div style="font-size: 0.85rem; color: #fff; margin-top: 0.5rem; background: rgba(224, 58, 71, 0.2); padding: 0.2rem 0.5rem; display: inline-block; border-radius: 4px;">
+                    +1,948 solo entre 1ra y 2da vuelta (55%)
+                </div>
+            </a>
         </div>
     </section>
 
@@ -191,23 +199,23 @@
             <div class="card animate-on-scroll">
                 <div class="mono-eyebrow">Padrón Electoral</div>
                 <div class="card-stat animate-number" data-target="27.3">0</div>
-                <div style="color:var(--gris-texto)">Millones de electores</div>
+                <a href="https://elperuano.pe/noticia/293280-mas-de-27-millones-de-peruanos-acuden-hoy-a-sufragar" target="_blank" title="Ver fuente: El Peruano — 27,325,432 electores habilitados" class="src-link"><div style="color:var(--gris-texto)">Millones de electores <span class="src-arrow">↗</span></div></a>
             </div>
             <div class="card animate-on-scroll">
                 <div class="mono-eyebrow">Voto Joven</div>
                 <div class="card-stat animate-number accent-purple" data-target="2.5">0</div>
-                <div style="color:var(--gris-texto)">Millones votaron por 1ra vez</div>
+                <a href="https://identidad.reniec.gob.pe/elecciones-generales-2026" target="_blank" title="Ver fuente: RENIEC — 2,518,576 nuevos votantes" class="src-link"><div style="color:var(--gris-texto)">Millones votaron por 1ra vez <span class="src-arrow">↗</span></div></a>
             </div>
             <div class="card animate-on-scroll">
                 <div class="mono-eyebrow">Oferta Política</div>
-                <div class="card-stat animate-number accent-red" data-target="38">0</div>
-                <div style="color:var(--gris-texto)">Candidatos presidenciales</div>
+                <div class="card-stat animate-number accent-red" data-target="36">0</div>
+                <a href="https://rpp.pe/politica/elecciones/elecciones-2026-jne-publico-la-lista-oficial-de-los-candidatos-presidenciales-noticia-1668084" target="_blank" title="Ver fuente: RPP — lista oficial del JNE con 36 candidatos" class="src-link"><div style="color:var(--gris-texto)">Candidatos presidenciales <span class="src-arrow">↗</span></div></a>
             </div>
         </div>
         
         <blockquote style="border-left: 4px solid var(--morado-tinta); margin-top: 3rem; padding-left: 1.5rem; font-size: 1.2rem; font-style: italic; color: #fff;">
-            "Con tantos candidatos, es muy difícil que el ciudadano pueda elegir bien con un voto informado." <br>
-            <span style="font-size: 0.9rem; font-style: normal; color: var(--gris-texto); font-family: var(--ff-mono)">— Urpi Torrado (Datum Internacional)</span>
+            Con decenas de listas y miles de candidatos en contienda, lograr un voto informado se vuelve una tarea mucho más difícil para el elector. <br>
+            <a href="https://rpp.pe/politica/elecciones/los-electores-solo-necesitan-informacion-tres-especialistas-explican-las-nuevas-necesidades-del-electorado-peruano-noticia-1651929" target="_blank" title="Ver fuente: RPP — análisis de Urpi Torrado (Datum)" class="src-link"><span style="font-size: 0.9rem; font-style: normal; color: var(--gris-texto); font-family: var(--ff-mono)">— Análisis de Urpi Torrado (Datum Internacional), para RPP <span class="src-arrow">↗</span></span></a>
         </blockquote>
     </section>
 
@@ -215,7 +223,7 @@
     <section id="s2" class="container">
         <h2 style="font-size: 2.5rem; margin-bottom: 1rem;"><span style="color:var(--morado-tinta)">02.</span> ¿Dónde circuló la mentira?</h2>
         <p style="color: var(--gris-texto); max-width: 700px; margin-bottom: 2rem;">
-            Perú es el país hispanohablante que más usa TikTok para informarse (33%), convirtiendo a estas plataformas en los vectores principales de ataque. (Alertas JNE abr-may 2026).
+            <a href="https://www.infobae.com/peru/2025/06/19/peru-es-el-pais-que-mas-usa-tiktok-para-informarse-segun-un-estudio-global/" target="_blank" title="Ver fuente: Infobae / Reuters Institute Digital News Report 2025" class="src-link">Perú es el país hispanohablante que más usa TikTok para informarse (33%) <span class="src-arrow">↗</span></a>, convirtiendo a estas plataformas en los vectores principales de ataque. <a href="https://es-us.noticias.yahoo.com/jne-combate-desinformaci%C3%B3n-electoral-fake-202505740.html" target="_blank" title="Ver fuente: La República (vía Yahoo) — alertas JNE 12 abr–27 may 2026" class="src-link">(Alertas JNE abr-may 2026 <span class="src-arrow">↗</span>)</a>.
         </p>
 
         <div class="bar-chart-container animate-on-scroll">
@@ -229,7 +237,7 @@
             </div>
         </div>
 
-        <h3 style="margin-top: 4rem; font-family: var(--ff-mono); font-size: 1rem; color: var(--gris-texto);">USO DE REDES PARA NOTICIAS (PERÚ 2025)</h3>
+        <h3 style="margin-top: 4rem; font-family: var(--ff-mono); font-size: 1rem; color: var(--gris-texto);"><a href="https://reutersinstitute.politics.ox.ac.uk/es/digital-news-report/2025" target="_blank" title="Ver fuente: Reuters Institute Digital News Report 2025" class="src-link">USO DE REDES PARA NOTICIAS (PERÚ 2025) <span class="src-arrow">↗</span></a></h3>
         <div class="bar-chart-container animate-on-scroll">
             <div class="bar-row"><div class="bar-label">Facebook</div><div class="bar-track"><div class="bar-fill" data-width="52%">52%</div></div></div>
             <div class="bar-row"><div class="bar-label">YouTube</div><div class="bar-track"><div class="bar-fill" data-width="34%">34%</div></div></div>
@@ -248,12 +256,9 @@
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
                     <span class="timeline-badge">Deepfake IA</span>
-                    <h3 style="margin-bottom: 0.5rem;">Video clonado en TikTok</h3>
-                    <p style="color: var(--gris-texto); font-size: 0.9rem;">Video falso de un "ciudadano puneño" contra candidata Brígida Curo. Fue creado con la IA VEO de Google (detectado por SynthID). Superó las <strong>460,000 visualizaciones</strong>.</p>
-                    <div class="timeline-img-placeholder glitch-hover">
-                        <!-- IMG: Captura Deepfake -->
-                        [ Placeholder para Imagen Deepfake ]
-                    </div>
+                    <h3 style="margin-bottom: 0.5rem;">Reportaje: Amenaza de IA en Elecciones</h3>
+                    <p style="color: var(--gris-texto); font-size: 0.9rem;">Análisis sobre cómo los audios y videos generados con Inteligencia Artificial son utilizados para suplantar identidades y engañar a los electores durante las campañas.</p>
+                    <iframe width="100%" height="250" src="https://www.youtube.com/embed/ORDebYmdRIY?autoplay=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 8px; margin-top: 1rem;"></iframe>
                 </div>
             </div>
 
@@ -264,6 +269,9 @@
                     <span class="timeline-badge">Encuesta Falsa</span>
                     <h3 style="margin-bottom: 0.5rem;">"Huaman Razu Encuestas"</h3>
                     <p style="color: var(--gris-texto); font-size: 0.9rem;">Supuesta encuestadora no registrada en el JNE circuló en Facebook dando 39.2% a un candidato. Desmentida por el Verificador cruzando datos oficiales.</p>
+                    <a href="https://larepublica.pe/verificador/2026/05/28/es-falso-que-roberto-sanchez-lidere-la-intencion-de-voto-para-la-presidencia-con-un-392-encuestadora-no-se-esta-inscrita-ante-el-jne-2260524" target="_blank" title="Ver fuente original en La República">
+                        <img src="https://imgmedia.larepublica.pe/640x376/larepublica/original/2026/05/28/6a18b063d973f8e2350a82bd.webp" alt="Encuesta falsa desmentida" style="width: 100%; border-radius: 8px; margin-top: 1rem; border: 1px solid var(--borde-sutil); transition: opacity 0.3s; cursor: pointer;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+                    </a>
                 </div>
             </div>
 
@@ -272,12 +280,9 @@
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
                     <span class="timeline-badge">Controversia Datos</span>
-                    <h3 style="margin-bottom: 0.5rem;">Exposición del Padrón RENIEC</h3>
-                    <p style="color: var(--gris-texto); font-size: 0.9rem;">RENIEC publicó el padrón inicial exponiendo direcciones y huellas de ciudadanos solo con el DNI. Generó investigación de Contraloría por vulnerar la privacidad.</p>
-                    <div class="timeline-img-placeholder">
-                        <!-- IMG: Captura Portal RENIEC -->
-                        [ Placeholder Portal RENIEC ]
-                    </div>
+                    <h3 style="margin-bottom: 0.5rem;">Filtración de Datos Personales</h3>
+                    <p style="color: var(--gris-texto); font-size: 0.9rem;">Noticiero reportando la filtración masiva de datos personales en Perú y la posterior vulneración de la ciberseguridad en instituciones del Estado.</p>
+                    <iframe width="100%" height="250" src="https://www.youtube.com/embed/JI5xvfKKMms?autoplay=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius: 8px; margin-top: 1rem;"></iframe>
                 </div>
             </div>
         </div>
@@ -293,10 +298,10 @@
                 <div class="mono-eyebrow" style="color: var(--morado-tinta)">Institucional</div>
                 <h3 style="font-size: 1.5rem; margin: 0.5rem 0;">JNE Fact Checking</h3>
                 <ul style="color: var(--gris-texto); font-size: 0.9rem; margin-left: 1rem; margin-top: 1rem; line-height: 1.8;">
-                    <li>Uso de herramienta "EleccIA".</li>
+                    <li><a href="https://gestion.pe/peru/conoce-mas-sobre-eleccia-herramienta-del-jne-que-emplea-inteligencia-artificial-noticia/" target="_blank" title="Ver fuente: Gestión — herramienta EleccIA del JNE" class="src-link">Uso de herramienta "EleccIA" <span class="src-arrow">↗</span></a>.</li>
                     <li>Social listening: ~500 menciones/día.</li>
-                    <li><strong>+6M visualizaciones</strong> en desmentidos.</li>
-                    <li>Bloqueo directo con Meta, X y TikTok.</li>
+                    <li><a href="https://es-us.noticias.yahoo.com/jne-combate-desinformaci%C3%B3n-electoral-fake-202505740.html" target="_blank" title="Ver fuente: La República (vía Yahoo) — 260 publicaciones, +6M visualizaciones" class="src-link"><strong>+6M visualizaciones</strong> en desmentidos <span class="src-arrow">↗</span></a>.</li>
+                    <li>Alianzas con Google, Meta, X y TikTok.</li>
                 </ul>
             </div>
 
@@ -304,10 +309,10 @@
                 <div class="mono-eyebrow" style="color: var(--morado-tinta)">Independiente</div>
                 <h3 style="font-size: 1.5rem; margin: 0.5rem 0;">Red Ama Llulla</h3>
                 <ul style="color: var(--gris-texto); font-size: 0.9rem; margin-left: 1rem; margin-top: 1rem; line-height: 1.8;">
-                    <li>Red de +20 medios (coord: OjoPúblico).</li>
-                    <li>IA propia <strong>"Quispe Chequea"</strong>.</li>
-                    <li>Verificó los 6 debates en vivo.</li>
-                    <li>Uso de SynthID para deepfakes.</li>
+                    <li>Red de medios de todo el país (coord: OjoPúblico).</li>
+                    <li><a href="https://ojo-publico.com/4879/quispe-chequea-inteligencia-artificial-contra-la-desinformacion" target="_blank" title="Ver fuente: OjoPúblico — Quispe Chequea (quechua, aimara y awajún)" class="src-link">IA propia <strong>"Quispe Chequea"</strong> <span class="src-arrow">↗</span></a>.</li>
+                    <li><a href="https://ojo-publico.com/ojobionico/verificaciones-los-seis-debates-presidenciales-del-2026" target="_blank" title="Ver fuente: OjoPúblico — verificación de los 6 debates presidenciales 2026" class="src-link">Verificó los 6 debates en vivo <span class="src-arrow">↗</span></a>.</li>
+                    <li><a href="https://ojo-publico.com/6324/video-supuesto-puneno-que-critica-brigida-curo-fue-creado-ia" target="_blank" title="Ver fuente: OjoPúblico — deepfake detectado con SynthID" class="src-link">Uso de SynthID para deepfakes <span class="src-arrow">↗</span></a>.</li>
                 </ul>
             </div>
             
@@ -315,9 +320,9 @@
                 <div class="mono-eyebrow" style="color: var(--morado-tinta)">Independiente</div>
                 <h3 style="font-size: 1.5rem; margin: 0.5rem 0;">PerúCheck</h3>
                 <ul style="color: var(--gris-texto); font-size: 0.9rem; margin-left: 1rem; margin-top: 1rem; line-height: 1.8;">
-                    <li>Consejo de la Prensa Peruana.</li>
-                    <li>+15 medios aliados.</li>
-                    <li>Alcance de ~1 millón de personas.</li>
+                    <li><a href="https://consejoprensaperuana.org.pe/perucheck-una-alianza-para-enfrentar-la-desinformacion/" target="_blank" title="Ver fuente: Consejo de la Prensa Peruana" class="src-link">Consejo de la Prensa Peruana <span class="src-arrow">↗</span></a>.</li>
+                    <li><a href="https://larepublica.pe/verificador/2026/01/13/peru-check-se-relanza-para-cubrir-las-elecciones-generales-2026-464451" target="_blank" title="Ver fuente: La República — relanzamiento con +15 medios aliados" class="src-link">+15 medios aliados <span class="src-arrow">↗</span></a>.</li>
+                    <li>Verificó discursos y planes de gobierno (ene–jul 2026).</li>
                 </ul>
             </div>
         </div>
@@ -327,12 +332,12 @@
                 <div>
                     <div class="mono-eyebrow" style="color: white">Autorregulación</div>
                     <h3 style="font-size: 1.5rem;">Pacto Ético Electoral</h3>
-                    <p style="color: var(--gris-texto); font-size: 0.9rem; max-width: 500px;">Primer pacto en incluir uso responsable de IA. No tiene sanciones legales, solo morales vía Tribunal de Honor.</p>
+                    <a href="https://www.infobae.com/peru/2025/12/18/elecciones-2026-jne-incorpora-la-lucha-contra-la-desinformacion-y-la-ia-en-el-nuevo-pacto-etico-electoral/" target="_blank" title="Ver fuente: Infobae — el nuevo pacto incorpora IA y desinformación; supervisión del Tribunal de Honor" class="src-link"><p style="color: var(--gris-texto); font-size: 0.9rem; max-width: 500px;">Primer pacto en incluir uso responsable de IA. No tiene sanciones legales, solo morales vía Tribunal de Honor. <span class="src-arrow">↗</span></p></a>
                 </div>
                 <div style="text-align: right;">
                     <div class="card-stat animate-number accent-purple" data-target="29" style="display: inline-block;">0</div>
                     <span style="font-family: var(--ff-display); font-size: 2rem;">/ 38</span>
-                    <div class="mono-eyebrow">Partidos Firmantes</div>
+                    <a href="https://larepublica.pe/politica/2025/12/18/elecciones-2026-29-partidos-politicos-firmaron-el-pacto-etico-electoral-del-jne-hnews-1798452" target="_blank" title="Ver fuente: La República — 29 organizaciones (27 partidos y 2 alianzas) firmaron" class="src-link"><div class="mono-eyebrow">Organizaciones Firmantes <span class="src-arrow">↗</span></div></a>
                 </div>
             </div>
         </div>
@@ -347,21 +352,21 @@
 
         <div style="max-width: 800px;">
             <div class="ficha-legal active animate-on-scroll">
-                <div class="mono-eyebrow">Vigente (DL 32314)</div>
+                <div class="mono-eyebrow">Vigente (Ley 32314, abr. 2025)</div>
                 <h4 style="font-size: 1.2rem; margin: 0.2rem 0;">IA como Agravante Penal</h4>
-                <p style="color: var(--gris-texto); font-size: 0.9rem;">Condena hasta con 10 años la difamación, estafa o suplantación de identidad si se usa inteligencia artificial (deepfakes).</p>
+                <a href="https://elcomercio.pe/tecnologia/inteligencia-artificial/ley-32314-incluyen-el-uso-de-la-inteligencia-artificial-como-agravante-en-la-comision-de-delitos-deepfake-noticia/" target="_blank" title="Ver fuente: El Comercio — Ley 32314 modifica el Código Penal" class="src-link"><p style="color: var(--gris-texto); font-size: 0.9rem;">Eleva la pena hasta en un tercio cuando el delito se comete con IA (deepfakes): difamación hasta 3 años, estafa o suplantación de identidad de 4 a 8, y hasta 10 en los casos más graves. <span class="src-arrow">↗</span></p></a>
             </div>
             
             <div class="ficha-legal animate-on-scroll" style="opacity: 0.6;">
-                <div class="mono-eyebrow">En trámite (PL 13075 Anderson)</div>
+                <div class="mono-eyebrow">En trámite (PL del congresista C. Anderson)</div>
                 <h4 style="font-size: 1.2rem; margin: 0.2rem 0;">Prohibición de Deepfakes Electorales</h4>
-                <p style="color: var(--gris-texto); font-size: 0.9rem;">Busca prohibir audios/videos falsos 90 días antes de elecciones, con multas de S/10,700 y etiquetado obligatorio de IA.</p>
+                <a href="https://elcomercio.pe/politica/actualidad/elecciones-2026-congresista-carlos-anderson-presenta-proyecto-para-prevenir-la-desinformacion-electoral-y-sancionar-deepfake-noticia/" target="_blank" title="Ver fuente: El Comercio — proyecto de ley contra la desinformación electoral con IA" class="src-link"><p style="color: var(--gris-texto); font-size: 0.9rem;">Busca prohibir audios/videos manipulados con IA 90 días antes de elecciones, con multas de 20 URP (~S/10,700); un PL complementario propone etiquetado obligatorio de contenido IA. <span class="src-arrow">↗</span></p></a>
             </div>
 
             <div class="ficha-legal animate-on-scroll" style="border-left-color: var(--rojo-alerta);">
                 <div class="mono-eyebrow" style="color: var(--rojo-alerta);">Norma Encuestadoras (JNE)</div>
                 <h4 style="font-size: 1.2rem; margin: 0.2rem 0;">Sanciones a Encuestas Falsas</h4>
-                <p style="color: var(--gris-texto); font-size: 0.9rem;">Solo firmas en el REE pueden publicar. Multas duras de <strong>10 a 100 UIT (hasta S/ 535,000)</strong> por violar la veda.</p>
+                <a href="https://andina.pe/agencia/noticia-elecciones-2026-jne-advierte-multas-hasta-s550-mil-encuestas-fuera-plazo-1060428.aspx" target="_blank" title="Ver fuente: Andina — reglamento de encuestas del JNE, multas de 10 a 100 UIT" class="src-link"><p style="color: var(--gris-texto); font-size: 0.9rem;">Solo firmas en el REE pueden publicar. Multas duras de <strong>10 a 100 UIT (hasta S/ 550,000)</strong> por violar la veda. <span class="src-arrow">↗</span></p></a>
             </div>
         </div>
     </section>
@@ -371,46 +376,75 @@
         <h2 style="font-size: 2.5rem; margin-bottom: 1rem;"><span style="color:var(--morado-tinta)">06.</span> Percepción Ciudadana</h2>
         
         <div class="dona-grid">
-            <div class="dona-wrapper animate-on-scroll" data-percent="55">
-                <svg class="dona-svg" viewBox="0 0 150 150">
-                    <circle class="dona-circle-bg" cx="75" cy="75" r="70"></circle>
-                    <circle class="dona-circle-fill" cx="75" cy="75" r="70"></circle>
-                </svg>
-                <div class="dona-text">55%</div>
-                <p style="font-size: 0.8rem; color: var(--gris-texto); margin-top: 1rem;">Se ha topado con fake news en redes.</p>
+            
+            <div class="dona-item" style="text-align: center;">
+                <div class="dona-wrapper dona-sync" data-percent="55">
+                    <svg class="dona-svg" viewBox="0 0 150 150">
+                        <circle class="dona-circle-bg" cx="75" cy="75" r="70"></circle>
+                        <circle class="dona-circle-fill" cx="75" cy="75" r="70" style="transition: none; stroke: var(--rojo-alerta);"></circle>
+                    </svg>
+                    <div class="dona-text"><span class="dona-number">0</span>%</div>
+                </div>
+                <div class="dona-info">
+                    <a href="https://forbes.pe/tecnologia/2025-03-17/fake-news-55-de-peruanos-se-ha-encontrado-con-noticias-falsas-en-redes-sociales-de-meta-y-33-creyo-en-ellas-dice-encuesta/" target="_blank" title="Ver fuente: Forbes Perú" style="text-decoration: none; display: block;">
+                        <p style="font-size: 0.8rem; color: var(--gris-texto); margin-top: 0.5rem; min-height: 40px; transition: color 0.3s; cursor: pointer;" onmouseover="this.style.color='var(--rojo-alerta)'" onmouseout="this.style.color='var(--gris-texto)'">Se ha topado con fake news en redes sociales. <span style="font-size: 0.7rem; opacity: 0.7;">↗</span></p>
+                    </a>
+                </div>
             </div>
             
-            <div class="dona-wrapper animate-on-scroll" data-percent="33">
-                <svg class="dona-svg" viewBox="0 0 150 150">
-                    <circle class="dona-circle-bg" cx="75" cy="75" r="70"></circle>
-                    <circle class="dona-circle-fill" cx="75" cy="75" r="70"></circle>
-                </svg>
-                <div class="dona-text">33%</div>
-                <p style="font-size: 0.8rem; color: var(--gris-texto); margin-top: 1rem;">Admite haber creído en ellas.</p>
+            <div class="dona-item" style="text-align: center;">
+                <div class="dona-wrapper dona-sync" data-percent="33">
+                    <svg class="dona-svg" viewBox="0 0 150 150">
+                        <circle class="dona-circle-bg" cx="75" cy="75" r="70"></circle>
+                        <circle class="dona-circle-fill" cx="75" cy="75" r="70" style="transition: none; stroke: var(--rojo-alerta);"></circle>
+                    </svg>
+                    <div class="dona-text"><span class="dona-number">0</span>%</div>
+                </div>
+                <div class="dona-info">
+                    <a href="https://forbes.pe/tecnologia/2025-03-17/fake-news-55-de-peruanos-se-ha-encontrado-con-noticias-falsas-en-redes-sociales-de-meta-y-33-creyo-en-ellas-dice-encuesta/" target="_blank" title="Ver fuente: Forbes Perú" style="text-decoration: none; display: block;">
+                        <p style="font-size: 0.8rem; color: var(--gris-texto); margin-top: 0.5rem; min-height: 40px; transition: color 0.3s; cursor: pointer;" onmouseover="this.style.color='var(--rojo-alerta)'" onmouseout="this.style.color='var(--gris-texto)'">Admitió haber creído en noticias falsas. <span style="font-size: 0.7rem; opacity: 0.7;">↗</span></p>
+                    </a>
+                </div>
             </div>
 
-            <div class="dona-wrapper animate-on-scroll" data-percent="74">
-                <svg class="dona-svg" viewBox="0 0 150 150">
-                    <circle class="dona-circle-bg" cx="75" cy="75" r="70"></circle>
-                    <circle class="dona-circle-fill" cx="75" cy="75" r="70" style="stroke: var(--morado-tinta)"></circle>
-                </svg>
-                <div class="dona-text">74%</div>
-                <p style="font-size: 0.8rem; color: var(--gris-texto); margin-top: 1rem;">Teme a la IA en campañas (Top 1 en LATAM).</p>
+            <div class="dona-item" style="text-align: center;">
+                <div class="dona-wrapper dona-sync" data-percent="57">
+                    <svg class="dona-svg" viewBox="0 0 150 150">
+                        <circle class="dona-circle-bg" cx="75" cy="75" r="70"></circle>
+                        <circle class="dona-circle-fill" cx="75" cy="75" r="70" style="transition: none; stroke: var(--morado-tinta);"></circle>
+                    </svg>
+                    <div class="dona-text"><span class="dona-number">0</span>%</div>
+                </div>
+                <div class="dona-info">
+                    <a href="https://forbes.pe/tecnologia/2025-03-17/fake-news-55-de-peruanos-se-ha-encontrado-con-noticias-falsas-en-redes-sociales-de-meta-y-33-creyo-en-ellas-dice-encuesta/" target="_blank" title="Ver fuente: Forbes Perú" style="text-decoration: none; display: block;">
+                        <p style="font-size: 0.8rem; color: var(--gris-texto); margin-top: 0.5rem; min-height: 40px; transition: color 0.3s; cursor: pointer;" onmouseover="this.style.color='var(--morado-tinta)'" onmouseout="this.style.color='var(--gris-texto)'">Ve un peligro para la democracia quitar el fact-checking. <span style="font-size: 0.7rem; opacity: 0.7;">↗</span></p>
+                    </a>
+                </div>
             </div>
 
-            <div class="dona-wrapper animate-on-scroll" data-percent="28">
-                <svg class="dona-svg" viewBox="0 0 150 150">
-                    <circle class="dona-circle-bg" cx="75" cy="75" r="70"></circle>
-                    <circle class="dona-circle-fill" cx="75" cy="75" r="70" style="stroke: var(--ambar-dato)"></circle>
-                </svg>
-                <div class="dona-text">28%</div>
-                <p style="font-size: 0.8rem; color: var(--gris-texto); margin-top: 1rem;">Se siente bien informado al votar.</p>
+            <!-- Dona 4 -->
+            <div class="dona-item" style="text-align: center;">
+                <div class="dona-wrapper dona-sync" data-percent="59">
+                    <svg class="dona-svg" viewBox="0 0 150 150">
+                        <circle class="dona-circle-bg" cx="75" cy="75" r="70"></circle>
+                        <circle class="dona-circle-fill" cx="75" cy="75" r="70" style="transition: none; stroke: var(--ambar-dato);"></circle>
+                    </svg>
+                    <div class="dona-text"><span class="dona-number">0</span>%</div>
+                </div>
+                <div class="dona-info">
+                    <a href="https://reutersinstitute.politics.ox.ac.uk/digital-news-report/2024/dnr-executive-summary" target="_blank" title="Ver fuente: Reuters DNR" style="text-decoration: none; display: block;">
+                        <p style="font-size: 0.8rem; color: var(--gris-texto); margin-top: 0.5rem; min-height: 40px; transition: color 0.3s; cursor: pointer;" onmouseover="this.style.color='var(--ambar-dato)'" onmouseout="this.style.color='var(--gris-texto)'">Le preocupa distinguir lo real de lo falso en internet. <span style="font-size: 0.7rem; opacity: 0.7;">↗</span></p>
+                    </a>
+                </div>
             </div>
+            
         </div>
 
         <div style="margin-top: 5rem; text-align: center; border-top: 1px solid var(--borde-sutil); padding-top: 3rem;">
-            <p style="font-family: var(--ff-mono); color: var(--rojo-alerta); margin-bottom: 1rem;">DATOS MIT SCIENCE (2018)</p>
-            <h3 style="font-size: 1.5rem;">Las noticias falsas viajan <strong>6 veces más rápido</strong> que la verdad.</h3>
+            <a href="https://www.science.org/doi/10.1126/science.aap9559" target="_blank" title="Ver fuente: Vosoughi, Roy & Aral (2018), 'The spread of true and false news online', Science" class="src-link">
+                <p style="font-family: var(--ff-mono); color: var(--rojo-alerta); margin-bottom: 1rem;">DATOS MIT · SCIENCE (2018) <span class="src-arrow">↗</span></p>
+                <h3 style="font-size: 1.5rem;">Las noticias falsas llegan a la gente <strong>6 veces más rápido</strong> que la verdad.</h3>
+            </a>
         </div>
     </section>
 
@@ -421,9 +455,19 @@
         </p>
         
         <div style="max-width: 800px; margin: 0 auto; text-align: left; background: var(--noche); padding: 1.5rem; border-radius: 8px; font-size: 0.75rem; color: var(--gris-texto); font-family: var(--ff-mono);">
-            <strong>NOTA ACADÉMICA:</strong> Aunque el JNE registró miles de alertas, la Misión de Observación Electoral de la UE (MOE-UE) concluyó que la desinformación <em>"no constituyó una característica dominante de la campaña en línea"</em>. Ninguna misión internacional documentó fraude electoral real.
+            <strong>NOTA ACADÉMICA:</strong> Aunque el JNE registró miles de alertas, la Misión de Observación Electoral de la UE (MOE-UE) concluyó que la desinformación <a href="https://www.eeas.europa.eu/sites/default/files/2026/documents/declaraci%C3%B3n%20preliminar-1ra%20vuelta.pdf" target="_blank" title="Ver fuente: MOE-UE Perú 2026 — Declaración preliminar (1ra vuelta)" class="src-link"><em>"no constituyó una característica dominante de la campaña en línea"</em> <span class="src-arrow">↗</span></a>. <a href="https://peru21.pe/politica/mision-de-observacion-electoral-de-la-ue-descarta-fraude-en-elecciones-2026/" target="_blank" title="Ver fuente: Perú21 — MOE-UE descarta fraude en las Elecciones 2026" class="src-link">Ninguna misión internacional documentó fraude electoral real. <span class="src-arrow">↗</span></a>
             <br><br>
-            <strong>FUENTES:</strong> JNE Fact-Checking, ONPE, RENIEC, MOE-UE, Reuters Institute Digital News Report 2025, DataReportal 2025, Sherlock Communications, Red Ama Llulla (OjoPúblico).
+            <strong>FUENTES:</strong>
+            <a href="https://factchecking.jne.gob.pe/" target="_blank" class="src-link" title="JNE Fact Checking">JNE Fact-Checking ↗</a> ·
+            <a href="https://identidad.reniec.gob.pe/elecciones-generales-2026" target="_blank" class="src-link" title="RENIEC — Elecciones Generales 2026">RENIEC ↗</a> ·
+            <a href="https://elperuano.pe/noticia/293280-mas-de-27-millones-de-peruanos-acuden-hoy-a-sufragar" target="_blank" class="src-link" title="El Peruano — padrón electoral">El Peruano ↗</a> ·
+            <a href="https://www.eeas.europa.eu/sites/default/files/2026/documents/declaraci%C3%B3n%20preliminar-1ra%20vuelta.pdf" target="_blank" class="src-link" title="MOE-UE — Declaración preliminar">MOE-UE ↗</a> ·
+            <a href="https://reutersinstitute.politics.ox.ac.uk/es/digital-news-report/2025" target="_blank" class="src-link" title="Reuters Institute DNR 2025">Reuters Institute DNR 2025 ↗</a> ·
+            <a href="https://es-us.noticias.yahoo.com/jne-combate-desinformaci%C3%B3n-electoral-fake-202505740.html" target="_blank" class="src-link" title="La República (vía Yahoo) — cifras de alertas JNE">La República ↗</a> ·
+            <a href="https://ojo-publico.com/ojobionico/verificaciones-los-seis-debates-presidenciales-del-2026" target="_blank" class="src-link" title="Red Ama Llulla / OjoPúblico">Red Ama Llulla (OjoPúblico) ↗</a> ·
+            <a href="https://consejoprensaperuana.org.pe/perucheck-una-alianza-para-enfrentar-la-desinformacion/" target="_blank" class="src-link" title="PerúCheck — Consejo de la Prensa Peruana">PerúCheck (CPP) ↗</a> ·
+            <a href="https://forbes.pe/tecnologia/2025-03-17/fake-news-55-de-peruanos-se-ha-encontrado-con-noticias-falsas-en-redes-sociales-de-meta-y-33-creyo-en-ellas-dice-encuesta/" target="_blank" class="src-link" title="Forbes Perú — encuesta sobre fake news">Forbes Perú ↗</a> ·
+            <a href="https://www.science.org/doi/10.1126/science.aap9559" target="_blank" class="src-link" title="Science — Vosoughi, Roy & Aral (2018)">Science/MIT (2018) ↗</a>
         </div>
         
         <p style="margin-top: 3rem; font-size: 0.8rem; color: var(--gris-texto); font-family: var(--ff-mono);">
@@ -460,13 +504,32 @@
                         });
                     }
 
-                    // c) Donas SVG
-                    if (entry.target.classList.contains('dona-wrapper')) {
-                        entry.target.classList.add('in-view');
+                    // c) Donas SVG Sincronizadas
+                    if (entry.target.classList.contains('dona-sync') && !entry.target.classList.contains('counted')) {
+                        entry.target.classList.add('counted');
                         const percent = parseInt(entry.target.getAttribute('data-percent'));
-                        const circumference = 440; // 2 * Math.PI * 70
-                        const offset = circumference - (percent / 100) * circumference;
-                        entry.target.style.setProperty('--target-offset', offset);
+                        const numEl = entry.target.querySelector('.dona-number');
+                        const circleFill = entry.target.querySelector('.dona-circle-fill');
+                        const circumference = 440;
+                        
+                        let start = 0;
+                        const duration = 2000;
+                        const startTime = performance.now();
+
+                        function updateDona(currentTime) {
+                            const elapsed = currentTime - startTime;
+                            const progress = Math.min(elapsed / duration, 1);
+                            const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+                            
+                            const currentNum = start + (percent - start) * easeProgress;
+                            numEl.innerText = Math.floor(currentNum);
+                            
+                            const offset = circumference - (currentNum / 100) * circumference;
+                            circleFill.style.strokeDashoffset = offset;
+                            
+                            if (progress < 1) requestAnimationFrame(updateDona);
+                        }
+                        requestAnimationFrame(updateDona);
                     }
 
                     // d) Contadores Numéricos
@@ -497,7 +560,7 @@
         }, observerOptions);
 
         // Registrar elementos a observar
-        document.querySelectorAll('.animate-on-scroll, .bar-chart-container, .dona-wrapper, .animate-number').forEach(el => observer.observe(el));
+        document.querySelectorAll('.animate-on-scroll, .bar-chart-container, .dona-sync, .animate-number').forEach(el => observer.observe(el));
 
         // 3. Navegación por Dots
         const sections = document.querySelectorAll('section');
