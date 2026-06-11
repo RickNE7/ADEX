@@ -73,30 +73,44 @@
                 <div class="bg-panelBg/80 backdrop-blur-sm border border-borderGray rounded-2xl p-6">
                     <h2 class="text-lg font-bold text-white mb-4 border-b border-borderGray pb-2"><i class="fa-solid fa-cloud-arrow-down text-blue-400 mr-2"></i>Bases de Datos</h2>
                     <p class="text-xs text-gray-500 mb-6">
-                        Descarga los sets de datos reales obtenidos de ADEX Data Trade para realizar la limpieza y análisis.
+                        Descarga los sets de datos en formato CSV para realizar tu limpieza y análisis en Google Sheets o Excel.
                     </p>
                     <div class="space-y-4">
-                        <a href="ADT-X-EMPR-20260611.xlsx" download class="flex items-center justify-between w-full bg-blue-900/20 hover:bg-blue-900/40 border border-blue-500/30 rounded-xl p-4 transition-all group">
-                            <div class="flex items-center gap-3">
-                                <i class="fa-solid fa-file-excel text-2xl text-blue-400 group-hover:scale-110 transition-transform"></i>
-                                <div class="text-left">
-                                    <span class="block text-sm font-bold text-white">Exportaciones por Empresa (ADT)</span>
-                                    <span class="block text-xs text-blue-300">Data cruda: ADT-X-EMPR-20260611.xlsx</span>
+                        <div class="flex flex-col xl:flex-row flex-wrap items-center justify-between gap-4 w-full bg-red-900/20 border border-red-500/30 rounded-xl p-4 transition-all group hover:bg-red-900/40">
+                            <div class="flex items-center gap-3 flex-grow min-w-0">
+                                <i class="fa-solid fa-file-csv text-2xl text-red-400 group-hover:scale-110 transition-transform flex-shrink-0"></i>
+                                <div class="text-left min-w-0">
+                                    <span class="block text-sm font-bold text-white truncate">BD_Mangos_Sucia.csv</span>
+                                    <span class="block text-xs text-red-300">Contiene errores para depurar</span>
                                 </div>
                             </div>
-                            <i class="fa-solid fa-download text-blue-500/50 group-hover:text-blue-400"></i>
-                        </a>
+                            <div class="flex flex-wrap gap-2 w-full xl:w-auto flex-shrink-0">
+                                <button onclick="openModal('BD_Mangos_Sucia.csv')" class="flex-1 xl:flex-none px-4 py-2 bg-red-500/20 hover:bg-red-500/40 text-red-300 rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-eye"></i> Visualizar
+                                </button>
+                                <a href="BD_Mangos_Sucia.csv" download class="flex-1 xl:flex-none px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-download"></i>
+                                </a>
+                            </div>
+                        </div>
                         
-                        <a href="ADT-X-MERC-20260611.xlsx" download class="flex items-center justify-between w-full bg-purple-900/20 hover:bg-purple-900/40 border border-purple-500/30 rounded-xl p-4 transition-all group">
-                            <div class="flex items-center gap-3">
-                                <i class="fa-solid fa-file-excel text-2xl text-purple-400 group-hover:scale-110 transition-transform"></i>
-                                <div class="text-left">
-                                    <span class="block text-sm font-bold text-white">Exportaciones por Mercado (ADT)</span>
-                                    <span class="block text-xs text-purple-300">Data cruda: ADT-X-MERC-20260611.xlsx</span>
+                        <div class="flex flex-col xl:flex-row flex-wrap items-center justify-between gap-4 w-full bg-emerald-900/20 border border-emerald-500/30 rounded-xl p-4 transition-all group hover:bg-emerald-900/40">
+                            <div class="flex items-center gap-3 flex-grow min-w-0">
+                                <i class="fa-solid fa-file-csv text-2xl text-emerald-400 group-hover:scale-110 transition-transform flex-shrink-0"></i>
+                                <div class="text-left min-w-0">
+                                    <span class="block text-sm font-bold text-white truncate">BD_Mangos_Limpia.csv</span>
+                                    <span class="block text-xs text-emerald-300">Versión validada y estructurada</span>
                                 </div>
                             </div>
-                            <i class="fa-solid fa-download text-purple-500/50 group-hover:text-purple-400"></i>
-                        </a>
+                            <div class="flex flex-wrap gap-2 w-full xl:w-auto flex-shrink-0">
+                                <button onclick="openModal('BD_Mangos_Limpia.csv')" class="flex-1 xl:flex-none px-4 py-2 bg-emerald-500/20 hover:bg-emerald-500/40 text-emerald-300 rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-eye"></i> Visualizar
+                                </button>
+                                <a href="BD_Mangos_Limpia.csv" download class="flex-1 xl:flex-none px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-download"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -145,4 +159,122 @@
     </div>
 
 </body>
+    <!-- Modal CSV Viewer -->
+    <div id="csvModal" class="fixed inset-0 z-50 hidden opacity-0 transition-opacity duration-300">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal()"></div>
+        
+        <!-- Modal Content -->
+        <div class="absolute inset-4 md:inset-10 bg-panelBg border border-borderGray rounded-2xl shadow-2xl flex flex-col overflow-hidden transform scale-95 transition-transform duration-300" id="modalContent">
+            
+            <!-- Header -->
+            <div class="flex justify-between items-center p-4 border-b border-borderGray bg-darkBg">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-table text-accentBlue text-xl"></i>
+                    <h3 id="modalTitle" class="text-lg font-bold text-white font-mono">Cargando...</h3>
+                </div>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white transition-colors bg-borderGray/50 hover:bg-borderGray p-2 rounded-lg">
+                    <i class="fa-solid fa-xmark text-lg w-5 h-5 flex items-center justify-center"></i>
+                </button>
+            </div>
+            
+            <!-- Loading Spinner -->
+            <div id="loadingSpinner" class="flex-grow flex flex-col items-center justify-center text-gray-500">
+                <i class="fa-solid fa-circle-notch fa-spin text-4xl mb-4 text-accentBlue"></i>
+                <p>Leyendo datos...</p>
+            </div>
+
+            <!-- Table Container -->
+            <div id="tableContainer" class="flex-grow overflow-auto hidden custom-scrollbar">
+                <table class="w-full text-sm text-left text-gray-300 whitespace-nowrap">
+                    <thead class="text-xs text-gray-400 uppercase bg-darkBg sticky top-0 shadow-md z-10" id="tableHead">
+                        <!-- headers injected here -->
+                    </thead>
+                    <tbody id="tableBody" class="divide-y divide-borderGray">
+                        <!-- rows injected here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; height: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #090D16; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #1F2937; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #374151; }
+    </style>
+
+    <script>
+        const modal = document.getElementById('csvModal');
+        const modalContent = document.getElementById('modalContent');
+        const modalTitle = document.getElementById('modalTitle');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const tableContainer = document.getElementById('tableContainer');
+        const tableHead = document.getElementById('tableHead');
+        const tableBody = document.getElementById('tableBody');
+
+        function openModal(filename) {
+            modal.classList.remove('hidden');
+            // Trigger reflow for transition
+            void modal.offsetWidth;
+            modal.classList.remove('opacity-0');
+            modalContent.classList.remove('scale-95');
+            
+            modalTitle.textContent = filename;
+            tableContainer.classList.add('hidden');
+            loadingSpinner.classList.remove('hidden');
+            tableHead.innerHTML = '';
+            tableBody.innerHTML = '';
+
+            // Fetch and parse CSV
+            fetch(filename)
+                .then(response => response.text())
+                .then(csv => {
+                    const lines = csv.trim().split('\n');
+                    if (lines.length > 0) {
+                        // Parse Headers
+                        const headers = lines[0].split(',');
+                        let theadHTML = '<tr>';
+                        headers.forEach((header, index) => {
+                            theadHTML += `<th scope="col" class="px-6 py-4 font-bold border-r border-borderGray last:border-0">${header.replace(/"/g, '')}</th>`;
+                        });
+                        theadHTML += '</tr>';
+                        tableHead.innerHTML = theadHTML;
+
+                        // Parse Rows
+                        let tbodyHTML = '';
+                        for (let i = 1; i < lines.length; i++) {
+                            const cols = lines[i].split(',');
+                            tbodyHTML += '<tr class="hover:bg-borderGray/30 transition-colors">';
+                            cols.forEach((col, index) => {
+                                // Add subtle color to IDs or numbers for aesthetics
+                                let cellClass = "px-6 py-3 border-r border-borderGray last:border-0";
+                                if (index === 0) cellClass += " font-mono text-gray-400";
+                                if (col.includes('-')) cellClass += " text-gray-300"; // Dates/IDs
+                                
+                                tbodyHTML += `<td class="${cellClass}">${col.replace(/"/g, '')}</td>`;
+                            });
+                            tbodyHTML += '</tr>';
+                        }
+                        tableBody.innerHTML = tbodyHTML;
+                    }
+                    
+                    loadingSpinner.classList.add('hidden');
+                    tableContainer.classList.remove('hidden');
+                })
+                .catch(error => {
+                    loadingSpinner.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-4xl mb-4 text-red-500"></i><p class="text-red-400">Error al cargar el archivo</p>`;
+                    console.error('Error fetching CSV:', error);
+                });
+        }
+
+        function closeModal() {
+            modal.classList.add('opacity-0');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+    </script>
 </html>
