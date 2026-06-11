@@ -43,7 +43,7 @@
                     </div>
                     <div>
                         <h1 class="text-3xl font-extrabold tracking-tight">Global Export Import SAC</h1>
-                        <p class="text-gray-400 mt-1">Reporte Dinámico y Análisis de Datos</p>
+                        <p class="text-gray-400 mt-1">Reporte Dinámico y Análisis de Datos <span class="text-gray-600 ml-2 font-mono text-xs uppercase font-semibold">v1.0.0</span></p>
                     </div>
                 </div>
                 <a href="../Global%20Export%20Import%20SAC%20-%20EA1.pdf" target="_blank" class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-all hover:scale-105 shadow-lg shadow-blue-500/30">
@@ -64,7 +64,10 @@
                     <button onclick="zoomOut()" class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-emerald-400 hover:bg-borderGray rounded transition-colors" title="Alejar">
                         <i class="fa-solid fa-magnifying-glass-minus"></i>
                     </button>
-                    <span id="zoom-level" class="text-xs font-mono font-bold text-white w-12 text-center">100%</span>
+                    <div class="flex items-center px-1">
+                        <input type="number" id="zoom-level" value="100" min="40" max="200" step="10" class="text-xs font-mono font-bold text-white w-10 bg-transparent text-right focus:outline-none focus:text-emerald-400" onchange="manualZoom(this.value)">
+                        <span class="text-xs font-mono font-bold text-white ml-1">%</span>
+                    </div>
                     <button onclick="zoomIn()" class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-emerald-400 hover:bg-borderGray rounded transition-colors" title="Acercar">
                         <i class="fa-solid fa-magnifying-glass-plus"></i>
                     </button>
@@ -99,7 +102,17 @@
             container.style.transform = `scale(${currentZoom})`;
             container.style.width = `${(100 / currentZoom)}%`;
             container.style.height = `${(100 / currentZoom)}%`;
-            zoomLabel.innerText = Math.round(currentZoom * 100) + '%';
+            zoomLabel.value = Math.round(currentZoom * 100);
+        }
+
+        function manualZoom(value) {
+            let num = parseInt(value);
+            if (isNaN(num)) num = 100;
+            if (num < minZoom * 100) num = minZoom * 100;
+            if (num > maxZoom * 100) num = maxZoom * 100;
+            
+            currentZoom = num / 100;
+            updateZoom();
         }
 
         function zoomIn() {
