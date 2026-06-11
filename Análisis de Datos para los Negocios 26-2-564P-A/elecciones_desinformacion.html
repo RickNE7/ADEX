@@ -18,6 +18,7 @@
             --morado-tinta: #7C5CBF;
             --ambar-dato: #F0B23E;
             --gris-texto: #A0AABF;
+            --verde-senal: #0F6E56;
             --borde-sutil: rgba(242, 240, 233, 0.1);
 
             --ff-display: 'Archivo Black', Impact, sans-serif;
@@ -31,7 +32,7 @@
         body { background-color: var(--noche); color: var(--blanco-acta); font-family: var(--ff-body); line-height: 1.6; overflow-x: hidden; }
 
         /* Contenedores Principales */
-        .container { max-w-width: 1100px; margin: 0 auto; padding: 0 2rem; position: relative; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; position: relative; }
         section { min-height: 90vh; display: flex; flex-direction: column; justify-content: center; padding: 6rem 0; position: relative; }
 
         /* Typography Global */
@@ -49,6 +50,10 @@
         .ticker-track { display: inline-flex; animation: scrollTicker 30s linear infinite; }
         .ticker-item { padding: 0 2rem; display: inline-block; }
         @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .ticker-wrapper { transition: background-color 0.8s ease; }
+        .ticker-wrapper.ticker-acto2 { background-color: var(--morado-tinta); }
+        .ticker-wrapper.ticker-acto3 { background-color: var(--verde-senal); }
+        .ticker-wrapper.ticker-acto3 .ticker-track { animation: none; display: flex; width: 100%; justify-content: center; }
 
         /* Botón Back Menu */
         .back-menu-btn { position: fixed; top: 3.5rem; left: 2rem; z-index: 999; background: var(--panel); border: 1px solid var(--borde-sutil); color: var(--gris-texto); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: all 0.2s; font-family: var(--ff-body); cursor: pointer; }
@@ -120,6 +125,30 @@
         .dona-wrapper.in-view .dona-circle-fill { stroke-dashoffset: var(--target-offset); }
         .dona-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: var(--ff-display); font-size: 2rem; }
 
+        /* Acto 3: La Señal — inversión de paleta al llegar al epílogo */
+        body { transition: background-color 1.2s ease; }
+        body.acto-senal { background-color: #F2F0E9; }
+        #s6, #s7, footer { transition: color 0.8s ease; }
+        body.acto-senal #s6, body.acto-senal #s7, body.acto-senal footer {
+            color: #0E1320;
+            --blanco-acta: #0E1320;
+            --gris-texto: #555B66;
+            --panel: #E4E0D4;
+            --noche: #FFFFFF;
+            --borde-sutil: rgba(14, 19, 32, 0.15);
+        }
+        body.acto-senal footer { background: transparent !important; }
+        body.acto-senal #s7 .glitch-text { color: #0E1320; }
+
+        /* Accesibilidad: degradar animaciones decorativas */
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .ticker-track { animation: none; }
+            #particles-canvas { display: none; }
+            .glitch-text::before, .glitch-text::after { display: none; }
+            .card, .timeline-item, .bar-fill, .dona-circle-fill, body, .ticker-wrapper { transition: none; }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .nav-dots { display: none; } /* Ocultar dots en móvil */
@@ -165,6 +194,7 @@
         <button class="nav-dot" data-target="s4" aria-label="Defensores"></button>
         <button class="nav-dot" data-target="s5" aria-label="Legal"></button>
         <button class="nav-dot" data-target="s6" aria-label="Percepción"></button>
+        <button class="nav-dot" data-target="s7" aria-label="Epílogo"></button>
     </nav>
 
     <canvas id="particles-canvas"></canvas>
@@ -229,20 +259,20 @@
         <div class="bar-chart-container animate-on-scroll">
             <div class="bar-row">
                 <div class="bar-label">X (Twitter)</div>
-                <div class="bar-track"><div class="bar-fill accent-red" data-width="85%">+1,200 Alertas</div></div>
+                <div class="bar-track"><div class="bar-fill accent-red" data-width="85%" data-count="1200" data-prefix="+" data-suffix=" Alertas">+1,200 Alertas</div></div>
             </div>
             <div class="bar-row">
                 <div class="bar-label">TikTok</div>
-                <div class="bar-track"><div class="bar-fill accent-red" data-width="45%">+600 Alertas</div></div>
+                <div class="bar-track"><div class="bar-fill accent-red" data-width="45%" data-count="600" data-prefix="+" data-suffix=" Alertas">+600 Alertas</div></div>
             </div>
         </div>
 
         <h3 style="margin-top: 4rem; font-family: var(--ff-mono); font-size: 1rem; color: var(--gris-texto);"><a href="https://reutersinstitute.politics.ox.ac.uk/es/digital-news-report/2025" target="_blank" title="Ver fuente: Reuters Institute Digital News Report 2025" class="src-link">USO DE REDES PARA NOTICIAS (PERÚ 2025) <span class="src-arrow">↗</span></a></h3>
         <div class="bar-chart-container animate-on-scroll">
-            <div class="bar-row"><div class="bar-label">Facebook</div><div class="bar-track"><div class="bar-fill" data-width="52%">52%</div></div></div>
-            <div class="bar-row"><div class="bar-label">YouTube</div><div class="bar-track"><div class="bar-fill" data-width="34%">34%</div></div></div>
-            <div class="bar-row"><div class="bar-label" style="color: var(--morado-tinta); font-weight: bold;">TikTok</div><div class="bar-track"><div class="bar-fill" style="background: var(--morado-tinta); color: white;" data-width="33%">33%</div></div></div>
-            <div class="bar-row"><div class="bar-label">WhatsApp</div><div class="bar-track"><div class="bar-fill" data-width="29%">29%</div></div></div>
+            <div class="bar-row"><div class="bar-label">Facebook</div><div class="bar-track"><div class="bar-fill" data-width="52%" data-count="52" data-suffix="%">52%</div></div></div>
+            <div class="bar-row"><div class="bar-label">YouTube</div><div class="bar-track"><div class="bar-fill" data-width="34%" data-count="34" data-suffix="%">34%</div></div></div>
+            <div class="bar-row"><div class="bar-label" style="color: var(--morado-tinta); font-weight: bold;">TikTok</div><div class="bar-track"><div class="bar-fill" style="background: var(--morado-tinta); color: white;" data-width="33%" data-count="33" data-suffix="%">33%</div></div></div>
+            <div class="bar-row"><div class="bar-label">WhatsApp</div><div class="bar-track"><div class="bar-fill" data-width="29%" data-count="29" data-suffix="%">29%</div></div></div>
         </div>
     </section>
 
@@ -448,6 +478,20 @@
         </div>
     </section>
 
+    <!-- S7: Epílogo - La Señal -->
+    <section id="s7" class="container" style="text-align: center;">
+        <div class="mono-eyebrow">Epílogo · El veredicto de los observadores</div>
+        <h2 style="font-size: clamp(2.2rem, 6vw, 3.8rem); margin: 1.5rem 0 2rem;">Y sin embargo…</h2>
+        <a href="https://www.eeas.europa.eu/sites/default/files/2026/documents/declaraci%C3%B3n%20preliminar-1ra%20vuelta.pdf" target="_blank" title="Ver fuente: MOE-UE Perú 2026 — Declaración preliminar (1ra vuelta)" class="src-link">
+            <p style="font-size: 1.3rem; font-style: italic; color: var(--gris-texto); max-width: 720px; margin: 0 auto;">"La desinformación no constituyó una característica dominante de la campaña en línea." <span class="src-arrow">↗</span></p>
+        </a>
+        <p class="mono-eyebrow" style="margin-top: 1rem;">— Misión de Observación Electoral de la Unión Europea</p>
+        <a href="https://peru21.pe/politica/mision-de-observacion-electoral-de-la-ue-descarta-fraude-en-elecciones-2026/" target="_blank" title="Ver fuente: Perú21 — la MOE-UE descarta fraude en las Elecciones 2026" class="src-link">
+            <p style="color: var(--gris-texto); max-width: 640px; margin: 2rem auto 0;">Ninguna misión internacional documentó fraude electoral real, y el fact-checking institucional e independiente llegó a millones de personas. <span class="src-arrow">↗</span></p>
+        </a>
+        <h2 class="h-display glitch-text de-glitch" data-text="La información resiste" style="font-size: clamp(2rem, 6vw, 4rem); margin-top: 4rem;">La información <span style="color: var(--verde-senal)">resiste</span></h2>
+    </section>
+
     <!-- Footer -->
     <footer style="background: #000; padding: 4rem 2rem; text-align: center; border-top: 1px solid var(--borde-sutil);">
         <p style="font-size: 1.5rem; font-family: var(--ff-display); color: var(--blanco-acta); margin-bottom: 2rem;">
@@ -455,8 +499,6 @@
         </p>
         
         <div style="max-width: 800px; margin: 0 auto; text-align: left; background: var(--noche); padding: 1.5rem; border-radius: 8px; font-size: 0.75rem; color: var(--gris-texto); font-family: var(--ff-mono);">
-            <strong>NOTA ACADÉMICA:</strong> Aunque el JNE registró miles de alertas, la Misión de Observación Electoral de la UE (MOE-UE) concluyó que la desinformación <a href="https://www.eeas.europa.eu/sites/default/files/2026/documents/declaraci%C3%B3n%20preliminar-1ra%20vuelta.pdf" target="_blank" title="Ver fuente: MOE-UE Perú 2026 — Declaración preliminar (1ra vuelta)" class="src-link"><em>"no constituyó una característica dominante de la campaña en línea"</em> <span class="src-arrow">↗</span></a>. <a href="https://peru21.pe/politica/mision-de-observacion-electoral-de-la-ue-descarta-fraude-en-elecciones-2026/" target="_blank" title="Ver fuente: Perú21 — MOE-UE descarta fraude en las Elecciones 2026" class="src-link">Ninguna misión internacional documentó fraude electoral real. <span class="src-arrow">↗</span></a>
-            <br><br>
             <strong>FUENTES:</strong>
             <a href="https://factchecking.jne.gob.pe/" target="_blank" class="src-link" title="JNE Fact Checking">JNE Fact-Checking ↗</a> ·
             <a href="https://identidad.reniec.gob.pe/elecciones-generales-2026" target="_blank" class="src-link" title="RENIEC — Elecciones Generales 2026">RENIEC ↗</a> ·
@@ -477,12 +519,37 @@
 
     <!-- Logic Script Vanilla -->
     <script>
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
         // 1. Efecto Glitch Hero (Trigger random)
         const glitchText = document.querySelector('.glitch-text');
-        setInterval(() => {
-            glitchText.classList.add('is-glitching');
-            setTimeout(() => glitchText.classList.remove('is-glitching'), 600);
-        }, 5000); // Cada 5 segundos hace glitch
+        if (!reduceMotion) {
+            setInterval(() => {
+                glitchText.classList.add('is-glitching');
+                setTimeout(() => glitchText.classList.remove('is-glitching'), 600);
+            }, 5000); // Cada 5 segundos hace glitch
+        }
+
+        // Contador dentro de las barras (sube junto con el ancho)
+        function animateBarCount(fill) {
+            const target = parseFloat(fill.dataset.count);
+            if (isNaN(target)) return;
+            const prefix = fill.dataset.prefix || '';
+            const suffix = fill.dataset.suffix || '';
+            if (reduceMotion) {
+                fill.textContent = prefix + Math.floor(target).toLocaleString() + suffix;
+                return;
+            }
+            const duration = 1500; // misma duración que la transición de ancho
+            const startTime = performance.now();
+            function tick(currentTime) {
+                const progress = Math.min((currentTime - startTime) / duration, 1);
+                const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+                fill.textContent = prefix + Math.floor(target * easeProgress).toLocaleString() + suffix;
+                if (progress < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+        }
 
         // 2. Intersection Observer (Animaciones al scroll)
         const observerOptions = { root: null, rootMargin: '0px', threshold: 0.2 };
@@ -496,11 +563,15 @@
                         entry.target.classList.add('in-view');
                     }
 
-                    // b) Barras horizontales
+                    // b) Barras horizontales (ancho + contador sincronizados)
                     if (entry.target.classList.contains('bar-chart-container')) {
                         const fills = entry.target.querySelectorAll('.bar-fill');
                         fills.forEach(fill => {
                             fill.style.width = fill.getAttribute('data-width');
+                            if (fill.dataset.count && !fill.classList.contains('counted')) {
+                                fill.classList.add('counted');
+                                animateBarCount(fill);
+                            }
                         });
                     }
 
@@ -511,7 +582,13 @@
                         const numEl = entry.target.querySelector('.dona-number');
                         const circleFill = entry.target.querySelector('.dona-circle-fill');
                         const circumference = 440;
-                        
+
+                        if (reduceMotion) {
+                            numEl.innerText = percent;
+                            circleFill.style.strokeDashoffset = circumference - (percent / 100) * circumference;
+                            return;
+                        }
+
                         let start = 0;
                         const duration = 2000;
                         const startTime = performance.now();
@@ -538,6 +615,12 @@
                         const targetStr = entry.target.getAttribute('data-target');
                         const isDecimal = targetStr.includes('.');
                         const target = parseFloat(targetStr);
+
+                        if (reduceMotion) {
+                            entry.target.innerText = isDecimal ? target.toFixed(1) : Math.floor(target).toLocaleString();
+                            return;
+                        }
+
                         let start = 0;
                         const duration = 2000;
                         const startTime = performance.now();
@@ -555,16 +638,55 @@
                         }
                         requestAnimationFrame(updateCounter);
                     }
+
+                    // e) De-glitch del epílogo: el glitch se resuelve en ráfagas decrecientes
+                    if (entry.target.classList.contains('de-glitch') && !entry.target.classList.contains('counted')) {
+                        entry.target.classList.add('counted');
+                        if (!reduceMotion) {
+                            [[0, 600], [1100, 350], [2100, 200], [3000, 100]].forEach(([inicio, dur]) => {
+                                setTimeout(() => {
+                                    entry.target.classList.add('is-glitching');
+                                    setTimeout(() => entry.target.classList.remove('is-glitching'), dur);
+                                }, inicio);
+                            });
+                        }
+                    }
                 }
             });
         }, observerOptions);
 
         // Registrar elementos a observar
-        document.querySelectorAll('.animate-on-scroll, .bar-chart-container, .dona-sync, .animate-number').forEach(el => observer.observe(el));
+        document.querySelectorAll('.animate-on-scroll, .bar-chart-container, .dona-sync, .animate-number, .de-glitch').forEach(el => observer.observe(el));
 
-        // 3. Navegación por Dots
+        // 3. Navegación por Dots + Arco narrativo (3 actos)
         const sections = document.querySelectorAll('section');
         const navDots = document.querySelectorAll('.nav-dot');
+
+        const tickerWrapper = document.querySelector('.ticker-wrapper');
+        const tickerTrack = document.querySelector('.ticker-track');
+        const TICKER_ALERTAS = tickerTrack.innerHTML;
+        const VERIFICADOS = [
+            'VERIFICADO: AMA LLULLA REVISÓ EN VIVO LOS 6 DEBATES PRESIDENCIALES',
+            'JNE: 260 DESMENTIDOS SUPERAN LOS 6M DE VISUALIZACIONES',
+            'VERIFICADO: LA ENCUESTADORA "HUAMAN RAZU" NO EXISTE EN EL REE',
+            'LEY 32314 VIGENTE: LA IA COMO AGRAVANTE PENAL'
+        ];
+        function buildTrack(items) {
+            const seq = items.map(t => `<div class="ticker-item">${t}</div>`).join('<div class="ticker-item">|</div>');
+            return seq + '<div class="ticker-item">|</div>' + seq + '<div class="ticker-item">|</div>';
+        }
+        const ACTO_POR_SECCION = { s0: 1, s1: 1, s2: 1, s3: 2, s4: 2, s5: 2, s6: 3, s7: 3, 'footer-final': 3 };
+        let actoActual = 1;
+        function setActo(acto) {
+            if (acto === actoActual) return;
+            actoActual = acto;
+            document.body.classList.toggle('acto-senal', acto === 3);
+            tickerWrapper.classList.toggle('ticker-acto2', acto === 2);
+            tickerWrapper.classList.toggle('ticker-acto3', acto === 3);
+            if (acto === 1) tickerTrack.innerHTML = TICKER_ALERTAS;
+            else if (acto === 2) tickerTrack.innerHTML = buildTrack(VERIFICADOS);
+            else tickerTrack.innerHTML = '<div class="ticker-item">SEÑAL RECUPERADA — LA DESINFORMACIÓN NO FUE DOMINANTE EN LA CAMPAÑA (MOE-UE)</div>';
+        }
 
         const navObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -572,11 +694,16 @@
                     navDots.forEach(dot => dot.classList.remove('active'));
                     const activeDot = document.querySelector(`.nav-dot[data-target="${entry.target.id}"]`);
                     if(activeDot) activeDot.classList.add('active');
+                    const acto = ACTO_POR_SECCION[entry.target.id];
+                    if (acto) setActo(acto);
                 }
             });
         }, { threshold: 0.5 });
 
         sections.forEach(sec => navObserver.observe(sec));
+        const footerEl = document.querySelector('footer');
+        footerEl.id = 'footer-final';
+        navObserver.observe(footerEl);
 
         navDots.forEach(dot => {
             dot.addEventListener('click', () => {
@@ -614,7 +741,7 @@
             });
             requestAnimationFrame(drawParticles);
         }
-        drawParticles();
+        if (!reduceMotion) drawParticles();
 
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
