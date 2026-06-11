@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exportación de Mangos - Proyecto Final</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        darkBg: '#090D16',
+                        panelBg: '#111827',
+                        accentBlue: '#2563EB',
+                        borderGray: '#1F2937'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #090D16; color: #F3F4F6; }
+    </style>
+</head>
+<body class="font-sans antialiased p-6 md:p-12 relative overflow-x-hidden">
+
+    <!-- Ambient glow -->
+    <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-orange-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <div class="max-w-6xl mx-auto space-y-10 relative z-10">
+        
+        <!-- Header -->
+        <header class="border-b border-borderGray pb-8">
+            <a href="../../index_analisis.html" class="inline-flex items-center text-gray-400 hover:text-white transition-colors mb-6 text-sm font-semibold">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Volver al Portafolio
+            </a>
+            <div class="flex items-center gap-4">
+                <div class="bg-gradient-to-tr from-orange-500 to-red-500 p-4 rounded-2xl shadow-lg">
+                    <i class="fa-solid fa-leaf text-white text-3xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-extrabold tracking-tight">Exportación de Mangos Peruanos</h1>
+                    <p class="text-gray-400 mt-1">Proyecto Final Consolidado (Sesiones 1 a 6) <span class="text-gray-600 ml-2 font-mono text-xs uppercase font-semibold">v1.0.0</span></p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Context & Downloads -->
+            <div class="lg:col-span-1 space-y-6">
+                <!-- Info Card -->
+                <div class="bg-panelBg/80 backdrop-blur-sm border border-borderGray rounded-2xl p-6">
+                    <h2 class="text-lg font-bold text-white mb-4 border-b border-borderGray pb-2"><i class="fa-solid fa-circle-info text-orange-400 mr-2"></i>Contexto del Caso</h2>
+                    <p class="text-sm text-gray-400 leading-relaxed mb-4">
+                        Análisis estadístico y descriptivo de la empresa agroexportadora ficticia enfocada en la exportación de tres variedades principales de mango peruano: <strong>Kent, Edward y Haden</strong>.
+                    </p>
+                    <div class="bg-darkBg border border-borderGray rounded-lg p-3 text-sm">
+                        <span class="text-gray-500">Partida Arancelaria:</span><br>
+                        <span class="font-mono text-orange-400 font-bold tracking-widest text-base">0804.50.20.00</span>
+                    </div>
+                </div>
+
+                <!-- Downloads -->
+                <div class="bg-panelBg/80 backdrop-blur-sm border border-borderGray rounded-2xl p-6">
+                    <h2 class="text-lg font-bold text-white mb-4 border-b border-borderGray pb-2"><i class="fa-solid fa-cloud-arrow-down text-blue-400 mr-2"></i>Bases de Datos</h2>
+                    <p class="text-xs text-gray-500 mb-6">
+                        Descarga los sets de datos reales obtenidos de ADEX Data Trade para realizar la limpieza y análisis.
+                    </p>
+                    <div class="space-y-4">
+                        <a href="ADT-X-EMPR-20260611.xlsx" download class="flex items-center justify-between w-full bg-blue-900/20 hover:bg-blue-900/40 border border-blue-500/30 rounded-xl p-4 transition-all group">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-file-excel text-2xl text-blue-400 group-hover:scale-110 transition-transform"></i>
+                                <div class="text-left">
+                                    <span class="block text-sm font-bold text-white">Exportaciones por Empresa (ADT)</span>
+                                    <span class="block text-xs text-blue-300">Data cruda: ADT-X-EMPR-20260611.xlsx</span>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-download text-blue-500/50 group-hover:text-blue-400"></i>
+                        </a>
+                        
+                        <a href="ADT-X-MERC-20260611.xlsx" download class="flex items-center justify-between w-full bg-purple-900/20 hover:bg-purple-900/40 border border-purple-500/30 rounded-xl p-4 transition-all group">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-file-excel text-2xl text-purple-400 group-hover:scale-110 transition-transform"></i>
+                                <div class="text-left">
+                                    <span class="block text-sm font-bold text-white">Exportaciones por Mercado (ADT)</span>
+                                    <span class="block text-xs text-purple-300">Data cruda: ADT-X-MERC-20260611.xlsx</span>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-download text-purple-500/50 group-hover:text-purple-400"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Area -->
+            <div class="lg:col-span-2 space-y-6">
+                
+                <!-- Conclusiones Placeholder -->
+                <div class="bg-panelBg/80 backdrop-blur-sm border border-borderGray rounded-2xl p-6">
+                    <h2 class="text-lg font-bold text-white mb-4 border-b border-borderGray pb-2"><i class="fa-solid fa-pen-to-square text-purple-400 mr-2"></i>Conclusiones Interpretativas</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-darkBg border border-dashed border-gray-600 rounded-lg p-4 text-center">
+                            <i class="fa-solid fa-chart-pie text-gray-500 text-2xl mb-2 block"></i>
+                            <p class="text-xs text-gray-400">Espacio para redactar la conclusión sobre la distribución de ventas por variedad.</p>
+                        </div>
+                        <div class="bg-darkBg border border-dashed border-gray-600 rounded-lg p-4 text-center">
+                            <i class="fa-solid fa-calendar-trend-up text-gray-500 text-2xl mb-2 block"></i>
+                            <p class="text-xs text-gray-400">Espacio para redactar la conclusión sobre la estacionalidad (diciembre - marzo).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Iframe Placeholder -->
+                <div class="bg-panelBg/80 backdrop-blur-sm border border-borderGray rounded-2xl p-6">
+                    <div class="flex justify-between items-center mb-4 border-b border-borderGray pb-2">
+                        <h2 class="text-lg font-bold text-white"><i class="fa-solid fa-table-columns text-accentBlue mr-2"></i>Dashboard Interactivo (Google Sheets)</h2>
+                    </div>
+                    
+                    <div class="w-full rounded-xl overflow-hidden border border-dashed border-gray-600 bg-darkBg flex flex-col items-center justify-center text-center p-12" style="height: 600px;">
+                        <div class="bg-borderGray/50 p-6 rounded-full mb-6">
+                            <i class="fa-brands fa-google-drive text-5xl text-gray-400"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Aún no se ha incrustado el Dashboard</h3>
+                        <p class="text-sm text-gray-400 max-w-md mx-auto mb-6">
+                            Una vez que desarrollen la tabla de medidas estadísticas y los gráficos en su hoja de cálculo, aquí se mostrará el iframe correspondiente.
+                        </p>
+                        <div class="bg-panelBg border border-borderGray px-4 py-2 rounded text-xs font-mono text-gray-500">
+                            &lt;iframe src="..."&gt;&lt;/iframe&gt;
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
