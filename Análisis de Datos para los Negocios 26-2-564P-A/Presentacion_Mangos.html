@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación — Exportación de Mango Peruano</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: { extend: {
+                fontFamily: { sans: ['Inter', 'sans-serif'] },
+                colors: {
+                    darkBg: '#090D16', panelBg: '#111827', borderGray: '#1F2937',
+                    accentBlue: '#3B82F6', mangoGreen: '#1F4E2C', mangoOrange: '#E08A1E'
+                }
+            } }
+        }
+    </script>
+    <style>
+        html, body { height: 100%; overflow: hidden; background-color: #090D16; color: #F3F4F6; }
+        .slide { opacity: 0; pointer-events: none; transition: opacity .45s ease, transform .45s ease; transform: translateY(12px); }
+        .slide.active { opacity: 1; pointer-events: auto; transform: translateY(0); }
+        .slide-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+        .slide-scroll::-webkit-scrollbar-thumb { background: #1F2937; border-radius: 4px; }
+        .dot { transition: all .25s ease; }
+        .dot-active { background: #E08A1E; transform: scale(1.4); }
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; height: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #090D16; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #1F2937; border-radius: 4px; }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <!-- Barra de progreso -->
+    <div class="fixed top-0 left-0 right-0 h-1 bg-borderGray z-40">
+        <div id="progress" class="h-full bg-mangoOrange transition-all duration-300" style="width:0%"></div>
+    </div>
+
+    <!-- Volver al Portafolio -->
+    <a href="https://rickne7.github.io/ADEX/index_analisis.html" class="fixed top-5 left-6 z-40 inline-flex items-center gap-2 text-xs font-semibold text-gray-400 hover:text-white bg-panelBg/70 backdrop-blur-sm border border-borderGray hover:bg-borderGray rounded-full px-4 py-2 transition-colors">
+        <i class="fa-solid fa-arrow-left"></i> Volver al Portafolio
+    </a>
+
+    <!-- Deck -->
+    <main id="deck" class="relative h-screen w-screen">
+
+        <!-- 1. PORTADA -->
+        <section class="slide absolute inset-0 flex flex-col items-center justify-center text-center px-8">
+            <div class="bg-mangoOrange/10 w-24 h-24 rounded-3xl flex items-center justify-center border border-mangoOrange/30 mb-8 shadow-xl">
+                <i class="fa-solid fa-leaf text-mangoOrange text-5xl"></i>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">Exportación de Mango Peruano</h1>
+            <p class="text-gray-400 text-lg md:text-xl mb-2">Análisis de Datos para los Negocios — Evidencia de Aprendizaje 1</p>
+            <p class="text-gray-500 text-sm mb-8">Sesiones 1 a 6 · Periodo 2021–2025 · Partida <span class="font-mono text-mangoOrange">0804.50.20.00</span></p>
+            <div class="flex flex-wrap justify-center gap-2 max-w-3xl text-xs text-gray-400">
+                <span class="bg-panelBg border border-borderGray rounded-full px-3 py-1">Eric Mozombite</span>
+                <span class="bg-panelBg border border-borderGray rounded-full px-3 py-1">Jahir Castillo</span>
+                <span class="bg-panelBg border border-borderGray rounded-full px-3 py-1">Jostin Chávez</span>
+                <span class="bg-panelBg border border-borderGray rounded-full px-3 py-1">María Ruiz</span>
+                <span class="bg-panelBg border border-borderGray rounded-full px-3 py-1">Marilin Medina</span>
+                <span class="bg-panelBg border border-borderGray rounded-full px-3 py-1">Yhurem García</span>
+            </div>
+            <p class="text-gray-600 text-xs mt-10"><i class="fa-regular fa-keyboard mr-1"></i> Usa ← → para navegar</p>
+        </section>
+
+        <!-- 2. CONTEXTO -->
+        <section class="slide absolute inset-0 flex flex-col justify-center px-8 md:px-20">
+            <div class="max-w-5xl mx-auto w-full">
+                <h2 class="text-3xl font-extrabold mb-2"><i class="fa-solid fa-circle-info text-mangoOrange mr-3"></i>Contexto del Caso</h2>
+                <p class="text-gray-400 mb-8 max-w-3xl">Empresa agroexportadora de mango peruano fresco que comercializa tres variedades hacia cuatro destinos internacionales durante 2021–2025.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <div class="bg-panelBg border border-borderGray rounded-2xl p-6">
+                        <i class="fa-solid fa-seedling text-mangoGreen text-2xl mb-3"></i>
+                        <h3 class="font-bold text-lg mb-2">Variedades</h3>
+                        <p class="text-sm text-gray-300">Kent, Edward y Haden</p>
+                    </div>
+                    <div class="bg-panelBg border border-borderGray rounded-2xl p-6">
+                        <i class="fa-solid fa-earth-americas text-accentBlue text-2xl mb-3"></i>
+                        <h3 class="font-bold text-lg mb-2">Mercados</h3>
+                        <p class="text-sm text-gray-300">Europa, EE.UU., Asia y Latinoamérica</p>
+                    </div>
+                    <div class="bg-panelBg border border-borderGray rounded-2xl p-6">
+                        <i class="fa-solid fa-calendar-days text-mangoOrange text-2xl mb-3"></i>
+                        <h3 class="font-bold text-lg mb-2">Periodo</h3>
+                        <p class="text-sm text-gray-300">5 años · 12.000 transacciones válidas</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. BASES DE DATOS -->
+        <section class="slide absolute inset-0 flex flex-col justify-center px-8 md:px-20">
+            <div class="max-w-5xl mx-auto w-full">
+                <h2 class="text-3xl font-extrabold mb-6"><i class="fa-solid fa-database text-accentBlue mr-3"></i>Bases de Datos</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+                    <div class="bg-red-900/20 border border-red-500/30 rounded-2xl p-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <i class="fa-solid fa-file-csv text-3xl text-red-400"></i>
+                            <div><span class="block font-bold">BD_Mangos_Sucia.csv</span><span class="text-xs text-red-300">12.900 registros con errores</span></div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="openModal('BD_Mangos_Sucia.csv')" class="flex-1 px-4 py-2 bg-red-500/20 hover:bg-red-500/40 text-red-300 rounded-lg text-sm"><i class="fa-solid fa-eye mr-1"></i> Visualizar</button>
+                            <a href="BD_Mangos_Sucia.csv" download class="px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg text-sm"><i class="fa-solid fa-download"></i></a>
+                        </div>
+                    </div>
+                    <div class="bg-emerald-900/20 border border-emerald-500/30 rounded-2xl p-6">
+                        <div class="flex items-center gap-3 mb-4">
+                            <i class="fa-solid fa-file-csv text-3xl text-emerald-400"></i>
+                            <div><span class="block font-bold">BD_Mangos_Limpia.csv</span><span class="text-xs text-emerald-300">12.000 registros validados</span></div>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="openModal('BD_Mangos_Limpia.csv')" class="flex-1 px-4 py-2 bg-emerald-500/20 hover:bg-emerald-500/40 text-emerald-300 rounded-lg text-sm"><i class="fa-solid fa-eye mr-1"></i> Visualizar</button>
+                            <a href="BD_Mangos_Limpia.csv" download class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-sm"><i class="fa-solid fa-download"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
+                    <div class="bg-panelBg border border-borderGray rounded-xl p-4"><span class="block text-2xl font-extrabold text-white">12.900</span><span class="text-xs text-gray-500">Iniciales</span></div>
+                    <div class="bg-panelBg border border-borderGray rounded-xl p-4"><span class="block text-2xl font-extrabold text-emerald-400">12.000</span><span class="text-xs text-gray-500">Finales</span></div>
+                    <div class="bg-panelBg border border-borderGray rounded-xl p-4"><span class="block text-2xl font-extrabold text-red-400">900</span><span class="text-xs text-gray-500">Eliminados</span></div>
+                    <div class="bg-panelBg border border-borderGray rounded-xl p-4"><span class="block text-2xl font-extrabold text-mangoOrange">100%</span><span class="text-xs text-gray-500">Integridad</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. METODOLOGÍA DE LIMPIEZA -->
+        <section class="slide absolute inset-0 flex flex-col justify-center px-8 md:px-20">
+            <div class="max-w-5xl mx-auto w-full">
+                <h2 class="text-3xl font-extrabold mb-6"><i class="fa-solid fa-broom text-mangoGreen mr-3"></i>Metodología de Limpieza</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div class="flex gap-3"><i class="fa-solid fa-check text-mangoGreen mt-1"></i><div><p class="font-semibold">Eliminación de duplicados</p><p class="text-xs text-gray-400">80 exactos + 640 parciales resueltos por validación cruzada.</p></div></div>
+                    <div class="flex gap-3"><i class="fa-solid fa-check text-mangoGreen mt-1"></i><div><p class="font-semibold">Estandarización de fechas</p><p class="text-xs text-gray-400">~1.500 fechas a formato ISO YYYY-MM-DD.</p></div></div>
+                    <div class="flex gap-3"><i class="fa-solid fa-check text-mangoGreen mt-1"></i><div><p class="font-semibold">Limpieza de variedad</p><p class="text-xs text-gray-400">~1.700 variantes (Knt, KENT, ként → Kent).</p></div></div>
+                    <div class="flex gap-3"><i class="fa-solid fa-check text-mangoGreen mt-1"></i><div><p class="font-semibold">Validación numérica</p><p class="text-xs text-gray-400">~500 negativos, ~210 outliers, ~1.030 nulos recuperados.</p></div></div>
+                    <div class="flex gap-3"><i class="fa-solid fa-check text-mangoGreen mt-1"></i><div><p class="font-semibold">Estandarización de categorías</p><p class="text-xs text-gray-400">~1.650 mercados (EEUU, USA → EE.UU.).</p></div></div>
+                    <div class="flex gap-3"><i class="fa-solid fa-check text-mangoGreen mt-1"></i><div><p class="font-semibold">Partida y filas vacías</p><p class="text-xs text-gray-400">~760 formatos + 60 vacías + 120 huérfanos.</p></div></div>
+                </div>
+                <div class="mt-6 bg-panelBg border border-borderGray rounded-xl p-4 text-center text-sm text-gray-300">
+                    Resultado: <span class="text-emerald-400 font-bold">12.000 registros íntegros</span> que cumplen exactitud, consistencia, unicidad y completitud.
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. ANÁLISIS ESTADÍSTICO -->
+        <section class="slide absolute inset-0 flex flex-col justify-center px-8 md:px-20">
+            <div class="max-w-5xl mx-auto w-full">
+                <h2 class="text-3xl font-extrabold mb-6"><i class="fa-solid fa-calculator text-mangoOrange mr-3"></i>Análisis Estadístico Descriptivo</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                    <div class="bg-panelBg border border-borderGray rounded-xl p-4"><span class="block text-xs text-gray-500">Ingreso Total</span><span class="block text-xl font-extrabold text-emerald-400">$442.6M</span></div>
+                    <div class="bg-panelBg border border-borderGray rounded-xl p-4"><span class="block text-xs text-gray-500">Transacciones</span><span class="block text-xl font-extrabold">12.000</span></div>
+                    <div class="bg-panelBg border border-borderGray rounded-xl p-4"><span class="block text-xs text-gray-500">Ticket Promedio</span><span class="block text-xl font-extrabold">$36.880</span></div>
+                    <div class="bg-panelBg border border-borderGray rounded-xl p-4"><span class="block text-xs text-gray-500">Variedad líder</span><span class="block text-xl font-extrabold text-mangoOrange">Kent 62%</span></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-panelBg border border-borderGray rounded-xl p-5">
+                        <h3 class="text-sm font-semibold text-mangoOrange mb-3">Medidas — Ingreso (no agrupado)</h3>
+                        <table class="w-full text-xs text-gray-300"><tbody class="divide-y divide-borderGray">
+                            <tr><td class="py-1.5">Media</td><td class="py-1.5 text-right font-mono text-white">$36,879.99</td></tr>
+                            <tr><td class="py-1.5">Mediana</td><td class="py-1.5 text-right font-mono text-white">$35,802.01</td></tr>
+                            <tr><td class="py-1.5">Desv. Estándar</td><td class="py-1.5 text-right font-mono text-white">$10,324.01</td></tr>
+                            <tr><td class="py-1.5">Mínimo / Máximo</td><td class="py-1.5 text-right font-mono text-white">$16,106 / $65,651</td></tr>
+                        </tbody></table>
+                    </div>
+                    <div class="bg-panelBg border border-borderGray rounded-xl p-5">
+                        <h3 class="text-sm font-semibold text-mangoOrange mb-3">Datos Agrupados (Sturges)</h3>
+                        <table class="w-full text-xs text-gray-300"><tbody class="divide-y divide-borderGray">
+                            <tr><td class="py-1.5">N° clases (k) / Amplitud (h)</td><td class="py-1.5 text-right font-mono text-white">15 / $3,303</td></tr>
+                            <tr><td class="py-1.5">Media agrupada</td><td class="py-1.5 text-right font-mono text-white">$36,887.11</td></tr>
+                            <tr><td class="py-1.5">Mediana (clase 6)</td><td class="py-1.5 text-right font-mono text-white">$35,795.56</td></tr>
+                            <tr><td class="py-1.5">Moda (clase modal 5)</td><td class="py-1.5 text-right font-mono text-white">$31,813.34</td></tr>
+                        </tbody></table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. VISUALIZACIONES I -->
+        <section class="slide absolute inset-0 flex flex-col justify-center px-8 md:px-16">
+            <div class="max-w-6xl mx-auto w-full">
+                <h2 class="text-3xl font-extrabold mb-5"><i class="fa-solid fa-chart-pie text-accentBlue mr-3"></i>Composición del Negocio</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <img src="img/02_ingreso_por_variedad.png" alt="Ingreso por Variedad" class="rounded-xl border border-borderGray bg-white w-full max-h-[58vh] object-contain">
+                    <img src="img/03_participacion_por_mercado.png" alt="Participación por Mercado" class="rounded-xl border border-borderGray bg-white w-full max-h-[58vh] object-contain">
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. VISUALIZACIONES II -->
+        <section class="slide absolute inset-0 flex flex-col justify-center px-8 md:px-16">
+            <div class="max-w-6xl mx-auto w-full">
+                <h2 class="text-3xl font-extrabold mb-4"><i class="fa-solid fa-chart-line text-accentBlue mr-3"></i>Tendencias y Dinámica</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <img src="img/04_tendencia_anual.png" alt="Tendencia Anual" class="rounded-xl border border-borderGray bg-white w-full max-h-[34vh] object-contain">
+                    <img src="img/06_crecimiento_interanual.png" alt="Crecimiento Interanual" class="rounded-xl border border-borderGray bg-white w-full max-h-[34vh] object-contain">
+                    <img src="img/05_evolucion_por_mercado.png" alt="Evolución por Mercado" class="rounded-xl border border-borderGray bg-white w-full max-h-[34vh] object-contain">
+                    <img src="img/07_estacionalidad_mensual.png" alt="Estacionalidad Mensual" class="rounded-xl border border-borderGray bg-white w-full max-h-[34vh] object-contain">
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. PROYECCIÓN -->
+        <section class="slide absolute inset-0 flex flex-col justify-center px-8 md:px-16">
+            <div class="max-w-6xl mx-auto w-full">
+                <h2 class="text-3xl font-extrabold mb-5"><i class="fa-solid fa-arrow-trend-up text-mangoGreen mr-3"></i>Distribución y Proyección 2026</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-center">
+                    <img src="img/01_histograma_ingreso.png" alt="Distribución del Ingreso" class="rounded-xl border border-borderGray bg-white w-full max-h-[52vh] object-contain">
+                    <div>
+                        <img src="img/08_proyeccion_cagr_vs_regresion.png" alt="Proyección CAGR vs Regresión" class="rounded-xl border border-borderGray bg-white w-full max-h-[40vh] object-contain mb-3">
+                        <p class="text-xs text-gray-400 text-center">Regresión lineal (R²=0.726) → meta base <span class="text-white font-semibold">$166.8M</span> · CAGR → techo optimista <span class="text-white font-semibold">$218.3M</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. CONCLUSIONES -->
+        <section class="slide absolute inset-0 flex flex-col justify-center px-8 md:px-20">
+            <div class="max-w-5xl mx-auto w-full">
+                <h2 class="text-3xl font-extrabold mb-6"><i class="fa-solid fa-pen-to-square text-purple-400 mr-3"></i>Conclusiones</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-panelBg border border-borderGray rounded-xl p-5"><p class="font-semibold text-mangoOrange mb-1"><i class="fa-solid fa-crown mr-1"></i>Concentración en Kent</p><p class="text-sm text-gray-300">Kent genera el <strong>62.4%</strong> de los ingresos. Activo crítico a proteger y fidelizar.</p></div>
+                    <div class="bg-panelBg border border-borderGray rounded-xl p-5"><p class="font-semibold text-mangoOrange mb-1"><i class="fa-solid fa-earth-americas mr-1"></i>Riesgo de mercado</p><p class="text-sm text-gray-300">Europa + EE.UU. concentran <strong>~80%</strong>. Diversificar hacia Asia y Latinoamérica.</p></div>
+                    <div class="bg-panelBg border border-borderGray rounded-xl p-5"><p class="font-semibold text-mangoOrange mb-1"><i class="fa-solid fa-rocket mr-1"></i>Expansión 2024–2025</p><p class="text-sm text-gray-300">Salto de <strong>+93.8%</strong> y <strong>+54.4%</strong>. Planificar logística y financiamiento.</p></div>
+                    <div class="bg-panelBg border border-borderGray rounded-xl p-5"><p class="font-semibold text-mangoOrange mb-1"><i class="fa-solid fa-chart-line mr-1"></i>Proyección 2026</p><p class="text-sm text-gray-300">Regresión <strong>$166.8M</strong> (base) vs CAGR <strong>$218.3M</strong> (techo). Operación predecible.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. DASHBOARD -->
+        <section class="slide absolute inset-0 flex flex-col justify-center px-8 md:px-20">
+            <div class="max-w-5xl mx-auto w-full">
+                <h2 class="text-3xl font-extrabold mb-4"><i class="fa-solid fa-table-columns text-accentBlue mr-3"></i>Dashboard Interpretativo</h2>
+                <p class="text-sm text-gray-400 mb-5">Tablero en Excel y Power BI que integra los 4 KPI y 8 visualizaciones. La versión Power BI es interactiva con filtrado cruzado por variedad, mercado y año.</p>
+                <!-- Reemplaza este bloque por: <img src="img/09_dashboard.png" class="rounded-xl border border-borderGray bg-white w-full max-h-[60vh] object-contain"> -->
+                <div class="w-full border border-borderGray border-dashed rounded-xl flex flex-col items-center justify-center text-center p-10 bg-panelBg/40">
+                    <i class="fa-solid fa-image text-4xl text-gray-500 mb-3"></i>
+                    <h3 class="font-bold mb-1">Captura del Dashboard</h3>
+                    <p class="text-gray-500 text-xs max-w-md">Exporta el dashboard como <span class="font-mono text-mangoOrange">img/09_dashboard.png</span> y reemplaza este bloque por la etiqueta &lt;img&gt; indicada en el comentario del código.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 11. CIERRE -->
+        <section class="slide absolute inset-0 flex flex-col items-center justify-center text-center px-8">
+            <i class="fa-solid fa-leaf text-mangoOrange text-5xl mb-6"></i>
+            <h2 class="text-4xl md:text-5xl font-extrabold mb-4">Gracias</h2>
+            <p class="text-gray-400 max-w-xl">Análisis de Datos para los Negocios — Evidencia de Aprendizaje 1</p>
+            <p class="text-gray-600 text-sm mt-2">Instituto de Comercio Exterior ADEX · Ciclo V — Módulo A · 2026</p>
+        </section>
+
+    </main>
+
+    <!-- Navegación -->
+    <div class="fixed bottom-0 left-0 right-0 z-40 flex items-center justify-between px-6 py-4">
+        <span class="text-xs text-gray-500 font-mono">Mango · EA1</span>
+        <div class="flex items-center gap-4">
+            <button onclick="prev()" class="w-10 h-10 rounded-full bg-panelBg border border-borderGray hover:bg-borderGray transition-colors"><i class="fa-solid fa-chevron-left"></i></button>
+            <div id="dots" class="flex items-center gap-2"></div>
+            <button onclick="next()" class="w-10 h-10 rounded-full bg-panelBg border border-borderGray hover:bg-borderGray transition-colors"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+        <div class="flex items-center gap-3">
+            <span id="counter" class="text-xs text-gray-400 font-mono">1 / 11</span>
+            <button onclick="toggleFs()" title="Pantalla completa" class="text-gray-500 hover:text-white transition-colors"><i class="fa-solid fa-expand"></i></button>
+        </div>
+    </div>
+
+    <!-- Modal CSV Viewer -->
+    <div id="csvModal" class="fixed inset-0 z-50 hidden opacity-0 transition-opacity duration-300">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal()"></div>
+        <div class="absolute inset-4 md:inset-10 bg-panelBg border border-borderGray rounded-2xl shadow-2xl flex flex-col overflow-hidden transform scale-95 transition-transform duration-300" id="modalContent">
+            <div class="flex justify-between items-center p-4 border-b border-borderGray bg-darkBg">
+                <div class="flex items-center gap-3"><i class="fa-solid fa-table text-accentBlue text-xl"></i><h3 id="modalTitle" class="text-lg font-bold text-white font-mono">Cargando...</h3></div>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white bg-borderGray/50 hover:bg-borderGray p-2 rounded-lg"><i class="fa-solid fa-xmark text-lg w-5 h-5 flex items-center justify-center"></i></button>
+            </div>
+            <div id="loadingSpinner" class="flex-grow flex flex-col items-center justify-center text-gray-500"><i class="fa-solid fa-circle-notch fa-spin text-4xl mb-4 text-accentBlue"></i><p>Leyendo datos...</p></div>
+            <div id="tableContainer" class="flex-grow overflow-auto hidden custom-scrollbar">
+                <table class="w-full text-sm text-left text-gray-300 whitespace-nowrap">
+                    <thead class="text-xs text-gray-400 uppercase bg-darkBg sticky top-0 shadow-md z-10" id="tableHead"></thead>
+                    <tbody id="tableBody" class="divide-y divide-borderGray"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ---------- Navegación de diapositivas ---------- */
+        const slides = document.querySelectorAll('.slide');
+        const total = slides.length;
+        let current = 0;
+        const dotsWrap = document.getElementById('dots');
+        for (let i = 0; i < total; i++) {
+            const d = document.createElement('button');
+            d.className = 'dot w-2.5 h-2.5 rounded-full bg-borderGray';
+            d.onclick = () => show(i);
+            dotsWrap.appendChild(d);
+        }
+        const dots = document.querySelectorAll('.dot');
+        function show(n) {
+            current = (n + total) % total;
+            slides.forEach((s, i) => s.classList.toggle('active', i === current));
+            dots.forEach((d, i) => d.classList.toggle('dot-active', i === current));
+            document.getElementById('counter').textContent = `${current + 1} / ${total}`;
+            document.getElementById('progress').style.width = `${(current + 1) / total * 100}%`;
+        }
+        function next() { show(current + 1); }
+        function prev() { show(current - 1); }
+        function toggleFs() {
+            if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+            else document.exitFullscreen();
+        }
+        document.addEventListener('keydown', (e) => {
+            const modalOpen = !document.getElementById('csvModal').classList.contains('hidden');
+            if (e.key === 'Escape' && modalOpen) { closeModal(); return; }
+            if (modalOpen) return;
+            if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { next(); e.preventDefault(); }
+            else if (['ArrowLeft', 'PageUp'].includes(e.key)) { prev(); e.preventDefault(); }
+            else if (e.key === 'Home') show(0);
+            else if (e.key === 'End') show(total - 1);
+        });
+        show(0);
+
+        /* ---------- Visor CSV (carga dinámica con fetch) ---------- */
+        const modal = document.getElementById('csvModal');
+        const modalContent = document.getElementById('modalContent');
+        const modalTitle = document.getElementById('modalTitle');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const tableContainer = document.getElementById('tableContainer');
+        const tableHead = document.getElementById('tableHead');
+        const tableBody = document.getElementById('tableBody');
+
+        function parseCSVText(csvText) {
+            const lines = csvText.trim().split('\n');
+            const rows = [];
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                const row = []; let current = ''; let insideQuotes = false;
+                for (let j = 0; j < line.length; j++) {
+                    const char = line[j], nextChar = line[j + 1];
+                    if (char === '"') {
+                        if (insideQuotes && nextChar === '"') { current += '"'; j++; }
+                        else insideQuotes = !insideQuotes;
+                    } else if (char === ',' && !insideQuotes) { row.push(current); current = ''; }
+                    else current += char;
+                }
+                row.push(current);
+                if (row.length > 0 && row[0] !== '') rows.push(row);
+            }
+            return rows;
+        }
+
+        function openModal(filename) {
+            modal.classList.remove('hidden');
+            void modal.offsetWidth;
+            modal.classList.remove('opacity-0');
+            modalContent.classList.remove('scale-95');
+            modalTitle.textContent = filename;
+            tableContainer.classList.add('hidden');
+            loadingSpinner.classList.remove('hidden');
+            tableHead.innerHTML = ''; tableBody.innerHTML = '';
+
+            fetch(new URL(filename, window.location.href).href)
+                .then(r => { if (!r.ok) throw new Error('No se pudo cargar el archivo'); return r.text(); })
+                .then(csv => {
+                    const rows = parseCSVText(csv);
+                    if (rows.length > 0) {
+                        let thead = '<tr>';
+                        rows[0].forEach(h => { thead += `<th class="px-6 py-4 font-bold border-r border-borderGray last:border-0">${h.replace(/"/g, '').trim()}</th>`; });
+                        tableHead.innerHTML = thead + '</tr>';
+                        let tbody = '';
+                        for (let i = 1; i < rows.length; i++) {
+                            tbody += '<tr class="hover:bg-borderGray/30 transition-colors">';
+                            rows[i].forEach((col, idx) => {
+                                let cls = 'px-6 py-3 border-r border-borderGray last:border-0';
+                                if (idx === 0) cls += ' font-mono text-gray-400';
+                                tbody += `<td class="${cls}">${col.replace(/"/g, '').trim()}</td>`;
+                            });
+                            tbody += '</tr>';
+                        }
+                        tableBody.innerHTML = tbody;
+                    }
+                    loadingSpinner.classList.add('hidden');
+                    tableContainer.classList.remove('hidden');
+                })
+                .catch(err => { loadingSpinner.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-4xl mb-4 text-red-500"></i><p class="text-red-400">Error: ${err.message}</p>`; });
+        }
+        function closeModal() {
+            modal.classList.add('opacity-0');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+    </script>
+</body>
+</html>
