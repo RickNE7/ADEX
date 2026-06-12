@@ -125,15 +125,15 @@
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
                             <div>
                                 <span class="text-gray-400">Registros Iniciales:</span>
-                                <span class="block font-bold text-white">165</span>
+                                <span class="block font-bold text-white">12,900</span>
                             </div>
                             <div>
                                 <span class="text-gray-400">Registros Finales:</span>
-                                <span class="block font-bold text-white">153</span>
+                                <span class="block font-bold text-white">12,000</span>
                             </div>
                             <div>
                                 <span class="text-gray-400">Registros Eliminados:</span>
-                                <span class="block font-bold text-red-400">12</span>
+                                <span class="block font-bold text-red-400">900</span>
                             </div>
                             <div>
                                 <span class="text-gray-400">Integridad de Datos:</span>
@@ -150,7 +150,7 @@
                             <i class="fa-solid fa-check text-green-400 flex-shrink-0 mt-0.5"></i>
                             <div>
                                 <p class="font-medium text-white">Eliminación de Duplicados</p>
-                                <p class="text-xs text-gray-400">Se identificaron y eliminaron 12 registros duplicados exactos en todas sus columnas.</p>
+                                <p class="text-xs text-gray-400">Se eliminaron 80 duplicados exactos y 640 duplicados parciales (mismo ID con datos en conflicto), resueltos por validación cruzada con la base maestra.</p>
                             </div>
                         </div>
 
@@ -158,7 +158,7 @@
                             <i class="fa-solid fa-check text-green-400 flex-shrink-0 mt-0.5"></i>
                             <div>
                                 <p class="font-medium text-white">Estandarización de Fechas</p>
-                                <p class="text-xs text-gray-400">Se parsearon y homogeneizaron 15 fechas con formatos inconsistentes (DD/MM/YYYY, MM-DD-YYYY, etc.)</p>
+                                <p class="text-xs text-gray-400">Se parsearon y homogeneizaron ~1,500 fechas almacenadas como texto en formatos inconsistentes (DD/MM/YYYY, MM/DD/YYYY, DD.MM.YYYY) al estándar ISO YYYY-MM-DD.</p>
                             </div>
                         </div>
 
@@ -166,7 +166,7 @@
                             <i class="fa-solid fa-check text-green-400 flex-shrink-0 mt-0.5"></i>
                             <div>
                                 <p class="font-medium text-white">Limpieza de Variedad</p>
-                                <p class="text-xs text-gray-400">Se corrigieron 30 misspellings (Knt → Kent, edwrd → Edward, Hadden → Haden) y se eliminaron espacios excedentes.</p>
+                                <p class="text-xs text-gray-400">Se normalizaron ~1,700 variantes ortográficas, de mayúsculas y tildes (Knt, kentt, KENT, ként → Kent; edwrd, Edw → Edward; Hadden → Haden) y se eliminaron espacios excedentes.</p>
                             </div>
                         </div>
 
@@ -174,7 +174,7 @@
                             <i class="fa-solid fa-check text-green-400 flex-shrink-0 mt-0.5"></i>
                             <div>
                                 <p class="font-medium text-white">Validación de Valores Numéricos</p>
-                                <p class="text-xs text-gray-400">Se corrigieron 15 precios negativos y 20 valores vacíos en volumen y precio.</p>
+                                <p class="text-xs text-gray-400">Se trataron ~500 valores negativos, ~260 ceros operativos, ~210 outliers absurdos (USD 999,999) y ~1,030 nulos/basura (N/A, #REF!, pendiente, null), recuperados por cruce con la base maestra.</p>
                             </div>
                         </div>
 
@@ -182,15 +182,15 @@
                             <i class="fa-solid fa-check text-green-400 flex-shrink-0 mt-0.5"></i>
                             <div>
                                 <p class="font-medium text-white">Estandarización de Categorías</p>
-                                <p class="text-xs text-gray-400">Se homogeneizaron 18 registros de mercado (europa → Europa), eliminaron caracteres especiales y tildes mal codificadas.</p>
+                                <p class="text-xs text-gray-400">Se homogeneizaron ~1,650 registros de mercado (europa, EEUU, USA, Latam → Europa, EE.UU., Latinoamérica) y se corrigieron tildes mal codificadas y caracteres especiales (#, &amp;, $, *).</p>
                             </div>
                         </div>
 
                         <div class="flex gap-3">
                             <i class="fa-solid fa-check text-green-400 flex-shrink-0 mt-0.5"></i>
                             <div>
-                                <p class="font-medium text-white">Validación de Partida Arancelaria</p>
-                                <p class="text-xs text-gray-400">Se corrigieron 10 variantes de formato (0804.50.2000, 804.50.20.00) al estándar 0804.50.20.00.</p>
+                                <p class="font-medium text-white">Validación de Partida Arancelaria y Filas Vacías</p>
+                                <p class="text-xs text-gray-400">Se normalizaron ~760 variantes de formato (804.50.20.00, 0804,50,20,00, 0804-50-20-00) al estándar 0804.50.20.00, se eliminaron 60 filas completamente vacías y 120 IDs huérfanos irrecuperables.</p>
                             </div>
                         </div>
                     </div>
