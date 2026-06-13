@@ -147,6 +147,53 @@
         
         /* Mermaid */
         .light-theme .mermaid svg { filter: invert(0.9) hue-rotate(180deg) !important; }
+
+        /* Estilos de Impresión (PDF) */
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            body, html {
+                background: #0f172a !important;
+                height: auto !important;
+                min-height: auto !important;
+                overflow: visible !important;
+                display: block !important;
+            }
+            #bg-container {
+                position: fixed !important;
+                height: 100vh !important;
+            }
+            footer, header, .participation-bar, .participation-pct, button[onclick^="changeSlide"], button[onclick^="goToSlide"] {
+                display: none !important;
+            }
+            main {
+                display: block !important;
+                height: auto !important;
+                min-height: auto !important;
+                overflow: visible !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .slide {
+                position: relative !important;
+                display: flex !important;
+                opacity: 1 !important;
+                transform: none !important;
+                width: 100% !important;
+                height: 100vh !important; /* One page per slide */
+                page-break-after: always !important;
+                break-after: page !important;
+                page-break-inside: avoid !important;
+                overflow: hidden !important;
+                margin: 0 !important;
+                padding: 20px !important;
+                box-sizing: border-box !important;
+            }
+            /* Reset absolute positions of nested elements if needed, though they might be fine inside a relative slide */
+        }
     </style>
 </head>
 <body class="text-slate-100 h-[100dvh] flex flex-col justify-between relative text-sm md:text-base">
