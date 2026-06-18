@@ -23,6 +23,7 @@
   --gris:#A89B88;
   --borde:rgba(247,243,236,0.10);
   --borde-fuerte:rgba(247,243,236,0.22);
+  --tema:var(--naranja);
 
   --ff-display:'Archivo Black', 'Inter', sans-serif;
   --ff-sans:'IBM Plex Sans', system-ui, sans-serif;
@@ -58,16 +59,18 @@ img{max-width:100%}
 /* ============ TICKER ============ */
 .ticker{
   position:fixed;top:0;left:0;right:0;z-index:50;
-  background:var(--naranja);color:#15100A;
+  background:var(--tema);color:#15100A;
   font-family:var(--ff-mono);font-size:12px;font-weight:500;
   letter-spacing:.05em;text-transform:uppercase;
   height:34px;display:flex;align-items:center;overflow:hidden;
   border-bottom:1px solid rgba(0,0,0,.2);
+  transition:background-color 1s ease;
 }
 .ticker__label{
-  background:#15100A;color:var(--naranja);
+  background:#15100A;color:var(--tema);
   padding:0 14px;height:100%;display:flex;align-items:center;
   font-weight:600;flex-shrink:0;
+  transition:color 1s ease;
 }
 .ticker__track{display:flex;white-space:nowrap;animation:ticker 60s linear infinite;padding-left:24px}
 .ticker__track span{padding:0 28px;position:relative}
@@ -84,7 +87,7 @@ img{max-width:100%}
   background:transparent;border:1px solid var(--borde-fuerte);
   display:block;transition:all .3s var(--ease);position:relative;
 }
-.dotnav a.active{background:var(--naranja);border-color:var(--naranja);transform:scale(1.3)}
+.dotnav a.active{background:var(--tema);border-color:var(--tema);transform:scale(1.3);transition:background-color 1s ease, border-color 1s ease, transform .3s var(--ease)}
 .dotnav a::before{
   content:attr(data-label);position:absolute;right:22px;top:50%;transform:translateY(-50%);
   font-family:var(--ff-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
@@ -107,7 +110,7 @@ img{max-width:100%}
   text-transform:uppercase;color:var(--gris);
   display:flex;align-items:center;gap:14px;margin-bottom:24px;
 }
-.eyebrow .num{color:var(--naranja);font-weight:500}
+.eyebrow .num{color:var(--tema);font-weight:500;transition:color 1s ease}
 .eyebrow .bar{flex:0 0 60px;height:1px;background:var(--borde-fuerte)}
 .h-display{
   font-family:var(--ff-display);font-weight:400;
@@ -515,7 +518,7 @@ footer{border-top:1px solid var(--borde);padding:60px 32px;max-width:var(--maxw)
     <span>Diseño editorial dark-mode · Vanilla JS</span>
   </div>
   <div style="margin-top:40px;text-align:center;">
-    <a href="https://rickne7.github.io/ADEX/index_analisis.html" style="display:inline-block;padding:12px 28px;border:1px solid var(--naranja);border-radius:30px;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--naranja);transition:all 0.3s ease;text-decoration:none;" onmouseover="this.style.background='var(--naranja)';this.style.color='#15100A'" onmouseout="this.style.background='transparent';this.style.color='var(--naranja)'">
+    <a href="https://rickne7.github.io/ADEX/index_analisis.html" style="display:inline-block;padding:12px 28px;border:1px solid var(--tema);border-radius:30px;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--tema);transition:all 0.5s ease;text-decoration:none;" onmouseover="this.style.background='var(--tema)';this.style.color='#15100A'" onmouseout="this.style.background='transparent';this.style.color='var(--tema)'">
       ← Volver al Portafolio
     </a>
   </div>
@@ -781,15 +784,15 @@ navLinks.forEach(a=>{
    STORY ACTS · Background Swapper
    ===================================================== */
 const acts = [
-  { trigger: 'hero',       bgId: 'bg-container-1', color: '#2A1102' },
-  { trigger: 'kpis',       bgId: 'bg-container-1', color: '#2A1102' },
-  { trigger: 'perfil',     bgId: 'bg-container-1', color: '#2A1102' },
-  { trigger: 'ranking',    bgId: 'bg-container-1', color: '#2A1102' },
-  { trigger: 'precio',     bgId: 'bg-container-1', color: '#2A1102' },
-  { trigger: 'logistica',  bgId: 'bg-container-2', color: '#061724' },
-  { trigger: 'riesgo',     bgId: 'bg-container-3', color: '#330505' },
-  { trigger: 'escenarios', bgId: 'bg-container-3', color: '#330505' },
-  { trigger: 'conclusion', bgId: 'bg-container-3', color: '#330505' }
+  { trigger: 'hero',       bgId: 'bg-container-1', color: '#2A1102', tema: '#FB7701' },
+  { trigger: 'kpis',       bgId: 'bg-container-1', color: '#2A1102', tema: '#FB7701' },
+  { trigger: 'perfil',     bgId: 'bg-container-1', color: '#2A1102', tema: '#FB7701' },
+  { trigger: 'ranking',    bgId: 'bg-container-1', color: '#2A1102', tema: '#FB7701' },
+  { trigger: 'precio',     bgId: 'bg-container-1', color: '#2A1102', tema: '#FB7701' },
+  { trigger: 'logistica',  bgId: 'bg-container-2', color: '#061724', tema: '#38bdf8' },
+  { trigger: 'riesgo',     bgId: 'bg-container-3', color: '#330505', tema: '#ef4444' },
+  { trigger: 'escenarios', bgId: 'bg-container-3', color: '#330505', tema: '#ef4444' },
+  { trigger: 'conclusion', bgId: 'bg-container-3', color: '#330505', tema: '#ef4444' }
 ];
 const allBgs = document.querySelectorAll('.bg-act');
 const actObs = new IntersectionObserver((entries) => {
@@ -798,6 +801,7 @@ const actObs = new IntersectionObserver((entries) => {
       const act = acts.find(a => a.trigger === e.target.id);
       if (act) {
         document.documentElement.style.setProperty('--fondo', act.color);
+        document.documentElement.style.setProperty('--tema', act.tema);
         allBgs.forEach(bg => {
           if (bg.id === act.bgId) {
             bg.classList.add('active');
