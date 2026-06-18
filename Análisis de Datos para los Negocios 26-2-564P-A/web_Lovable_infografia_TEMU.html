@@ -32,9 +32,27 @@
   --ease:cubic-bezier(.22,.61,.36,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{background:var(--fondo);color:var(--blanco);font-family:var(--ff-sans);-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden}
+html,body{background:var(--fondo);color:var(--blanco);font-family:var(--ff-sans);-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden;transition:background-color 1.5s var(--ease)}
 a{color:inherit;text-decoration:none}
 img{max-width:100%}
+
+/* ============ STORY BG & SPOTLIGHT ============ */
+.bg-act {
+  position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:0;
+  opacity:0; visibility:hidden; transition:opacity 1.2s var(--ease), visibility 1.2s;
+}
+.bg-act.active {
+  opacity:1; visibility:visible;
+}
+.story-bg, .story-bg-reveal {
+  position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;background-size:cover;background-position:center;
+}
+.story-bg { z-index:1; opacity:0.15; }
+.story-bg-reveal {
+  z-index:2; opacity:0.65;
+  -webkit-mask-image: radial-gradient(circle 400px at var(--mouse-x, 50%) var(--mouse-y, -200%), black 0%, rgba(0,0,0,0.8) 35%, rgba(0,0,0,0) 70%);
+  mask-image: radial-gradient(circle 400px at var(--mouse-x, 50%) var(--mouse-y, -200%), black 0%, rgba(0,0,0,0.8) 35%, rgba(0,0,0,0) 70%);
+}
 
 /* ============ TICKER ============ */
 .ticker{
@@ -290,6 +308,20 @@ footer{border-top:1px solid var(--borde);padding:60px 32px;max-width:var(--maxw)
 </head>
 <body>
 
+<!-- ============ STORY BG CROSSFADE CONTAINERS ============ -->
+<div id="bg-container-1" class="bg-act active">
+  <div class="story-bg" style="background-image:url('assets/bg_act1.png')"></div>
+  <div class="story-bg-reveal" style="background-image:url('assets/bg_act1.png')"></div>
+</div>
+<div id="bg-container-2" class="bg-act">
+  <div class="story-bg" style="background-image:url('assets/bg_act2.png')"></div>
+  <div class="story-bg-reveal" style="background-image:url('assets/bg_act2.png')"></div>
+</div>
+<div id="bg-container-3" class="bg-act">
+  <div class="story-bg" style="background-image:url('assets/bg_act3.png')"></div>
+  <div class="story-bg-reveal" style="background-image:url('assets/bg_act3.png')"></div>
+</div>
+
 <!-- ============ TICKER ============ -->
 <div class="ticker" aria-hidden="true">
   <div class="ticker__label">EN VIVO</div>
@@ -467,8 +499,13 @@ footer{border-top:1px solid var(--borde);padding:60px 32px;max-width:var(--maxw)
     </div>
   </div>
   <div class="foot-meta">
-    <span>© 2026 · El fenómeno TEMU en el Perú</span>
+    <span>© 2026 · El fenómeno TEMU en el Perú <span style="font-family:var(--ff-mono);font-size:10px;margin-left:8px;color:var(--gris)">v1.0.0</span></span>
     <span>Diseño editorial dark-mode · Vanilla JS</span>
+  </div>
+  <div style="margin-top:40px;text-align:center;">
+    <a href="https://rickne7.github.io/ADEX/index_analisis.html" style="display:inline-block;padding:12px 28px;border:1px solid var(--naranja);border-radius:30px;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--naranja);transition:all 0.3s ease;text-decoration:none;" onmouseover="this.style.background='var(--naranja)';this.style.color='#15100A'" onmouseout="this.style.background='transparent';this.style.color='var(--naranja)'">
+      ← Volver al Portafolio
+    </a>
   </div>
 </footer>
 
@@ -726,6 +763,70 @@ navLinks.forEach(a=>{
     ev.preventDefault();
     document.getElementById(a.dataset.target).scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
   });
+});
+
+/* =====================================================
+   STORY ACTS · Background Swapper
+   ===================================================== */
+const acts = [
+  { trigger: 'hero',       bgId: 'bg-container-1', color: '#1a1105' },
+  { trigger: 'kpis',       bgId: 'bg-container-1', color: '#1a1105' },
+  { trigger: 'perfil',     bgId: 'bg-container-1', color: '#1a1105' },
+  { trigger: 'ranking',    bgId: 'bg-container-1', color: '#1a1105' },
+  { trigger: 'precio',     bgId: 'bg-container-1', color: '#1a1105' },
+  { trigger: 'logistica',  bgId: 'bg-container-2', color: '#091012' },
+  { trigger: 'riesgo',     bgId: 'bg-container-3', color: '#140505' },
+  { trigger: 'escenarios', bgId: 'bg-container-3', color: '#140505' },
+  { trigger: 'conclusion', bgId: 'bg-container-3', color: '#140505' }
+];
+const allBgs = document.querySelectorAll('.bg-act');
+const actObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const act = acts.find(a => a.trigger === e.target.id);
+      if (act) {
+        document.documentElement.style.setProperty('--fondo', act.color);
+        allBgs.forEach(bg => {
+          if (bg.id === act.bgId) {
+            bg.classList.add('active');
+          } else {
+            bg.classList.remove('active');
+          }
+        });
+      }
+    }
+  });
+}, { threshold: 0.35 });
+
+/* =====================================================
+   SPOTLIGHT MOUSE TRACKING
+   ===================================================== */
+let mouseX = window.innerWidth / 2;
+let mouseY = -1000;
+let smoothX = mouseX;
+let smoothY = mouseY;
+let isMouseActive = false;
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  if(!isMouseActive) {
+    smoothX = mouseX; smoothY = mouseY;
+    isMouseActive = true;
+  }
+});
+
+function loopSpotlight() {
+  smoothX += (mouseX - smoothX) * 0.12;
+  smoothY += (mouseY - smoothY) * 0.12;
+  document.documentElement.style.setProperty('--mouse-x', `${smoothX}px`);
+  document.documentElement.style.setProperty('--mouse-y', `${smoothY}px`);
+  requestAnimationFrame(loopSpotlight);
+}
+if(!reduce) requestAnimationFrame(loopSpotlight);
+acts.forEach(a => {
+  const el = document.getElementById(a.trigger);
+  if(el) actObs.observe(el);
 });
 </script>
 </body>
