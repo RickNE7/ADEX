@@ -1,0 +1,301 @@
+ID_Producto,Categoria,Descripcion,Proveedor_Origen
+P0001,Belleza,Producto Genérico de Belleza,Guangzhou Textiles 24
+P0002,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 40
+P0003,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 19
+P0004,Hogar,Producto Genérico de Hogar,Shenzhen Factory 50
+P0005,Belleza,Producto Genérico de Belleza,Shenzhen Factory 41
+P0006,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 17
+P0007,Moda Mujer,Producto Genérico de Moda Mujer,Guangzhou Textiles 28
+P0008,Moda Hombre,Producto Genérico de Moda Hombre,Shenzhen Factory 14
+P0009,Moda Mujer,Producto Genérico de Moda Mujer,Guangzhou Textiles 19
+P0010,Juguetes,Producto Genérico de Juguetes,Shenzhen Factory 41
+P0011,Hogar,Producto Genérico de Hogar,Shenzhen Factory 38
+P0012,Electrónica,Producto Genérico de Electrónica,Guangzhou Textiles 14
+P0013,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 19
+P0014,Moda Hombre,Producto Genérico de Moda Hombre,Shenzhen Factory 19
+P0015,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 5
+P0016,Moda Hombre,Producto Genérico de Moda Hombre,Shenzhen Factory 40
+P0017,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 16
+P0018,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 24
+P0019,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 28
+P0020,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 49
+P0021,Hogar,Producto Genérico de Hogar,Shenzhen Factory 43
+P0022,Hogar,Producto Genérico de Hogar,Shenzhen Factory 27
+P0023,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 29
+P0024,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 7
+P0025,Belleza,Producto Genérico de Belleza,Shenzhen Factory 23
+P0026,Juguetes,Producto Genérico de Juguetes,Guangzhou Textiles 1
+P0027,Hogar,Producto Genérico de Hogar,Shenzhen Factory 21
+P0028,Belleza,Producto Genérico de Belleza,Guangzhou Textiles 21
+P0029,Moda Mujer,Producto Genérico de Moda Mujer,Guangzhou Textiles 5
+P0030,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 45
+P0031,Electrónica,Producto Genérico de Electrónica,Guangzhou Textiles 1
+P0032,Hogar,Producto Genérico de Hogar,Shenzhen Factory 37
+P0033,Hogar,Producto Genérico de Hogar,Shenzhen Factory 25
+P0034,Electrónica,Producto Genérico de Electrónica,Guangzhou Textiles 21
+P0035,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 17
+P0036,Moda Mujer,Producto Genérico de Moda Mujer,Guangzhou Textiles 25
+P0037,Juguetes,Producto Genérico de Juguetes,Shenzhen Factory 7
+P0038,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 39
+P0039,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 21
+P0040,Moda Hombre,Producto Genérico de Moda Hombre,Guangzhou Textiles 7
+P0041,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 38
+P0042,Juguetes,Producto Genérico de Juguetes,Shenzhen Factory 27
+P0043,Hogar,Producto Genérico de Hogar,Shenzhen Factory 26
+P0044,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 2
+P0045,Moda Mujer,Producto Genérico de Moda Mujer,Guangzhou Textiles 24
+P0046,Hogar,Producto Genérico de Hogar,Shenzhen Factory 19
+P0047,Moda Mujer,Producto Genérico de Moda Mujer,Guangzhou Textiles 5
+P0048,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 22
+P0049,Belleza,Producto Genérico de Belleza,Shenzhen Factory 13
+P0050,Moda Mujer,Producto Genérico de Moda Mujer,Guangzhou Textiles 11
+P0051,Hogar,Producto Genérico de Hogar,Shenzhen Factory 7
+P0052,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 16
+P0053,Electrónica,Producto Genérico de Electrónica,Guangzhou Textiles 26
+P0054,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 20
+P0055,Moda Hombre,Producto Genérico de Moda Hombre,Guangzhou Textiles 2
+P0056,Hogar,Producto Genérico de Hogar,Shenzhen Factory 16
+P0057,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 13
+P0058,Moda Mujer,Producto Genérico de Moda Mujer,Guangzhou Textiles 27
+P0059,Belleza,Producto Genérico de Belleza,Shenzhen Factory 49
+P0060,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 12
+P0061,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 49
+P0062,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 7
+P0063,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 16
+P0064,Hogar,Producto Genérico de Hogar,Shenzhen Factory 16
+P0065,Moda Mujer,Producto Genérico de Moda Mujer,Guangzhou Textiles 16
+P0066,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 26
+P0067,Moda Hombre,Producto Genérico de Moda Hombre,Guangzhou Textiles 24
+P0068,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 13
+P0069,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 24
+P0070,Moda Mujer,Producto Genérico de Moda Mujer,Guangzhou Textiles 6
+P0071,Hogar,Producto Genérico de Hogar,Shenzhen Factory 17
+P0072,Hogar,Producto Genérico de Hogar,Shenzhen Factory 9
+P0073,Electrónica,Producto Genérico de Electrónica,Guangzhou Textiles 19
+P0074,Hogar,Producto Genérico de Hogar,Shenzhen Factory 3
+P0075,Moda Mujer,Producto Genérico de Moda Mujer,Guangzhou Textiles 19
+P0076,Electrónica,Producto Genérico de Electrónica,Guangzhou Textiles 18
+P0077,Moda Mujer,Producto Genérico de Moda Mujer,Guangzhou Textiles 17
+P0078,Electrónica,Producto Genérico de Electrónica,Guangzhou Textiles 19
+P0079,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 16
+P0080,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 27
+P0081,Belleza,Producto Genérico de Belleza,Shenzhen Factory 16
+P0082,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 27
+P0083,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 1
+P0084,Moda Hombre,Producto Genérico de Moda Hombre,Shenzhen Factory 41
+P0085,Hogar,Producto Genérico de Hogar,Shenzhen Factory 17
+P0086,Moda Hombre,Producto Genérico de Moda Hombre,Shenzhen Factory 21
+P0087,Hogar,Producto Genérico de Hogar,Shenzhen Factory 33
+P0088,Juguetes,Producto Genérico de Juguetes,Shenzhen Factory 5
+P0089,Hogar,Producto Genérico de Hogar,Shenzhen Factory 16
+P0090,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 47
+P0091,Belleza,Producto Genérico de Belleza,Shenzhen Factory 22
+P0092,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 1
+P0093,Hogar,Producto Genérico de Hogar,Shenzhen Factory 6
+P0094,Belleza,Producto Genérico de Belleza,Guangzhou Textiles 17
+P0095,Belleza,Producto Genérico de Belleza,Shenzhen Factory 38
+P0096,Electrónica,Producto Genérico de Electrónica,Guangzhou Textiles 7
+P0097,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 13
+P0098,Electrónica,Producto Genérico de Electrónica,Guangzhou Textiles 17
+P0099,Belleza,Producto Genérico de Belleza,Shenzhen Factory 46
+P0100,Moda Hombre,Producto Genérico de Moda Hombre,Guangzhou Textiles 16
+P0101,Hogar,Producto Genérico de Hogar,Shenzhen Factory 13
+P0102,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 6
+P0103,Hogar,Producto Genérico de Hogar,Shenzhen Factory 25
+P0104,Hogar,Producto Genérico de Hogar,Shenzhen Factory 28
+P0105,Belleza,Producto Genérico de Belleza,Guangzhou Textiles 28
+P0106,Moda Hombre,Producto Genérico de Moda Hombre,Guangzhou Textiles 26
+P0107,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 17
+P0108,Electrónica,Producto Genérico de Electrónica,Guangzhou Textiles 5
+P0109,Hogar,Producto Genérico de Hogar,Shenzhen Factory 33
+P0110,Hogar,Producto Genérico de Hogar,Shenzhen Factory 21
+P0111,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 11
+P0112,Belleza,Producto Genérico de Belleza,Guangzhou Textiles 5
+P0113,Belleza,Producto Genérico de Belleza,Shenzhen Factory 19
+P0114,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 10
+P0115,Moda Hombre,Producto Genérico de Moda Hombre,Shenzhen Factory 35
+P0116,Belleza,Producto Genérico de Belleza,Shenzhen Factory 25
+P0117,Electrónica,Producto Genérico de Electrónica,Guangzhou Textiles 23
+P0118,Electrónica,Producto Genérico de Electrónica,Guangzhou Textiles 16
+P0119,Moda Hombre,Producto Genérico de Moda Hombre,Guangzhou Textiles 4
+P0120,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 41
+P0121,Belleza,Producto Genérico de Belleza,Guangzhou Textiles 6
+P0122,Moda Mujer,Producto Genérico de Moda Mujer,Guangzhou Textiles 28
+P0123,Hogar,Producto Genérico de Hogar,Shenzhen Factory 35
+P0124,Hogar,Producto Genérico de Hogar,Shenzhen Factory 15
+P0125,Electrónica,Producto Genérico de Electrónica,Guangzhou Textiles 3
+P0126,Hogar,Producto Genérico de Hogar,Shenzhen Factory 12
+P0127,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 43
+P0128,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 19
+P0129,Juguetes,Producto Genérico de Juguetes,Shenzhen Factory 29
+P0130,Hogar,Producto Genérico de Hogar,Shenzhen Factory 13
+P0131,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 29
+P0132,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 14
+P0133,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 16
+P0134,Hogar,Producto Genérico de Hogar,Shenzhen Factory 40
+P0135,Moda Hombre,Producto Genérico de Moda Hombre,Guangzhou Textiles 13
+P0136,Hogar,Producto Genérico de Hogar,Shenzhen Factory 45
+P0137,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 37
+P0138,Moda Hombre,Producto Genérico de Moda Hombre,Guangzhou Textiles 28
+P0139,Hogar,Producto Genérico de Hogar,Shenzhen Factory 7
+P0140,Hogar,Producto Genérico de Hogar,Shenzhen Factory 50
+P0141,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 19
+P0142,Moda Hombre,Producto Genérico de Moda Hombre,Guangzhou Textiles 2
+P0143,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 17
+P0144,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 16
+P0145,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 17
+P0146,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 23
+P0147,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 7
+P0148,Belleza,Producto Genérico de Belleza,Shenzhen Factory 48
+P0149,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 32
+P0150,Electrónica,Producto Genérico de Electrónica,Guangzhou Textiles 4
+P0151,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 24
+P0152,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 46
+P0153,Electrónica,Producto Genérico de Electrónica,Guangzhou Textiles 15
+P0154,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 5
+P0155,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 30
+P0156,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 12
+P0157,Belleza,Producto Genérico de Belleza,Guangzhou Textiles 3
+P0158,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 12
+P0159,Moda Hombre,Producto Genérico de Moda Hombre,Shenzhen Factory 10
+P0160,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 12
+P0161,Hogar,Producto Genérico de Hogar,Shenzhen Factory 8
+P0162,Hogar,Producto Genérico de Hogar,Shenzhen Factory 37
+P0163,Moda Hombre,Producto Genérico de Moda Hombre,Guangzhou Textiles 14
+P0164,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 2
+P0165,Belleza,Producto Genérico de Belleza,Guangzhou Textiles 5
+P0166,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 18
+P0167,Moda Mujer,Producto Genérico de Moda Mujer,Guangzhou Textiles 16
+P0168,Electrónica,Producto Genérico de Electrónica,Guangzhou Textiles 19
+P0169,Electrónica,Producto Genérico de Electrónica,Guangzhou Textiles 2
+P0170,Hogar,Producto Genérico de Hogar,Shenzhen Factory 25
+P0171,Belleza,Producto Genérico de Belleza,Shenzhen Factory 1
+P0172,Electrónica,Producto Genérico de Electrónica,Guangzhou Textiles 19
+P0173,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 32
+P0174,Belleza,Producto Genérico de Belleza,Guangzhou Textiles 18
+P0175,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 6
+P0176,Moda Hombre,Producto Genérico de Moda Hombre,Shenzhen Factory 22
+P0177,Electrónica,Producto Genérico de Electrónica,Guangzhou Textiles 18
+P0178,Belleza,Producto Genérico de Belleza,Shenzhen Factory 23
+P0179,Hogar,Producto Genérico de Hogar,Shenzhen Factory 18
+P0180,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 7
+P0181,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 49
+P0182,Hogar,Producto Genérico de Hogar,Shenzhen Factory 15
+P0183,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 32
+P0184,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 16
+P0185,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 12
+P0186,Hogar,Producto Genérico de Hogar,Shenzhen Factory 28
+P0187,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 23
+P0188,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 40
+P0189,Belleza,Producto Genérico de Belleza,Guangzhou Textiles 16
+P0190,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 5
+P0191,Belleza,Producto Genérico de Belleza,Guangzhou Textiles 30
+P0192,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 8
+P0193,Moda Mujer,Producto Genérico de Moda Mujer,Guangzhou Textiles 29
+P0194,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 39
+P0195,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 1
+P0196,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 24
+P0197,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 2
+P0198,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 13
+P0199,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 18
+P0200,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 20
+P0201,Moda Mujer,Producto Genérico de Moda Mujer,Guangzhou Textiles 13
+P0202,Hogar,Producto Genérico de Hogar,Shenzhen Factory 33
+P0203,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 1
+P0204,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 47
+P0205,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 24
+P0206,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 35
+P0207,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 7
+P0208,Electrónica,Producto Genérico de Electrónica,Guangzhou Textiles 7
+P0209,Hogar,Producto Genérico de Hogar,Shenzhen Factory 46
+P0210,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 1
+P0211,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 26
+P0212,Hogar,Producto Genérico de Hogar,Shenzhen Factory 37
+P0213,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 1
+P0214,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 43
+P0215,Belleza,Producto Genérico de Belleza,Shenzhen Factory 21
+P0216,Electrónica,Producto Genérico de Electrónica,Guangzhou Textiles 12
+P0217,Belleza,Producto Genérico de Belleza,Shenzhen Factory 35
+P0218,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 13
+P0219,Moda Hombre,Producto Genérico de Moda Hombre,Shenzhen Factory 17
+P0220,Moda Mujer,Producto Genérico de Moda Mujer,Guangzhou Textiles 2
+P0221,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 50
+P0222,Hogar,Producto Genérico de Hogar,Shenzhen Factory 14
+P0223,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 17
+P0224,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 15
+P0225,Hogar,Producto Genérico de Hogar,Shenzhen Factory 31
+P0226,Hogar,Producto Genérico de Hogar,Shenzhen Factory 44
+P0227,Moda Mujer,Producto Genérico de Moda Mujer,Guangzhou Textiles 27
+P0228,Electrónica,Producto Genérico de Electrónica,Guangzhou Textiles 6
+P0229,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 37
+P0230,Moda Mujer,Producto Genérico de Moda Mujer,Guangzhou Textiles 5
+P0231,Hogar,Producto Genérico de Hogar,Shenzhen Factory 20
+P0232,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 24
+P0233,Hogar,Producto Genérico de Hogar,Shenzhen Factory 15
+P0234,Juguetes,Producto Genérico de Juguetes,Shenzhen Factory 32
+P0235,Electrónica,Producto Genérico de Electrónica,Guangzhou Textiles 5
+P0236,Hogar,Producto Genérico de Hogar,Shenzhen Factory 14
+P0237,Electrónica,Producto Genérico de Electrónica,Guangzhou Textiles 15
+P0238,Moda Hombre,Producto Genérico de Moda Hombre,Shenzhen Factory 25
+P0239,Belleza,Producto Genérico de Belleza,Guangzhou Textiles 26
+P0240,Moda Hombre,Producto Genérico de Moda Hombre,Shenzhen Factory 20
+P0241,Hogar,Producto Genérico de Hogar,Shenzhen Factory 17
+P0242,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 36
+P0243,Belleza,Producto Genérico de Belleza,Shenzhen Factory 19
+P0244,Moda Mujer,Producto Genérico de Moda Mujer,Guangzhou Textiles 29
+P0245,Hogar,Producto Genérico de Hogar,Shenzhen Factory 7
+P0246,Moda Mujer,Producto Genérico de Moda Mujer,Guangzhou Textiles 18
+P0247,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 30
+P0248,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 5
+P0249,Moda Mujer,Producto Genérico de Moda Mujer,Guangzhou Textiles 16
+P0250,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 7
+P0251,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 35
+P0252,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 45
+P0253,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 32
+P0254,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 7
+P0255,Hogar,Producto Genérico de Hogar,Shenzhen Factory 1
+P0256,Hogar,Producto Genérico de Hogar,Shenzhen Factory 42
+P0257,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 11
+P0258,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 28
+P0259,Hogar,Producto Genérico de Hogar,Shenzhen Factory 24
+P0260,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 13
+P0261,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 39
+P0262,Hogar,Producto Genérico de Hogar,Shenzhen Factory 2
+P0263,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 17
+P0264,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 47
+P0265,Electrónica,Producto Genérico de Electrónica,Guangzhou Textiles 26
+P0266,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 48
+P0267,Hogar,Producto Genérico de Hogar,Shenzhen Factory 36
+P0268,Hogar,Producto Genérico de Hogar,Shenzhen Factory 50
+P0269,Hogar,Producto Genérico de Hogar,Shenzhen Factory 14
+P0270,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 28
+P0271,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 26
+P0272,Belleza,Producto Genérico de Belleza,Shenzhen Factory 25
+P0273,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 8
+P0274,Belleza,Producto Genérico de Belleza,Shenzhen Factory 10
+P0275,Belleza,Producto Genérico de Belleza,Guangzhou Textiles 30
+P0276,Moda Mujer,Producto Genérico de Moda Mujer,Guangzhou Textiles 11
+P0277,Belleza,Producto Genérico de Belleza,Shenzhen Factory 26
+P0278,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 20
+P0279,Hogar,Producto Genérico de Hogar,Shenzhen Factory 25
+P0280,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 33
+P0281,Juguetes,Producto Genérico de Juguetes,Guangzhou Textiles 22
+P0282,Belleza,Producto Genérico de Belleza,Shenzhen Factory 47
+P0283,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 16
+P0284,Belleza,Producto Genérico de Belleza,Shenzhen Factory 9
+P0285,Moda Mujer,Producto Genérico de Moda Mujer,Guangzhou Textiles 18
+P0286,Belleza,Producto Genérico de Belleza,Guangzhou Textiles 15
+P0287,Electrónica,Producto Genérico de Electrónica,Shenzhen Factory 22
+P0288,Moda Hombre,Producto Genérico de Moda Hombre,Shenzhen Factory 17
+P0289,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 23
+P0290,Hogar,Producto Genérico de Hogar,Shenzhen Factory 25
+P0291,Electrónica,Producto Genérico de Electrónica,Guangzhou Textiles 1
+P0292,Moda Mujer,Producto Genérico de Moda Mujer,Guangzhou Textiles 19
+P0293,Juguetes,Producto Genérico de Juguetes,Shenzhen Factory 10
+P0294,Hogar,Producto Genérico de Hogar,Guangzhou Textiles 16
+P0295,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 50
+P0296,Moda Mujer,Producto Genérico de Moda Mujer,Shenzhen Factory 35
+P0297,Hogar,Producto Genérico de Hogar,Shenzhen Factory 1
+P0298,Hogar,Producto Genérico de Hogar,Shenzhen Factory 28
+P0299,Moda Hombre,Producto Genérico de Moda Hombre,Shenzhen Factory 2
+P0300,Juguetes,Producto Genérico de Juguetes,Guangzhou Textiles 16
