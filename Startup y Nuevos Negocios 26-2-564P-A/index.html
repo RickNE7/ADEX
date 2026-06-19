@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NutriExpress - Propuesta de Validación y Solución</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- BARRA LATERAL (SIDEBAR NAVIGATION) -->
+    <aside class="sidebar">
+      <div>
+        <div class="brand-section">
+          <div class="brand-logo">NE</div>
+          <span class="brand-name">NutriExpress</span>
+        </div>
+        
+        <nav>
+          <ul class="nav-links">
+            <li class="nav-item active"><button data-slide="0"><span>🏠</span> Portada</button></li>
+            <li class="nav-item"><button data-slide="1"><span>🎯</span> El Reto y Límites</button></li>
+            <li class="nav-item"><button data-slide="2"><span>🛠️</span> MVP Concierge</button></li>
+            <li class="nav-item"><button data-slide="3"><span>📋</span> Las 4 Hipótesis</button></li>
+            <li class="nav-item"><button data-slide="4"><span>📊</span> Métricas y Funnel</button></li>
+            <li class="nav-item"><button data-slide="5"><span>🔍</span> Customer Discovery</button></li>
+            <li class="nav-item"><button data-slide="6"><span>⚙️</span> Modelo Productivo</button></li>
+            <li class="nav-item"><button data-slide="7"><span>🥗</span> Espacio Marilin</button></li>
+            <li class="nav-item"><button data-slide="8"><span>🚀</span> Conclusión y Escala</button></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="academic-badge">
+          Escenario de validación simulado<br>• Fines Académicos •
+        </div>
+      </div>
+    </aside>
+
+    <!-- ÁREA PRINCIPAL DE PRESENTACIÓN (SLIDES VIEW) -->
+    <main class="presentation-view">
+      <div class="slides-wrapper">
+
+        <!-- SLIDE 1: PORTADA / HERO -->
+        <section class="slide active hero-slide">
+          <div class="hero-logo">NE</div>
+          <h1 class="hero-title">NutriExpress</h1>
+          <p class="hero-subtitle">Almuerzo saludable en tu escritorio a la hora exacta, sin colas ni demoras.</p>
+          <p style="color: var(--color-secondary); font-weight: 700; margin-bottom: 2rem; font-size: 1.1rem; letter-spacing: 0.5px; text-transform: uppercase;">
+            Misión de Fundadores — Proyecto de Validación de Mercado
+          </p>
+          <div class="hero-founders">
+            <span class="founder">👤 Eric Mozombite (Ventas)</span>
+            <span class="founder">👤 Marilin Medina (Operaciones)</span>
+          </div>
+        </section>
+
+        <!-- SLIDE 2: EL RETO Y RESTRICCIONES -->
+        <section class="slide">
+          <div class="slide-header">
+            <span class="slide-tag">El Desafío</span>
+            <h2 class="slide-title">Límites y Restricciones del Reto</h2>
+            <p class="slide-subtitle">Establecer un modelo de negocio validado bajo condiciones extremas de arranque.</p>
+          </div>
+          
+          <div class="grid-container grid-2 restriction-grid">
+            <div class="card restriction-card">
+              <div class="card-header-icon restriction-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+              <h3 class="restriction-title">S/. 0 Presupuesto Tecnológico</h3>
+              <p>Prohibido gastar en desarrollo de aplicaciones, pasarelas de pago automatizadas, servidores o hosting comercial en la fase inicial.</p>
+            </div>
+
+            <div class="card restriction-card" style="border-left-color: var(--color-primary);">
+              <div class="card-header-icon" style="background-color: rgba(92, 130, 106, 0.1); color: var(--color-primary);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              </div>
+              <h3 class="restriction-title" style="color: var(--color-primary);">Sin Local Físico Inicial</h3>
+              <p>Eliminación del riesgo de alquiler de locales o cocinas industriales propias antes de comprobar la demanda comercial.</p>
+            </div>
+          </div>
+          
+          <div class="card" style="margin-top: 1.5rem; background-color: rgba(224, 122, 95, 0.05); border-color: rgba(224, 122, 95, 0.25);">
+            <p style="font-weight: 600; color: var(--color-secondary);">💡 La Meta Hoy:</p>
+            <p style="font-size: 0.95rem;">Comprobar si el oficinista limeño del Centro de Lima desea la suscripción, cómo prefiere interactuar y cuánto pagaría antes de invertir un solo sol en la operación.</p>
+          </div>
+        </section>
+
+        <!-- SLIDE 3: EL MVP CONCIERGE -->
+        <section class="slide">
+          <div class="slide-header">
+            <span class="slide-tag">El Vehículo</span>
+            <h2 class="slide-title">El Motor Operativo MVP Concierge</h2>
+            <p class="slide-subtitle">Herramientas S/. 0 integradas para simular un servicio corporativo premium.</p>
+          </div>
+
+          <div class="grid-container grid-3">
+            <div class="card">
+              <div class="card-header-icon">💬</div>
+              <h3 class="card-title">WhatsApp Business</h3>
+              <p style="font-size: 0.9rem; color: var(--color-dark);">Canal exclusivo de atención, ventas y catálogo interactivo de platos con fotos reales provistas por el restaurante aliado.</p>
+            </div>
+
+            <div class="card">
+              <div class="card-header-icon">📝</div>
+              <h3 class="card-title">Google Forms & Sheets</h3>
+              <p style="font-size: 0.9rem; color: var(--color-dark);">Captura de preferencias dietéticas, control de alérgenos y CRM básico para registrar la dirección exacta de oficinas y horarios de entrega.</p>
+            </div>
+
+            <div class="card">
+              <div class="card-header-icon">💳</div>
+              <h3 class="card-title">Yape / Plin</h3>
+              <p style="font-size: 0.9rem; color: var(--color-dark);">Cobranza simplificada por adelantado. Regla de oro de validación: no se procesa ni produce ningún almuerzo sin pago confirmado.</p>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top: 1.5rem; border-left: 5px solid var(--color-primary-light);">
+            <h4 style="font-family: var(--font-title); color: var(--color-primary); margin-bottom: 0.4rem; font-weight: 700;">💡 Entrega Peatonal en Dámero de Pizarro:</h4>
+            <p style="font-size: 0.9rem;">El Centro Histórico de Lima tiene restricciones vehiculares severas. El reparto a pie o en scooter eléctrico por parte de los fundadores superó la velocidad de Rappi/PedidosYa al llegar directo a los escritorios.</p>
+          </div>
+        </section>
+
+        <!-- SLIDE 4: LAS 4 HIPÓTESIS -->
+        <section class="slide">
+          <div class="slide-header">
+            <span class="slide-tag">Rigor Metodológico</span>
+            <h2 class="slide-title">Hipótesis Core Validadas</h2>
+            <p class="slide-subtitle">Los cuatro supuestos clave que debíamos comprobar en el piloto.</p>
+          </div>
+
+          <div class="grid-container grid-2">
+            <div class="card hypothesis-card">
+              <span class="badge-validated validated">Validada</span>
+              <h3 class="card-title" style="margin-right: 5rem;">1. Hipótesis de Valor</h3>
+              <p style="font-size: 0.9rem; margin-bottom: 1rem;">¿Los oficinistas quieren menús saludables entregados en su oficina de forma semanal?</p>
+              <div class="hypothesis-metrics">
+                <div class="metric-row"><span class="metric-label">Métrica de Éxito:</span><span class="metric-val">> 30% Aceptación de WhatsApp</span></div>
+                <div class="metric-row"><span class="metric-label">Resultado Proyectado:</span><span class="metric-val" style="color: var(--color-primary);">31.6% Aceptación</span></div>
+              </div>
+            </div>
+
+            <div class="card hypothesis-card">
+              <span class="badge-validated validated">Validada</span>
+              <h3 class="card-title" style="margin-right: 5rem;">2. Hipótesis de Canal</h3>
+              <p style="font-size: 0.9rem; margin-bottom: 1rem;">¿WhatsApp es un canal efectivo para interactuar, elegir menú y coordinar entrega?</p>
+              <div class="hypothesis-metrics">
+                <div class="metric-row"><span class="metric-label">Métrica de Éxito:</span><span class="metric-val">> 50% Respuestas Activas</span></div>
+                <div class="metric-row"><span class="metric-label">Resultado Proyectado:</span><span class="metric-val" style="color: var(--color-primary);">63.1% Interacción</span></div>
+              </div>
+            </div>
+
+            <div class="card hypothesis-card">
+              <span class="badge-validated validated">Validada</span>
+              <h3 class="card-title" style="margin-right: 5rem;">3. Hipótesis de Precio</h3>
+              <p style="font-size: 0.9rem; margin-bottom: 1rem;">¿Pagarán S/. 75 por una suscripción semanal (S/. 15 por plato) por adelantado?</p>
+              <div class="hypothesis-metrics">
+                <div class="metric-row"><span class="metric-label">Métrica de Éxito:</span><span class="metric-val">≥ 5 Clientes Pagados</span></div>
+                <div class="metric-row"><span class="metric-label">Resultado Proyectado:</span><span class="metric-val" style="color: var(--color-primary);">8 Pagados (+60% de meta)</span></div>
+              </div>
+            </div>
+
+            <div class="card hypothesis-card">
+              <span class="badge-validated validated">Validada</span>
+              <h3 class="card-title" style="margin-right: 5rem;">4. Hipótesis de Operación</h3>
+              <p style="font-size: 0.9rem; margin-bottom: 1rem;">¿Un restaurante aliado puede proveer consistencia, calidad y precio mayorista?</p>
+              <div class="hypothesis-metrics">
+                <div class="metric-row"><span class="metric-label">Métrica de Éxito:</span><span class="metric-val">Costo ≤ S/. 10 y cero demoras</span></div>
+                <div class="metric-row"><span class="metric-label">Resultado Proyectado:</span><span class="metric-val" style="color: var(--color-primary);">S/. 9.50/plato y 100% puntual</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 5: METRICAS Y FUNNEL -->
+        <section class="slide">
+          <div class="slide-header">
+            <span class="slide-tag">Evidencia Cuantitativa</span>
+            <h2 class="slide-title">Embudo de Conversión Proyectado</h2>
+            <p class="slide-subtitle">Resultados del experimento simulado sobre una base de 120 oficinistas abordados.</p>
+          </div>
+
+          <div class="grid-container grid-2" style="align-items: center; gap: 2.5rem;">
+            <div>
+              <h4 style="font-family: var(--font-title); font-size: 1.1rem; color: var(--color-primary); margin-bottom: 1rem; font-weight: 600;">Embudo del Experimento (Funnel):</h4>
+              <div class="funnel-container">
+                <div class="funnel-bar funnel-1"><div class="funnel-label"><span>120 Abordados en Campo</span><span>100%</span></div></div>
+                <div class="funnel-bar funnel-2"><div class="funnel-label"><span>38 Leads Capturados (WhatsApp)</span><span>31.6%</span></div></div>
+                <div class="funnel-bar funnel-3"><div class="funnel-label"><span>24 Respuestas Activas</span><span>20.0%</span></div></div>
+                <div class="funnel-bar funnel-4"><div class="funnel-label"><span>11 Formularios Completados</span><span>9.2%</span></div></div>
+                <div class="funnel-bar funnel-5"><div class="funnel-label"><span>8 Pagados (Yape/Plin)</span><span>6.7%</span></div></div>
+              </div>
+            </div>
+
+            <div class="grid-container stats-grid" style="grid-template-columns: 1fr; gap: 1rem;">
+              <div class="card stat-card" style="padding: 1.2rem;">
+                <div class="stat-val">21%</div>
+                <div class="stat-lbl">Tasa de Conversión (Leads ➔ Pagos)</div>
+              </div>
+              <div class="card stat-card" style="padding: 1.2rem;">
+                <div class="stat-val secondary">36.7%</div>
+                <div class="stat-lbl">Margen Bruto (S/. 220 de S/. 600)</div>
+              </div>
+              <div class="card stat-card" style="padding: 1.2rem;">
+                <div class="stat-val" style="color: var(--color-accent-blue);">+75</div>
+                <div class="stat-lbl">Net Promoter Score (NPS) Inicial</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 6: CUSTOMER DISCOVERY -->
+        <section class="slide">
+          <div class="slide-header">
+            <span class="slide-tag">Feedback Cualitativo</span>
+            <h2 class="slide-title">Descubrimiento de Clientes (The Mom Test)</h2>
+            <p class="slide-subtitle">La insatisfacción clave descubierta en el Centro de Lima.</p>
+          </div>
+
+          <div class="insight-highlight">
+            <p class="insight-text">"El dolor principal del oficinista del Centro de Lima no es el sabor ni la dieta en sí; es el TIEMPO perdido haciendo colas o esperando al motorizado atorado en el tráfico."</p>
+          </div>
+
+          <h4 style="font-family: var(--font-title); font-size: 1.1rem; color: var(--color-primary); margin-bottom: 0.8rem; font-weight: 600;">Testimonios del Piloto Semanal:</h4>
+          
+          <div class="testimonial-slider">
+            <div class="testimonial-card">
+              <p class="testimonial-body">"La comida está caliente y la presentación excelente. El delivery directo al escritorio me ahorra 45 minutos que antes perdía comiendo fuera."</p>
+              <div>
+                <p class="testimonial-author">María</p>
+                <span class="testimonial-meta">Ejecutiva • Torres Financieras</span>
+              </div>
+            </div>
+
+            <div class="testimonial-card">
+              <p class="testimonial-body">"Perfectamente sin huevo. Muchas gracias por cuidar mi alergia en la ficha de inscripción."</p>
+              <div>
+                <p class="testimonial-author">Patricia</p>
+                <span class="testimonial-meta">Oficinista • Notaría</span>
+              </div>
+            </div>
+
+            <div class="testimonial-card">
+              <p class="testimonial-body">"Desconfiaba de pagar por adelantado por WhatsApp, pero que me dijeran que cocinaba 'El Huerto Saludable' me dio total confianza."</p>
+              <div>
+                <p class="testimonial-author">Lucía</p>
+                <span class="testimonial-meta">Abogada • Notaría</span>
+              </div>
+            </div>
+
+            <div class="testimonial-card">
+              <p class="testimonial-body">"¿Cuánto cuesta un mes completo? Quiero suscribirme y olvidarme de buscar comida a diario."</p>
+              <div>
+                <p class="testimonial-author">Carlos</p>
+                <span class="testimonial-meta">Ejecutivo • Ministerio</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 7: EVOLUCIÓN DEL MODELO PRODUCTIVO -->
+        <section class="slide">
+          <div class="slide-header">
+            <span class="slide-tag">Estrategia Operativa</span>
+            <h2 class="slide-title">Evolución del Modelo de Producción</h2>
+            <p class="slide-subtitle">Por qué tercerizar primero y producir de forma propia después.</p>
+          </div>
+
+          <div class="fases-timeline">
+            <!-- FASE 1 -->
+            <div class="fase-node active">
+              <div class="fase-circle">1</div>
+              <div class="fase-info">
+                <h4 class="fase-title">Fase 1: Tercerización</h4>
+                <p class="fase-cost">Costo: S/. 9.50/plato</p>
+                <p style="font-size: 0.8rem; color: var(--color-dark); text-align: left;">
+                  • 0 inversión y riesgo mínimo.<br>
+                  • Valida si el cliente compra antes de armar la cocina.<br>
+                  • Margen: S/. 5.50/plato.
+                </p>
+              </div>
+            </div>
+
+            <!-- FASE 2 -->
+            <div class="fase-node">
+              <div class="fase-circle">2</div>
+              <div class="fase-info">
+                <h4 class="fase-title">Fase 2: Dark Kitchen Huésped</h4>
+                <p class="fase-cost" style="color: var(--color-primary-light);">Costo Est.: S/. 6.00/plato*</p>
+                <p style="font-size: 0.8rem; color: var(--color-dark); text-align: left;">
+                  • Alquiler de mesón en cocina licenciada en horas muertas.<br>
+                  • Control de recetas, ingredientes e inocuidad.<br>
+                  • Margen aumenta 64% (S/. 9.00/plato).<br>
+                  <span style="font-size: 0.7rem; color: var(--color-secondary); font-style: italic;">*Sujeto a costeo final de Marilin</span>
+                </p>
+              </div>
+            </div>
+
+            <!-- FASE 3 -->
+            <div class="fase-node">
+              <div class="fase-circle">3</div>
+              <div class="fase-info">
+                <h4 class="fase-title">Fase 3: Dark Kitchen Propia</h4>
+                <p class="fase-cost" style="color: var(--color-primary);">Escala de Volumen</p>
+                <p style="font-size: 0.8rem; color: var(--color-dark); text-align: left;">
+                  • Local propio dedicado sin atención al público.<br>
+                  • Licencia sanitaria DIGESA propia.<br>
+                  • El costo fijo se justifica solo con volumen alto (≥ 50 clientes).
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 8: CARTA Y OPERACIONES (MARILIN PENDING) -->
+        <section class="slide">
+          <div class="slide-header">
+            <span class="slide-tag">Desarrollo de Operaciones</span>
+            <h2 class="slide-title">Operaciones, Menú y Procesos</h2>
+            <p class="slide-subtitle">Estructura modular del producto diseñada para la integración de la carta final de Marilin Medina.</p>
+          </div>
+
+          <div class="tabs-container">
+            <button class="tab-btn active" data-tab="tab-menu">🥗 1. Portafolio / Menú</button>
+            <button class="tab-btn" data-tab="tab-insumos">🌾 2. Fichas e Insumos</button>
+            <button class="tab-btn" data-tab="tab-cocina">🍳 3. Procesos en Cocina</button>
+          </div>
+
+          <!-- TAB 1: MENU PLACEHOLDER -->
+          <div id="tab-menu" class="tab-pane active">
+            <p style="font-size: 0.95rem; color: var(--color-text-muted); margin-bottom: 1rem; font-style: italic;">
+              ⚠️ Sección en desarrollo por el área de operaciones (Marilin Medina). Los platos son ilustrativos y serán actualizados.
+            </p>
+            <!-- INSERTAR DETALLES DE CARTA Y PROCESOS DE MARILIN AQUÍ -->
+            <div class="grid-container grid-4">
+              <div class="card menu-placeholder">
+                <span class="menu-badge">Lunes</span>
+                <h4 class="card-title">Plato Muestra 1</h4>
+                <p style="font-size: 0.8rem; color: var(--color-text-muted);">Pechuga grill con quinoa y verduras bebés</p>
+              </div>
+              <div class="card menu-placeholder">
+                <span class="menu-badge">Martes</span>
+                <h4 class="card-title">Plato Muestra 2</h4>
+                <p style="font-size: 0.8rem; color: var(--color-text-muted);">Hamburguesa de lentejas con ensalada mixta</p>
+              </div>
+              <div class="card menu-placeholder">
+                <span class="menu-badge">Miércoles</span>
+                <h4 class="card-title">Plato Muestra 3</h4>
+                <p style="font-size: 0.8rem; color: var(--color-text-muted);">Bowl de garbanzo crujiente y camote asado</p>
+              </div>
+              <div class="card menu-placeholder">
+                <span class="menu-badge">Jueves</span>
+                <h4 class="card-title">Plato Muestra 4</h4>
+                <p style="font-size: 0.8rem; color: var(--color-text-muted);">Medallón de pavo al horno con puré rústico</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 2: INSUMOS PLACEHOLDER -->
+          <div id="tab-insumos" class="tab-pane">
+            <p style="font-size: 0.95rem; color: var(--color-text-muted); margin-bottom: 1.2rem; font-style: italic;">
+              ⚠️ Fichas técnicas sujetas a costeo final e ingredientes de compras mayoristas.
+            </p>
+            <div class="grid-container grid-3">
+              <div class="card">
+                <h4 class="card-title">Estandarización</h4>
+                <p style="font-size: 0.85rem;">Fórmula de gramaje por plato (ej. 120g proteína, 100g carbohidrato, 150g vegetales frescos) para evitar mermas en cocina.</p>
+              </div>
+              <div class="card">
+                <h4 class="card-title">Costo Ingrediente Est.</h4>
+                <p style="font-size: 0.85rem; color: var(--color-secondary); font-weight: 700;">Target: S/. 6.00 por plato</p>
+                <p style="font-size: 0.8rem; margin-top: 0.4rem;">Permite elevar el margen neto por plato a S/. 9.00 tras eliminar la intermediación.</p>
+              </div>
+              <div class="card">
+                <h4 class="card-title">Empaque Biodegradable</h4>
+                <p style="font-size: 0.85rem;">Elección de empaques térmicos aptos para microondas con sellado hermético anti-fugas para transporte a pie/scooter.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 3: PROCESOS COCINA PLACEHOLDER -->
+          <div id="tab-cocina" class="tab-pane">
+            <p style="font-size: 0.95rem; color: var(--color-text-muted); margin-bottom: 1.2rem; font-style: italic;">
+              ⚠️ Diagrama de flujo de cocina y asignación de tiempos para la Dark Kitchen.
+            </p>
+            <div class="grid-container grid-3">
+              <div class="card">
+                <div class="card-title">Mise en Place (7:30 - 8:30)</div>
+                <p style="font-size: 0.85rem;">Recepción de materia prima, lavado, desinfección y trozado de verduras en el mesón del restaurante aliado.</p>
+              </div>
+              <div class="card">
+                <div class="card-title">Cocción y Porcionado (8:30 - 11:00)</div>
+                <p style="font-size: 0.85rem;">Preparación simultánea de proteínas y carbohidratos. Envasado independiente de aderezos/salsas de ensaladas.</p>
+              </div>
+              <div class="card">
+                <div class="card-title">Control y Sello (11:00 - 11:40)</div>
+                <p style="font-size: 0.85rem;">Termometría obligatoria (alimentos calientes a >60°C), control cruzado de alergias y despacho hermético.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 9: CONCLUSIÓN Y ESCALA -->
+        <section class="slide">
+          <div class="slide-header">
+            <span class="slide-tag">El Futuro</span>
+            <h2 class="slide-title">Conclusión y Plan de Escalamiento</h2>
+            <p class="slide-subtitle">Siguientes pasos validados tras el éxito del experimento de tracción.</p>
+          </div>
+
+          <div class="grid-container grid-2" style="gap: 2rem;">
+            <div class="card">
+              <h3 class="card-title" style="color: var(--color-primary); border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem; margin-bottom: 1rem;">📢 Veredicto de Validación</h3>
+              <p style="font-size: 0.95rem; margin-bottom: 0.8rem;"><strong>Idea Validada:</strong> Hay una clara demanda por conveniencia de tiempo, disposición de pago adelantado (S/. 75) y viabilidad de unit economics con entrega peatonal.</p>
+              <p style="font-size: 0.95rem;"><strong>Siguiente Paso:</strong> Activar Fase 2 de tracción en la Semana 3, migrando a producción propia en cocina de restaurante aliado (Dark Kitchen huésped).</p>
+            </div>
+
+            <div class="card" style="border-left: 5px solid var(--color-secondary);">
+              <h3 class="card-title" style="color: var(--color-secondary); margin-bottom: 0.8rem;">🚀 Timeline de Escala</h3>
+              <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.8rem; font-size: 0.9rem;">
+                <li><strong>• Semanas 3-5 (Fase 2):</strong> Escalar a 25-30 clientes recurrentes. Contratar 1 repartidor part-time.</li>
+                <li><strong>• Mes 2 (Fase 3):</strong> Automatización de cobro en Forms, catálogo dinámico en WhatsApp y firma de 2 restaurantes aliados más.</li>
+                <li><strong>• Mes 3+ (Fase 4):</strong> Escalar a 100+ clientes en San Isidro/Miraflores. Incorporación de socio de operaciones dedicado.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="margin-top: 2rem; display: flex; justify-content: space-between; align-items: center; background-color: #FFFFFF; padding: 1rem 1.8rem; border-radius: 12px; border: 1px solid var(--color-border);">
+            <span style="font-family: var(--font-title); font-weight: 700; color: var(--color-primary);">Equipo de Fundadores:</span>
+            <div style="display: flex; gap: 1.5rem; font-size: 0.9rem; font-weight: 600;">
+              <span>🥗 Marilin Medina (Operaciones)</span>
+              <span>💼 Eric Mozombite (Ventas)</span>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- CONTROLES DE LA DIAPOSITIVA (FLECHAS INTERACTIVAS) -->
+      <div class="presentation-controls">
+        <button class="control-btn prev-btn">←</button>
+        <button class="control-btn next-btn">→</button>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script src="assets/script.js"></script>
+</body>
+</html>
