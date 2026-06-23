@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio - Planificación en Negocios Internacionales</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        darkBg: '#090D16',
+                        panelBg: '#111827',
+                        accentBlue: '#2563EB',
+                        borderGray: '#1F2937'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #090D16; color: #F3F4F6; }
+        .hover-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.2); }
+    </style>
+</head>
+<body class="font-sans antialiased p-6 md:p-12">
+    <div class="max-w-5xl mx-auto space-y-10">
+        
+        <!-- Header -->
+        <header class="border-b border-borderGray pb-8">
+            <a href="./" class="inline-flex items-center text-gray-400 hover:text-white transition-colors mb-6 text-sm font-semibold">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Volver al Portal ADEX
+            </a>
+            <div class="flex items-center gap-4">
+                <div class="bg-gradient-to-tr from-amber-500 to-orange-600 p-4 rounded-2xl shadow-lg">
+                    <i class="fa-solid fa-earth-americas text-white text-3xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-extrabold tracking-tight">Planificación en Negocios Internacionales</h1>
+                    <p class="text-gray-400 mt-1">Curso: <strong>26-2-564P-A</strong></p>
+                    <p class="text-xs text-amber-500 mt-1 uppercase font-semibold tracking-wider">Módulo A <span class="text-gray-600 ml-2 font-mono text-[10px]">v3.6.0</span></p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Projects Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- Entregable EA1 -->
+            <a href="./Planificación en Negocios Internacionales 26-2-564P-A/presentacion_ea1_global_event_imports.html" class="hover-card group block h-full">
+                <div class="bg-panelBg/80 backdrop-blur-sm border border-borderGray rounded-2xl p-6 transition-all duration-300 hover:bg-panelBg hover:border-amber-500/50 h-full flex flex-col relative overflow-hidden">
+                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition-all"></div>
+                    
+                    <div class="flex justify-between items-start mb-4 relative z-10">
+                        <div class="bg-amber-500/10 w-12 h-12 rounded-xl flex items-center justify-center border border-amber-500/20 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fa-solid fa-bullseye text-xl text-amber-400"></i>
+                        </div>
+                        <span class="bg-green-900/40 text-green-400 text-xs font-bold px-2.5 py-1 rounded-full border border-green-800">Terminado</span>
+                    </div>
+                    
+                    <div class="flex-grow relative z-10">
+                        <span class="text-xs font-mono text-amber-400 mb-2 block uppercase tracking-wider">Evidencia de Aprendizaje 1</span>
+                        <h3 class="text-xl font-bold mb-3 text-white group-hover:text-amber-300 transition-colors">Global Event Imports S.A.C.</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                            Presentación web interactiva del plan de negocios B2B, portafolio tecnológico, organigrama y manual de operaciones.
+                        </p>
+                    </div>
+                    
+                    <div class="text-xs font-mono text-gray-500 flex items-center gap-2 border-t border-borderGray pt-4 relative z-10">
+                        <i class="fa-solid fa-file-code"></i> ./Semana 3/presentacion_ea1.html
+                    </div>
+                </div>
+            </a>
+
+            <!-- Entregable EA2 -->
+            <a href="./EA2/index.html" class="hover-card group block h-full">
+                <div class="bg-panelBg/80 backdrop-blur-sm border border-borderGray rounded-2xl p-6 transition-all duration-300 hover:bg-panelBg hover:border-amber-500/50 h-full flex flex-col relative overflow-hidden">
+                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition-all"></div>
+                    
+                    <div class="flex justify-between items-start mb-4 relative z-10">
+                        <div class="bg-amber-500/10 w-12 h-12 rounded-xl flex items-center justify-center border border-amber-500/20 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fa-solid fa-chart-line text-xl text-amber-400"></i>
+                        </div>
+                        <span class="bg-green-900/40 text-green-400 text-xs font-bold px-2.5 py-1 rounded-full border border-green-800">Terminado</span>
+                    </div>
+                    
+                    <div class="flex-grow relative z-10">
+                        <span class="text-xs font-mono text-amber-400 mb-2 block uppercase tracking-wider">Evidencia de Aprendizaje 2</span>
+                        <h3 class="text-xl font-bold mb-3 text-white group-hover:text-amber-300 transition-colors">Informe de Viabilidad EA2</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                            Informe de viabilidad de mercado, técnica, financiera y legal con simulador de escenarios, flujo de caja interactivo y guion de exposición.
+                        </p>
+                    </div>
+                    
+                    <div class="text-xs font-mono text-gray-500 flex items-center gap-2 border-t border-borderGray pt-4 relative z-10">
+                        <i class="fa-solid fa-file-code"></i> ./EA2/index.html
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </div>
+</body>
+</html>
