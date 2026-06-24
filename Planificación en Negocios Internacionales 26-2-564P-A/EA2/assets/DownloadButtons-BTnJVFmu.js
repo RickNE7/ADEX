@@ -1,6 +1,0 @@
-import{c as o,j as e,F as r,a as l}from"./index-D-rX-tf8.js";/**
- * @license lucide-react v0.460.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */const s=o("Download",[["path",{d:"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4",key:"ih7n3h"}],["polyline",{points:"7 10 12 15 17 10",key:"2ggqvy"}],["line",{x1:"12",x2:"12",y1:"15",y2:"3",key:"1vk2je"}]]),t=""+new URL("GLOBAL_EVENT_PLAN_FINANCIERO-EWRzPH-I.xlsx",import.meta.url).href,n=""+new URL("EA2_INFORME_VIABILIDAD-BdCvAwJf.md",import.meta.url).href,a="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-medium uppercase tracking-[0.12em] transition-colors";function i(){return e.jsxs("div",{className:"flex flex-wrap gap-3",children:[e.jsxs("a",{href:t,download:"GLOBAL_EVENT_PLAN_FINANCIERO.xlsx",className:`${a} border-emerald-400/30 bg-emerald-400/10 text-emerald-200 hover:bg-emerald-400/20`,children:[e.jsx(r,{size:14}),"Excel",e.jsx(s,{size:13,className:"opacity-70"})]}),e.jsxs("a",{href:n,download:"EA2_INFORME_VIABILIDAD.md",className:`${a} border-gold/30 bg-gold/10 text-gold hover:bg-gold/20`,children:[e.jsx(l,{size:14}),"Informe",e.jsx(s,{size:13,className:"opacity-70"})]})]})}export{i as D,t as x};
