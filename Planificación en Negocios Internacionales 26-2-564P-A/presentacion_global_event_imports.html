@@ -1,0 +1,1103 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Event Imports - Presentación Oficial</title>
+    
+    <meta name="description" content="Proyecto Corporativo. Plan de negocios de importación, distribución y alquiler de tecnología interactiva para eventos.">
+    <meta name="author" content="Global Event Imports S.A.C.">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#030712">
+    
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👑</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Mermaid.js para Organigrama -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: { 800: '#0F172A', 900: '#0B0F19', 950: '#030712' },
+                        gold: { 100: '#FEF3C7', 400: '#FBBF24', 500: '#F59E0B', 600: '#D97706' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #030712;
+            overflow: hidden; /* Prevent scrolling outside slide area */
+        }
+        .slide {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+            height: 100%;
+            width: 100%;
+            overflow-y: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            padding-top: 1rem;
+            padding-bottom: 2rem;
+        }
+        @media (min-width: 768px) {
+            .slide {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+        }
+        .slide.active {
+            display: flex;
+            opacity: 1;
+        }
+        #bg-container {
+            background-image: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            will-change: background-image;
+            transition: background-image 0.8s ease-in-out;
+        }
+        /* Hide scrollbar for slides but keep functionality */
+        .slide::-webkit-scrollbar {
+            width: 6px;
+        }
+        .slide::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5); 
+        }
+        .slide::-webkit-scrollbar-thumb {
+            background: rgba(251, 191, 36, 0.5); 
+            border-radius: 4px;
+        }
+        .doc-desc-wrapper {
+            will-change: grid-template-rows;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 6px;
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 4px;
+        }
+        .custom-scrollbar {
+            -webkit-overflow-scrolling: touch;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(251, 191, 36, 0.6);
+            border-radius: 4px;
+        }
+        .video-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 125%; 
+            transform: translate(-50%, -50%) scale(1.12);
+        }
+
+        /* LIGHT THEME OVERRIDES */
+        .light-theme {
+            background-color: #f8fafc !important;
+            color: #0f172a !important;
+        }
+        /* Background gradient opacity so the image shows through */
+        .light-theme .from-navy-950 { --tw-gradient-from: rgba(255, 255, 255, 0.95) !important; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important; }
+        .light-theme .via-navy-950\/90 { --tw-gradient-via-position: 50%; --tw-gradient-stops: var(--tw-gradient-from), rgba(255, 255, 255, 0.90) var(--tw-gradient-via-position), var(--tw-gradient-to) !important; }
+        .light-theme .to-navy-900\/70 { --tw-gradient-to: rgba(255, 255, 255, 0.85) !important; }
+        
+        /* Broad backgrounds for all cards and containers */
+        .light-theme [class*="bg-navy-950"], .light-theme [class*="bg-navy-900"] { background-color: rgba(255, 255, 255, 0.95) !important; }
+        .light-theme [class*="bg-slate-950"], .light-theme [class*="bg-slate-900"], .light-theme [class*="bg-slate-800"] { background-color: rgba(248, 250, 252, 0.95) !important; }
+        .light-theme [class*="bg-slate-700"] { background-color: rgba(241, 245, 249, 0.95) !important; }
+        
+        /* Broad borders */
+        .light-theme [class*="border-slate-800"], .light-theme [class*="border-slate-700"] { border-color: #cbd5e1 !important; }
+        
+        /* Typography */
+        .light-theme .text-white { color: #0f172a !important; }
+        .light-theme .text-slate-100, .light-theme .text-slate-200, .light-theme .text-slate-300 { color: #334155 !important; }
+        .light-theme .text-slate-400 { color: #475569 !important; }
+        
+        /* Brand Colors adjustments for contrast */
+        .light-theme .text-gold-400 { color: #b45309 !important; }
+        .light-theme .bg-gold-500\/10 { background-color: rgba(217, 119, 6, 0.05) !important; }
+        .light-theme .border-gold-500\/20 { border-color: rgba(217, 119, 6, 0.2) !important; }
+        
+        /* Mermaid */
+        .light-theme .mermaid svg { filter: invert(0.9) hue-rotate(180deg) !important; }
+
+        /* Estilos de Impresión (PDF) */
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            body, html {
+                background: #0f172a !important;
+                height: auto !important;
+                min-height: auto !important;
+                overflow: visible !important;
+                display: block !important;
+            }
+            #bg-container {
+                position: fixed !important;
+                height: 100vh !important;
+            }
+            footer, header, .participation-bar, .participation-pct, button[onclick^="changeSlide"], button[onclick^="goToSlide"] {
+                display: none !important;
+            }
+            main {
+                display: block !important;
+                height: auto !important;
+                min-height: auto !important;
+                overflow: visible !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .slide {
+                position: relative !important;
+                display: flex !important;
+                opacity: 1 !important;
+                transform: none !important;
+                width: 100% !important;
+                height: 100vh !important; /* One page per slide */
+                page-break-after: always !important;
+                break-after: page !important;
+                page-break-inside: avoid !important;
+                overflow: hidden !important;
+                margin: 0 !important;
+                padding: 20px !important;
+                box-sizing: border-box !important;
+            }
+            /* Reset absolute positions of nested elements if needed, though they might be fine inside a relative slide */
+        }
+    </style>
+</head>
+<body class="text-slate-100 h-[100dvh] flex flex-col justify-between relative text-sm md:text-base">
+
+    <!-- CONTENEDOR DE FONDO -->
+    <div id="bg-container" class="fixed inset-0 w-full h-full z-0 pointer-events-none" aria-hidden="true"></div>
+    <div class="fixed inset-0 bg-gradient-to-tr from-navy-950 via-navy-950/90 to-navy-900/70 z-0 pointer-events-none" aria-hidden="true"></div>
+
+    <!-- HEADER -->
+    <header class="w-full px-4 md:px-6 py-3 border-b border-slate-800/80 bg-navy-950/95 backdrop-blur-md z-10 shrink-0">
+        <nav class="flex justify-between items-center w-full max-w-7xl mx-auto">
+            <div class="flex items-center space-x-3">
+                <svg class="w-7 h-7 text-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2" fill="rgba(251,191,36,0.15)"/>
+                    <polyline points="2 17 12 22 22 17"/>
+                    <polyline points="2 12 12 17 22 12"/>
+                </svg>
+                <div class="flex flex-col md:flex-row md:items-center">
+                    <span class="font-black text-base md:text-lg tracking-wider text-white">GLOBAL EVENT</span>
+                    <span class="text-[10px] md:text-xs text-gold-400 font-bold uppercase tracking-widest leading-none md:ml-1">Imports</span>
+                </div>
+                <span class="bg-gold-500/10 text-gold-400 border border-gold-500/20 px-2 py-0.5 rounded text-[10px] font-mono ml-2 font-bold hidden sm:inline">v4.17.0</span>
+            </div>
+            
+            <div class="flex items-center space-x-2 md:space-x-4 text-xs">
+                <button onclick="toggleTheme()" class="flex items-center justify-center bg-slate-800/50 hover:bg-gold-500/20 text-slate-300 hover:text-gold-400 p-1.5 md:p-2 rounded border border-slate-700/80 hover:border-gold-500/50 transition-all shadow-sm" title="Alternar Tema">
+                    <svg id="theme-icon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                </button>
+                <button onclick="toggleFullScreen()" class="flex items-center space-x-1 bg-slate-800/50 hover:bg-gold-500/20 text-slate-300 hover:text-gold-400 px-2 py-1.5 rounded border border-slate-700/80 hover:border-gold-500/50 transition-all shadow-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+                    <span class="font-semibold hidden md:inline">Pantalla Completa</span>
+                </button>
+                <a href="https://rickne7.github.io/ADEX/index_planificacion.html" class="flex items-center space-x-1 bg-slate-800/50 hover:bg-gold-500/20 text-slate-300 hover:text-gold-400 px-2 py-1.5 rounded border border-slate-700/80 hover:border-gold-500/50 transition-all shadow-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    <span class="font-semibold hidden lg:inline">Volver al menú</span>
+                </a>
+                <span class="font-mono text-gold-400 font-bold bg-navy-950 px-2 py-1.5 rounded border border-gold-500/30 shadow-inner" id="slide-indicator">1 / 9</span>
+            </div>
+        </nav>
+        
+        <!-- BARRA DE PROGRESO -->
+        <div class="w-full bg-slate-800/40 h-1 mt-3 rounded-full overflow-hidden">
+            <div id="progress-bar" class="h-full bg-gold-400 w-[12.5%] transition-all duration-500 ease-out"></div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow flex items-center justify-center relative px-4 w-full max-w-7xl mx-auto z-10 py-4 overflow-hidden">
+        
+        <!-- SLIDE 1: PORTADA -->
+        <section class="slide active flex-col justify-start md:justify-center" id="slide-1">
+            <div class="text-center md:text-left animate-fade-in-up">
+                <span class="px-3 py-1 bg-gold-500/10 text-gold-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-gold-500/20">Proyecto Corporativo</span>
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-black text-white mt-4 tracking-tight leading-none drop-shadow-2xl">
+                    GLOBAL EVENT <span class="text-gold-400">IMPORTS</span>
+                </h1>
+                <p class="text-slate-300 text-sm md:text-lg mt-4 max-w-2xl font-light leading-relaxed">
+                    Importación, alquiler y operación de ecosistemas tecnológicos interactivos de vanguardia para eventos sociales y corporativos premium en el Perú.
+                </p>
+            </div>
+
+            <!-- Equipo -->
+            <div class="mt-8 bg-navy-950/80 p-5 rounded-xl border border-slate-800/80 backdrop-blur-md shadow-2xl animate-fade-in-up delay-100 max-w-3xl">
+                <h2 class="text-gold-400 font-bold text-xs md:text-sm uppercase tracking-wider mb-4 flex items-center">
+                    <span class="w-2 h-2 bg-emerald-500 rounded-full mr-2 animate-pulse"></span>
+                    Equipo Fundador (Grupo 1)
+                </h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-5 mt-5">
+                    <div class="flex items-center"><div class="w-10 md:w-12 bg-slate-900 h-3.5 md:h-4 rounded-full overflow-hidden relative border border-slate-700/80 shadow-inner mr-2.5 shrink-0"><div class="bg-gold-500 h-full w-0 transition-all duration-[1500ms] ease-out participation-bar"></div><span class="absolute inset-0 flex items-center justify-center text-[8px] md:text-[9px] font-black text-white opacity-0 transition-opacity duration-500 participation-pct z-10 drop-shadow-md">100%</span></div><span class="font-bold text-white text-sm md:text-base drop-shadow-md truncate">Maria Ruiz</span></div>
+                    <div class="flex items-center"><div class="w-10 md:w-12 bg-slate-900 h-3.5 md:h-4 rounded-full overflow-hidden relative border border-slate-700/80 shadow-inner mr-2.5 shrink-0"><div class="bg-gold-500 h-full w-0 transition-all duration-[1500ms] ease-out participation-bar"></div><span class="absolute inset-0 flex items-center justify-center text-[8px] md:text-[9px] font-black text-white opacity-0 transition-opacity duration-500 participation-pct z-10 drop-shadow-md">100%</span></div><span class="font-bold text-white text-sm md:text-base drop-shadow-md truncate">Marilin Medina</span></div>
+                    <div class="flex items-center"><div class="w-10 md:w-12 bg-slate-900 h-3.5 md:h-4 rounded-full overflow-hidden relative border border-slate-700/80 shadow-inner mr-2.5 shrink-0"><div class="bg-gold-500 h-full w-0 transition-all duration-[1500ms] ease-out participation-bar"></div><span class="absolute inset-0 flex items-center justify-center text-[8px] md:text-[9px] font-black text-white opacity-0 transition-opacity duration-500 participation-pct z-10 drop-shadow-md">100%</span></div><span class="font-bold text-white text-sm md:text-base drop-shadow-md truncate">Jostin Chavez</span></div>
+                    <div class="flex items-center"><div class="w-10 md:w-12 bg-slate-900 h-3.5 md:h-4 rounded-full overflow-hidden relative border border-slate-700/80 shadow-inner mr-2.5 shrink-0"><div class="bg-gold-500 h-full w-0 transition-all duration-[1500ms] ease-out participation-bar"></div><span class="absolute inset-0 flex items-center justify-center text-[8px] md:text-[9px] font-black text-white opacity-0 transition-opacity duration-500 participation-pct z-10 drop-shadow-md">100%</span></div><span class="font-bold text-white text-sm md:text-base drop-shadow-md truncate">Eric Mozombite</span></div>
+                    <div class="flex items-center"><div class="w-10 md:w-12 bg-slate-900 h-3.5 md:h-4 rounded-full overflow-hidden relative border border-slate-700/80 shadow-inner mr-2.5 shrink-0"><div class="bg-gold-500 h-full w-0 transition-all duration-[1500ms] ease-out participation-bar"></div><span class="absolute inset-0 flex items-center justify-center text-[8px] md:text-[9px] font-black text-white opacity-0 transition-opacity duration-500 participation-pct z-10 drop-shadow-md">100%</span></div><span class="font-bold text-white text-sm md:text-base drop-shadow-md truncate">Yhurem García</span></div>
+                    <div class="flex items-center"><div class="w-10 md:w-12 bg-slate-900 h-3.5 md:h-4 rounded-full overflow-hidden relative border border-slate-700/80 shadow-inner mr-2.5 shrink-0"><div class="bg-gold-500 h-full w-0 transition-all duration-[1500ms] ease-out participation-bar"></div><span class="absolute inset-0 flex items-center justify-center text-[8px] md:text-[9px] font-black text-white opacity-0 transition-opacity duration-500 participation-pct z-10 drop-shadow-md">100%</span></div><span class="font-bold text-white text-sm md:text-base drop-shadow-md truncate">Jahir Castillo</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 2: IDENTIDAD ESTRATÉGICA -->
+        <section class="slide flex-col justify-start md:justify-center" id="slide-new-2">
+            <div class="text-center mb-3 md:mb-6">
+                <span class="px-3 py-1 bg-blue-500/10 text-blue-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-blue-500/20">Identidad Corporativa</span>
+                <h2 class="text-xl sm:text-2xl md:text-5xl font-black text-white mt-1 md:mt-3 drop-shadow-md">¿Quiénes Somos?</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl mx-auto overflow-y-auto max-h-[60vh] md:max-h-none custom-scrollbar p-1">
+                <article class="p-6 md:p-8 bg-navy-950/85 border border-slate-700/80 rounded-2xl flex flex-col justify-between backdrop-blur-md shadow-2xl border-t-4 border-t-blue-500">
+                    <div>
+                        <h3 class="text-blue-400 text-xl font-bold mb-3 uppercase tracking-wider">Visión</h3>
+                        <p class="text-slate-200 text-xs md:text-sm font-light leading-relaxed">
+                            "Consolidarnos como la empresa líder en Entertainment Tech Rental en el Perú, alcanzando un 18% del mercado corporativo de Lima y expandiendo operaciones a Trujillo y Arequipa."
+                        </p>
+                    </div>
+                </article>
+
+                <article class="p-6 md:p-8 bg-navy-950/85 border border-slate-700/80 rounded-2xl flex flex-col justify-between backdrop-blur-md shadow-2xl border-t-4 border-t-gold-500">
+                    <div>
+                        <h3 class="text-gold-400 text-xl font-bold mb-3 uppercase tracking-wider">Misión</h3>
+                        <p class="text-slate-200 text-xs md:text-sm font-light leading-relaxed">
+                            "Transformar los eventos sociales y corporativos en el Perú proveyendo a las productoras B2B soluciones audiovisuales automatizadas de alta calidad y una entrega logística eficiente y puntual."
+                        </p>
+                    </div>
+                </article>
+
+                <article class="p-6 md:p-8 bg-navy-950/85 border border-slate-700/80 rounded-2xl flex flex-col justify-between backdrop-blur-md shadow-2xl border-t-4 border-t-emerald-500">
+                    <div>
+                        <h3 class="text-emerald-400 text-xl font-bold mb-3 uppercase tracking-wider">Valores</h3>
+                        <ul class="text-slate-200 text-xs md:text-sm font-light leading-relaxed space-y-2 list-disc pl-4 marker:text-emerald-500">
+                            <li><strong class="text-white font-semibold">Confiabilidad:</strong> Montajes testeados 45 min antes.</li>
+                            <li><strong class="text-white font-semibold">Vanguardia:</strong> Relación directa con Shenzhen.</li>
+                            <li><strong class="text-white font-semibold">Sostenibilidad:</strong> Cero plásticos de un solo uso.</li>
+                            <li><strong class="text-white font-semibold">Transparencia:</strong> Operativa y táctica.</li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- SLIDE 3: DOLOR VS SOLUCIÓN -->
+        <section class="slide flex-col justify-start md:justify-center" id="slide-2">
+            <div class="text-center mb-3 md:mb-6">
+                <span class="px-3 py-1 bg-amber-500/10 text-amber-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-amber-500/20">Análisis del Mercado B2B</span>
+                <h2 class="text-xl sm:text-2xl md:text-5xl font-black text-white mt-1 md:mt-3 drop-shadow-md">El Dolor y Nuestra Solución</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-5xl mx-auto overflow-y-auto max-h-[60vh] md:max-h-none custom-scrollbar p-1">
+                <article class="p-6 md:p-8 bg-slate-950/85 border border-red-500/30 rounded-2xl flex flex-col justify-between backdrop-blur-md shadow-2xl">
+                    <div>
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center text-red-500 mr-3 text-xl font-black">X</div>
+                            <h3 class="text-red-500 text-sm md:text-2xl font-bold uppercase">El Dolor Tradicional</h3>
+                        </div>
+                        <p class="text-slate-200 text-xs md:text-sm font-light leading-relaxed">
+                            La decoración estática está saturada de competidores informales. Sufren altas mermas físicas (10%-15%) por rotura de materiales en cada evento y canibalización de precios.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="p-6 md:p-8 bg-slate-950/85 border border-amber-500/30 rounded-2xl flex flex-col justify-between backdrop-blur-md shadow-2xl">
+                    <div>
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-500 mr-3 text-xl font-black">✓</div>
+                            <h3 class="text-amber-500 text-sm md:text-2xl font-bold uppercase">Nuestra Solución Tech</h3>
+                        </div>
+                        <p class="text-slate-200 text-xs md:text-sm font-light leading-relaxed">
+                            Importación de activos tecnológicos (CAPEX) reutilizables con entrega digital inmediata (QR). Garantizamos un margen operativo alto y escalabilidad masiva con mermas menores al 1.5%.
+                        </p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- SLIDE 3: PORTAFOLIO -->
+        <section class="slide flex-col justify-start md:justify-center" id="slide-3">
+            <div class="text-center mb-2 md:mb-4">
+                <span class="px-3 py-1 bg-gold-500/10 text-gold-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-gold-500/20">Portafolio Tecnológico</span>
+                <h2 class="text-xl sm:text-2xl md:text-4xl font-black text-white mt-1 md:mt-2 drop-shadow-md">Líneas de Importación</h2>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 w-full">
+                <!-- Producto 1 -->
+                <article class="group bg-navy-950/85 border border-slate-800/80 rounded-xl overflow-hidden hover:border-gold-500/50 transition duration-300 shadow-xl backdrop-blur-md">
+                    <div class="relative w-full aspect-square bg-black">
+                        <img id="img-m1" src="https://raw.githubusercontent.com/RickNE7/ADEX/main/M1.jpg" alt="Glam and Motion 360" class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-300 opacity-100">
+                        <div id="video-m1" class="absolute inset-0 w-full h-full z-0 opacity-0 pointer-events-none overflow-hidden">
+                            <iframe class="video-wrapper border-0" src="https://www.youtube.com/embed/gEtlLU762IA?autoplay=1&mute=1&loop=1&playlist=gEtlLU762IA&controls=0&modestbranding=1" allow="autoplay; encrypted-media"></iframe>
+                        </div>
+                        <button onclick="toggleMedia('m1')" class="absolute bottom-2 right-2 bg-navy-950/90 text-gold-400 hover:bg-gold-500 hover:text-navy-950 text-[10px] font-bold px-2 py-1 rounded z-20 transition shadow-md">🎥 Video</button>
+                    </div>
+                    <div class="p-3 text-center">
+                        <h3 class="font-bold text-xs md:text-sm text-white">Glam & Motion 360°</h3>
+                    </div>
+                </article>
+
+                <!-- Producto 2 -->
+                <article class="group bg-navy-950/85 border border-slate-800/80 rounded-xl overflow-hidden hover:border-gold-500/50 transition duration-300 shadow-xl backdrop-blur-md">
+                    <div class="relative w-full aspect-square bg-black">
+                        <img id="img-m2" src="https://raw.githubusercontent.com/RickNE7/ADEX/main/M2.jpg" alt="Interactive Mirror" class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-300 opacity-100">
+                        <div id="video-m2" class="absolute inset-0 w-full h-full z-0 opacity-0 pointer-events-none overflow-hidden">
+                            <iframe class="video-wrapper border-0" src="https://www.youtube.com/embed/-XgU6MFUqGs?autoplay=1&mute=1&loop=1&playlist=-XgU6MFUqGs&controls=0&modestbranding=1" allow="autoplay; encrypted-media"></iframe>
+                        </div>
+                        <button onclick="toggleMedia('m2')" class="absolute bottom-2 right-2 bg-navy-950/90 text-gold-400 hover:bg-gold-500 hover:text-navy-950 text-[10px] font-bold px-2 py-1 rounded z-20 transition shadow-md">🎥 Video</button>
+                    </div>
+                    <div class="p-3 text-center">
+                        <h3 class="font-bold text-xs md:text-sm text-white">Interactive Mirror</h3>
+                    </div>
+                </article>
+
+                <!-- Producto 3 -->
+                <article class="group bg-navy-950/85 border border-slate-800/80 rounded-xl overflow-hidden hover:border-gold-500/50 transition duration-300 shadow-xl backdrop-blur-md">
+                    <div class="relative w-full aspect-square bg-black">
+                        <img id="img-m3" src="https://raw.githubusercontent.com/RickNE7/ADEX/main/M3.jpg" alt="Immersive LED" class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-300 opacity-100">
+                        <div id="video-m3" class="absolute inset-0 w-full h-full z-0 opacity-0 pointer-events-none overflow-hidden">
+                            <iframe class="video-wrapper border-0" src="https://www.youtube.com/embed/Xf7DQ9Ta8VU?autoplay=1&mute=1&loop=1&playlist=Xf7DQ9Ta8VU&controls=0&modestbranding=1" allow="autoplay; encrypted-media"></iframe>
+                        </div>
+                        <button onclick="toggleMedia('m3')" class="absolute bottom-2 right-2 bg-navy-950/90 text-gold-400 hover:bg-gold-500 hover:text-navy-950 text-[10px] font-bold px-2 py-1 rounded z-20 transition shadow-md">🎥 Video</button>
+                    </div>
+                    <div class="p-3 text-center">
+                        <h3 class="font-bold text-xs md:text-sm text-white">Immersive LED Booths</h3>
+                    </div>
+                </article>
+
+                <!-- Producto 4 -->
+                <article class="group bg-navy-950/85 border border-slate-800/80 rounded-xl overflow-hidden hover:border-gold-500/50 transition duration-300 shadow-xl backdrop-blur-md">
+                    <div class="relative w-full aspect-square bg-black">
+                        <img id="img-m4" src="https://raw.githubusercontent.com/RickNE7/ADEX/main/M4.jpg" alt="Audio Guestbook" class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-300 opacity-100">
+                        <div id="video-m4" class="absolute inset-0 w-full h-full z-0 opacity-0 pointer-events-none overflow-hidden">
+                            <iframe class="video-wrapper border-0" src="https://www.youtube.com/embed/1W6ITS_yiBs?autoplay=1&mute=1&loop=1&playlist=1W6ITS_yiBs&controls=0&modestbranding=1" allow="autoplay; encrypted-media"></iframe>
+                        </div>
+                        <button onclick="toggleMedia('m4')" class="absolute bottom-2 right-2 bg-navy-950/90 text-gold-400 hover:bg-gold-500 hover:text-navy-950 text-[10px] font-bold px-2 py-1 rounded z-20 transition shadow-md">🎥 Video</button>
+                    </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- SLIDE 4: MARKETING MIX (LAS 4P) -->
+        <section class="slide absolute inset-0 w-full flex-col justify-start md:justify-center opacity-0 transition-all duration-600 ease-out" id="slide-marketing-mix">
+            <div class="text-center mb-3 md:mb-6">
+                <span class="px-3 py-1 bg-fuchsia-500/10 text-fuchsia-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-fuchsia-500/20">Estrategia Comercial</span>
+                <h2 class="text-xl sm:text-2xl md:text-5xl font-black text-white mt-1 md:mt-3 drop-shadow-md">Mix de Marketing (4P)</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full max-w-5xl mx-auto overflow-y-auto max-h-[60vh] md:max-h-none custom-scrollbar p-1">
+                <!-- Producto -->
+                <article class="p-5 md:p-6 bg-navy-950/85 border border-slate-700/80 rounded-2xl flex flex-col justify-between backdrop-blur-md shadow-2xl border-l-4 border-l-blue-500 transition hover:bg-slate-800/80 group">
+                    <div>
+                        <div class="flex items-center mb-3">
+                            <div class="w-8 h-8 rounded bg-blue-500/20 flex items-center justify-center text-blue-400 mr-3 group-hover:scale-110 transition-transform">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                            </div>
+                            <h3 class="text-blue-400 text-lg md:text-xl font-bold uppercase tracking-wider">Producto</h3>
+                        </div>
+                        <p class="text-slate-200 text-xs md:text-sm font-light leading-relaxed">
+                            Ecosistemas interactivos premium (Glam 360, Mirror, LED). Servicio <span class="font-semibold text-white">end-to-end</span> con entrega digital (código QR) ultrarrápida y política de "Cero Plásticos de un solo uso".
+                        </p>
+                    </div>
+                </article>
+
+                <!-- Precio -->
+                <article class="p-5 md:p-6 bg-navy-950/85 border border-slate-700/80 rounded-2xl flex flex-col justify-between backdrop-blur-md shadow-2xl border-l-4 border-l-emerald-500 transition hover:bg-slate-800/80 group">
+                    <div>
+                        <div class="flex items-center mb-3">
+                            <div class="w-8 h-8 rounded bg-emerald-500/20 flex items-center justify-center text-emerald-400 mr-3 group-hover:scale-110 transition-transform">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <h3 class="text-emerald-400 text-lg md:text-xl font-bold uppercase tracking-wider">Precio</h3>
+                        </div>
+                        <p class="text-slate-200 text-xs md:text-sm font-light leading-relaxed">
+                            Estrategia <span class="font-semibold text-white">Premium B2B</span> basada en valor. Mantenemos alto margen operativo al mismo tiempo que ahorramos a la productora un 10-15% en costos ocultos de "mermas y roturas".
+                        </p>
+                    </div>
+                </article>
+
+                <!-- Plaza -->
+                <article class="p-5 md:p-6 bg-navy-950/85 border border-slate-700/80 rounded-2xl flex flex-col justify-between backdrop-blur-md shadow-2xl border-l-4 border-l-amber-500 transition hover:bg-slate-800/80 group">
+                    <div>
+                        <div class="flex items-center mb-3">
+                            <div class="w-8 h-8 rounded bg-amber-500/20 flex items-center justify-center text-amber-400 mr-3 group-hover:scale-110 transition-transform">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            </div>
+                            <h3 class="text-amber-400 text-lg md:text-xl font-bold uppercase tracking-wider">Plaza</h3>
+                        </div>
+                        <p class="text-slate-200 text-xs md:text-sm font-light leading-relaxed">
+                            Logística <span class="font-semibold text-white">In-Situ</span>: entrega y montaje directos en salones de eventos B2B en Lima Metropolitana (primer anillo). Expansión proyectada a mercados clave en Trujillo y Arequipa.
+                        </p>
+                    </div>
+                </article>
+
+                <!-- Promoción -->
+                <article class="p-5 md:p-6 bg-navy-950/85 border border-slate-700/80 rounded-2xl flex flex-col justify-between backdrop-blur-md shadow-2xl border-l-4 border-l-rose-500 transition hover:bg-slate-800/80 group">
+                    <div>
+                        <div class="flex items-center mb-3">
+                            <div class="w-8 h-8 rounded bg-rose-500/20 flex items-center justify-center text-rose-400 mr-3 group-hover:scale-110 transition-transform">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path></svg>
+                            </div>
+                            <h3 class="text-rose-400 text-lg md:text-xl font-bold uppercase tracking-wider">Promoción</h3>
+                        </div>
+                        <p class="text-slate-200 text-xs md:text-sm font-light leading-relaxed">
+                            Estrategia mixta: <span class="font-semibold text-white">Push</span> mediante alianzas con Top Wedding Planners y Showrooms experienciales. Campañas <span class="font-semibold text-white">Inbound</span> con catálogos digitales inmersivos B2B.
+                        </p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- SLIDE 5: ESTRUCTURA ORGANIZACIONAL -->
+        <section class="slide flex-col justify-start md:justify-center" id="slide-4">
+            <div class="text-center mb-2 md:mb-4">
+                <span class="px-3 py-1 bg-cyan-500/10 text-cyan-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-cyan-500/20">Recursos Humanos</span>
+                <h2 class="text-xl sm:text-2xl md:text-4xl font-black text-white mt-1 md:mt-2 drop-shadow-md">Organigrama</h2>
+                <p class="text-slate-300 text-sm mt-2 max-w-3xl mx-auto hidden md:block">Estructura ágil y eficiente diseñada para maximizar el control operativo y la capacidad de respuesta en cada evento.</p>
+            </div>
+
+            <div class="bg-navy-950/80 border border-slate-800/80 rounded-xl p-3 md:p-4 shadow-2xl backdrop-blur-md w-full max-w-6xl mx-auto mt-2 h-[65vh] md:h-auto overflow-hidden">
+                
+                <div class="flex flex-col md:items-center w-full py-2 md:py-4 relative h-full overflow-y-auto md:overflow-visible custom-scrollbar">
+                    <!-- Gerencia General -->
+                    <div class="bg-navy-900 border border-gold-400 rounded-xl p-3 shadow-[0_0_20px_rgba(251,191,36,0.15)] w-[85%] md:w-64 text-center z-10 relative shrink-0 mx-auto">
+                        <h3 class="text-gold-400 font-black text-sm tracking-wider uppercase mb-1">Gerencia General</h3>
+                        <p class="text-white text-xs font-semibold">Maria Ruiz</p>
+                    </div>
+
+                    <!-- Linea vertical de GG (Desktop) -->
+                    <div class="hidden md:block h-5 w-0.5 bg-slate-500"></div>
+
+                    <!-- Nivel Áreas -->
+                    <div class="flex flex-col md:flex-row justify-between w-full md:w-[96%] mt-0 gap-4 md:gap-0 relative z-10 shrink-0 mx-auto">
+                        <!-- Linea horizontal conectora -->
+                        <div class="hidden md:block absolute top-0 left-[16.66%] right-[16.66%] border-t-2 border-slate-500 z-0"></div>
+
+                        <!-- Rama Admin -->
+                        <div class="flex flex-col items-center w-full md:w-[33.33%] bg-slate-800/30 md:bg-transparent py-3 px-0 md:p-0 rounded-xl relative z-10">
+                            <div class="hidden md:block h-5 w-0.5 bg-slate-500"></div>
+                            <div class="bg-slate-800 border border-slate-500 rounded-lg p-2 w-[85%] md:w-[85%] md:h-[52px] flex items-center justify-center text-center shadow-md relative z-10">
+                                <h4 class="text-slate-300 font-bold text-[11px] md:text-xs uppercase tracking-wide leading-tight w-full">Área de Administración y Finanzas</h4>
+                            </div>
+                            <div class="hidden md:block h-[37px] w-[1px] bg-emerald-500/60"></div>
+                            
+                            <div class="flex justify-center w-full mt-2 md:mt-0 px-0">
+                                <div class="bg-navy-900 border border-emerald-400 rounded-lg p-2 w-[85%] md:w-[85%] md:h-[72px] text-center hover:-translate-y-1 transition duration-300 shadow-[0_0_15px_rgba(52,211,153,0.15)] flex flex-col justify-center relative z-10">
+                                    <h4 class="text-emerald-400 font-bold text-[11px] md:text-xs mb-1 leading-tight">Jefatura de Administración y Finanzas</h4>
+                                    <p class="text-slate-200 text-[10px] md:text-xs leading-tight">Marilin Medina</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rama Ops -->
+                        <div class="flex flex-col items-center w-full md:w-[33.33%] relative bg-slate-800/30 md:bg-transparent p-3 md:p-0 rounded-xl px-0 md:px-1 z-10">
+                            <div class="hidden md:block h-5 w-0.5 bg-slate-500"></div>
+                            <div class="bg-slate-800 border border-slate-500 rounded-lg p-2 w-[85%] md:w-[90%] md:h-[52px] flex items-center justify-center text-center shadow-md relative z-10">
+                                <h4 class="text-slate-300 font-bold text-[11px] md:text-xs uppercase tracking-wide leading-tight w-full">Área de Operaciones y Logística</h4>
+                            </div>
+                            <div class="hidden md:block h-5 w-[1px] bg-sky-500/60"></div>
+                            
+                            <!-- Bifurcación Jefaturas Ops (Desktop) -->
+                            <div class="hidden md:flex w-[50%] border-t border-sky-500/60 justify-between">
+                                <div class="h-4 w-[1px] bg-sky-500/60"></div>
+                                <div class="h-4 w-[1px] bg-sky-500/60"></div>
+                            </div>
+                            
+                            <div class="flex flex-col md:flex-row items-start justify-center w-full mt-2 md:mt-0 gap-2 md:gap-0">
+                                <div class="w-full md:w-1/2 flex justify-center">
+                                    <div class="bg-navy-900 border border-sky-400 rounded-lg p-2 w-[85%] md:w-[90%] md:h-[72px] text-center hover:-translate-y-1 transition duration-300 shadow-[0_0_15px_rgba(56,189,248,0.15)] flex flex-col justify-center relative z-10">
+                                        <h4 class="text-sky-400 font-bold text-[11px] md:text-xs mb-1 leading-tight">Jef. Operaciones y Soporte Técnico</h4>
+                                        <p class="text-slate-200 text-[10px] md:text-xs leading-tight">Eric Mozombite</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/2 flex justify-center mt-2 md:mt-0">
+                                    <div class="bg-navy-900 border border-sky-400 rounded-lg p-2 w-[85%] md:w-[90%] md:h-[72px] text-center hover:-translate-y-1 transition duration-300 shadow-[0_0_15px_rgba(56,189,248,0.15)] flex flex-col justify-center relative z-10">
+                                        <h4 class="text-sky-400 font-bold text-[11px] md:text-xs mb-1 leading-tight">Jef. Logística Inter. y Compras</h4>
+                                        <p class="text-slate-200 text-[10px] md:text-xs leading-tight">Jostin Chavez</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rama Comercial -->
+                        <div class="flex flex-col items-center w-full md:w-[33.33%] relative bg-slate-800/30 md:bg-transparent p-3 md:p-0 rounded-xl px-0 md:px-1 z-10">
+                            <div class="hidden md:block h-5 w-0.5 bg-slate-500"></div>
+                            <div class="bg-slate-800 border border-slate-500 rounded-lg p-2 w-[85%] md:w-[90%] md:h-[52px] flex items-center justify-center text-center shadow-md relative z-10">
+                                <h4 class="text-slate-300 font-bold text-[11px] md:text-xs uppercase tracking-wide leading-tight w-full">Área Comercial y Marketing</h4>
+                            </div>
+                            <div class="hidden md:block h-5 w-[1px] bg-rose-500/60"></div>
+                            
+                            <!-- Bifurcación Jefaturas Com (Desktop) -->
+                            <div class="hidden md:flex w-[50%] border-t border-rose-500/60 justify-between">
+                                <div class="h-4 w-[1px] bg-rose-500/60"></div>
+                                <div class="h-4 w-[1px] bg-rose-500/60"></div>
+                            </div>
+                            
+                            <div class="flex flex-col md:flex-row items-start justify-center w-full mt-2 md:mt-0 gap-2 md:gap-0">
+                                <div class="w-full md:w-1/2 flex justify-center">
+                                    <div class="bg-navy-900 border border-rose-400 rounded-lg p-2 w-[85%] md:w-[90%] md:h-[72px] text-center hover:-translate-y-1 transition duration-300 shadow-[0_0_15px_rgba(244,63,94,0.15)] flex flex-col justify-center relative z-10">
+                                        <h4 class="text-rose-400 font-bold text-[11px] md:text-xs mb-1 leading-tight">Jef. Canales Dig. y Marketing</h4>
+                                        <p class="text-slate-200 text-[10px] md:text-xs leading-tight">Yhurem García</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/2 flex justify-center mt-2 md:mt-0">
+                                    <div class="bg-navy-900 border border-rose-400 rounded-lg p-2 w-[85%] md:w-[90%] md:h-[72px] text-center hover:-translate-y-1 transition duration-300 shadow-[0_0_15px_rgba(244,63,94,0.15)] flex flex-col justify-center relative z-10">
+                                        <h4 class="text-rose-400 font-bold text-[11px] md:text-xs mb-1 leading-tight">Jef. Ventas y Expansión Com.</h4>
+                                        <p class="text-slate-200 text-[10px] md:text-xs leading-tight">Jahir Castillo</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SLIDE 5: POLÍTICAS -->
+        <section class="slide absolute inset-0 w-full flex-col justify-start md:justify-center opacity-0 transition-all duration-600 ease-out" id="slide-5">
+            <div class="text-center mb-3 md:mb-6">
+                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-emerald-500/20">Políticas Corporativas</span>
+                <h2 class="text-xl sm:text-2xl md:text-4xl font-black text-white mt-1 md:mt-2 drop-shadow-md">Marco Normativo Interno</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-6xl mx-auto overflow-y-auto max-h-[60vh] md:max-h-none custom-scrollbar p-1">
+                <article class="p-4 bg-navy-950/80 border border-slate-700/80 rounded-xl backdrop-blur-md shadow-xl border-t-4 border-t-gold-500">
+                    <h3 class="text-gold-400 font-bold text-sm mb-2 uppercase">1. Gobernanza (Aduanas/INDECOPI)</h3>
+                    <p class="text-slate-300 text-xs md:text-sm font-light">Prohibida la importación de insumos médicos restringidos para blindar la agilidad aduanera. Marcas 100% originales.</p>
+                </article>
+                <article class="p-4 bg-navy-950/80 border border-slate-700/80 rounded-xl backdrop-blur-md shadow-xl border-t-4 border-t-blue-500">
+                    <h3 class="text-blue-400 font-bold text-sm mb-2 uppercase">2. Logística (ISO 9001)</h3>
+                    <p class="text-slate-300 text-xs md:text-sm font-light">Homologación estricta de proveedores asiáticos. Despacho Anticipado obligatorio en aduanas para evitar almacenajes.</p>
+                </article>
+                <article class="p-4 bg-navy-950/80 border border-slate-700/80 rounded-xl backdrop-blur-md shadow-xl border-t-4 border-t-emerald-500">
+                    <h3 class="text-emerald-400 font-bold text-sm mb-2 uppercase">3. Finanzas (S/. 41,400)</h3>
+                    <p class="text-slate-300 text-xs md:text-sm font-light">Reserva intocable de 6 meses de planilla para proteger operaciones. Trámite SUNARP con tope de S/. 800.</p>
+                </article>
+                <article class="p-4 bg-navy-950/80 border border-slate-700/80 rounded-xl backdrop-blur-md shadow-xl border-t-4 border-t-fuchsia-500">
+                    <h3 class="text-fuchsia-400 font-bold text-sm mb-2 uppercase">4. Calidad & UX (OTIF & 12s)</h3>
+                    <p class="text-slate-300 text-xs md:text-sm font-light">Uso obligatorio de routers Multi-Carrier (Doble SIM) para garantizar descargas de códigos QR en menos de 12 segundos.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- SLIDE 6: MATRIZ DE ESTRATEGIAS -->
+        <section class="slide absolute inset-0 w-full flex-col justify-start md:justify-center opacity-0 transition-all duration-600 ease-out" id="slide-6">
+            <div class="text-center mb-3 md:mb-6">
+                <span class="px-3 py-1 bg-purple-500/10 text-purple-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-purple-500/20">Ejecución</span>
+                <h2 class="text-xl sm:text-2xl md:text-4xl font-black text-white mt-1 md:mt-2 drop-shadow-md">Matriz de Estrategias</h2>
+            </div>
+
+            <div class="bg-navy-950/90 border border-slate-800 rounded-xl overflow-y-auto backdrop-blur-md shadow-2xl w-full max-w-5xl mx-auto max-h-[60vh] md:max-h-none custom-scrollbar">
+                <table class="w-full text-left text-[10px] sm:text-xs md:text-sm">
+                    <thead class="bg-slate-900/90 text-slate-300 uppercase tracking-wider">
+                        <tr>
+                            <th class="p-2 md:p-4 border-b border-slate-800 w-[20%] md:w-auto">Área</th>
+                            <th class="p-2 md:p-4 border-b border-slate-800 w-[30%] md:w-auto">Estrategia</th>
+                            <th class="p-2 md:p-4 border-b border-slate-800 w-[50%] md:w-auto">Táctica (Acción)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800/60 font-light text-slate-200">
+                        <tr class="hover:bg-slate-800/30 transition">
+                            <td class="p-2 md:p-4 font-bold text-gold-400">COMERCIAL (B2B)</td>
+                            <td class="p-2 md:p-4">Estrategia Push B2B (Demostración directa).</td>
+                            <td class="p-2 md:p-4">Auspiciar ferias de novios con la cabina 360° gratuita para recolectar datos de Wedding Planners.</td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/30 transition">
+                            <td class="p-2 md:p-4 font-bold text-emerald-400">MARKETING</td>
+                            <td class="p-2 md:p-4">Estrategia Digital Inbound (Conversión rápida).</td>
+                            <td class="p-2 md:p-4">Campañas Google Ads dirigiendo tráfico a un catálogo digital interactivo de cotización inmediata.</td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/30 transition">
+                            <td class="p-2 md:p-4 font-bold text-cyan-400">OPERACIONES</td>
+                            <td class="p-2 md:p-4">Cadena de Suministro Preventiva y Contingencia.</td>
+                            <td class="p-2 md:p-4">Clasificación ABC del almacén y dotación obligatoria de un "Kit de Repuestos Clase A" en campo.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SLIDE 7: CONTROL FINANCIERO Y BSC -->
+        <section class="slide absolute inset-0 w-full flex-col justify-start md:justify-center opacity-0 transition-all duration-600 ease-out" id="slide-7">
+            <div class="text-center mb-3 md:mb-6">
+                <span class="px-3 py-1 bg-red-500/10 text-red-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-red-500/20">Balanced Scorecard</span>
+                <h2 class="text-xl sm:text-2xl md:text-4xl font-black text-white mt-1 md:mt-2 drop-shadow-md">Control de Viabilidad</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-5xl mx-auto overflow-y-auto max-h-[60vh] md:max-h-none custom-scrollbar p-1">
+                <!-- Finanzas -->
+                <article class="p-6 bg-navy-950/85 border border-slate-800/80 rounded-xl backdrop-blur-md shadow-2xl">
+                    <h3 class="text-gold-400 font-bold text-sm uppercase tracking-wider mb-4 border-b border-slate-800 pb-2">Planificación Financiera</h3>
+                    <ul class="space-y-4 text-xs md:text-sm text-slate-200">
+                        <li class="flex justify-between items-center">
+                            <span>Presupuesto SUNARP:</span>
+                            <span class="font-mono font-bold text-white">S/. 800</span>
+                        </li>
+                        <li class="flex justify-between items-center">
+                            <span>Reserva de Liquidez (6m):</span>
+                            <span class="font-mono font-bold text-white">S/. 41,400</span>
+                        </li>
+                        <li class="flex justify-between items-center pt-3 border-t border-slate-800/60">
+                            <span class="text-emerald-400 font-semibold">PUNTO DE EQUILIBRIO:</span>
+                            <span id="num-pe" class="font-mono font-black text-emerald-400 text-lg">0 <span class="text-xs">servicios/mes</span></span>
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- BSC KPIs -->
+                <article class="p-6 bg-navy-950/85 border border-slate-800/80 rounded-xl backdrop-blur-md shadow-2xl">
+                    <h3 class="text-blue-400 font-bold text-sm uppercase tracking-wider mb-4 border-b border-slate-800 pb-2">KPIs Críticos (Control OTIF)</h3>
+                    <ul class="space-y-4 text-xs md:text-sm text-slate-200">
+                        <li class="flex flex-col">
+                            <div class="flex justify-between mb-1">
+                                <span>Entregas a Tiempo (OTIF)</span>
+                                <span id="num-otif" class="font-mono text-emerald-400">0%</span>
+                            </div>
+                            <div class="w-full bg-slate-800 rounded-full h-1.5"><div id="bar-otif" class="bg-emerald-400 h-1.5 rounded-full w-0 transition-all duration-1000 ease-out"></div></div>
+                        </li>
+                        <li class="flex flex-col">
+                            <div class="flex justify-between mb-1">
+                                <span>Disponibilidad de Hardware</span>
+                                <span id="num-hw" class="font-mono text-emerald-400">0%</span>
+                            </div>
+                            <div class="w-full bg-slate-800 rounded-full h-1.5"><div id="bar-hw" class="bg-emerald-400 h-1.5 rounded-full w-0 transition-all duration-1000 ease-out"></div></div>
+                        </li>
+                        <li class="flex flex-col">
+                            <div class="flex justify-between mb-1">
+                                <span>Velocidad de Descarga QR</span>
+                                <span id="num-qr" class="font-mono text-gold-400">&lt; 0s</span>
+                            </div>
+                            <div class="w-full bg-slate-800 rounded-full h-1.5"><div id="bar-qr" class="bg-gold-400 h-1.5 rounded-full w-0 transition-all duration-1000 ease-out"></div></div>
+                        </li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <!-- SLIDE 8: DOCUMENTACIÓN OFICIAL (ENLACES ACROBAT) -->
+        <section class="slide absolute inset-0 w-full flex-col justify-start md:justify-center opacity-0 transition-all duration-600 ease-out" id="slide-8">
+            <div class="text-center mb-2 md:mb-4">
+                <span class="px-3 py-1 bg-red-600/20 text-red-400 text-xs font-semibold rounded-md tracking-widest uppercase border border-red-500/30">Repositorio Final</span>
+                <h2 class="text-xl sm:text-2xl md:text-4xl font-black text-white mt-1 md:mt-2 drop-shadow-md">Documentación Oficial</h2>
+            </div>
+
+            <div class="w-full max-w-6xl mx-auto flex flex-col md:flex-row h-[75vh] md:h-[65vh] bg-navy-950/90 border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
+                
+                <!-- Sidebar (Miniaturas) -->
+                <div class="w-full md:w-1/4 flex-grow md:h-full border-b md:border-b-0 md:border-r border-slate-800 bg-navy-900/50 flex flex-col overflow-y-auto p-3 md:p-4 gap-3 md:gap-4 shrink-0 custom-scrollbar">
+                    
+                    <!-- Doc 1 -->
+                    <div onclick="loadDoc('./Informe General - EA1.pdf', 'desc-1', this)" class="doc-card group text-left bg-slate-800/40 hover:bg-slate-700/80 rounded-xl p-3 border border-slate-700 hover:border-red-500/50 transition-all duration-500 ease-in-out cursor-pointer flex flex-col">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-14 bg-slate-100 rounded shadow-sm border border-slate-300 flex-shrink-0 flex flex-col p-1.5 relative group-hover:scale-105 transition-transform duration-500 ease-in-out">
+                                <div class="w-full h-2 bg-red-600 rounded-sm mb-1 opacity-90 transition-opacity duration-500 group-hover:opacity-100"></div>
+                                <div class="w-3/4 h-1 bg-slate-300 rounded-full mb-1"></div>
+                                <div class="w-full h-1 bg-slate-300 rounded-full mb-1"></div>
+                                <div class="w-5/6 h-1 bg-slate-300 rounded-full mb-1"></div>
+                                <div class="absolute bottom-1 right-1 text-[7px] font-black text-slate-400">PDF</div>
+                            </div>
+                            <div>
+                                <h4 class="text-white text-xs md:text-sm font-bold group-hover:text-red-400 transition-colors duration-500">Informe General</h4>
+                                <p class="text-slate-400 text-[9px] md:text-[10px] mt-0.5">Plan Maestro</p>
+                            </div>
+                        </div>
+                        <div id="desc-1" class="doc-desc-wrapper grid grid-rows-[0fr] opacity-0 transition-all duration-500 ease-in-out">
+                            <div class="overflow-hidden">
+                                <div class="text-[10px] md:text-xs text-slate-300 border-t border-slate-700/50 pt-3 mt-3 pb-1 leading-relaxed">
+                                    <span class="text-white font-semibold">Resumen General:</span><br>
+                                    Contiene el resumen ejecutivo de Global Event Imports, el análisis del dolor de mercado B2B, la identidad estratégica y el planteamiento de los objetivos SMART.<br><br>
+                                    <span class="text-white font-semibold">Puntos Clave:</span><br>
+                                    Detalla el plan inicial de marketing y operaciones, la gestión de recursos humanos y presenta las matrices de estrategias comerciales y operativas con su respectiva justificación de viabilidad.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Doc 2 -->
+                    <div onclick="loadDoc('./Anexo 1 - Politicas Corporativas.pdf', 'desc-2', this)" class="doc-card group text-left bg-slate-800/40 hover:bg-slate-700/80 rounded-xl p-3 border border-slate-700 hover:border-gold-500/50 transition-all duration-500 ease-in-out cursor-pointer flex flex-col">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-14 bg-slate-100 rounded shadow-sm border border-slate-300 flex-shrink-0 flex flex-col p-1.5 relative group-hover:scale-105 transition-transform duration-500 ease-in-out">
+                                <div class="w-full h-2 bg-gold-500 rounded-sm mb-1 opacity-90 transition-opacity duration-500 group-hover:opacity-100"></div>
+                                <div class="w-full h-1 bg-slate-300 rounded-full mb-1"></div>
+                                <div class="w-3/4 h-1 bg-slate-300 rounded-full mb-1"></div>
+                                <div class="w-full h-1 bg-slate-300 rounded-full mb-1"></div>
+                                <div class="absolute bottom-1 right-1 text-[7px] font-black text-slate-400">PDF</div>
+                            </div>
+                            <div>
+                                <h4 class="text-white text-xs md:text-sm font-bold group-hover:text-gold-400 transition-colors duration-500">Anexo 1: Políticas</h4>
+                                <p class="text-slate-400 text-[9px] md:text-[10px] mt-0.5">Normativa Interna</p>
+                            </div>
+                        </div>
+                        <div id="desc-2" class="doc-desc-wrapper grid grid-rows-[0fr] opacity-0 transition-all duration-500 ease-in-out">
+                            <div class="overflow-hidden">
+                                <div class="text-[10px] md:text-xs text-slate-300 border-t border-slate-700/50 pt-3 mt-3 pb-1 leading-relaxed">
+                                    <span class="text-white font-semibold">Resumen General:</span><br>
+                                    Constituye el marco normativo e institucional que regula y alinea la toma de decisiones estratégicas, tácticas y operativas de la compañía.<br><br>
+                                    <span class="text-white font-semibold">Puntos Clave:</span><br>
+                                    Establece políticas de gobernanza corporativa, logísticas (importación y aduanas), financieras, de gestión de recursos humanos y de calidad de servicio (como el protocolo OTIF).
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Doc 3 -->
+                    <div onclick="loadDoc('./Anexo 2 - MOF y Organigrama.pdf', 'desc-3', this)" class="doc-card group text-left bg-slate-800/40 hover:bg-slate-700/80 rounded-xl p-3 border border-slate-700 hover:border-emerald-500/50 transition-all duration-500 ease-in-out cursor-pointer flex flex-col">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-14 bg-slate-100 rounded shadow-sm border border-slate-300 flex-shrink-0 flex flex-col p-1.5 relative group-hover:scale-105 transition-transform duration-500 ease-in-out">
+                                <div class="w-full h-2 bg-emerald-500 rounded-sm mb-1 opacity-90 transition-opacity duration-500 group-hover:opacity-100"></div>
+                                <div class="w-4/5 h-1 bg-slate-300 rounded-full mb-1"></div>
+                                <div class="w-5/6 h-1 bg-slate-300 rounded-full mb-1"></div>
+                                <div class="w-3/4 h-1 bg-slate-300 rounded-full mb-1"></div>
+                                <div class="absolute bottom-1 right-1 text-[7px] font-black text-slate-400">PDF</div>
+                            </div>
+                            <div>
+                                <h4 class="text-white text-xs md:text-sm font-bold group-hover:text-emerald-400 transition-colors duration-500">Anexo 2: MOF</h4>
+                                <p class="text-slate-400 text-[9px] md:text-[10px] mt-0.5">Manual y Organigrama</p>
+                            </div>
+                        </div>
+                        <div id="desc-3" class="doc-desc-wrapper grid grid-rows-[0fr] opacity-0 transition-all duration-500 ease-in-out">
+                            <div class="overflow-hidden">
+                                <div class="text-[10px] md:text-xs text-slate-300 border-t border-slate-700/50 pt-3 mt-3 pb-1 leading-relaxed">
+                                    <span class="text-white font-semibold">Resumen General:</span><br>
+                                    Presenta la estructura organizacional horizontal de la empresa y el Manual de Organización y Funciones (MOF) detallado para todas las jefaturas.<br><br>
+                                    <span class="text-white font-semibold">Puntos Clave:</span><br>
+                                    Define rigurosamente la descripción, funciones específicas, factores de evaluación (KPIs) y el perfil de competencias técnicas y blandas requeridas para cada puesto directivo y operativo.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <!-- Visor Principal -->
+                <div class="w-full md:w-3/4 relative bg-slate-900/95 flex flex-col h-auto md:h-full shrink-0">
+                    <!-- Toolbar Visor -->
+                    <div class="bg-slate-800 border-b border-slate-700 p-2 hidden md:flex justify-between items-center shrink-0">
+                        <span class="text-xs text-slate-400 font-mono ml-2">Visor Activo</span>
+                        <button onclick="document.getElementById('pdf-viewer').requestFullscreen()" class="bg-slate-700 hover:bg-slate-600 text-white text-xs px-3 py-1.5 rounded flex items-center transition border border-slate-600 shadow-sm">
+                            <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+                            Pantalla Completa
+                        </button>
+                    </div>
+                    <!-- Iframe y Overlay Móvil -->
+                    <div class="flex-grow w-full relative flex flex-col md:block">
+                        <div class="w-full z-10 flex md:hidden items-center justify-between p-3 border-t border-slate-800 bg-slate-900">
+                            <div class="flex items-center text-slate-400">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                <span class="text-xs font-bold">Ver Documento</span>
+                            </div>
+                            <a id="mobile-pdf-btn" href="./Informe General - EA1.pdf" target="_blank" class="bg-red-600 hover:bg-red-500 text-white font-bold py-1.5 px-4 rounded shadow-md text-xs flex items-center transition-all">
+                                <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                Abrir PDF
+                            </a>
+                        </div>
+                        <iframe id="pdf-viewer" src="./Informe General - EA1.pdf" class="hidden md:block absolute inset-0 w-full h-full border-0 transition-opacity duration-500 ease-in-out" allowfullscreen></iframe>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER Y CONTROLES -->
+    <footer class="w-full px-4 md:px-6 py-3 border-t border-slate-800/80 bg-navy-950/95 backdrop-blur-md flex justify-between items-center z-10 shrink-0">
+        
+        <div class="flex items-center space-x-2 md:space-x-4">
+            <button onclick="changeSlide(-1)" class="p-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white transition focus:ring-2 focus:ring-gold-400 focus:outline-none">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+            <button onclick="changeSlide(1)" class="p-2.5 rounded-lg bg-gold-500 hover:bg-gold-600 text-slate-900 font-bold transition focus:ring-2 focus:ring-gold-400 focus:outline-none">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+        </div>
+
+        <!-- Puntos de Navegación -->
+        <div class="flex space-x-1.5 md:space-x-2">
+            <button onclick="goToSlide(1)" class="dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-gold-400 transition"></button>
+            <button onclick="goToSlide(2)" class="dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-slate-700 transition"></button>
+            <button onclick="goToSlide(3)" class="dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-slate-700 transition"></button>
+            <button onclick="goToSlide(4)" class="dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-slate-700 transition"></button>
+            <button onclick="goToSlide(5)" class="dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-slate-700 transition"></button>
+            <button onclick="goToSlide(6)" class="dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-slate-700 transition"></button>
+            <button onclick="goToSlide(7)" class="dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-slate-700 transition"></button>
+            <button onclick="goToSlide(8)" class="dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-slate-700 transition"></button>
+            <button onclick="goToSlide(9)" class="dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-slate-700 transition"></button>
+            <button onclick="goToSlide(10)" class="dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-slate-700 transition"></button>
+        </div>
+
+        <div class="text-[10px] md:text-xs text-slate-500 font-mono hidden sm:block">
+            Use <kbd class="px-1 py-0.5 border border-slate-700 rounded bg-slate-800">←</kbd> <kbd class="px-1 py-0.5 border border-slate-700 rounded bg-slate-800">→</kbd> para navegar
+        </div>
+    </footer>
+
+    <!-- Lógica JavaScript Principal -->
+    <script>
+        const TOTAL_SLIDES = 10;
+        let currentSlide = 1;
+
+        const backgrounds = {
+            1: "url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+            2: "url('https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+            3: "url('https://images.unsplash.com/photo-1517457373958-b7bdd4587205?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+            4: "url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+            5: "url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+            6: "url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+            7: "url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+            8: "url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+            9: "url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+            10: "url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')"
+        };
+
+        function updateUI() {
+            // Animaciones Diapo 1
+            if (currentSlide === 1) {
+                setTimeout(() => {
+                    document.querySelectorAll('.participation-bar').forEach(b => b.style.width = '100%');
+                    setTimeout(() => {
+                        document.querySelectorAll('.participation-pct').forEach(p => p.style.opacity = '1');
+                    }, 1500);
+                }, 300);
+            } else {
+                document.querySelectorAll('.participation-bar').forEach(b => b.style.width = '0%');
+                document.querySelectorAll('.participation-pct').forEach(p => p.style.opacity = '0');
+            }
+
+            // Animaciones Diapo 9 (Antes 8, el Dashboard)
+            if (currentSlide === 9) {
+                setTimeout(() => {
+                    document.getElementById('bar-otif').style.width = '96%';
+                    document.getElementById('bar-hw').style.width = '98%';
+                    document.getElementById('bar-qr').style.width = '80%';
+                    animateNumbers();
+                }, 300);
+            } else {
+                const barOtif = document.getElementById('bar-otif');
+                if(barOtif) {
+                    barOtif.style.width = '0%';
+                    document.getElementById('bar-hw').style.width = '0%';
+                    document.getElementById('bar-qr').style.width = '0%';
+                    document.getElementById('num-otif').innerText = "0%";
+                    document.getElementById('num-hw').innerText = "0%";
+                    document.getElementById('num-qr').innerText = "< 0s";
+                    document.getElementById('num-pe').innerHTML = '0 <span class="text-xs">servicios/mes</span>';
+                }
+            }
+
+            // Actualizar Diapositivas con crossfade suave
+            document.querySelectorAll('.slide').forEach((slide, idx) => {
+                if (idx + 1 === currentSlide) {
+                    slide.style.display = 'flex';
+                    // Escalado inicial suave para el slide que entra
+                    slide.style.transform = 'scale(0.98)';
+                    slide.style.zIndex = '10';
+                    setTimeout(() => {
+                        slide.style.opacity = '1';
+                        slide.style.transform = 'scale(1)';
+                    }, 50);
+                } else {
+                    slide.style.opacity = '0';
+                    slide.style.transform = 'scale(1.02)';
+                    slide.style.zIndex = '0';
+                    // Esperar 600ms antes de hacer display none para permitir el crossfade
+                    setTimeout(() => slide.style.display = 'none', 600);
+                }
+            });
+
+            // Actualizar Fondo
+            document.getElementById('bg-container').style.backgroundImage = backgrounds[currentSlide] || backgrounds[1];
+
+            // Actualizar Puntos
+            document.querySelectorAll('.dot').forEach((dot, idx) => {
+                dot.className = (idx + 1 === currentSlide) 
+                    ? 'dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full transition bg-gold-400' 
+                    : 'dot w-2.5 h-2.5 md:w-3 md:h-3 rounded-full transition bg-slate-700 hover:bg-slate-500';
+            });
+
+            // Indicador numérico y barra de progreso
+            document.getElementById('slide-indicator').textContent = `${currentSlide} / ${TOTAL_SLIDES}`;
+            document.getElementById('progress-bar').style.width = `${(currentSlide / TOTAL_SLIDES) * 100}%`;
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide > TOTAL_SLIDES) currentSlide = 1;
+            if (currentSlide < 1) currentSlide = TOTAL_SLIDES;
+            updateUI();
+        }
+
+        function goToSlide(n) {
+            currentSlide = n;
+            updateUI();
+        }
+
+        // Eventos de Teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            }
+        });
+
+        // Eventos Táctiles (Swipe para móviles)
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50; // Distancia mínima para detectar el swipe
+            if (touchEndX < touchStartX - swipeThreshold) {
+                changeSlide(1); // Swipe izquierda -> Siguiente
+            }
+            if (touchEndX > touchStartX + swipeThreshold) {
+                changeSlide(-1); // Swipe derecha -> Anterior
+            }
+        }
+
+        // Alternador de Foto/Video del Portafolio
+        function toggleMedia(id) {
+            const img = document.getElementById(`img-${id}`);
+            const video = document.getElementById(`video-${id}`);
+            const isVideoActive = video.style.opacity === "1";
+
+            if (isVideoActive) {
+                img.style.opacity = "1";
+                video.style.opacity = "0";
+                video.style.pointerEvents = "none";
+                event.currentTarget.innerHTML = "🎥 Video";
+            } else {
+                img.style.opacity = "0";
+                video.style.opacity = "1";
+                video.style.pointerEvents = "auto";
+                event.currentTarget.innerHTML = "📸 Foto";
+            }
+        }
+
+        // Cargador de Documentos
+        function loadDoc(src, descId, cardEl) {
+            const activeDesc = document.getElementById(descId);
+            const isOpen = activeDesc.classList.contains('opacity-100');
+            
+            // Ocultar todas las descripciones con transición suave
+            document.querySelectorAll('.doc-desc-wrapper').forEach(el => {
+                el.classList.remove('grid-rows-[1fr]', 'opacity-100');
+                el.classList.add('grid-rows-[0fr]', 'opacity-0');
+            });
+            document.querySelectorAll('.doc-card').forEach(el => el.classList.remove('bg-slate-700/60', 'scale-[1.02]', 'border-slate-500', 'shadow-lg'));
+            
+            if (!isOpen) {
+                // Animación suave de opacidad para el visor PDF
+                const viewer = document.getElementById('pdf-viewer');
+                const mobileBtn = document.getElementById('mobile-pdf-btn');
+                viewer.style.opacity = 0.5;
+                setTimeout(() => {
+                    viewer.src = src;
+                    if(mobileBtn) mobileBtn.href = src;
+                    viewer.style.opacity = 1;
+                }, 300);
+                
+                // Mostrar la descripción activa y resaltar tarjeta
+                activeDesc.classList.remove('grid-rows-[0fr]', 'opacity-0');
+                activeDesc.classList.add('grid-rows-[1fr]', 'opacity-100');
+                if(cardEl) {
+                    cardEl.classList.add('bg-slate-700/60', 'scale-[1.02]', 'border-slate-500', 'shadow-lg');
+                }
+            }
+        }
+        
+        function animateNumbers() {
+            const otif = document.getElementById('num-otif');
+            const hw = document.getElementById('num-hw');
+            const qr = document.getElementById('num-qr');
+            const pe = document.getElementById('num-pe');
+            if(!otif) return;
+            let currentStep = 0;
+            const steps = 30; // 30 frames
+            const interval = setInterval(() => {
+                currentStep++;
+                otif.innerText = Math.round(96 * (currentStep/steps)) + "%";
+                hw.innerText = Math.round(98 * (currentStep/steps)) + "%";
+                qr.innerText = "< " + Math.round(12 * (currentStep/steps)) + "s";
+                pe.innerHTML = Math.round(14 * (currentStep/steps)) + ' <span class="text-xs">servicios/mes</span>';
+                if (currentStep >= steps) {
+                    clearInterval(interval);
+                    otif.innerText = "96%";
+                    hw.innerText = "98%";
+                    qr.innerText = "< 12s";
+                    pe.innerHTML = '14 <span class="text-xs">servicios/mes</span>';
+                }
+            }, 30);
+        }
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log(`Error attempting to enable full-screen mode: ${err.message}`);
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('light-theme');
+            const isLight = document.body.classList.contains('light-theme');
+            const icon = document.getElementById('theme-icon');
+            if (isLight) {
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>';
+            } else {
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>';
+            }
+        }
+
+        // Inicializar UI al cargar
+        window.addEventListener('load', () => {
+            setTimeout(updateUI, 100);
+        });
+    </script>
+</body>
+</html>
