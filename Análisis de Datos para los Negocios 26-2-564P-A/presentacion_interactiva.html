@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sustentación EA2: Caso Mangos (Projector Mode)</title>
+    <title>Sustentación EA2: Caso Mangos (Mobile Responsive)</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -28,34 +28,64 @@
     </script>
     <style>
         body { background-color: #090D16; color: #F3F4F6; }
-        .custom-scrollbar::-webkit-scrollbar { width: 8px; height: 8px; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #090D16; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #1F2937; border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #374151; }
+        .slide { min-height: 0 !important; height: 100% !important; max-height: 100% !important; margin-bottom: 0 !important; overflow-y: auto !important; }
+
+        /* ===== MÓVIL: flujo natural de la página, sin recortes ni scroll interno ===== */
+        @media (max-width: 768px) {
+            body {
+                height: auto !important;
+                min-height: 100dvh;
+                overflow: visible !important; /* scroll natural del documento */
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 92px !important; /* espacio para la barra fija */
+            }
+            /* glows decorativos: única fuente de desbordamiento horizontal en móvil */
+            body > .blur-3xl { display: none !important; }
+            .slide {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            .slide .h-full { height: auto !important; } /* filas internas que dependían de altura fija */
+            .navbar {
+                position: fixed !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+                width: 100%; max-width: 100% !important; margin: 0 !important;
+                padding: 12px 16px calc(12px + env(safe-area-inset-bottom)) !important;
+                border-top: 2px solid #1F2937; border-radius: 0;
+                background: rgba(9, 13, 22, 0.92);
+                backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+                z-index: 50;
+            }
+        }
     </style>
 </head>
-<body class="font-sans antialiased h-screen overflow-hidden flex flex-col justify-between p-8 md:p-14 relative">
+<body class="font-sans antialiased h-[100dvh] overflow-hidden flex flex-col p-4 md:p-10 relative">
 
     <!-- Ambient Glow Effects -->
     <div class="absolute -top-20 -left-20 w-96 h-96 rounded-full bg-orange-500/10 blur-3xl pointer-events-none z-0"></div>
     <div class="absolute -bottom-20 -right-20 w-96 h-96 rounded-full bg-blue-500/10 blur-3xl pointer-events-none z-0"></div>
 
     <!-- MAIN SLIDES CONTAINER -->
-    <div class="flex-grow flex items-center justify-center relative z-10 w-full max-w-7xl mx-auto">
+    <div class="flex-grow flex flex-col relative z-10 w-full max-w-7xl mx-auto min-h-0">
 
         <!-- SLIDE 1: PORTADA -->
-        <div class="slide hidden active flex-col justify-between w-full h-[78vh] bg-panelBg/80 backdrop-blur-md border-2 border-borderGray rounded-3xl p-10 md:p-16 shadow-2xl transition-all duration-500" id="slide-1">
+        <div class="slide hidden active flex-col justify-between w-full min-h-[70vh] md:h-[78vh] bg-panelBg/80 backdrop-blur-md border-2 border-borderGray rounded-3xl p-6 md:p-16 shadow-2xl transition-all duration-500 mb-6 md:mb-0" id="slide-1">
             <div></div> <!-- Spacer -->
-            <div class="text-center max-w-4xl mx-auto flex flex-col gap-8">
-                <span class="inline-self-center mx-auto px-6 py-2 bg-orange-500/10 border border-orange-500/20 text-orange-400 rounded-full text-sm md:text-base font-bold uppercase tracking-widest">
+            <div class="text-center max-w-4xl mx-auto flex flex-col gap-6 md:gap-8">
+                <span class="inline-self-center mx-auto px-5 py-2 bg-orange-500/10 border border-orange-500/20 text-orange-400 rounded-full text-xs md:text-base font-bold uppercase tracking-widest">
                     Evaluación Continua 2 (EA2)
                 </span>
-                <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                <h1 class="text-3xl md:text-6xl font-extrabold tracking-tight text-white leading-tight">
                     Dashboard Estratégico Comercial y Proyecciones
                 </h1>
-                <p class="text-gray-400 text-xl md:text-2xl">Caso de Estudio: Exportadora de Mangos Peruanos</p>
+                <p class="text-gray-400 text-lg md:text-2xl">Caso de Estudio: Exportadora de Mangos Peruanos</p>
                 
-                <div class="grid grid-cols-3 gap-6 border-t-2 border-borderGray pt-10 mt-8 text-base md:text-lg">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 border-t-2 border-borderGray pt-8 md:pt-10 mt-6 md:mt-8 text-sm md:text-lg">
                     <div class="text-center">
                         <span class="block text-gray-500 font-semibold mb-1">Unidad Didáctica</span>
                         <span class="text-white font-bold">Análisis de Datos</span>
@@ -74,94 +104,90 @@
         </div>
 
         <!-- SLIDE 2: DEPURACIÓN Y EDA -->
-        <div class="slide hidden flex-col justify-between w-full h-[78vh] bg-panelBg/80 backdrop-blur-md border-2 border-borderGray rounded-3xl p-10 shadow-2xl transition-all duration-500" id="slide-2">
-            <div class="flex justify-between items-center border-b-2 border-borderGray pb-5">
-                <h2 class="text-2xl md:text-3xl font-extrabold text-white"><i class="fa-solid fa-broom text-green-400 mr-4"></i>Depuración y Análisis Exploratorio (EDA)</h2>
-                <span class="text-sm font-bold px-4 py-1.5 bg-gray-800 text-gray-400 rounded-full">Slide 2 / 6</span>
+        <div class="slide hidden flex-col justify-between w-full min-h-[70vh] md:h-[78vh] bg-panelBg/80 backdrop-blur-md border-2 border-borderGray rounded-3xl p-6 md:p-10 shadow-2xl transition-all duration-500 mb-6 md:mb-0" id="slide-2">
+            <div class="flex justify-between items-center border-b-2 border-borderGray pb-4 md:pb-5">
+                <h2 class="text-xl md:text-3xl font-extrabold text-white"><i class="fa-solid fa-broom text-green-400 mr-2 md:mr-4"></i>Depuración y EDA</h2>
+                <span class="text-xs md:text-sm font-bold px-3 py-1 bg-gray-800 text-gray-400 rounded-full">Slide 2 / 6</span>
             </div>
-            <div class="flex flex-col md:flex-row gap-10 items-center h-full py-6 overflow-y-auto custom-scrollbar">
-                <div class="flex-1 flex flex-col gap-6 text-base md:text-lg leading-relaxed">
+            <div class="flex flex-col md:flex-row gap-6 md:gap-10 items-center h-full py-4 md:py-6 overflow-y-auto custom-scrollbar">
+                <div class="flex-1 flex flex-col gap-4 text-xs md:text-lg leading-relaxed">
                     <p class="text-gray-300">
                         Antes de realizar proyecciones, se aplicó una rigurosa depuración a la base transaccional para garantizar la <strong>calidad y confiabilidad</strong> del modelo:
                     </p>
-                    <ul class="space-y-4">
-                        <li class="relative pl-8 text-gray-300"><span class="absolute left-0 text-orange-400 font-bold">✦</span><strong>Volumen Procesado:</strong> Un histórico consolidado de <strong>12,000 transacciones</strong> limpias a lo largo de 5 años.</li>
-                        <li class="relative pl-8 text-gray-300"><span class="absolute left-0 text-orange-400 font-bold">✦</span><strong>Validación de Fechas:</strong> Unificación de formatos de texto inconsistentes al estándar ISO YYYY-MM-DD.</li>
-                        <li class="relative pl-8 text-gray-300"><span class="absolute left-0 text-orange-400 font-bold">✦</span><strong>Tratamiento de Anomalías:</strong> Corrección de ortografía en variedades, eliminación de nulos y neutralización de outliers de precios FOB.</li>
+                    <ul class="space-y-2 md:space-y-4">
+                        <li class="relative pl-6 md:pl-8 text-gray-300"><span class="absolute left-0 text-orange-400 font-bold">✦</span><strong>Volumen Procesado:</strong> Un histórico consolidado de <strong>12,000 transacciones</strong> limpias a lo largo de 5 años.</li>
+                        <li class="relative pl-6 md:pl-8 text-gray-300"><span class="absolute left-0 text-orange-400 font-bold">✦</span><strong>Validación de Fechas:</strong> Unificación de formatos de texto inconsistentes al estándar ISO YYYY-MM-DD.</li>
+                        <li class="relative pl-6 md:pl-8 text-gray-300"><span class="absolute left-0 text-orange-400 font-bold">✦</span><strong>Tratamiento de Anomalías:</strong> Corrección de ortografía en variedades, eliminación de nulos y outliers de precios FOB.</li>
                     </ul>
-                    <div class="bg-emerald-950/20 border-l-4 border-emerald-500 p-4 rounded-r-xl text-sm text-gray-300 mt-2">
+                    <div class="bg-emerald-950/20 border-l-4 border-emerald-500 p-3 md:p-4 rounded-r-xl text-xs md:text-sm text-gray-300">
                         <strong>Logro Metodológico (EC1):</strong> Transformación de datos sucios en un modelo dinámico formulado en Excel sin valores "quemados".
                     </div>
                 </div>
-                <div class="flex-1 w-full flex flex-col justify-center gap-4">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-darkBg/60 border-2 border-borderGray rounded-xl p-5 text-center">
-                            <span class="block text-sm text-gray-500 mb-2 font-bold uppercase tracking-wider">Transacciones</span>
-                            <span class="block text-3xl md:text-4xl font-extrabold text-white" id="count-trx">0</span>
+                <div class="flex-1 w-full flex flex-col justify-center gap-3 md:gap-4">
+                    <div class="grid grid-cols-2 gap-3 md:gap-4">
+                        <div class="bg-darkBg/60 border-2 border-borderGray rounded-xl p-4 md:p-5 text-center">
+                            <span class="block text-[10px] md:text-sm text-gray-500 mb-1 md:mb-2 font-bold uppercase tracking-wider">Transacciones</span>
+                            <span class="block text-xl md:text-4xl font-extrabold text-white" id="count-trx">0</span>
                         </div>
-                        <div class="bg-darkBg/60 border-2 border-borderGray rounded-xl p-5 text-center">
-                            <span class="block text-sm text-gray-500 mb-2 font-bold uppercase tracking-wider">Volumen Total</span>
-                            <span class="block text-3xl md:text-4xl font-extrabold text-white" id="count-vol">0</span>
+                        <div class="bg-darkBg/60 border-2 border-borderGray rounded-xl p-4 md:p-5 text-center">
+                            <span class="block text-[10px] md:text-sm text-gray-500 mb-1 md:mb-2 font-bold uppercase tracking-wider">Volumen Total</span>
+                            <span class="block text-xl md:text-4xl font-extrabold text-white" id="count-vol">0</span>
                         </div>
                     </div>
-                    <div class="bg-darkBg/60 border-2 border-borderGray rounded-xl p-6 text-center">
-                        <span class="block text-sm text-gray-500 mb-2 font-bold uppercase tracking-wider">Ingresos Históricos Acumulados</span>
-                        <span class="block text-4xl md:text-5xl font-extrabold text-emerald-400 animate-pulse" id="count-fob">$0M USD</span>
+                    <div class="bg-darkBg/60 border-2 border-borderGray rounded-xl p-4 md:p-6 text-center">
+                        <span class="block text-xs md:text-sm text-gray-500 mb-1 md:mb-2 font-bold uppercase tracking-wider">Ingresos Históricos Acumulados</span>
+                        <span class="block text-2xl md:text-5xl font-extrabold text-emerald-400 animate-pulse" id="count-fob">$0M USD</span>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- SLIDE 3: TENDENCIAS Y PROYECCIÓN -->
-        <div class="slide hidden flex-col justify-between w-full h-[78vh] bg-panelBg/80 backdrop-blur-md border-2 border-borderGray rounded-3xl p-10 shadow-2xl transition-all duration-500" id="slide-3">
-            <div class="flex justify-between items-center border-b-2 border-borderGray pb-5">
-                <h2 class="text-2xl md:text-3xl font-extrabold text-white"><i class="fa-solid fa-chart-line text-blue-400 mr-4"></i>Tendencia & Proyección a 2 Años</h2>
-                <span class="text-sm font-bold px-4 py-1.5 bg-gray-800 text-gray-400 rounded-full">Slide 3 / 6</span>
+        <div class="slide hidden flex-col justify-between w-full min-h-[70vh] md:h-[78vh] bg-panelBg/80 backdrop-blur-md border-2 border-borderGray rounded-3xl p-6 md:p-10 shadow-2xl transition-all duration-500 mb-6 md:mb-0" id="slide-3">
+            <div class="flex justify-between items-center border-b-2 border-borderGray pb-4 md:pb-5">
+                <h2 class="text-xl md:text-3xl font-extrabold text-white"><i class="fa-solid fa-chart-line text-blue-400 mr-2 md:mr-4"></i>Tendencia & Proyección</h2>
+                <span class="text-xs md:text-sm font-bold px-3 py-1 bg-gray-800 text-gray-400 rounded-full">Slide 3 / 6</span>
             </div>
-            <div class="flex flex-col md:flex-row gap-10 items-center h-full py-6 overflow-y-auto custom-scrollbar">
-                <div class="flex-1 flex flex-col gap-6 text-base md:text-lg leading-relaxed">
+            <div class="flex flex-col md:flex-row gap-6 md:gap-10 items-center h-full py-4 md:py-6 overflow-y-auto custom-scrollbar">
+                <div class="flex-1 flex flex-col gap-4 text-xs md:text-lg leading-relaxed">
                     <p class="text-gray-300">
                         El modelo proyecta las ventas de manera continua combinando la regresión lineal histórica con índices estacionales mensuales:
                     </p>
-                    <ul class="space-y-4">
-                        <li class="relative pl-8 text-gray-300"><span class="absolute left-0 text-blue-400 font-bold">✦</span><strong>Tendencia Central:</strong> Modelada dinámicamente con fórmulas nativas de Excel en base a los 60 meses reales.</li>
-                        <li class="relative pl-8 text-gray-300"><span class="absolute left-0 text-blue-400 font-bold">✦</span><strong>Ajuste Estacional:</strong> Refleja con precisión los picos de campaña de verano (Dic-Mar) y caídas en invierno.</li>
-                        <li class="relative pl-8 text-gray-300"><span class="absolute left-0 text-blue-400 font-bold">✦</span><strong>Horizonte 2026-2027:</strong> 24 meses continuos con fórmulas conectadas al histórico de transacciones.</li>
+                    <ul class="space-y-2 md:space-y-4">
+                        <li class="relative pl-6 md:pl-8 text-gray-300"><span class="absolute left-0 text-blue-400 font-bold">✦</span><strong>Tendencia Central:</strong> Modelada dinámicamente con fórmulas nativas de Excel en base a los 60 meses reales.</li>
+                        <li class="relative pl-6 md:pl-8 text-gray-300"><span class="absolute left-0 text-blue-400 font-bold">✦</span><strong>Ajuste Estacional:</strong> Refleja con precisión los picos de campaña de verano (Dic-Mar).</li>
                     </ul>
-                    <div class="bg-blue-950/20 border-l-4 border-accentBlue p-4 rounded-r-xl text-sm text-gray-300 mt-2">
-                        <strong>Fórmulas dinámicas:</strong> Uso de <code>=PENDIENTE()</code> e <code>=INTERSECCION.EJE()</code> en vivo.
+                    <div class="bg-blue-950/20 border-l-4 border-accentBlue p-3 md:p-4 rounded-r-xl text-xs md:text-sm text-gray-300">
+                        <strong>Fórmulas dinámicas:</strong> Uso de <code>=PENDIENTE()</code> e <code>=INTERSECCION.EJE()</code>.
                     </div>
                 </div>
-                <div class="flex-[1.3] w-full h-[400px] relative">
+                <div class="flex-[1.3] w-full h-[260px] md:h-[400px] relative">
                     <canvas id="trendChart"></canvas>
                 </div>
             </div>
         </div>
 
         <!-- SLIDE 4: SEGMENTACIÓN DE MERCADOS -->
-        <div class="slide hidden flex-col justify-between w-full h-[78vh] bg-panelBg/80 backdrop-blur-md border-2 border-borderGray rounded-3xl p-10 shadow-2xl transition-all duration-500" id="slide-4">
-            <div class="flex justify-between items-center border-b-2 border-borderGray pb-5">
-                <h2 class="text-2xl md:text-3xl font-extrabold text-white"><i class="fa-solid fa-chart-pie text-orange-400 mr-4"></i>Segmentación Estratégica de Mercado</h2>
-                <span class="text-sm font-bold px-4 py-1.5 bg-gray-800 text-gray-400 rounded-full">Slide 4 / 6</span>
+        <div class="slide hidden flex-col justify-between w-full min-h-[70vh] md:h-[78vh] bg-panelBg/80 backdrop-blur-md border-2 border-borderGray rounded-3xl p-6 md:p-10 shadow-2xl transition-all duration-500 mb-6 md:mb-0" id="slide-4">
+            <div class="flex justify-between items-center border-b-2 border-borderGray pb-4 md:pb-5">
+                <h2 class="text-xl md:text-3xl font-extrabold text-white"><i class="fa-solid fa-chart-pie text-orange-400 mr-2 md:mr-4"></i>Segmentación de Mercado</h2>
+                <span class="text-xs md:text-sm font-bold px-3 py-1 bg-gray-800 text-gray-400 rounded-full">Slide 4 / 6</span>
             </div>
-            <div class="flex flex-col md:flex-row gap-10 items-center h-full py-6 overflow-y-auto custom-scrollbar">
-                <div class="flex-1 flex flex-col gap-6 text-base md:text-lg leading-relaxed">
+            <div class="flex flex-col lg:flex-row gap-6 md:gap-10 items-center h-full py-4 overflow-y-auto custom-scrollbar">
+                <div class="flex-grow flex flex-col gap-4 text-xs md:text-lg leading-relaxed">
                     <p class="text-gray-300">
                         Segmentamos las ventas acumuladas bajo dos dimensiones críticas para la toma de decisiones estratégicas:
                     </p>
-                    <ul class="space-y-4">
-                        <li class="relative pl-8 text-gray-300"><span class="absolute left-0 text-orange-400 font-bold">✦</span><strong>Segmentación Geográfica:</strong> <strong>Europa</strong> (46.3%) y <strong>EE.UU.</strong> (33.5%) concentran el <strong>~80%</strong> de la facturación histórica.</li>
-                        <li class="relative pl-8 text-gray-300"><span class="absolute left-0 text-orange-400 font-bold">✦</span><strong>Segmentación de Producto:</strong> La variedad de mango <strong>Kent</strong> lidera holgadamente con un <strong>62.4%</strong> de ingresos.</li>
+                    <ul class="space-y-2">
+                        <li class="relative pl-6 text-gray-300"><span class="absolute left-0 text-orange-400 font-bold">✦</span><strong>Geográfica:</strong> Europa (46.3%) y EE.UU. (33.5%) concentran el ~80% de facturación.</li>
+                        <li class="relative pl-6 text-gray-300"><span class="absolute left-0 text-orange-400 font-bold">✦</span><strong>Producto:</strong> La variedad de mango Kent lidera holgadamente con un 62.4% de ingresos.</li>
                     </ul>
-                    <div class="bg-orange-950/20 border-l-4 border-orange-500 p-4 rounded-r-xl text-sm text-gray-300 mt-2">
-                        <strong>Oportunidad de Diversificación:</strong> Potenciar la variedad Edward (25.9%) e incrementar presencia en mercados asiáticos (13.5%) para reducir riesgos.
-                    </div>
                 </div>
-                <div class="flex-[1.3] w-full flex flex-col md:flex-row gap-6 h-[380px]">
-                    <div class="flex-1 h-full relative">
+                <div class="flex-[1.5] w-full flex flex-col md:flex-row gap-4 h-[480px] md:h-[380px]">
+                    <div class="flex-1 h-full min-h-[140px] relative">
                         <canvas id="marketChart"></canvas>
                     </div>
-                    <div class="flex-1 h-full relative">
+                    <div class="flex-1 h-full min-h-[140px] relative">
                         <canvas id="varietyChart"></canvas>
                     </div>
                 </div>
@@ -169,77 +195,77 @@
         </div>
 
         <!-- SLIDE 5: KPIS Y EQUILIBRIO INTERACTIVO -->
-        <div class="slide hidden flex-col justify-between w-full h-[78vh] bg-panelBg/80 backdrop-blur-md border-2 border-borderGray rounded-3xl p-10 shadow-2xl transition-all duration-500" id="slide-5">
-            <div class="flex justify-between items-center border-b-2 border-borderGray pb-5">
-                <h2 class="text-2xl md:text-3xl font-extrabold text-white"><i class="fa-solid fa-calculator text-green-400 mr-4"></i>KPIs y Punto de Equilibrio Dinámico</h2>
-                <span class="text-sm font-bold px-4 py-1.5 bg-gray-800 text-gray-400 rounded-full">Slide 5 / 6</span>
+        <div class="slide hidden flex-col justify-between w-full min-h-[70vh] md:h-[78vh] bg-panelBg/80 backdrop-blur-md border-2 border-borderGray rounded-3xl p-6 md:p-10 shadow-2xl transition-all duration-500 mb-6 md:mb-0" id="slide-5">
+            <div class="flex justify-between items-center border-b-2 border-borderGray pb-4 md:pb-5">
+                <h2 class="text-xl md:text-3xl font-extrabold text-white"><i class="fa-solid fa-calculator text-green-400 mr-2 md:mr-4"></i>KPIs y Punto de Equilibrio</h2>
+                <span class="text-xs md:text-sm font-bold px-3 py-1 bg-gray-800 text-gray-400 rounded-full">Slide 5 / 6</span>
             </div>
-            <div class="flex flex-col md:flex-row gap-10 items-center h-full py-6 overflow-y-auto custom-scrollbar">
-                <div class="flex-1 flex flex-col gap-6 text-base md:text-lg w-full">
-                    <div class="grid grid-cols-3 gap-3">
-                        <div class="bg-darkBg/60 border-2 border-borderGray rounded-xl p-4 text-center">
-                            <span class="block text-xs text-gray-500 uppercase font-bold tracking-wider mb-1">FOB Promedio</span>
-                            <span class="block text-lg md:text-xl font-bold text-white" id="count-fob-avg">$0.00</span>
+            <div class="flex flex-col md:flex-row gap-6 md:gap-10 items-center h-full py-4 md:py-6 overflow-y-auto custom-scrollbar">
+                <div class="flex-1 flex flex-col gap-4 text-xs md:text-lg w-full">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div class="bg-darkBg/60 border-2 border-borderGray rounded-xl p-3 md:p-4 text-center">
+                            <span class="block text-[10px] text-gray-500 uppercase font-bold tracking-wider mb-1">FOB Promedio</span>
+                            <span class="block text-base md:text-xl font-bold text-white" id="count-fob-avg">$0.00</span>
                         </div>
-                        <div class="bg-darkBg/60 border-2 border-borderGray rounded-xl p-4 text-center">
-                            <span class="block text-xs text-gray-500 uppercase font-bold tracking-wider mb-1">Concentración</span>
-                            <span class="block text-lg md:text-xl font-bold text-white" id="count-concentracion">0%</span>
+                        <div class="bg-darkBg/60 border-2 border-borderGray rounded-xl p-3 md:p-4 text-center">
+                            <span class="block text-[10px] text-gray-500 uppercase font-bold tracking-wider mb-1">Concentración</span>
+                            <span class="block text-base md:text-xl font-bold text-white" id="count-concentracion">0%</span>
                         </div>
-                        <div class="bg-darkBg/60 border-2 border-borderGray rounded-xl p-4 text-center">
-                            <span class="block text-xs text-gray-500 uppercase font-bold tracking-wider mb-1">Crecimiento</span>
-                            <span class="block text-lg md:text-xl font-bold text-orange-400" id="count-crecimiento">+0.00%</span>
+                        <div class="bg-darkBg/60 border-2 border-borderGray rounded-xl p-3 md:p-4 text-center">
+                            <span class="block text-[10px] text-gray-500 uppercase font-bold tracking-wider mb-1">Crecimiento</span>
+                            <span class="block text-base md:text-xl font-bold text-orange-400" id="count-crecimiento">+0.00%</span>
                         </div>
                     </div>
                     
-                    <div class="bg-darkBg/80 border-2 border-borderGray rounded-xl p-5 flex flex-col gap-4">
-                        <h4 class="text-white text-sm md:text-base font-extrabold border-b border-borderGray pb-2">Simulador de Punto de Equilibrio</h4>
-                        <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div class="bg-darkBg/80 border-2 border-borderGray rounded-xl p-4 md:p-5 flex flex-col gap-3">
+                        <h4 class="text-white text-xs md:text-base font-extrabold border-b border-borderGray pb-1">Simulador de Equilibrio</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs md:text-sm">
                             <div class="flex flex-col gap-1.5">
-                                <label class="text-gray-400">Costo Fijo Mensual (USD)</label>
-                                <input type="number" id="costoFijo" value="15000" class="bg-panelBg border-2 border-borderGray rounded-lg p-2 text-white font-bold focus:border-orange-500 outline-none text-base" oninput="calcularPuntoEquilibrio()">
+                                <label class="text-gray-400">Costo Fijo Mensual</label>
+                                <input type="number" id="costoFijo" value="15000" class="bg-panelBg border-2 border-borderGray rounded-lg p-2 text-white font-bold focus:border-orange-500 outline-none text-xs md:text-base" oninput="calcularPuntoEquilibrio()">
                             </div>
                             <div class="flex flex-col gap-1.5">
-                                <label class="text-gray-400">Costo Variable (% del FOB)</label>
-                                <input type="number" id="costoVariablePct" value="60" class="bg-panelBg border-2 border-borderGray rounded-lg p-2 text-white font-bold focus:border-orange-500 outline-none text-base" oninput="calcularPuntoEquilibrio()">
+                                <label class="text-gray-400">Costo Variable (% FOB)</label>
+                                <input type="number" id="costoVariablePct" value="60" class="bg-panelBg border-2 border-borderGray rounded-lg p-2 text-white font-bold focus:border-orange-500 outline-none text-xs md:text-base" oninput="calcularPuntoEquilibrio()">
                             </div>
                         </div>
-                        <p class="text-sm md:text-base text-gray-300 mt-2 font-semibold">
-                            Volumen de Equilibrio Requerido: 
-                            <strong id="volEquilibrio" class="text-orange-400 text-lg md:text-xl font-black">20.27</strong> Toneladas / mes
+                        <p class="text-xs md:text-base text-gray-300 mt-1 font-semibold">
+                            Volumen Requerido: 
+                            <strong id="volEquilibrio" class="text-orange-400 text-sm md:text-xl font-black">20.27</strong> Ton/mes
                         </p>
                     </div>
                 </div>
-                <div class="flex-[1.3] w-full h-[380px] relative">
+                <div class="flex-[1.3] w-full h-[260px] md:h-[380px] relative">
                     <canvas id="beChart"></canvas>
                 </div>
             </div>
         </div>
 
         <!-- SLIDE 6: CONCLUSIONES -->
-        <div class="slide hidden flex-col justify-between w-full h-[78vh] bg-panelBg/80 backdrop-blur-md border-2 border-borderGray rounded-3xl p-10 shadow-2xl transition-all duration-500" id="slide-6">
-            <div class="flex justify-between items-center border-b-2 border-borderGray pb-5">
-                <h2 class="text-2xl md:text-3xl font-extrabold text-white"><i class="fa-solid fa-lightbulb text-purple-400 mr-4"></i>Conclusiones & Decisiones Estratégicas</h2>
-                <span class="text-sm font-bold px-4 py-1.5 bg-gray-800 text-gray-400 rounded-full">Slide 6 / 6</span>
+        <div class="slide hidden flex-col justify-between w-full min-h-[70vh] md:h-[78vh] bg-panelBg/80 backdrop-blur-md border-2 border-borderGray rounded-3xl p-6 md:p-10 shadow-2xl transition-all duration-500 mb-6 md:mb-0" id="slide-6">
+            <div class="flex justify-between items-center border-b-2 border-borderGray pb-4 md:pb-5">
+                <h2 class="text-xl md:text-3xl font-extrabold text-white"><i class="fa-solid fa-lightbulb text-purple-400 mr-2 md:mr-4"></i>Conclusiones</h2>
+                <span class="text-xs md:text-sm font-bold px-3 py-1 bg-gray-800 text-gray-400 rounded-full">Slide 6 / 6</span>
             </div>
-            <div class="flex flex-col md:flex-row gap-10 items-center h-full py-6 overflow-y-auto custom-scrollbar">
-                <div class="flex-[1.3] text-base md:text-lg space-y-4 leading-relaxed">
-                    <div class="flex gap-3">
-                        <i class="fa-solid fa-circle-check text-green-400 mt-1.5 text-xl flex-shrink-0"></i>
-                        <p class="text-gray-300"><strong>Mitigación de Dependencia:</strong> Europa concentra un 46.3% del mercado. Conviene diversificar la fuerza comercial en EE.UU. y Asia para blindar la facturación de riesgos geopolíticos o fitosanitarios.</p>
+            <div class="flex flex-col md:flex-row gap-6 md:gap-10 items-center h-full py-4 md:py-6 overflow-y-auto custom-scrollbar">
+                <div class="flex-[1.3] text-xs md:text-lg space-y-3 leading-relaxed">
+                    <div class="flex gap-2">
+                        <i class="fa-solid fa-circle-check text-green-400 mt-1 text-base md:text-xl flex-shrink-0"></i>
+                        <p class="text-gray-300 text-xs md:text-base"><strong>Mitigación:</strong> Europa concentra 46.3% del mercado. Conviene diversificar la fuerza comercial en EE.UU. y Asia.</p>
                     </div>
-                    <div class="flex gap-3">
-                        <i class="fa-solid fa-circle-check text-green-400 mt-1.5 text-xl flex-shrink-0"></i>
-                        <p class="text-gray-300"><strong>Diferenciación de Producto:</strong> Kent es el producto estrella (62.4%). Se debe asegurar contratos de compraventa FOB anticipados para este mango y usar a Edward (25.9%) en nichos menos saturados.</p>
+                    <div class="flex gap-2">
+                        <i class="fa-solid fa-circle-check text-green-400 mt-1 text-base md:text-xl flex-shrink-0"></i>
+                        <p class="text-gray-300 text-xs md:text-base"><strong>Diferenciación:</strong> Kent es el producto estrella (62.4%). Asegurar contratos anticipados.</p>
                     </div>
-                    <div class="flex gap-3">
-                        <i class="fa-solid fa-circle-check text-green-400 mt-1.5 text-xl flex-shrink-0"></i>
-                        <p class="text-gray-300"><strong>Gestión del Flujo de Caja:</strong> Las proyecciones reafirman la concentración estacional Dic-Mar. Es mandatorio estructurar reservas de liquidez durante el invierno para solventar gastos fijos sin asfixiar la caja operativa.</p>
+                    <div class="flex gap-2">
+                        <i class="fa-solid fa-circle-check text-green-400 mt-1 text-base md:text-xl flex-shrink-0"></i>
+                        <p class="text-gray-300 text-xs md:text-base"><strong>Flujo de Caja:</strong> Proyecciones estacionales exigen reservas durante el invierno.</p>
                     </div>
                 </div>
-                <div class="flex-1 w-full bg-orange-500/5 border-2 border-orange-500/20 rounded-2xl p-8 text-center flex flex-col justify-center gap-4">
-                    <h3 class="text-orange-400 font-extrabold text-xl md:text-2xl"><i class="fa-solid fa-shield-halved mr-3"></i>Decisión Táctica</h3>
-                    <p class="text-sm md:text-base text-gray-300 leading-relaxed font-medium">
-                        Negociar contratos estacionales integrados con transportistas durante el verano (temporada alta) y reinvertir el margen en canales de exportación a mercados emergentes en Asia.
+                <div class="flex-1 w-full bg-orange-500/5 border-2 border-orange-500/20 rounded-2xl p-6 text-center flex flex-col justify-center gap-3">
+                    <h3 class="text-orange-400 font-extrabold text-base md:text-2xl"><i class="fa-solid fa-shield-halved mr-2"></i>Decisión Táctica</h3>
+                    <p class="text-xs md:text-base text-gray-300 leading-relaxed font-medium">
+                        Negociar contratos estacionales integrados con transportistas durante el verano y reinvertir el margen en mercados emergentes.
                     </p>
                 </div>
             </div>
@@ -248,13 +274,13 @@
     </div>
 
     <!-- NAVIGATION BAR CONTROLS -->
-    <div class="navbar w-full max-w-7xl mx-auto flex justify-between items-center border-t-2 border-borderGray pt-5 mt-5 relative z-10">
-        <button class="nav-btn nav-btn-prev px-6 py-3.5 bg-gray-800/80 hover:bg-gray-700 text-gray-200 border-2 border-borderGray rounded-xl text-base md:text-lg font-bold transition-all flex items-center gap-3" onclick="changeSlide(-1)">
-            <i class="fa-solid fa-arrow-left text-lg"></i> Anterior
+    <div class="navbar flex-none w-full max-w-7xl mx-auto flex justify-between items-center border-t-2 border-borderGray pt-3 mt-3 pb-2 relative z-10 bg-darkBg">
+        <button class="nav-btn nav-btn-prev px-4 py-2 md:px-6 md:py-3.5 bg-gray-800/80 hover:bg-gray-700 text-gray-200 border-2 border-borderGray rounded-xl text-xs md:text-lg font-bold transition-all flex items-center gap-2" onclick="changeSlide(-1)">
+            <i class="fa-solid fa-arrow-left text-sm md:text-lg"></i> <span class="hidden sm:inline">Anterior</span>
         </button>
-        <div class="progress-dots flex gap-3" id="dotsContainer"></div>
-        <button class="nav-btn px-7 py-3.5 bg-orange-500 hover:bg-orange-600 text-white rounded-xl text-base md:text-lg font-extrabold transition-all flex items-center gap-3" onclick="changeSlide(1)">
-            Siguiente <i class="fa-solid fa-arrow-right text-lg"></i>
+        <div class="progress-dots flex gap-2 md:gap-3" id="dotsContainer"></div>
+        <button class="nav-btn px-4 py-2 md:px-7 md:py-3.5 bg-orange-500 hover:bg-orange-600 text-white rounded-xl text-xs md:text-lg font-extrabold transition-all flex items-center gap-2" onclick="changeSlide(1)">
+            <span class="hidden sm:inline">Siguiente</span> <i class="fa-solid fa-arrow-right text-sm md:text-lg"></i>
         </button>
     </div>
 
@@ -277,12 +303,13 @@
 
             currentSlide = num;
             updateDots();
-            
-            // Defer chart rendering and animations slightly to ensure DOM reflow is complete and canvas has dimensions
+            window.scrollTo(0, 0); // reinicia el scroll al cambiar de slide (móvil)
+
+            // Defer chart rendering and animations to ensure DOM reflow and slide transitions are fully complete
             setTimeout(() => {
                 renderChartsForSlide(num);
                 triggerTextAnimations(num);
-            }, 60);
+            }, 400);
         }
 
         function changeSlide(direction) {
@@ -295,7 +322,7 @@
             container.innerHTML = '';
             for (let i = 1; i <= totalSlides; i++) {
                 const dot = document.createElement('div');
-                dot.className = `w-3.5 h-3.5 rounded-full cursor-pointer transition-all duration-300 ${i === currentSlide ? 'bg-orange-500 scale-125' : 'bg-gray-800'}`;
+                dot.className = `w-2.5 h-2.5 md:w-3.5 md:h-3.5 rounded-full cursor-pointer transition-all duration-300 ${i === currentSlide ? 'bg-orange-500 scale-125' : 'bg-gray-800'}`;
                 dot.onclick = () => showSlide(i);
                 container.appendChild(dot);
             }
@@ -309,6 +336,21 @@
                 changeSlide(-1);
             }
         });
+
+        // Navegación táctil (swipe horizontal) para móvil
+        let touchStartX = 0, touchStartY = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+        }, { passive: true });
+        document.addEventListener('touchend', (e) => {
+            const dx = e.changedTouches[0].screenX - touchStartX;
+            const dy = e.changedTouches[0].screenY - touchStartY;
+            // solo si el gesto es claramente horizontal (no scroll vertical)
+            if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+                changeSlide(dx < 0 ? 1 : -1);
+            }
+        }, { passive: true });
 
         // Initialize presentation on first slide
         window.addEventListener('DOMContentLoaded', () => {
@@ -345,20 +387,19 @@
             }
         }
 
-        // Interactive Charts Initialization variables
+        // Interactive Charts variables
         let trendChartInstance = null;
         let marketChartInstance = null;
         let varietyChartInstance = null;
         let beChartInstance = null;
 
         function renderChartsForSlide(slideNum) {
-            // Destruir instancias previas para forzar la animación de entrada cada vez
             if (trendChartInstance) { trendChartInstance.destroy(); trendChartInstance = null; }
             if (marketChartInstance) { marketChartInstance.destroy(); marketChartInstance = null; }
             if (varietyChartInstance) { varietyChartInstance.destroy(); varietyChartInstance = null; }
             if (beChartInstance) { beChartInstance.destroy(); beChartInstance = null; }
 
-            // Slide 3: Trend Chart (Line Chart drawn progressively from left to right)
+            // Slide 3: Trend Chart
             if (slideNum === 3) {
                 const ctx = document.getElementById('trendChart');
                 const labels = [];
@@ -423,22 +464,22 @@
                         responsive: true,
                         maintainAspectRatio: false,
                         animation: {
-                            duration: 1200,
+                            duration: 2000,
                             easing: 'easeOutQuart'
                         },
                         plugins: {
-                            legend: { labels: { color: '#E5E7EB', font: { size: 14, weight: 'bold' } } }
+                            legend: { labels: { color: '#E5E7EB', font: { size: 11, weight: 'bold' } } }
                         },
                         scales: {
                             x: { 
                                 grid: { color: 'rgba(255,255,255,0.05)' }, 
-                                ticks: { color: '#9CA3AF', maxTicksLimit: 12, font: { size: 12, weight: 'bold' } } 
+                                ticks: { color: '#9CA3AF', maxTicksLimit: 12, font: { size: 10, weight: 'bold' } } 
                             },
                             y: { 
                                 grid: { color: 'rgba(255,255,255,0.05)' }, 
                                 ticks: { 
                                     color: '#9CA3AF', 
-                                    font: { size: 12, weight: 'bold' },
+                                    font: { size: 10, weight: 'bold' },
                                     callback: function(value) {
                                         return '$' + (value / 1000000).toFixed(1) + 'M';
                                     }
@@ -449,7 +490,7 @@
                 });
             }
 
-            // Slide 4: Market Share & Variety Charts (Bar growing, doughnut rotating & scaling)
+            // Slide 4: Market Share & Variety Charts
             if (slideNum === 4) {
                 const ctx = document.getElementById('marketChart');
                 marketChartInstance = new Chart(ctx, {
@@ -467,18 +508,18 @@
                         responsive: true,
                         maintainAspectRatio: false,
                         animation: {
-                            duration: 1200,
-                            easing: 'easeOutBounce'
+                            duration: 2000,
+                            easing: 'easeOutElastic'
                         },
                         plugins: {
                             legend: { display: false }
                         },
                         scales: {
-                            x: { ticks: { color: '#E5E7EB', font: { size: 12, weight: 'bold' } }, grid: { display: false } },
+                            x: { ticks: { color: '#E5E7EB', font: { size: 10, weight: 'bold' } }, grid: { display: false } },
                             y: { 
                                 ticks: { 
                                     color: '#9CA3AF', 
-                                    font: { size: 12, weight: 'bold' },
+                                    font: { size: 10, weight: 'bold' },
                                     callback: function(value) {
                                         return '$' + (value / 1000000).toFixed(0) + 'M';
                                     }
@@ -504,14 +545,14 @@
                         responsive: true,
                         maintainAspectRatio: false,
                         animation: {
-                            duration: 1200,
+                            duration: 2000,
                             animateRotate: true,
                             animateScale: true,
                             easing: 'easeOutQuart'
                         },
                         plugins: {
                             legend: { 
-                                labels: { color: '#E5E7EB', font: { size: 13, weight: 'bold' } }, 
+                                labels: { color: '#E5E7EB', font: { size: 11, weight: 'bold' } }, 
                                 position: 'bottom' 
                             }
                         }
@@ -586,22 +627,22 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     animation: {
-                        duration: 1200,
+                        duration: 2000,
                         easing: 'easeOutQuart'
                     },
                     plugins: {
-                        legend: { labels: { color: '#E5E7EB', font: { size: 14, weight: 'bold' } } }
+                        legend: { labels: { color: '#E5E7EB', font: { size: 11, weight: 'bold' } } }
                     },
                     scales: {
                         x: { 
                             grid: { color: 'rgba(255,255,255,0.05)' }, 
-                            ticks: { color: '#9CA3AF', font: { size: 12, weight: 'bold' } } 
+                            ticks: { color: '#9CA3AF', font: { size: 10, weight: 'bold' } } 
                         },
                         y: { 
                             grid: { color: 'rgba(255,255,255,0.05)' }, 
                             ticks: { 
                                 color: '#9CA3AF', 
-                                font: { size: 12, weight: 'bold' },
+                                font: { size: 10, weight: 'bold' },
                                 callback: function(value) {
                                     return '$' + (value / 1000).toFixed(0) + 'k';
                                 }
