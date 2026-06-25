@@ -47,7 +47,7 @@
                 </div>
                 <div>
                     <h1 class="text-3xl font-extrabold tracking-tight">Exportación de Mangos Peruanos</h1>
-                    <p class="text-gray-400 mt-1">Proyecto Final Consolidado (Sesiones 1 a 6) <span class="text-gray-600 ml-2 font-mono text-xs uppercase font-semibold">v1.5.0</span></p>
+                    <p class="text-gray-400 mt-1">Proyecto Final Consolidado (Sesiones 1 a 6) <span class="text-gray-600 ml-2 font-mono text-xs uppercase font-semibold">v2.0.0</span></p>
                 </div>
             </div>
         </header>
@@ -196,31 +196,107 @@
                     </div>
                 </div>
 
+                <!-- Análisis Estadístico -->
+                <div class="bg-panelBg/80 backdrop-blur-sm border border-borderGray rounded-2xl p-6">
+                    <h2 class="text-lg font-bold text-white mb-4 border-b border-borderGray pb-2"><i class="fa-solid fa-calculator text-orange-400 mr-2"></i>Análisis Estadístico Descriptivo</h2>
+
+                    <!-- KPIs -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                        <div class="bg-darkBg/60 border border-borderGray rounded-xl p-4">
+                            <span class="block text-xs text-gray-500">Ingreso Total</span>
+                            <span class="block text-xl font-extrabold text-emerald-400">$442.6M</span>
+                        </div>
+                        <div class="bg-darkBg/60 border border-borderGray rounded-xl p-4">
+                            <span class="block text-xs text-gray-500">Transacciones</span>
+                            <span class="block text-xl font-extrabold text-white">12,000</span>
+                        </div>
+                        <div class="bg-darkBg/60 border border-borderGray rounded-xl p-4">
+                            <span class="block text-xs text-gray-500">Ticket Promedio</span>
+                            <span class="block text-xl font-extrabold text-white">$36,880</span>
+                        </div>
+                        <div class="bg-darkBg/60 border border-borderGray rounded-xl p-4">
+                            <span class="block text-xs text-gray-500">Variedad líder</span>
+                            <span class="block text-xl font-extrabold text-orange-400">Kent 62%</span>
+                        </div>
+                    </div>
+
+                    <!-- Medidas + Sturges -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-darkBg/50 rounded-lg p-4">
+                            <h3 class="text-sm font-semibold text-orange-400 mb-3">Medidas sobre Ingreso_Total_USD (no agrupado)</h3>
+                            <table class="w-full text-xs text-gray-300">
+                                <tbody class="divide-y divide-borderGray">
+                                    <tr><td class="py-1.5">Media</td><td class="py-1.5 text-right font-mono text-white">$36,879.99</td></tr>
+                                    <tr><td class="py-1.5">Mediana</td><td class="py-1.5 text-right font-mono text-white">$35,802.01</td></tr>
+                                    <tr><td class="py-1.5">Desv. Estándar</td><td class="py-1.5 text-right font-mono text-white">$10,324.01</td></tr>
+                                    <tr><td class="py-1.5">Mínimo</td><td class="py-1.5 text-right font-mono text-white">$16,105.74</td></tr>
+                                    <tr><td class="py-1.5">Máximo</td><td class="py-1.5 text-right font-mono text-white">$65,650.62</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="bg-darkBg/50 rounded-lg p-4">
+                            <h3 class="text-sm font-semibold text-orange-400 mb-3">Datos Agrupados (Regla de Sturges)</h3>
+                            <table class="w-full text-xs text-gray-300">
+                                <tbody class="divide-y divide-borderGray">
+                                    <tr><td class="py-1.5">N° de clases (k)</td><td class="py-1.5 text-right font-mono text-white">15</td></tr>
+                                    <tr><td class="py-1.5">Amplitud (h)</td><td class="py-1.5 text-right font-mono text-white">$3,303</td></tr>
+                                    <tr><td class="py-1.5">Media agrupada</td><td class="py-1.5 text-right font-mono text-white">$36,887.11</td></tr>
+                                    <tr><td class="py-1.5">Mediana (clase 6)</td><td class="py-1.5 text-right font-mono text-white">$35,795.56</td></tr>
+                                    <tr><td class="py-1.5">Moda (clase modal 5)</td><td class="py-1.5 text-right font-mono text-white">$31,813.34</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visualizaciones -->
+                <div class="bg-panelBg/80 backdrop-blur-sm border border-borderGray rounded-2xl p-6">
+                    <h2 class="text-lg font-bold text-white mb-4 border-b border-borderGray pb-2"><i class="fa-solid fa-chart-column text-blue-400 mr-2"></i>Visualizaciones</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <img src="img/02_ingreso_por_variedad.png" alt="Ingreso por Variedad" class="rounded-lg border border-borderGray bg-white w-full">
+                        <img src="img/03_participacion_por_mercado.png" alt="Participación por Mercado" class="rounded-lg border border-borderGray bg-white w-full">
+                        <img src="img/04_tendencia_anual.png" alt="Tendencia Anual de Ingresos" class="rounded-lg border border-borderGray bg-white w-full">
+                        <img src="img/06_crecimiento_interanual.png" alt="Crecimiento Interanual" class="rounded-lg border border-borderGray bg-white w-full">
+                        <img src="img/05_evolucion_por_mercado.png" alt="Evolución por Mercado" class="rounded-lg border border-borderGray bg-white w-full">
+                        <img src="img/07_estacionalidad_mensual.png" alt="Estacionalidad Mensual" class="rounded-lg border border-borderGray bg-white w-full">
+                        <img src="img/01_histograma_ingreso.png" alt="Distribución del Ingreso" class="rounded-lg border border-borderGray bg-white w-full">
+                        <img src="img/08_proyeccion_cagr_vs_regresion.png" alt="Proyección CAGR vs Regresión" class="rounded-lg border border-borderGray bg-white w-full">
+                    </div>
+                </div>
+
                 <!-- Conclusiones -->
                 <div class="bg-panelBg/80 backdrop-blur-sm border border-borderGray rounded-2xl p-6">
                     <h2 class="text-lg font-bold text-white mb-4 border-b border-borderGray pb-2"><i class="fa-solid fa-pen-to-square text-purple-400 mr-2"></i>Conclusiones Interpretativas</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                        <div class="border border-borderGray border-dashed rounded-xl p-6 flex flex-col items-center justify-center text-center text-gray-500 min-h-[120px]">
-                            <i class="fa-solid fa-chart-pie text-2xl mb-2"></i>
-                            <p class="text-xs">Espacio para redactar la conclusión sobre la distribución de ventas por variedad.</p>
+                        <div class="bg-darkBg/50 border border-borderGray rounded-xl p-4">
+                            <p class="text-sm font-semibold text-orange-400 mb-1"><i class="fa-solid fa-crown mr-1"></i>Concentración en Kent</p>
+                            <p class="text-xs text-gray-300 leading-relaxed">Kent genera el <strong>62.4%</strong> de los ingresos ($276.4M), más del doble que Edward y Haden. Es el activo crítico del negocio: se recomienda priorizar su cadena de suministro y la fidelización de sus clientes.</p>
                         </div>
-                        <div class="border border-borderGray border-dashed rounded-xl p-6 flex flex-col items-center justify-center text-center text-gray-500 min-h-[120px]">
-                            <p class="text-xs">Espacio para redactar la conclusión sobre la estacionalidad (diciembre - marzo).</p>
+                        <div class="bg-darkBg/50 border border-borderGray rounded-xl p-4">
+                            <p class="text-sm font-semibold text-orange-400 mb-1"><i class="fa-solid fa-earth-americas mr-1"></i>Riesgo de mercado</p>
+                            <p class="text-xs text-gray-300 leading-relaxed">Europa (46.3%) y EE.UU. (33.5%) concentran <strong>~80%</strong> de la facturación. Conviene diversificar progresivamente hacia Asia y Latinoamérica para reducir la dependencia.</p>
+                        </div>
+                        <div class="bg-darkBg/50 border border-borderGray rounded-xl p-4">
+                            <p class="text-sm font-semibold text-orange-400 mb-1"><i class="fa-solid fa-arrow-trend-up mr-1"></i>Expansión 2024–2025</p>
+                            <p class="text-xs text-gray-300 leading-relaxed">Tras tres años estables (~$56M anuales), los ingresos saltaron <strong>+93.8%</strong> en 2024 y <strong>+54.4%</strong> en 2025. Fase expansiva que exige planificar capacidad logística y financiamiento.</p>
+                        </div>
+                        <div class="bg-darkBg/50 border border-borderGray rounded-xl p-4">
+                            <p class="text-sm font-semibold text-orange-400 mb-1"><i class="fa-solid fa-chart-line mr-1"></i>Proyección 2026</p>
+                            <p class="text-xs text-gray-300 leading-relaxed">La regresión lineal (R²=0.726) proyecta <strong>~$166.8M</strong> como meta base; el CAGR <strong>~$218.3M</strong> como techo optimista. La distribución mensual homogénea confirma una operación predecible.</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Dashboard -->
                 <div class="bg-panelBg/80 backdrop-blur-sm border border-borderGray rounded-2xl p-6">
-                    <h2 class="text-lg font-bold text-white mb-4 border-b border-borderGray pb-2"><i class="fa-solid fa-table-columns text-blue-400 mr-2"></i>Dashboard Interactivo (Google Sheets)</h2>
-                    <div class="w-full h-[500px] border border-borderGray border-dashed rounded-xl flex flex-col items-center justify-center text-center p-8 bg-darkBg/50 relative overflow-hidden group transition-all">
-                        <div class="bg-borderGray w-20 h-20 rounded-full flex items-center justify-center mb-6">
-                            <i class="fa-brands fa-google-drive text-4xl text-gray-400"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-2">Aún no se ha incrustado el Dashboard</h3>
-                        <p class="text-gray-400 text-sm max-w-md">
-                            Una vez que desarrollen la tabla de medidas estadísticas y los gráficos en su hoja de cálculo, aquí se mostrará el Iframe correspondiente.
-                        </p>
+                    <h2 class="text-lg font-bold text-white mb-4 border-b border-borderGray pb-2"><i class="fa-solid fa-table-columns text-blue-400 mr-2"></i>Dashboard Interpretativo (Excel y Power BI)</h2>
+                    <p class="text-sm text-gray-300 leading-relaxed mb-4">
+                        Tablero que integra los 4 KPI y 8 visualizaciones del negocio. Comunica una historia clara: una operación <strong>estable hasta 2023 que se acelera en 2024–2025</strong>, con crecimiento transversal en todos los mercados pero concentrada en la variedad <strong>Kent</strong> y en <strong>Europa + EE.UU. (~80%)</strong>, sobre un flujo mensual homogéneo. La versión de Power BI es interactiva (filtrado cruzado por variedad, mercado y año).
+                    </p>
+                    <!-- Para incrustar la captura: exporta el dashboard como PNG (img/09_dashboard.png) y reemplaza el bloque punteado por:
+                         <img src="img/09_dashboard.png" alt="Dashboard" class="rounded-xl border border-borderGray bg-white w-full"> -->
+                    <div class="w-full border border-borderGray rounded-xl overflow-hidden bg-darkBg/50">
+                        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSdhl4rZFqezVCPmQyljWyZWhfmzYHpWgZeRfVixX1tmwBF1BtkW0XdcgI9dcbfnIheCTfWO2QN5oR0/pubhtml?widget=true&amp;headers=false" class="w-full h-[550px] border-0"></iframe>
                     </div>
                 </div>
             </div>
