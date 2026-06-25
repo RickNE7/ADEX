@@ -109,8 +109,8 @@
                 <h2 class="text-xl md:text-3xl font-extrabold text-white"><i class="fa-solid fa-broom text-green-400 mr-2 md:mr-4"></i>Depuración y EDA</h2>
                 <span class="text-xs md:text-sm font-bold px-3 py-1 bg-gray-800 text-gray-400 rounded-full">Slide 2 / 6</span>
             </div>
-            <div class="flex flex-col md:flex-row gap-6 md:gap-10 items-center h-full py-4 md:py-6 overflow-y-auto custom-scrollbar">
-                <div class="flex-1 flex flex-col gap-4 text-xs md:text-lg leading-relaxed">
+            <div class="flex flex-col md:flex-row gap-6 md:gap-10 items-stretch h-full py-4 md:py-6 overflow-y-auto custom-scrollbar">
+                <div class="flex-1 flex flex-col justify-center gap-4 text-xs md:text-lg leading-relaxed">
                     <p class="text-gray-300">
                         Antes de realizar proyecciones, se aplicó una rigurosa depuración a la base transaccional para garantizar la <strong>calidad y confiabilidad</strong> del modelo:
                     </p>
@@ -148,8 +148,8 @@
                 <h2 class="text-xl md:text-3xl font-extrabold text-white"><i class="fa-solid fa-chart-line text-blue-400 mr-2 md:mr-4"></i>Tendencia & Proyección</h2>
                 <span class="text-xs md:text-sm font-bold px-3 py-1 bg-gray-800 text-gray-400 rounded-full">Slide 3 / 6</span>
             </div>
-            <div class="flex flex-col md:flex-row gap-6 md:gap-10 items-center h-full py-4 md:py-6 overflow-y-auto custom-scrollbar">
-                <div class="flex-1 flex flex-col gap-4 text-xs md:text-lg leading-relaxed">
+            <div class="flex flex-col md:flex-row gap-6 md:gap-10 items-stretch h-full py-4 md:py-6 overflow-y-auto custom-scrollbar">
+                <div class="flex-1 flex flex-col justify-center gap-4 text-xs md:text-lg leading-relaxed">
                     <p class="text-gray-300">
                         El modelo proyecta las ventas de manera continua combinando la regresión lineal histórica con índices estacionales mensuales:
                     </p>
@@ -161,7 +161,7 @@
                         <strong>Fórmulas dinámicas:</strong> Uso de <code>=PENDIENTE()</code> e <code>=INTERSECCION.EJE()</code>.
                     </div>
                 </div>
-                <div class="flex-[1.3] w-full h-[260px] md:h-[400px] relative">
+                <div class="flex-[1.3] w-full h-[260px] md:h-full relative">
                     <canvas id="trendChart"></canvas>
                 </div>
             </div>
@@ -173,8 +173,8 @@
                 <h2 class="text-xl md:text-3xl font-extrabold text-white"><i class="fa-solid fa-chart-pie text-orange-400 mr-2 md:mr-4"></i>Segmentación de Mercado</h2>
                 <span class="text-xs md:text-sm font-bold px-3 py-1 bg-gray-800 text-gray-400 rounded-full">Slide 4 / 6</span>
             </div>
-            <div class="flex flex-col lg:flex-row gap-6 md:gap-10 items-center h-full py-4 overflow-y-auto custom-scrollbar">
-                <div class="flex-grow flex flex-col gap-4 text-xs md:text-lg leading-relaxed">
+            <div class="flex flex-col lg:flex-row gap-6 md:gap-10 items-stretch h-full py-4 overflow-y-auto custom-scrollbar">
+                <div class="flex-grow flex flex-col justify-center gap-4 text-xs md:text-lg leading-relaxed">
                     <p class="text-gray-300">
                         Segmentamos las ventas acumuladas bajo dos dimensiones críticas para la toma de decisiones estratégicas:
                     </p>
@@ -183,7 +183,7 @@
                         <li class="relative pl-6 text-gray-300"><span class="absolute left-0 text-orange-400 font-bold">✦</span><strong>Producto:</strong> La variedad de mango Kent lidera holgadamente con un 62.4% de ingresos.</li>
                     </ul>
                 </div>
-                <div class="flex-[1.5] w-full flex flex-col md:flex-row gap-4 h-[480px] md:h-[380px]">
+                <div class="flex-[1.5] w-full flex flex-col md:flex-row gap-4 h-[480px] lg:h-full">
                     <div class="flex-1 h-full min-h-[140px] relative">
                         <canvas id="marketChart"></canvas>
                     </div>
@@ -200,8 +200,8 @@
                 <h2 class="text-xl md:text-3xl font-extrabold text-white"><i class="fa-solid fa-calculator text-green-400 mr-2 md:mr-4"></i>KPIs y Punto de Equilibrio</h2>
                 <span class="text-xs md:text-sm font-bold px-3 py-1 bg-gray-800 text-gray-400 rounded-full">Slide 5 / 6</span>
             </div>
-            <div class="flex flex-col md:flex-row gap-6 md:gap-10 items-center h-full py-4 md:py-6 overflow-y-auto custom-scrollbar">
-                <div class="flex-1 flex flex-col gap-4 text-xs md:text-lg w-full">
+            <div class="flex flex-col md:flex-row gap-6 md:gap-10 items-stretch h-full py-4 md:py-6 overflow-y-auto custom-scrollbar">
+                <div class="flex-1 flex flex-col justify-center gap-4 text-xs md:text-lg w-full">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                         <div class="bg-darkBg/60 border-2 border-borderGray rounded-xl p-3 md:p-4 text-center">
                             <span class="block text-[10px] text-gray-500 uppercase font-bold tracking-wider mb-1">FOB Promedio</span>
@@ -235,7 +235,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="flex-[1.3] w-full h-[260px] md:h-[380px] relative">
+                <div class="flex-[1.3] w-full h-[260px] md:h-full relative">
                     <canvas id="beChart"></canvas>
                 </div>
             </div>
@@ -247,8 +247,8 @@
                 <h2 class="text-xl md:text-3xl font-extrabold text-white"><i class="fa-solid fa-lightbulb text-purple-400 mr-2 md:mr-4"></i>Conclusiones</h2>
                 <span class="text-xs md:text-sm font-bold px-3 py-1 bg-gray-800 text-gray-400 rounded-full">Slide 6 / 6</span>
             </div>
-            <div class="flex flex-col md:flex-row gap-6 md:gap-10 items-center h-full py-4 md:py-6 overflow-y-auto custom-scrollbar">
-                <div class="flex-[1.3] text-xs md:text-lg space-y-3 leading-relaxed">
+            <div class="flex flex-col md:flex-row gap-6 md:gap-10 items-stretch h-full py-4 md:py-6 overflow-y-auto custom-scrollbar">
+                <div class="flex-[1.3] flex flex-col justify-center text-xs md:text-lg space-y-3 leading-relaxed">
                     <div class="flex gap-2">
                         <i class="fa-solid fa-circle-check text-green-400 mt-1 text-base md:text-xl flex-shrink-0"></i>
                         <p class="text-gray-300 text-xs md:text-base"><strong>Mitigación:</strong> Europa concentra 46.3% del mercado. Conviene diversificar la fuerza comercial en EE.UU. y Asia.</p>
