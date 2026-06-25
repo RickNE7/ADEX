@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sustentación EA2: Caso Mangos (Mobile Responsive)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        darkBg: '#090D16',
+                        panelBg: '#111827',
+                        borderGray: '#1F2937',
+                        accentBlue: '#3B82F6'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #090D16; color: #F3F4F6; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #090D16; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #1F2937; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #374151; }
+        .slide { min-height: 0 !important; height: 100% !important; max-height: 100% !important; margin-bottom: 0 !important; overflow-y: auto !important; }
+
+        /* ===== MÓVIL: flujo natural de la página, sin recortes ni scroll interno ===== */
+        @media (max-width: 768px) {
+            body {
+                height: auto !important;
+                min-height: 100dvh;
+                overflow: visible !important; /* scroll natural del documento */
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 52px !important; /* espacio para el indicador fijo (sin botones) */
+            }
+            /* glows decorativos: única fuente de desbordamiento horizontal en móvil */
+            body > .blur-3xl { display: none !important; }
+            .slide {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            .slide .h-full { height: auto !important; } /* filas internas que dependían de altura fija */
+            .navbar {
+                position: fixed !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+                width: 100%; max-width: 100% !important; margin: 0 !important;
+                padding: 8px 16px calc(8px + env(safe-area-inset-bottom)) !important;
+                border-top: 2px solid #1F2937; border-radius: 0;
+                background: rgba(9, 13, 22, 0.92);
+                backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+                z-index: 50;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans antialiased h-[100dvh] overflow-hidden flex flex-col p-4 md:p-10 relative">
+
+    <!-- Ambient Glow Effects -->
+    <div class="absolute -top-20 -left-20 w-96 h-96 rounded-full bg-orange-500/10 blur-3xl pointer-events-none z-0"></div>
+    <div class="absolute -bottom-20 -right-20 w-96 h-96 rounded-full bg-blue-500/10 blur-3xl pointer-events-none z-0"></div>
+
+    <!-- MAIN SLIDES CONTAINER -->
+    <div class="flex-grow flex flex-col relative z-10 w-full max-w-7xl mx-auto min-h-0">
+
+        <!-- SLIDE 1: PORTADA -->
+        <div class="slide hidden active flex-col justify-between w-full min-h-[70vh] md:h-[78vh] bg-panelBg/80 backdrop-blur-md border-2 border-borderGray rounded-3xl p-6 md:p-16 shadow-2xl transition-all duration-500 mb-6 md:mb-0" id="slide-1">
+            <div></div> <!-- Spacer -->
+            <div class="text-center max-w-4xl mx-auto flex flex-col gap-6 md:gap-8">
+                <span class="inline-self-center mx-auto px-5 py-2 bg-orange-500/10 border border-orange-500/20 text-orange-400 rounded-full text-xs md:text-base font-bold uppercase tracking-widest">
+                    Evaluación Continua 2 (EA2)
+                </span>
+                <h1 class="text-3xl md:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                    Dashboard Estratégico Comercial y Proyecciones
+                </h1>
+                <p class="text-gray-400 text-lg md:text-2xl">Caso de Estudio: Exportadora de Mangos Peruanos</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 border-t-2 border-borderGray pt-8 md:pt-10 mt-6 md:mt-8 text-sm md:text-lg">
+                    <div class="text-center">
+                        <span class="block text-gray-500 font-semibold mb-1">Unidad Didáctica</span>
+                        <span class="text-white font-bold">Análisis de Datos</span>
+                    </div>
+                    <div class="text-center">
+                        <span class="block text-gray-500 font-semibold mb-1">Ciclo</span>
+                        <span class="text-white font-bold">Ciclo V - 2026</span>
+                    </div>
+                    <div class="text-center">
+                        <span class="block text-gray-500 font-semibold mb-1">Herramientas</span>
+                        <span class="text-white font-bold">Excel & Python</span>
+                    </div>
+                </div>
+            </div>
+            <div></div> <!-- Spacer -->
+        </div>
+
+        <!-- SLIDE 2: DEPURACIÓN Y EDA -->
+        <div class="slide hidden flex-col justify-between w-full min-h-[70vh] md:h-[78vh] bg-panelBg/80 backdrop-blur-md border-2 border-borderGray rounded-3xl p-6 md:p-10 shadow-2xl transition-all duration-500 mb-6 md:mb-0" id="slide-2">
+            <div class="flex justify-between items-center border-b-2 border-borderGray pb-4 md:pb-5">
+                <h2 class="text-xl md:text-3xl font-extrabold text-white"><i class="fa-solid fa-broom text-green-400 mr-2 md:mr-4"></i>Depuración y EDA</h2>
+                <span class="text-xs md:text-sm font-bold px-3 py-1 bg-gray-800 text-gray-400 rounded-full">Slide 2 / 6</span>
+            </div>
+            <div class="flex flex-col md:flex-row gap-6 md:gap-10 items-stretch h-full py-4 md:py-6 overflow-y-auto custom-scrollbar">
+                <div class="flex-1 flex flex-col justify-center gap-4 text-xs md:text-lg leading-relaxed">
+                    <p class="text-gray-300">
+                        Antes de realizar proyecciones, se aplicó una rigurosa depuración a la base transaccional para garantizar la <strong>calidad y confiabilidad</strong> del modelo:
+                    </p>
+                    <ul class="space-y-2 md:space-y-4">
+                        <li class="relative pl-6 md:pl-8 text-gray-300"><span class="absolute left-0 text-orange-400 font-bold">✦</span><strong>Volumen Procesado:</strong> Un histórico consolidado de <strong>12,000 transacciones</strong> limpias a lo largo de 5 años.</li>
+                        <li class="relative pl-6 md:pl-8 text-gray-300"><span class="absolute left-0 text-orange-400 font-bold">✦</span><strong>Validación de Fechas:</strong> Unificación de formatos de texto inconsistentes al estándar ISO YYYY-MM-DD.</li>
+                        <li class="relative pl-6 md:pl-8 text-gray-300"><span class="absolute left-0 text-orange-400 font-bold">✦</span><strong>Tratamiento de Anomalías:</strong> Corrección de ortografía en variedades, eliminación de nulos y outliers de precios FOB.</li>
+                    </ul>
+                    <div class="bg-emerald-950/20 border-l-4 border-emerald-500 p-3 md:p-4 rounded-r-xl text-xs md:text-sm text-gray-300">
+                        <strong>Logro Metodológico (EC1):</strong> Transformación de datos sucios en un modelo dinámico formulado en Excel sin valores "quemados".
+                    </div>
+                </div>
+                <div class="flex-1 w-full flex flex-col justify-between gap-3 md:gap-4">
+                    <div class="grid grid-cols-2 gap-3 md:gap-4">
+                        <div class="bg-darkBg/60 border-2 border-borderGray rounded-xl p-4 md:p-5 text-center">
+                            <span class="block text-[10px] md:text-sm text-gray-500 mb-1 md:mb-2 font-bold uppercase tracking-wider">Transacciones</span>
+                            <span class="block text-xl md:text-4xl font-extrabold text-white" id="count-trx">0</span>
+                        </div>
+                        <div class="bg-darkBg/60 border-2 border-borderGray rounded-xl p-4 md:p-5 text-center">
+                            <span class="block text-[10px] md:text-sm text-gray-500 mb-1 md:mb-2 font-bold uppercase tracking-wider">Volumen Total</span>
+                            <span class="block text-xl md:text-4xl font-extrabold text-white" id="count-vol">0</span>
+                        </div>
+                    </div>
+                    <div class="bg-darkBg/60 border-2 border-borderGray rounded-xl p-4 md:p-6 text-center">
+                        <span class="block text-xs md:text-sm text-gray-500 mb-1 md:mb-2 font-bold uppercase tracking-wider">Ingresos Históricos Acumulados</span>
+                        <span class="block text-2xl md:text-5xl font-extrabold text-emerald-400 animate-pulse" id="count-fob">$0M USD</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: TENDENCIAS Y PROYECCIÓN -->
+        <div class="slide hidden flex-col justify-between w-full min-h-[70vh] md:h-[78vh] bg-panelBg/80 backdrop-blur-md border-2 border-borderGray rounded-3xl p-6 md:p-10 shadow-2xl transition-all duration-500 mb-6 md:mb-0" id="slide-3">
+            <div class="flex justify-between items-center border-b-2 border-borderGray pb-4 md:pb-5">
+                <h2 class="text-xl md:text-3xl font-extrabold text-white"><i class="fa-solid fa-chart-line text-blue-400 mr-2 md:mr-4"></i>Tendencia & Proyección</h2>
+                <span class="text-xs md:text-sm font-bold px-3 py-1 bg-gray-800 text-gray-400 rounded-full">Slide 3 / 6</span>
+            </div>
+            <div class="flex flex-col md:flex-row gap-6 md:gap-10 items-stretch h-full py-4 md:py-6 overflow-y-auto custom-scrollbar">
+                <div class="flex-1 flex flex-col justify-center gap-4 text-xs md:text-lg leading-relaxed">
+                    <p class="text-gray-300">
+                        El modelo proyecta las ventas de manera continua combinando la regresión lineal histórica con índices estacionales mensuales:
+                    </p>
+                    <ul class="space-y-2 md:space-y-4">
+                        <li class="relative pl-6 md:pl-8 text-gray-300"><span class="absolute left-0 text-blue-400 font-bold">✦</span><strong>Tendencia Central:</strong> Modelada dinámicamente con fórmulas nativas de Excel en base a los 60 meses reales.</li>
+                        <li class="relative pl-6 md:pl-8 text-gray-300"><span class="absolute left-0 text-blue-400 font-bold">✦</span><strong>Ajuste Estacional:</strong> Refleja con precisión los picos de campaña de verano (Dic-Mar).</li>
+                    </ul>
+                    <div class="bg-blue-950/20 border-l-4 border-accentBlue p-3 md:p-4 rounded-r-xl text-xs md:text-sm text-gray-300">
+                        <strong>Fórmulas dinámicas:</strong> Uso de <code>=PENDIENTE()</code> e <code>=INTERSECCION.EJE()</code>.
+                    </div>
+                </div>
+                <div class="flex-[1.3] w-full h-[260px] md:h-full relative">
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: SEGMENTACIÓN DE MERCADOS -->
+        <div class="slide hidden flex-col justify-between w-full min-h-[70vh] md:h-[78vh] bg-panelBg/80 backdrop-blur-md border-2 border-borderGray rounded-3xl p-6 md:p-10 shadow-2xl transition-all duration-500 mb-6 md:mb-0" id="slide-4">
+            <div class="flex justify-between items-center border-b-2 border-borderGray pb-4 md:pb-5">
+                <h2 class="text-xl md:text-3xl font-extrabold text-white"><i class="fa-solid fa-chart-pie text-orange-400 mr-2 md:mr-4"></i>Segmentación de Mercado</h2>
+                <span class="text-xs md:text-sm font-bold px-3 py-1 bg-gray-800 text-gray-400 rounded-full">Slide 4 / 6</span>
+            </div>
+            <div class="flex flex-col lg:flex-row gap-6 md:gap-10 items-stretch h-full py-4 overflow-y-auto custom-scrollbar">
+                <div class="flex-grow flex flex-col justify-center gap-4 text-xs md:text-lg leading-relaxed">
+                    <p class="text-gray-300">
+                        Segmentamos las ventas acumuladas bajo dos dimensiones críticas para la toma de decisiones estratégicas:
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="relative pl-6 text-gray-300"><span class="absolute left-0 text-orange-400 font-bold">✦</span><strong>Geográfica:</strong> Europa (46.3%) y EE.UU. (33.5%) concentran el ~80% de facturación.</li>
+                        <li class="relative pl-6 text-gray-300"><span class="absolute left-0 text-orange-400 font-bold">✦</span><strong>Producto:</strong> La variedad de mango Kent lidera holgadamente con un 62.4% de ingresos.</li>
+                    </ul>
+                </div>
+                <div class="flex-[1.5] w-full flex flex-col md:flex-row gap-4 h-[480px] lg:h-full">
+                    <div class="flex-1 h-full min-h-[140px] relative">
+                        <canvas id="marketChart"></canvas>
+                    </div>
+                    <div class="flex-1 h-full min-h-[140px] relative">
+                        <canvas id="varietyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: KPIS Y EQUILIBRIO INTERACTIVO -->
+        <div class="slide hidden flex-col justify-between w-full min-h-[70vh] md:h-[78vh] bg-panelBg/80 backdrop-blur-md border-2 border-borderGray rounded-3xl p-6 md:p-10 shadow-2xl transition-all duration-500 mb-6 md:mb-0" id="slide-5">
+            <div class="flex justify-between items-center border-b-2 border-borderGray pb-4 md:pb-5">
+                <h2 class="text-xl md:text-3xl font-extrabold text-white"><i class="fa-solid fa-calculator text-green-400 mr-2 md:mr-4"></i>KPIs y Punto de Equilibrio</h2>
+                <span class="text-xs md:text-sm font-bold px-3 py-1 bg-gray-800 text-gray-400 rounded-full">Slide 5 / 6</span>
+            </div>
+            <div class="flex flex-col md:flex-row gap-6 md:gap-10 items-stretch h-full py-4 md:py-6 overflow-y-auto custom-scrollbar">
+                <div class="flex-1 flex flex-col justify-center gap-4 text-xs md:text-lg w-full">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div class="bg-darkBg/60 border-2 border-borderGray rounded-xl p-3 md:p-4 text-center">
+                            <span class="block text-[10px] text-gray-500 uppercase font-bold tracking-wider mb-1">FOB Promedio</span>
+                            <span class="block text-base md:text-xl font-bold text-white" id="count-fob-avg">$0.00</span>
+                        </div>
+                        <div class="bg-darkBg/60 border-2 border-borderGray rounded-xl p-3 md:p-4 text-center">
+                            <span class="block text-[10px] text-gray-500 uppercase font-bold tracking-wider mb-1">Concentración</span>
+                            <span class="block text-base md:text-xl font-bold text-white" id="count-concentracion">0%</span>
+                        </div>
+                        <div class="bg-darkBg/60 border-2 border-borderGray rounded-xl p-3 md:p-4 text-center">
+                            <span class="block text-[10px] text-gray-500 uppercase font-bold tracking-wider mb-1">Crecimiento</span>
+                            <span class="block text-base md:text-xl font-bold text-orange-400" id="count-crecimiento">+0.00%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-darkBg/80 border-2 border-borderGray rounded-xl p-4 md:p-5 flex flex-col gap-3">
+                        <h4 class="text-white text-xs md:text-base font-extrabold border-b border-borderGray pb-1">Simulador de Equilibrio</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs md:text-sm">
+                            <div class="flex flex-col gap-1.5">
+                                <label class="text-gray-400">Costo Fijo Mensual</label>
+                                <input type="number" id="costoFijo" value="15000" class="bg-panelBg border-2 border-borderGray rounded-lg p-2 text-white font-bold focus:border-orange-500 outline-none text-xs md:text-base" oninput="calcularPuntoEquilibrio()">
+                            </div>
+                            <div class="flex flex-col gap-1.5">
+                                <label class="text-gray-400">Costo Variable (% FOB)</label>
+                                <input type="number" id="costoVariablePct" value="60" class="bg-panelBg border-2 border-borderGray rounded-lg p-2 text-white font-bold focus:border-orange-500 outline-none text-xs md:text-base" oninput="calcularPuntoEquilibrio()">
+                            </div>
+                        </div>
+                        <p class="text-xs md:text-base text-gray-300 mt-1 font-semibold">
+                            Volumen Requerido: 
+                            <strong id="volEquilibrio" class="text-orange-400 text-sm md:text-xl font-black">20.27</strong> Ton/mes
+                        </p>
+                    </div>
+                </div>
+                <div class="flex-[1.3] w-full h-[260px] md:h-full relative">
+                    <canvas id="beChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: CONCLUSIONES -->
+        <div class="slide hidden flex-col justify-between w-full min-h-[70vh] md:h-[78vh] bg-panelBg/80 backdrop-blur-md border-2 border-borderGray rounded-3xl p-6 md:p-10 shadow-2xl transition-all duration-500 mb-6 md:mb-0" id="slide-6">
+            <div class="flex justify-between items-center border-b-2 border-borderGray pb-4 md:pb-5">
+                <h2 class="text-xl md:text-3xl font-extrabold text-white"><i class="fa-solid fa-lightbulb text-purple-400 mr-2 md:mr-4"></i>Conclusiones</h2>
+                <span class="text-xs md:text-sm font-bold px-3 py-1 bg-gray-800 text-gray-400 rounded-full">Slide 6 / 6</span>
+            </div>
+            <div class="flex flex-col md:flex-row gap-6 md:gap-10 items-stretch h-full py-4 md:py-6 overflow-y-auto custom-scrollbar">
+                <div class="flex-[1.3] flex flex-col justify-center text-xs md:text-lg space-y-3 leading-relaxed">
+                    <div class="flex gap-2">
+                        <i class="fa-solid fa-circle-check text-green-400 mt-1 text-base md:text-xl flex-shrink-0"></i>
+                        <p class="text-gray-300 text-xs md:text-base"><strong>Mitigación:</strong> Europa concentra 46.3% del mercado. Conviene diversificar la fuerza comercial en EE.UU. y Asia.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <i class="fa-solid fa-circle-check text-green-400 mt-1 text-base md:text-xl flex-shrink-0"></i>
+                        <p class="text-gray-300 text-xs md:text-base"><strong>Diferenciación:</strong> Kent es el producto estrella (62.4%). Asegurar contratos anticipados.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <i class="fa-solid fa-circle-check text-green-400 mt-1 text-base md:text-xl flex-shrink-0"></i>
+                        <p class="text-gray-300 text-xs md:text-base"><strong>Flujo de Caja:</strong> Proyecciones estacionales exigen reservas durante el invierno.</p>
+                    </div>
+                </div>
+                <div class="flex-1 w-full bg-orange-500/5 border-2 border-orange-500/20 rounded-2xl p-6 text-center flex flex-col justify-center gap-3">
+                    <h3 class="text-orange-400 font-extrabold text-base md:text-2xl"><i class="fa-solid fa-shield-halved mr-2"></i>Decisión Táctica</h3>
+                    <p class="text-xs md:text-base text-gray-300 leading-relaxed font-medium">
+                        Negociar contratos estacionales integrados con transportistas durante el verano y reinvertir el margen en mercados emergentes.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- INDICADOR DE PROGRESO (sin botones: navega con flechas ← → o deslizando) -->
+    <div class="navbar flex-none w-full max-w-7xl mx-auto flex flex-col items-center gap-1 pt-2 mt-1 pb-1 relative z-10 bg-darkBg">
+        <div class="progress-dots flex gap-2 md:gap-3" id="dotsContainer"></div>
+        <span class="text-[10px] md:text-xs text-gray-600 font-medium tracking-wide select-none hidden md:block">
+            <i class="fa-solid fa-arrows-left-right mr-1"></i>Usa las flechas ← → o desliza para navegar
+        </span>
+    </div>
+
+    <script>
+        // Slide Navigation Logic
+        let currentSlide = 1;
+        const totalSlides = 6;
+
+        function showSlide(num) {
+            if (num < 1) num = 1;
+            if (num > totalSlides) num = totalSlides;
+
+            document.querySelectorAll('.slide').forEach(slide => {
+                slide.classList.add('hidden');
+                slide.classList.remove('flex');
+            });
+            const activeSlide = document.getElementById(`slide-${num}`);
+            activeSlide.classList.remove('hidden');
+            activeSlide.classList.add('flex');
+
+            currentSlide = num;
+            updateDots();
+            window.scrollTo(0, 0); // reinicia el scroll al cambiar de slide (móvil)
+
+            // Defer chart rendering and animations to ensure DOM reflow and slide transitions are fully complete
+            setTimeout(() => {
+                renderChartsForSlide(num);
+                triggerTextAnimations(num);
+            }, 400);
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        function updateDots() {
+            const container = document.getElementById('dotsContainer');
+            if (!container) return;
+            container.innerHTML = '';
+            for (let i = 1; i <= totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = `w-2.5 h-2.5 md:w-3.5 md:h-3.5 rounded-full cursor-pointer transition-all duration-300 ${i === currentSlide ? 'bg-orange-500 scale-125' : 'bg-gray-800'}`;
+                dot.onclick = () => showSlide(i);
+                container.appendChild(dot);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            }
+        });
+
+        // Navegación táctil (swipe horizontal) para móvil
+        let touchStartX = 0, touchStartY = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+        }, { passive: true });
+        document.addEventListener('touchend', (e) => {
+            const dx = e.changedTouches[0].screenX - touchStartX;
+            const dy = e.changedTouches[0].screenY - touchStartY;
+            // solo si el gesto es claramente horizontal (no scroll vertical)
+            if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+                changeSlide(dx < 0 ? 1 : -1);
+            }
+        }, { passive: true });
+
+        // Initialize presentation on first slide
+        window.addEventListener('DOMContentLoaded', () => {
+            showSlide(1);
+        });
+
+        // Numeric Count-Up Animation
+        function animateValue(id, start, end, duration, formatFn) {
+            const obj = document.getElementById(id);
+            if (!obj) return;
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const currentVal = progress * (end - start) + start;
+                obj.innerText = formatFn(currentVal);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        function triggerTextAnimations(slideNum) {
+            if (slideNum === 2) {
+                animateValue("count-trx", 0, 12000, 1400, val => Math.floor(val).toLocaleString('es-PE'));
+                animateValue("count-vol", 0, 239.4, 1400, val => val.toFixed(1) + 'k Ton');
+                animateValue("count-fob", 0, 442.56, 1400, val => '$' + val.toFixed(1) + 'M USD');
+            }
+            if (slideNum === 5) {
+                animateValue("count-fob-avg", 0, 1849.70, 1200, val => '$' + val.toLocaleString('es-PE', {minimumFractionDigits:2, maximumFractionDigits:2}));
+                animateValue("count-concentracion", 0, 46.33, 1200, val => val.toFixed(2) + '%');
+                animateValue("count-crecimiento", 0, 0.19, 1200, val => '+' + val.toFixed(2) + '%');
+            }
+        }
+
+        // Interactive Charts variables
+        let trendChartInstance = null;
+        let marketChartInstance = null;
+        let varietyChartInstance = null;
+        let beChartInstance = null;
+
+        function renderChartsForSlide(slideNum) {
+            if (trendChartInstance) { trendChartInstance.destroy(); trendChartInstance = null; }
+            if (marketChartInstance) { marketChartInstance.destroy(); marketChartInstance = null; }
+            if (varietyChartInstance) { varietyChartInstance.destroy(); varietyChartInstance = null; }
+            if (beChartInstance) { beChartInstance.destroy(); beChartInstance = null; }
+
+            // Slide 3: Trend Chart
+            if (slideNum === 3) {
+                const ctx = document.getElementById('trendChart');
+                const labels = [];
+                const histData = [];
+                const projData = [];
+                const trendData = [];
+
+                for (let i = 1; i <= 84; i++) {
+                    labels.push(`M${i}`);
+                    const baseTrend = 4500000 + i * 25000;
+                    const mes = ((i - 1) % 12) + 1;
+                    let seasonalFactor = 0.3;
+                    if (mes === 12 || mes === 1 || mes === 2) seasonalFactor = 2.1;
+                    else if (mes === 11 || mes === 3) seasonalFactor = 1.2;
+
+                    const actualVal = baseTrend * seasonalFactor;
+                    trendData.push(baseTrend);
+                    
+                    if (i <= 60) {
+                        histData.push(actualVal);
+                        projData.push(null);
+                    } else {
+                        histData.push(null);
+                        projData.push(actualVal * 0.95); 
+                    }
+                }
+
+                trendChartInstance = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Ingresos Históricos',
+                                data: histData,
+                                borderColor: '#3B82F6',
+                                borderWidth: 3.5,
+                                pointRadius: 0,
+                                fill: false
+                            },
+                            {
+                                label: 'Proyección 2026-2027',
+                                data: projData,
+                                borderColor: '#10B981',
+                                borderDash: [6, 6],
+                                borderWidth: 3.5,
+                                pointRadius: 0,
+                                fill: false
+                            },
+                            {
+                                label: 'Tendencia Lineal',
+                                data: trendData,
+                                borderColor: '#F59E0B',
+                                borderDash: [2, 2],
+                                borderWidth: 2,
+                                pointRadius: 0,
+                                fill: false
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: {
+                            duration: 2000,
+                            easing: 'easeOutQuart'
+                        },
+                        plugins: {
+                            legend: { labels: { color: '#E5E7EB', font: { size: 11, weight: 'bold' } } }
+                        },
+                        scales: {
+                            x: { 
+                                grid: { color: 'rgba(255,255,255,0.05)' }, 
+                                ticks: { color: '#9CA3AF', maxTicksLimit: 12, font: { size: 10, weight: 'bold' } } 
+                            },
+                            y: { 
+                                grid: { color: 'rgba(255,255,255,0.05)' }, 
+                                ticks: { 
+                                    color: '#9CA3AF', 
+                                    font: { size: 10, weight: 'bold' },
+                                    callback: function(value) {
+                                        return '$' + (value / 1000000).toFixed(1) + 'M';
+                                    }
+                                } 
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Slide 4: Market Share & Variety Charts
+            if (slideNum === 4) {
+                const ctx = document.getElementById('marketChart');
+                marketChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Europa', 'EE.UU.', 'Asia', 'Latam'],
+                        datasets: [{
+                            label: 'Participación Geográfica (USD)',
+                            data: [205036686, 148195845, 59549605, 29777709],
+                            backgroundColor: ['#3B82F6', '#10B981', '#F59E0B', '#EC4899'],
+                            borderRadius: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: {
+                            duration: 2000,
+                            easing: 'easeOutElastic'
+                        },
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            x: { ticks: { color: '#E5E7EB', font: { size: 10, weight: 'bold' } }, grid: { display: false } },
+                            y: { 
+                                ticks: { 
+                                    color: '#9CA3AF', 
+                                    font: { size: 10, weight: 'bold' },
+                                    callback: function(value) {
+                                        return '$' + (value / 1000000).toFixed(0) + 'M';
+                                    }
+                                }, 
+                                grid: { color: 'rgba(255,255,255,0.05)' } 
+                            }
+                        }
+                    }
+                });
+
+                const ctx2 = document.getElementById('varietyChart');
+                varietyChartInstance = new Chart(ctx2, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Kent', 'Edward', 'Haden'],
+                        datasets: [{
+                            data: [62.44, 25.93, 11.62],
+                            backgroundColor: ['#3B82F6', '#10B981', '#F59E0B'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: {
+                            duration: 2000,
+                            animateRotate: true,
+                            animateScale: true,
+                            easing: 'easeOutQuart'
+                        },
+                        plugins: {
+                            legend: { 
+                                labels: { color: '#E5E7EB', font: { size: 11, weight: 'bold' } }, 
+                                position: 'bottom' 
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Slide 5: Break Even
+            if (slideNum === 5) {
+                calcularPuntoEquilibrio();
+            }
+        }
+
+        // Interactive Calculator Logic
+        function calcularPuntoEquilibrio() {
+            const costoFijo = parseFloat(document.getElementById('costoFijo').value) || 0;
+            const variablePct = parseFloat(document.getElementById('costoVariablePct').value) || 0;
+            
+            const precioFOB = 1849.70; 
+            const costoVariableUnidad = precioFOB * (variablePct / 100);
+            const margenContribucion = precioFOB - costoVariableUnidad;
+            
+            let qEquilibrio = 0;
+            if (margenContribucion > 0) {
+                qEquilibrio = costoFijo / margenContribucion;
+            }
+
+            document.getElementById('volEquilibrio').innerText = qEquilibrio.toFixed(2);
+
+            const ctx = document.getElementById('beChart');
+            const labels = [];
+            const ingresos = [];
+            const costosTotales = [];
+            const maxRange = qEquilibrio > 0 ? qEquilibrio * 2 : 40;
+            const step = maxRange / 9;
+
+            for (let i = 0; i < 10; i++) {
+                const q = i * step;
+                labels.push(`${q.toFixed(0)} Ton`);
+                ingresos.push(q * precioFOB);
+                costosTotales.push(costoFijo + (q * costoVariableUnidad));
+            }
+
+            if (beChartInstance) {
+                beChartInstance.destroy();
+            }
+
+            beChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Ingresos Totales',
+                            data: ingresos,
+                            borderColor: '#10B981',
+                            borderWidth: 3.5,
+                            pointRadius: 0,
+                            fill: false
+                        },
+                        {
+                            label: 'Costos Totales',
+                            data: costosTotales,
+                            borderColor: '#EF4444',
+                            borderWidth: 3.5,
+                            pointRadius: 0,
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: {
+                        duration: 2000,
+                        easing: 'easeOutQuart'
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#E5E7EB', font: { size: 11, weight: 'bold' } } }
+                    },
+                    scales: {
+                        x: { 
+                            grid: { color: 'rgba(255,255,255,0.05)' }, 
+                            ticks: { color: '#9CA3AF', font: { size: 10, weight: 'bold' } } 
+                        },
+                        y: { 
+                            grid: { color: 'rgba(255,255,255,0.05)' }, 
+                            ticks: { 
+                                color: '#9CA3AF', 
+                                font: { size: 10, weight: 'bold' },
+                                callback: function(value) {
+                                    return '$' + (value / 1000).toFixed(0) + 'k';
+                                }
+                            } 
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
