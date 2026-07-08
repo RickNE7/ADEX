@@ -14,10 +14,16 @@
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,500&family=Sora:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <script type="module" crossorigin src="./assets/index-coPePtKo.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BU2poGZR.css">
+    <script>
+      // Aplica el tema guardado antes del primer paint (evita parpadeo oscuro→claro).
+      if (localStorage.getItem("ea3-theme") === "light") {
+        document.documentElement.classList.add("light");
+      }
+    </script>
+    <script type="module" crossorigin src="./assets/index-CS5sT1n4.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BJo7rEJ0.css">
   </head>
-  <body class="bg-ink text-soft font-body antialiased">
+  <body class="font-body antialiased">
     <div id="root"></div>
   </body>
 </html>
