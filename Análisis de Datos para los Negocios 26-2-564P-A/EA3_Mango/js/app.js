@@ -129,19 +129,28 @@ const KPI = {
   crec:()=>[D.crec,fP2p], crecb:()=>[D.crec,fP2p],
   meses:()=>[D.anual.length*12, fInt]
 };
-function animateCount(el, from, to, dur, fmt){
-  const t0=performance.now();
-  const step=t=>{ let p=Math.min((t-t0)/dur,1); p=1-Math.pow(1-p,3); // easeOutCubic
+function animateCount(el, from, to, dur, fmt, delay){
+  delay=delay||0;
+  const t0=performance.now()+delay;
+  const step=t=>{ if(t<t0){ requestAnimationFrame(step); return; }
+    let p=Math.min((t-t0)/dur,1); p=1-Math.pow(1-p,3); // easeOutCubic
     el.textContent=fmt(from+(to-from)*p); if(p<1) requestAnimationFrame(step); };
   requestAnimationFrame(step);
   // respaldo: garantiza el valor final aunque rAF esté pausado (pestaña en 2º plano)
-  setTimeout(()=>{ el.textContent=fmt(to); }, dur+90);
+  setTimeout(()=>{ el.textContent=fmt(to); }, delay+dur+90);
 }
 function animateSlideCounters(slideEl){
+  // agrupa por bloque contenedor (.kpis / .metrics) para escalonar la entrada — lectura más deliberada
+  const groups=new Map();
   slideEl.querySelectorAll('.count[data-kpi]').forEach(el=>{
+    const grp=el.closest('.kpis,.metrics')||el;
+    if(!groups.has(grp)) groups.set(grp,[]);
+    groups.get(grp).push(el);
+  });
+  groups.forEach(list=>{ list.forEach((el,idx)=>{
     const spec=KPI[el.dataset.kpi]; if(!spec) return;
     const [val,fmt]=spec(); const from=(el._v!=null)?el._v:0;
-    animateCount(el, from, val, 850, fmt); el._v=val; });
+    animateCount(el, from, val, 1000, fmt, idx*110); el._v=val; }); });
 }
 
 /* ============================================================
@@ -170,10 +179,11 @@ function donutChart(el, items){
   let s=svg(W,H), cum=0;
   // aro de fondo
   s+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${C.grid}" stroke-width="${th}"/>`;
-  items.forEach(d=>{ const f=d.v/total, arc=C_*f, startDeg=-90+360*cum, begin=T*cum, dur=Math.max(T*f,0.2);
-    // segmento como arco que crece (stroke-dasharray animado con SMIL, secuencial)
+  items.forEach(d=>{ const f=d.v/total, arc=C_*f, startDeg=-90+360*cum, begin=T*cum, dur=Math.max(T*f,0.0001);
+    // segmento como arco que crece a velocidad angular CONSTANTE (dur ∝ arc) para que el
+    // barrido sea continuo entre segmentos, sin desacelerar/pausar en cada frontera.
     s+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${d.col}" stroke-width="${th}" stroke-linecap="butt" stroke-dasharray="0 ${C_}" transform="rotate(${startDeg} ${cx} ${cy})">`;
-    s+=`<animate attributeName="stroke-dasharray" from="0 ${C_}" to="${arc} ${C_}" begin="${begin.toFixed(2)}s" dur="${dur.toFixed(2)}s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.2 1"/></circle>`;
+    s+=`<animate attributeName="stroke-dasharray" from="0 ${C_}" to="${arc} ${C_}" begin="${begin.toFixed(3)}s" dur="${dur.toFixed(3)}s" fill="freeze" calcMode="linear"/></circle>`;
     // etiqueta % (aparece cuando el segmento termina de dibujarse)
     const midRad=(startDeg+180*f)*Math.PI/180, lx=cx+r*Math.cos(midRad), ly=cy+r*Math.sin(midRad), end=begin+dur;
     s+=`<text x="${lx}" y="${ly+5}" text-anchor="middle" font-size="15" font-weight="800" fill="#fff" opacity="0">${(100*f).toFixed(0)}%<animate attributeName="opacity" from="0" to="1" begin="${end.toFixed(2)}s" dur="0.3s" fill="freeze"/></text>`;
@@ -282,7 +292,8 @@ function updateSim(){
   const anual=document.getElementById('mg-anual'); const av=y*12;
   if(anual){ animateCount(anual, anual._v||0, av, 450, fM); anual._v=av; }
   const prom2025 = D.hist2025/12, delta=(y/prom2025-1)*100;
-  setTxt('mg-delta', (delta>=0?'+':'')+delta.toFixed(1)+'%');
+  const dEl=document.getElementById('mg-delta');
+  if(dEl){ const fD=v=>(v>=0?'+':'')+v.toFixed(1)+'%'; animateCount(dEl, dEl._v!=null?dEl._v:0, delta, 450, fD); dEl._v=delta; }
   scatter(document.getElementById('chart-pred'), { xdom:[0,96], ydom:[0,22], showRange:true, predX:m });
 }
 
