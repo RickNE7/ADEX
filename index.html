@@ -285,6 +285,56 @@
             display: block;
         }
 
+        /* ===== Slideshow "Ken Burns" (réplica del hero de group-ism.com/nuestras-marcas/) ===== */
+        .kb-hero {
+            position: relative;
+            width: 100%;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            background-color: var(--primary-dark);
+        }
+        .kb-layer {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            animation: kbCycle 12s infinite ease-in-out;
+        }
+        .kb-layer:nth-child(1) { animation-delay: 0s; }
+        .kb-layer:nth-child(2) { animation-delay: -4s; }
+        .kb-layer:nth-child(3) { animation-delay: -8s; }
+        .kb-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(11,71,37,0) 45%, rgba(6,48,26,0.68) 100%);
+            pointer-events: none;
+        }
+        .kb-caption {
+            position: absolute;
+            left: 12px;
+            bottom: 8px;
+            color: #ffffff;
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-style: italic;
+            font-size: 0.8rem;
+            letter-spacing: 0.3px;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.45);
+        }
+        @keyframes kbCycle {
+            0%   { opacity: 0; transform: scale(1); }
+            4%   { opacity: 1; }
+            29%  { opacity: 1; transform: scale(1.15); }
+            33%  { opacity: 0; transform: scale(1.15); }
+            100% { opacity: 0; }
+        }
+        @media print {
+            .kb-layer { animation: none !important; opacity: 0 !important; }
+            .kb-layer:first-child { opacity: 1 !important; }
+        }
+
         /* ===== Diapositiva 3: Línea de tiempo estilo ISM (camino verde) ===== */
         .slide-timeline {
             background:
@@ -544,7 +594,13 @@
                         </div>
                     </div>
                     <div>
-                        <img class="slide-image" src="ism_products_display.png" alt="Bebidas Kola Real y Cielo de ISM" style="height: 130px; margin-bottom: 1rem;" />
+                        <div class="kb-hero" style="height: 130px; margin-bottom: 1rem;" role="img" aria-label="Marcas y operaciones de ISM">
+                            <div class="kb-layer" style="background-image:url('ism_products_display.png');"></div>
+                            <div class="kb-layer" style="background-image:url('ism_bottling_plant.png');"></div>
+                            <div class="kb-layer" style="background-image:url('ism_trade_map.png');"></div>
+                            <div class="kb-overlay"></div>
+                            <div class="kb-caption">Nuestras marcas</div>
+                        </div>
                         <div class="card green">
                             <h4>Portafolio y Alcance</h4>
                             <p>Marcas como Kola Real (gaseosas), Cielo (agua), Generade (energizantes) y Drink T (tés). Hoy es una multinacional peruana presente en <strong>8 países</strong> de América y el Caribe.</p>
