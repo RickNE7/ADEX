@@ -73,7 +73,7 @@
     backdrop-filter: blur(10px);
     border-radius: 16px;
     padding: 24px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
   }
 
@@ -115,10 +115,143 @@
     color: var(--text-main);
   }
 
+  /* ---------- TIMELINE ---------- */
+  .timeline-section {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .timeline-section h2 {
+    font-size: 1.25rem;
+    color: var(--primary);
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 5px;
+    bottom: 5px;
+    width: 2px;
+    background: var(--border);
+  }
+
+  .timeline-item {
+    position: relative;
+  }
+
+  .time-node {
+    position: absolute;
+    left: -32px;
+    top: 2px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--bg-dark);
+    border: 3px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 800;
+    transition: all 0.3s ease;
+  }
+
+  .timeline-item:hover .time-node {
+    border-color: var(--primary);
+    box-shadow: 0 0 10px rgba(2, 132, 199, 0.5);
+  }
+
+  .time-content {
+    background: rgba(30, 41, 59, 0.2);
+    border: 1px solid var(--border);
+    padding: 16px 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .timeline-item:hover .time-content {
+    background: rgba(30, 41, 59, 0.4);
+    border-color: rgba(2, 132, 199, 0.2);
+  }
+
+  .time-content h3 {
+    font-size: 1.05rem;
+    color: var(--text-main);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  .time-date {
+    font-size: 0.8rem;
+    background: rgba(2, 132, 199, 0.15);
+    color: var(--primary);
+    padding: 3px 8px;
+    border-radius: 50px;
+    font-weight: 700;
+  }
+
+  .time-content p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+    margin-bottom: 12px;
+  }
+
+  .time-links {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .time-badge {
+    display: inline-flex;
+    align-items: center;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-main);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    gap: 4px;
+  }
+
+  .time-badge:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(245, 158, 11, 0.05);
+    transform: translateY(-1px);
+  }
+
+  /* ---------- DOC CARDS ---------- */
   .grid-docs {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 24px;
+    margin-top: 20px;
   }
 
   .doc-card {
@@ -254,6 +387,62 @@
           <span>WTO Art. 8 Adjustments</span>
           <strong>$4,000.00 USD (Royalty, Commission, etc.)</strong>
         </div>
+      </div>
+    </section>
+
+    <!-- Visual Interactive Timeline -->
+    <section class="timeline-section">
+      <h2>Interactive Import Timeline & Document Trail</h2>
+      <div class="timeline">
+        
+        <div class="timeline-item">
+          <div class="time-node">1</div>
+          <div class="time-content">
+            <h3>Fase 1: Compra y Despacho en Origen <span class="time-date">10/07 - 20/07</span></h3>
+            <p>Negociación y firma de contrato de regalías sobre el modelado de suela RunMax. Emisión de la Factura Comercial principal (término EXW) y complementación de embalajes especiales y Certificado de Origen.</p>
+            <div class="time-links">
+              <a href="Generador_Contrato.html" class="time-badge">📄 Contrato de Regalías (10/07)</a>
+              <a href="Generador_Factura.html" class="time-badge">🧾 Factura Comercial EXW (18/07)</a>
+              <a href="Generador_Certificado_Origen.html" class="time-badge">📜 Certificado de Origen TLC (20/07)</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="time-node">2</div>
+          <div class="time-content">
+            <h3>Fase 2: Embarque y Tránsito Internacional <span class="time-date">22/07 - 24/08</span></h3>
+            <p>Consolidación y estiba de contenedores a bordo de la nave de Maersk Line. Contratación simultánea de póliza de seguro marítimo contra todo riesgo y travesía transoceánica hacia el Callao.</p>
+            <div class="time-links">
+              <a href="Generador_Transporte_Seguro.html" class="time-badge">🚢 Conocimiento de Embarque B/L (22/07)</a>
+              <a href="Generador_Transporte_Seguro.html" class="time-badge">🛡️ Póliza de Seguro Rímac (23/07)</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="time-node">3</div>
+          <div class="time-content">
+            <h3>Fase 3: Numeración de la DAM y Liquidación <span class="time-date">24/08 - 25/08</span></h3>
+            <p>Arribo de la nave y descarga. Endoso y entrega de documentación original al Agente de Aduanas. Transmisión del despacho de importación, numeración aduanera de la DAM y cancelación de los tributos liquidados.</p>
+            <div class="time-links">
+              <a href="Generador_DAM.html" class="time-badge">📑 Declaración Aduanera (DAM) (25/08)</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="time-node">4</div>
+          <div class="time-content">
+            <h3>Fase 4: Control Aduanero, Ajuste y Levante <span class="time-date">25/08 - 27/08</span></h3>
+            <p>SUNAT asigna Canal Naranja. Fiscalización del valor FOB de transacción declarado (sospecha de subvaluación / duda razonable). Despacho sustentado exitosamente mediante las facturas de ajustes y contratos de origen, obteniendo el Levante.</p>
+            <div class="time-links">
+              <a href="Generador_Factura.html" class="time-badge">🧮 Ajustes Declarados (FOB Total)</a>
+              <a href="Generador_DAM.html" class="time-badge">📊 Sustento de Valoración (Formato B)</a>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
