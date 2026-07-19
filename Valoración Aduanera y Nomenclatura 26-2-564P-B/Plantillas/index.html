@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADEX Customs Documentation Hub — Import & Valuation</title>
+<style>
+  :root {
+    --bg-dark: #0a0f1d;
+    --card-bg: #13192e;
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --primary: #0284c7;
+    --primary-hover: #0369a1;
+    --accent: #f59e0b;
+    --border: #1e293b;
+    --glass: rgba(19, 25, 46, 0.7);
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Outfit', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-x: hidden;
+  }
+
+  .header {
+    background: radial-gradient(circle at top right, rgba(2, 132, 199, 0.15), transparent 60%);
+    padding: 50px 20px 30px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    background: linear-gradient(to right, #f1f5f9, #0284c7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+  }
+
+  .header p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    flex: 1;
+    width: 100%;
+  }
+
+  .case-summary {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .case-summary h2 {
+    font-size: 1.25rem;
+    color: var(--accent);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .grid-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .info-card {
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid var(--border);
+    padding: 16px;
+    border-radius: 10px;
+  }
+
+  .info-card span {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    letter-spacing: 0.03em;
+  }
+
+  .info-card strong {
+    font-size: 1.05rem;
+    color: var(--text-main);
+  }
+
+  .grid-docs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+  }
+
+  .doc-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .doc-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--primary);
+    opacity: 0.6;
+    transition: all 0.3s ease;
+  }
+
+  .doc-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(2, 132, 199, 0.4);
+    box-shadow: 0 12px 30px rgba(2, 132, 199, 0.15);
+  }
+
+  .doc-card:hover::before {
+    width: 6px;
+    opacity: 1;
+    background: var(--accent);
+  }
+
+  .doc-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    color: var(--text-main);
+  }
+
+  .doc-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 24px;
+    flex: 1;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: 0;
+    width: 100%;
+  }
+
+  .btn-primary {
+    background-color: var(--primary);
+    color: #fff;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--primary-hover);
+    transform: scale(1.02);
+  }
+
+  .footer {
+    text-align: center;
+    padding: 30px 20px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    background: rgba(10, 15, 29, 0.8);
+  }
+
+  .footer a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  .footer a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+  <header class="header">
+    <h1>ADEX CUSTOMS HUB</h1>
+    <p>Interactive Import Valuation & Documentation generators for the athletic footwear case study (Tariff Subheading 6404.11.20.00). Built strictly under WTO valuation principles and INCOTERMS® 2020 rules.</p>
+  </header>
+
+  <div class="container">
+    
+    <!-- Case Study Reference -->
+    <section class="case-summary">
+      <h2>Case Details Reference Sheet</h2>
+      <div class="grid-info">
+        <div class="info-card">
+          <span>Importer (Buyer)</span>
+          <strong>ZAPATILLAS DEL PACÍFICO S.A.C.</strong>
+        </div>
+        <div class="info-card">
+          <span>Exporter (Seller)</span>
+          <strong>CHINA FOOTWEAR MANUFACTURING CO., LTD.</strong>
+        </div>
+        <div class="info-card">
+          <span>Tariff Code (Subheading)</span>
+          <strong>6404.11.20.00</strong>
+        </div>
+        <div class="info-card">
+          <span>Product / Quantity</span>
+          <strong>1,000 PAIRS (RUNMAX 2026)</strong>
+        </div>
+        <div class="info-card">
+          <span>Primary FOB Value</span>
+          <strong>$20,000.00 USD</strong>
+        </div>
+        <div class="info-card">
+          <span>WTO Art. 8 Adjustments</span>
+          <strong>$4,000.00 USD (Royalty, Commission, etc.)</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- Document Selection Grid -->
+    <div class="grid-docs">
+      
+      <!-- Card 1: Invoices -->
+      <article class="doc-card">
+        <div>
+          <h3>Invoices & Adjustments</h3>
+          <p>Generates the main Commercial Invoice (EXW terms) listing freight and insurance as informational notes under INCOTERMS® 2020. Includes the 4 supporting adjustment invoices for commissions, packing, royalties, and design assistance.</p>
+        </div>
+        <a href="Generador_Factura.html" class="btn btn-primary">Open Invoice Generator →</a>
+      </article>
+
+      <!-- Card 2: Transport & Insurance -->
+      <article class="doc-card">
+        <div>
+          <h3>Shipping & Insurance</h3>
+          <p>Generates the Bill of Lading (B/L) issued by Maersk Line with container details and prepaid ocean freight. Also generates the Marine Cargo Insurance Certificate issued by Rimac Insurance with All Risks ICC-A coverage.</p>
+        </div>
+        <a href="Generador_Transporte_Seguro.html" class="btn btn-primary">Open Transport & Insurance →</a>
+      </article>
+
+      <!-- Card 3: Certificate of Origin -->
+      <article class="doc-card">
+        <div>
+          <h3>Certificate of Origin</h3>
+          <p>Generates the official Certificate of Origin for the Peru-China Free Trade Agreement (FTA), enabling the 0% Ad Valorem preferential tariff treatment. Certified by CCPIT China.</p>
+        </div>
+        <a href="Generador_Certificado_Origen.html" class="btn btn-primary">Open Certificate of Origin →</a>
+      </article>
+
+      <!-- Card 4: Contrato de Regalías -->
+      <article class="doc-card">
+        <div>
+          <h3>Regalías & Licencia Contrato</h3>
+          <p>Generates the official Intellectual Property and Trademark License Contract ("Contrato de Suelas") detailing royalties rate (5%), minimum annual guarantees ($10,000), and mold design technical assists.</p>
+        </div>
+        <a href="Generador_Contrato.html" class="btn btn-primary">Open Contract Generator →</a>
+      </article>
+
+      <!-- Card 5: DAM -->
+      <article class="doc-card" style="border-color: rgba(245, 158, 11, 0.3); grid-column: span 1;">
+        <div>
+          <h3>DAM (Formats A, B & C)</h3>
+          <p>Generates the official Declaración Aduanera de Mercancías (Format A for general cargo, Format B for value declaration and WTO adjustments, and Format C for tax settlement and comparison).</p>
+        </div>
+        <a href="Generador_DAM.html" class="btn btn-primary" style="background-color: var(--accent); color: #0a0f1d;">Open DAM Generator →</a>
+      </article>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>ADEX Módulo B — Valoración Aduanera y Nomenclatura | 5to Ciclo</p>
+    <p style="margin-top: 5px; color: var(--text-muted);">Developed for student group presentation: Eric Mozombite, Anderson Quispe, Nicolas Castro, Marilin Medina.</p>
+  </footer>
+
+</body>
+</html>

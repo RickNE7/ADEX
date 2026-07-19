@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transport & Insurance Generator: Bill of Lading & Insurance Certificate</title>
+<style>
+  :root{
+    --tinta:#0a2540; --azul:#123a6b; --acento:#0b7285; --linea:#1f2d3d;
+    --gris:#5b6b7b; --panel:#0f2036; --panel2:#16304f; --bg:#eef1f5;
+    --casTitulo:#0b7285; --admin:#f5f7f9;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:#12212f}
+  .app{display:flex;min-height:100vh}
+
+  /* ---------- PANEL ---------- */
+  .panel{width:390px;flex:0 0 390px;background:var(--panel);color:#dce6f2;padding:18px 16px;overflow-y:auto;height:100vh;position:sticky;top:0}
+  .panel h1{font-size:16px;margin:0 0 2px}
+  .panel .sub{font-size:11px;color:#8fa6c0;margin-bottom:14px;line-height:1.4}
+  .grp{background:var(--panel2);border-radius:8px;padding:10px 11px;margin-bottom:11px;border:0}
+  .grp>.leg{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#7fd4e6;margin-bottom:8px;display:block}
+  .fld{margin-bottom:8px}
+  .fld label{display:block;font-size:11px;color:#a9bdd6;margin-bottom:3px}
+  .fld input,.fld select{width:100%;padding:6px 7px;border:1px solid #2c4a6e;border-radius:5px;background:#0b1a2d;color:#eaf2fb;font-size:12px}
+  .fld input:focus,.fld select:focus{outline:none;border-color:#3aa6bf}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+  .num input{text-align:right;font-variant-numeric:tabular-nums}
+  .btns{display:flex;gap:8px;margin-top:6px}
+  .btn{flex:1;border:0;border-radius:6px;padding:10px;font-size:12px;font-weight:700;cursor:pointer}
+  .btn-print{background:#0b7285;color:#fff}.btn-print:hover{background:#0a8298}
+  .btn-reset{background:#33445a;color:#dce6f2}.btn-reset:hover{background:#3d5069}
+
+  /* ---------- DOCUMENTOS ---------- */
+  .docs{flex:1;padding:26px 30px;display:flex;flex-direction:column;align-items:center;gap:26px}
+  
+  /* Bill of Lading Specific */
+  .bol{width:794px;height:1123px;background:#fff;border:1.5px solid #000;box-shadow:0 3px 14px rgba(10,37,64,.14);font-size:10px;color:#12212f;padding:25px 25px;position:relative;display:flex;flex-direction:column;justify-content:space-between;text-transform:uppercase}
+  .bol-title-area{display:flex;justify-content:space-between;align-items:center;padding:5px 10px;border-bottom:1px solid var(--linea);margin-bottom:10px}
+  .bol-title-area h2{margin:0;font-size:16px;font-weight:800;color:var(--tinta)}
+  .logo-area{display:flex;align-items:center;gap:10px}
+  .logo-area img{height:50px;max-height:50px;width:auto;object-fit:contain}
+  
+  .bol-grid{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--linea);border-bottom:0}
+  .bol-cell{border-right:1px solid var(--linea);border-bottom:1px solid var(--linea);padding:6px 8px;min-height:55px}
+  .bol-cell:nth-child(even){border-right:0}
+  .bol-cell span{display:block;font-size:8px;color:var(--gris);text-transform:uppercase;font-weight:600;margin-bottom:3px}
+  .bol-cell p{margin:0;font-size:10px;font-weight:600;line-height:1.35}
+
+  .bol-cargo-table{width:100%;border-collapse:collapse;border:1px solid var(--linea);border-bottom:0;margin-bottom:10px}
+  .bol-cargo-table th{background:#f5f7f9;border-bottom:1px solid var(--linea);border-right:1px solid var(--linea);padding:6px;font-size:8px;text-transform:uppercase}
+  .bol-cargo-table td{border-bottom:1px solid var(--linea);border-right:1px solid var(--linea);padding:10px 8px;font-size:9.5px;font-weight:600;line-height:1.4}
+  .bol-cargo-table th:last-child,.bol-cargo-table td:last-child{border-right:0}
+  
+  .bol-footer{border:1px solid var(--linea);border-top:0;padding:8px;font-size:8.5px;line-height:1.4;color:var(--gris)}
+  
+  /* Insurance Policy Specific */
+  .policy{width:794px;height:1123px;background:#fff;border:1.5px solid #0056AC;box-shadow:0 3px 14px rgba(10,37,64,.14);font-size:10px;color:#12212f;padding:45px 30px;position:relative;display:flex;flex-direction:column;justify-content:space-between;text-transform:uppercase}
+  .pol-header{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #0056AC;padding-bottom:12px;margin-bottom:20px}
+  .pol-logo img{height:55px;max-height:55px;width:auto;object-fit:contain}
+  .pol-title{text-align:right}
+  .pol-title h2{margin:0;font-size:18px;color:var(--tinta)}
+  
+  .pol-table{width:100%;border-collapse:collapse;margin-bottom:30px}
+  .pol-table td{padding:10px 12px;border:1px solid #d3dbe4;font-size:10.5px}
+  .pol-table td.lbl{background:#f5f7f9;font-weight:700;color:var(--gris);width:25%}
+  .pol-table td.val{font-weight:600;color:var(--tinta)}
+  
+  @media (max-width:1240px){
+    .app{flex-direction:column}
+    .panel{width:100%;flex:none;height:auto;position:static}
+    .docs{padding:16px}.bol,.policy{width:100%;height:auto;min-height:1123px;padding:20px}
+  }
+
+  @media print{
+    @page{size:A4 portrait;margin:0}
+    html,body{background:#fff;width:100%;height:100%}
+    .no-print{display:none!important}
+    .app{display:block}
+    .docs{padding:0;gap:0;display:block}
+    .bol,.policy{width:210mm!important;height:297mm!important;max-height:297mm!important;min-height:297mm!important;box-shadow:none!important;border:1.5px solid #000!important;
+                 page-break-after:always;break-after:page;padding:20mm 15mm;margin:0!important;page-break-inside:avoid;break-inside:avoid}
+    .policy{border:1.5px solid #000!important}
+    .policy:last-child{page-break-after:auto;break-after:auto}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ============ PANEL ============ -->
+  <aside class="panel no-print">
+    <h1>Transport & Insurance</h1>
+    <div class="sub">Emits the Bill of Lading (B/L) and the Certificate of Marine Insurance. Defaults set to align with "China Footwear Manufacturing Co., Ltd." and "Zapatillas del Pacífico S.A.C." case study.</div>
+
+    <fieldset class="grp">
+      <span class="leg">B/L Details</span>
+      <div class="row2">
+        <div class="fld"><label>B/L No.</label><input id="blNum" value="MSK-99012345"></div>
+        <div class="fld"><label>Date Shipped</label><input id="blFecha" type="date" value="2026-07-22"></div>
+      </div>
+      <div class="row2">
+        <div class="fld"><label>Shipping Line</label><input id="blNaviera" value="MAERSK LINE"></div>
+        <div class="fld"><label>Container No.</label><input id="blCont" value="MSKU-123456-7"></div>
+      </div>
+      <div class="row2">
+        <div class="fld"><label>Port of Loading</label><input id="blPtoCarga" value="Nansha Port, Guangzhou, China"></div>
+        <div class="fld"><label>Port of Discharge</label><input id="blPtoDesc" value="Port of Callao, Peru"></div>
+      </div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">Partes</span>
+      <div class="fld"><label>Shipper (Exporter)</label><input id="expNom" value="China Footwear Manufacturing Co., Ltd."></div>
+      <div class="fld"><label>Consignee (Importer)</label><input id="impNom" value="Zapatillas del Pacífico S.A.C."></div>
+      <div class="fld"><label>Consignee Address</label><input id="impDir" value="Av. Argentina 2020, Callao, Lima - Perú"></div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">Cargo Metrage</span>
+      <div class="row3">
+        <div class="fld"><label>No. of Pkgs</label><input id="blBultos" value="100 cartons"></div>
+        <div class="fld"><label>Weight (kg)</label><input id="blPeso" type="number" class="num" value="1200"></div>
+        <div class="fld"><label>Volume (CBM)</label><input id="blVol" type="number" step="0.1" class="num" value="12.0"></div>
+      </div>
+      <div class="fld"><label>Cargo Description</label><input id="blDesc" value="Principal (Zapatillas deportivas textiles) - 1,000 pares"></div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">Costs</span>
+      <div class="row2">
+        <div class="fld"><label>Ocean Freight (USD)</label><input id="fleteVal" type="number" class="num" value="1800"></div>
+        <div class="fld"><label>Insurance Premium (USD)</label><input id="seguroVal" type="number" class="num" value="200"></div>
+      </div>
+      <div class="fld"><label>Policy No.</label><input id="polNum" value="SEG-RIMAC-2026-7788"></div>
+    </fieldset>
+
+    <div class="btns">
+      <button class="btn btn-print" onclick="window.print()">Print All Pages</button>
+      <button class="btn btn-reset" onclick="resetForm()">Reset</button>
+    </div>
+  </aside>
+
+  <!-- ============ DOCUMENTOS ============ -->
+  <main class="docs">
+
+    <!-- BILL OF LADING -->
+    <section class="bol">
+      <div>
+        <div class="bol-title-area">
+          <div class="logo-area"><img src="logo_maerskline.svg" alt="Maersk Line Logo"></div>
+          <div><h2>BILL OF LADING</h2></div>
+        </div>
+
+        <div class="bol-grid">
+          <div class="bol-cell">
+            <span>1. Shipper / Exporter</span>
+            <p id="outExpNom">CHINA FOOTWEAR MANUFACTURING CO., LTD.</p>
+          </div>
+          <div class="bol-cell">
+            <span>B/L Number</span>
+            <p id="outBlNum" style="font-size:12px;font-weight:800;color:var(--azul)">MSK-99012345</p>
+          </div>
+          <div class="bol-cell">
+            <span>2. Consignee / Importer</span>
+            <p><strong id="outImpNom">ZAPATILLAS DEL PACÍFICO S.A.C.</strong></p>
+            <p id="outImpDir">Av. Argentina 2020, Callao, Lima - Perú</p>
+          </div>
+          <div class="bol-cell">
+            <span>Export References</span>
+            <p>Invoice Ref: INV-2026-0789 (EXW - INCOTERMS® 2020)</p>
+          </div>
+          <div class="bol-cell">
+            <span>Port of Loading</span>
+            <p id="outBlPtoCarga">Nansha Port, Guangzhou, China</p>
+          </div>
+          <div class="bol-cell">
+            <span>Port of Discharge</span>
+            <p id="outBlPtoDesc">Port of Callao, Peru</p>
+          </div>
+        </div>
+
+        <table class="bol-cargo-table">
+          <thead>
+            <tr>
+              <th>Container & Seal No.</th>
+              <th>Marks & Numbers</th>
+              <th>No. of Packages</th>
+              <th>Description of Cargo</th>
+              <th>Gross Weight</th>
+              <th>Measurement</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="outBlCont">MSKU-123456-7</td>
+              <td>ZAP-PAC-01/100</td>
+              <td id="outBlBultos">100 cartons</td>
+              <td id="outBlDesc">Principal (Zapatillas deportivas textiles) - 1,000 pares</td>
+              <td id="outBlPeso">1,200 kg</td>
+              <td id="outBlVol">12.0 CBM</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <div class="bol-grid" style="border-top:0">
+          <div class="bol-cell">
+            <span>Freight & Charges</span>
+            <p>OCEAN FREIGHT: <strong id="outFleteVal">$1,800.00</strong> (PREPAID)</p>
+          </div>
+          <div class="bol-cell">
+            <span>Date of Issue / Shipped on board</span>
+            <p id="outBlFecha">July 22, 2026</p>
+          </div>
+        </div>
+
+        <div class="bol-footer" style="display:flex;justify-content:space-between;align-items:center;padding-top:5px;border-top:1px solid var(--linea)">
+          <p style="margin:0;width:55%;font-size:8px">RECEIVED by the Carrier the Goods as specified above in apparent good order and condition unless otherwise stated... Signed for the Carrier: <strong>MAERSK LINE AGENT</strong></p>
+          <div style="display:flex;gap:10px;align-items:center">
+            <div style="text-align:center">
+              <span style="font-size:6px;color:var(--gris);display:block;margin-bottom:2px">Carrier Stamp</span>
+              <img src="sello_7_maersklineagent.svg" alt="Maersk Agent Stamp" style="height:38px;width:auto;transform:rotate(-1.5deg);mix-blend-mode:multiply">
+            </div>
+            <div style="text-align:center;border-left:1px solid var(--linea);padding-left:8px">
+              <span style="font-size:6px;color:var(--gris);display:block;margin-bottom:2px">Importer Endorsement</span>
+              <img src="sello_8_zapatillaspacifico.svg" alt="Importer Endorsement Stamp" style="height:38px;width:auto;transform:rotate(2deg);mix-blend-mode:multiply">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTIFICADO DE SEGURO -->
+    <section class="policy">
+      <div>
+        <div class="pol-header">
+          <div class="pol-logo"><img src="logo_rimac.svg" alt="Rímac Insurance Logo"></div>
+          <div class="pol-title">
+            <h2>MARINE INSURANCE CERTIFICATE</h2>
+            <p>Certificate No: <strong id="outPolNum">SEG-RIMAC-2026-7788</strong></p>
+          </div>
+        </div>
+
+        <table class="pol-table">
+          <tr>
+            <td class="lbl">Insured:</td>
+            <td class="val" id="outImpNom2">ZAPATILLAS DEL PACÍFICO S.A.C.</td>
+            <td class="lbl">Tax ID (RUC):</td>
+            <td class="val">20601234567</td>
+          </tr>
+          <tr>
+            <td class="lbl">Conveyance / Vessel:</td>
+            <td class="val">Ocean Cargo Vessel</td>
+            <td class="lbl">Transport Doc No:</td>
+            <td class="val" id="outBlNum2">MSK-99012345</td>
+          </tr>
+          <tr>
+            <td class="lbl">From:</td>
+            <td class="val" id="outBlPtoCarga2">Nansha Port, Guangzhou, China</td>
+            <td class="lbl">To:</td>
+            <td class="val" id="outBlPtoDesc2">Port of Callao, Peru</td>
+          </tr>
+          <tr>
+            <td class="lbl">Goods Description:</td>
+            <td class="val" colspan="3" id="outBlDesc2">Principal (Zapatillas deportivas textiles) - 1,000 pares</td>
+          </tr>
+          <tr>
+            <td class="lbl">Sum Insured:</td>
+            <td class="val" style="font-size:11px;font-weight:800;color:#0056AC" id="outSumaAseg">$26,000.00 USD</td>
+            <td class="lbl">Insurance Premium:</td>
+            <td class="val" style="font-size:11px;font-weight:800;color:var(--tinta)" id="outSeguroVal">$200.00 USD</td>
+          </tr>
+        </table>
+      </div>
+
+      <div style="font-size:8.5px;color:var(--gris);line-height:1.4;display:flex;justify-content:space-between;align-items:flex-end">
+        <p style="margin:0;width:65%"><strong>Conditions of Coverage:</strong> Insured against All Risks under Clause "A" of the Institute Cargo Clauses (Institute Cargo Clauses "A"). Covers physical loss or damage to the insured goods during international maritime transit. Terms matching EXW shipping condition under INCOTERMS® 2020 standards.</p>
+        <div style="text-align:right;position:relative;width:160px;height:70px">
+          <p style="margin:0;font-size:8px">Lima, July 11, 2026</p>
+          <img src="sello_9_rimac.svg" alt="Rímac Insurance Stamp" style="position:absolute;bottom:0;right:0;height:60px;width:auto;transform:rotate(-2.5deg)">
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  // Event Listeners for inputs
+  const inputs = document.querySelectorAll('.panel input');
+  inputs.forEach(input => {
+    input.addEventListener('input', updateDocuments);
+  });
+
+  function formatMoney(value) {
+    return '$' + parseFloat(value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+  }
+
+  function formatDateString(dateStr) {
+    if (!dateStr) return '';
+    const dateVal = new Date(dateStr + 'T00:00:00');
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return dateVal.toLocaleDateString('en-US', options);
+  }
+
+  function updateDocuments() {
+    const blNum = document.getElementById('blNum').value;
+    const blFecha = document.getElementById('blFecha').value;
+    const blNaviera = document.getElementById('blNaviera').value;
+    const blCont = document.getElementById('blCont').value;
+    const blPtoCarga = document.getElementById('blPtoCarga').value;
+    const blPtoDesc = document.getElementById('blPtoDesc').value;
+    const expNom = document.getElementById('expNom').value;
+    const impNom = document.getElementById('impNom').value;
+    const impDir = document.getElementById('impDir').value;
+    const blBultos = document.getElementById('blBultos').value;
+    const blPeso = parseFloat(document.getElementById('blPeso').value) || 0;
+    const blVol = parseFloat(document.getElementById('blVol').value) || 0;
+    const blDesc = document.getElementById('blDesc').value;
+    const fleteVal = parseFloat(document.getElementById('fleteVal').value) || 0;
+    const seguroVal = parseFloat(document.getElementById('seguroVal').value) || 0;
+    const polNum = document.getElementById('polNum').value;
+
+    const formattedDate = formatDateString(blFecha);
+
+    // Rellenar B/L
+    document.getElementById('outBlNum').innerText = blNum;
+    document.getElementById('outBlFecha').innerText = formattedDate;
+    document.getElementById('outBlCont').innerText = blCont;
+    document.getElementById('outBlPtoCarga').innerText = blPtoCarga;
+    document.getElementById('outBlPtoDesc').innerText = blPtoDesc;
+    document.getElementById('outExpNom').innerText = expNom;
+    document.getElementById('outImpNom').innerText = impNom;
+    document.getElementById('outImpDir').innerText = impDir;
+    document.getElementById('outBlBultos').innerText = blBultos;
+    document.getElementById('outBlPeso').innerText = blPeso.toLocaleString('en-US') + ' kg';
+    document.getElementById('outBlVol').innerText = blVol.toFixed(1) + ' CBM';
+    document.getElementById('outBlDesc').innerText = blDesc;
+    document.getElementById('outFleteVal').innerText = formatMoney(fleteVal);
+
+    // Rellenar Seguro
+    document.getElementById('outPolNum').innerText = polNum;
+    document.getElementById('outImpNom2').innerText = impNom;
+    document.getElementById('outBlNum2').innerText = blNum;
+    document.getElementById('outBlPtoCarga2').innerText = blPtoCarga;
+    document.getElementById('outBlPtoDesc2').innerText = blPtoDesc;
+    document.getElementById('outBlDesc2').innerText = blDesc;
+    document.getElementById('outSeguroVal').innerText = formatMoney(seguroVal) + ' USD';
+    
+    // Suma asegurada aproximada
+    const sumaAseg = (20000 + fleteVal) * 1.1;
+    document.getElementById('outSumaAseg').innerText = formatMoney(sumaAseg) + ' USD';
+  }
+
+  function resetForm() {
+    document.getElementById('blNum').value = "MSK-99012345";
+    document.getElementById('blFecha').value = "2026-07-22";
+    document.getElementById('blNaviera').value = "MAERSK LINE";
+    document.getElementById('blCont').value = "MSKU-123456-7";
+    document.getElementById('blPtoCarga').value = "Nansha Port, Guangzhou, China";
+    document.getElementById('blPtoDesc').value = "Port of Callao, Peru";
+    document.getElementById('expNom').value = "China Footwear Manufacturing Co., Ltd.";
+    document.getElementById('impNom').value = "Zapatillas del Pacífico S.A.C.";
+    document.getElementById('impDir').value = "Av. Argentina 2020, Callao, Lima - Perú";
+    document.getElementById('blBultos').value = "100 cartons";
+    document.getElementById('blPeso').value = "1200";
+    document.getElementById('blVol').value = "12.0";
+    document.getElementById('blDesc').value = "Principal (Zapatillas deportivas textiles) - 1,000 pares";
+    document.getElementById('fleteVal').value = "1800";
+    document.getElementById('seguroVal').value = "200";
+    document.getElementById('polNum').value = "SEG-RIMAC-2026-7788";
+    updateDocuments();
+  }
+
+  // Initialize
+  updateDocuments();
+</script>
+</body>
+</html>

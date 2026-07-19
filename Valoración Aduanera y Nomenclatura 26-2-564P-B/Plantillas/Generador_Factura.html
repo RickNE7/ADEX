@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invoice Generator: Commercial & Adjustment Invoices (Art. 8 OMC)</title>
+<style>
+  :root{
+    --tinta:#0a2540; --azul:#123a6b; --acento:#b5651d; --linea:#1f2d3d;
+    --gris:#5b6b7b; --panel:#0f2036; --panel2:#16304f; --bg:#eef1f5;
+    --casTitulo:#123a6b; --admin:#f5f7f9;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:#12212f}
+  .app{display:flex;min-height:100vh}
+
+  /* ---------- PANEL ---------- */
+  .panel{width:390px;flex:0 0 390px;background:var(--panel);color:#dce6f2;padding:18px 16px;overflow-y:auto;height:100vh;position:sticky;top:0}
+  .panel h1{font-size:16px;margin:0 0 2px}
+  .panel .sub{font-size:11px;color:#8fa6c0;margin-bottom:14px;line-height:1.4}
+  .grp{background:var(--panel2);border-radius:8px;padding:10px 11px;margin-bottom:11px;border:0}
+  .grp>.leg{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#7fd4e6;margin-bottom:8px;display:block}
+  .fld{margin-bottom:8px}
+  .fld label{display:block;font-size:11px;color:#a9bdd6;margin-bottom:3px}
+  .fld input,.fld select{width:100%;padding:6px 7px;border:1px solid #2c4a6e;border-radius:5px;background:#0b1a2d;color:#eaf2fb;font-size:12px}
+  .fld input:focus,.fld select:focus{outline:none;border-color:#3aa6bf}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+  .num input{text-align:right;font-variant-numeric:tabular-nums}
+  .btns{display:flex;gap:8px;margin-top:6px}
+  .btn{flex:1;border:0;border-radius:6px;padding:10px;font-size:12px;font-weight:700;cursor:pointer}
+  .btn-print{background:#0b7285;color:#fff}.btn-print:hover{background:#0a8298}
+  .btn-reset{background:#33445a;color:#dce6f2}.btn-reset:hover{background:#3d5069}
+
+  /* ---------- DOCUMENTOS ---------- */
+  .docs{flex:1;padding:26px 30px;display:flex;flex-direction:column;align-items:center;gap:26px}
+  .invoice{width:794px;height:1123px;background:#fff;border:1.5px solid #000;box-shadow:0 3px 14px rgba(10,37,64,.14);font-size:11px;color:#12212f;padding:25px 45px;position:relative;display:flex;flex-direction:column;justify-content:space-between;text-transform:uppercase}
+  .inv-header{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--linea);padding-bottom:15px;margin-bottom:20px}
+  .logo-area{display:flex;align-items:center;gap:10px}
+  .logo-area img{height:55px;max-height:55px;width:auto;object-fit:contain}
+  .inv-title{text-align:right}
+  .inv-title h2{margin:0;font-size:20px;color:var(--tinta)}
+  .inv-title p{margin:4px 0 0;font-size:12px;color:var(--gris);font-variant-numeric:tabular-nums}
+  
+  .inv-parties{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:20px}
+  .party h3{margin:0 0 6px;font-size:11px;text-transform:uppercase;color:var(--gris);border-bottom:1px solid #d3dbe4;padding-bottom:3px}
+  .party p{margin:3px 0;line-height:1.4}
+  
+  .inv-meta{background:#f5f7f9;border:1px solid #d3dbe4;border-radius:6px;padding:10px 15px;display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:20px}
+  .meta-item span{display:block;font-size:9.5px;color:var(--gris);text-transform:uppercase}
+  .meta-item strong{font-size:11.5px;color:var(--tinta)}
+
+  .inv-table{width:100%;border-collapse:collapse;margin-bottom:20px}
+  .inv-table th{background:var(--azul);color:#fff;text-align:left;padding:8px 10px;font-size:10px;text-transform:uppercase}
+  .inv-table td{padding:8px 10px;border-bottom:1px solid #d3dbe4;line-height:1.4}
+  .inv-table th.num-col,.inv-table td.num-col{text-align:right;font-variant-numeric:tabular-nums}
+  
+  .inv-summary{display:grid;grid-template-columns:1.5fr 1fr;gap:40px}
+  .summary-left{font-size:10px;color:var(--gris);line-height:1.45}
+  .summary-right table{width:100%;border-collapse:collapse}
+  .summary-right td{padding:6px 10px;border-bottom:1px solid #eef1f5}
+  .summary-right tr.total td{font-size:13px;font-weight:800;color:var(--tinta);border-bottom:2px double var(--linea);background:#f5f7f9}
+  .summary-right td.val{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+  
+  .signature-section{margin-top:20px;display:flex;justify-content:space-between;align-items:flex-end}
+  .payment-details{font-size:9px;color:var(--gris);line-height:1.35}
+  .sig-box{width:180px;border-top:1px solid #9aa8b6;padding-top:5px;font-size:9.5px;color:var(--gris);text-transform:uppercase;text-align:center}
+
+  @media (max-width:1240px){
+    .app{flex-direction:column}
+    .panel{width:100%;flex:none;height:auto;position:static}
+    .docs{padding:16px}.invoice{width:100%;height:auto;min-height:1123px;padding:20px}
+  }
+
+  @media print{
+    @page{size:A4 portrait;margin:0}
+    html,body{background:#fff;width:100%;height:100%}
+    .no-print{display:none!important}
+    .app{display:block}
+    .docs{padding:0;gap:0;display:block}
+    .invoice{width:210mm!important;height:297mm!important;max-height:297mm!important;min-height:297mm!important;font-size:10px;box-shadow:none!important;border:1.5px solid #000!important;
+             page-break-after:always;break-after:page;padding:20mm 15mm;margin:0!important;page-break-inside:avoid;break-inside:avoid}
+    .invoice:last-child{page-break-after:auto;break-after:auto}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ============ PANEL ============ -->
+  <aside class="panel no-print">
+    <h1>Invoice Generator</h1>
+    <div class="sub">Emits the Commercial Invoice (EXW), consolidated FOB invoice, and supporting adjustment invoices under Art. 8 of the WTO Agreement. Defaults set to align with "China Footwear Manufacturing Co., Ltd." and "Zapatillas del Pacífico S.A.C." case study.</div>
+
+    <fieldset class="grp">
+      <span class="leg">Main Invoice Details</span>
+      <div class="row2">
+        <div class="fld"><label>Invoice No.</label><input id="invNum" value="INV-2026-0789"></div>
+        <div class="fld"><label>Date</label><input id="invFecha" type="date" value="2026-07-18"></div>
+      </div>
+      <div class="row2">
+        <div class="fld"><label>INCOTERMS® 2020 (EXW)</label><input id="invIncoterm" value="EXW GUANGDONG"></div>
+        <div class="fld"><label>INCOTERMS® 2020 (FOB)</label><input id="invIncotermFob" value="FOB SHANGHAI"></div>
+      </div>
+      <div class="row2">
+        <div class="fld"><label>Payment Terms</label><input id="invPago" value="Net 30 Days"></div>
+        <div class="fld"><label>HS Tariff Code</label><input id="hsCode" value="6404.11.00.00"></div>
+      </div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">Partes</span>
+      <div class="fld"><label>Exporter (Seller)</label><input id="expNom" value="China Footwear Manufacturing Co., Ltd."></div>
+      <div class="fld"><label>Exporter Address</label><input id="expDir" value="Guangdong, China. Phone: +86-755-XXXX-XXXX. Email: exports@chinafootwear.com"></div>
+      <div class="fld"><label>Importer Principal (Buyer)</label><input id="impNom" value="Zapatillas del Pacífico S.A.C."></div>
+      <div class="fld"><label>Importer Consolidated (Buyer)</label><input id="impNomCons" value="ZAPATILLAS DEL PACÍFICO S.A.C."></div>
+      <div class="row2">
+        <div class="fld"><label>Importer Tax ID (RUC)</label><input id="impRuc" value="20601234567"></div>
+        <div class="fld"><label>Importer Address</label><input id="impDir" value="Av. Argentina 2020, Callao, Lima - Perú"></div>
+      </div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">Item Details</span>
+      <div class="fld"><label>Product Description</label><input id="prodDesc" value="Principal (Zapatillas deportivas textiles)"></div>
+      <div class="row2">
+        <div class="fld"><label>Quantity</label><input id="prodCant" type="number" class="num" value="1000"></div>
+        <div class="fld"><label>Unit Price (USD)</label><input id="prodPrec" type="number" step="0.01" class="num" value="20.00"></div>
+      </div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">Informational Notes (Not added to total)</span>
+      <div class="row2">
+        <div class="fld"><label>Estimated Freight (USD)</label><input id="fleteInfo" type="number" class="num" value="1800"></div>
+        <div class="fld"><label>Estimated Insurance (USD)</label><input id="seguroInfo" type="number" class="num" value="200"></div>
+      </div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">Adjustment Invoices (Art. 8 WTO)</span>
+      <div class="row2">
+        <div class="fld"><label>Selling Commission (USD)</label><input id="adjCom" type="number" class="num" value="800"></div>
+        <div class="fld"><label>Special Packing (USD)</label><input id="adjEmb" type="number" class="num" value="500"></div>
+      </div>
+      <div class="row2">
+        <div class="fld"><label>Royalty Fees (USD)</label><input id="adjReg" type="number" class="num" value="1500"></div>
+        <div class="fld"><label>Design & Eng. Assist (USD)</label><input id="adjDis" type="number" class="num" value="1200"></div>
+      </div>
+    </fieldset>
+
+    <div class="btns">
+      <button class="btn btn-print" onclick="window.print()">Print All Pages</button>
+      <button class="btn btn-reset" onclick="resetForm()">Reset</button>
+    </div>
+  </aside>
+
+  <!-- ============ DOCUMENTOS ============ -->
+  <main class="docs">
+
+    <!-- Factura 1: FOB PRINCIPAL (EXW) -->
+    <section class="invoice" id="mainInvoice">
+      <div>
+        <div class="inv-header">
+          <div class="logo-area"><img src="logo_chinafootwear.svg" alt="China Footwear Logo"></div>
+          <div class="inv-title">
+            <h2>COMMERCIAL INVOICE</h2>
+            <p>Invoice No: <strong id="outInvNum">INV-2026-0789</strong></p>
+            <p>Date: <span id="outInvFecha">July 18, 2026</span></p>
+          </div>
+        </div>
+
+        <div class="inv-parties">
+          <div class="party">
+            <h3>Exporter / Shipper</h3>
+            <p><strong id="outExpNom">CHINA FOOTWEAR MANUFACTURING CO., LTD.</strong></p>
+            <p id="outExpDir">Guangdong, China. Phone: +86-755-XXXX-XXXX. Email: exports@chinafootwear.com</p>
+          </div>
+          <div class="party">
+            <h3>Importer / Consignee</h3>
+            <p><strong id="outImpNom">ZAPATILLAS DEL PACÍFICO S.A.C.</strong></p>
+            <p id="outImpDir">Av. Argentina 2020, Callao, Lima - Perú</p>
+            <p>Tax ID (RUC): <span id="outImpRuc">20601234567</span></p>
+          </div>
+        </div>
+
+        <div class="inv-meta">
+          <div class="meta-item">
+            <span>INCOTERMS® 2020</span>
+            <strong id="outIncoterm">EXW GUANGDONG, CHINA</strong>
+          </div>
+          <div class="meta-item">
+            <span>Country of Origin</span>
+            <strong>CN - China</strong>
+          </div>
+          <div class="meta-item">
+            <span>Payment Terms</span>
+            <strong id="outPago">Net 30 Days</strong>
+          </div>
+          <div class="meta-item">
+            <span>HS Code</span>
+            <strong class="outHsCode">6404.11.00.00</strong>
+          </div>
+        </div>
+
+        <table class="inv-table">
+          <thead>
+            <tr>
+              <th>Item / Description</th>
+              <th class="num-col">Quantity</th>
+              <th class="num-col">Unit Price (USD)</th>
+              <th class="num-col">Total EXW (USD)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong id="outProdDesc">Principal (Zapatillas deportivas textiles) - Cantidad: 1,000 pares</strong></td>
+              <td class="num-col" id="outProdCant">1,000 pares</td>
+              <td class="num-col" id="outProdPrec">$20.00</td>
+              <td class="num-col" id="outProdTotal">$20,000.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <div class="inv-summary">
+          <div class="summary-left">
+            <p><strong>NOTE:</strong> All documents required for customs clearance are attached.</p>
+          </div>
+          <div class="summary-right">
+            <table>
+              <tr>
+                <td>SUBTOTAL MERCANCÍA (Línea 01):</td>
+                <td class="val" id="outSubtotal">$20,000.00</td>
+              </tr>
+              <tr class="total">
+                <td>TOTAL EXW VALUE:</td>
+                <td class="val" id="outTotal">$20,000.00</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="signature-section">
+          <div class="payment-details">
+            <p>Payment Terms: Net 30 Days</p>
+            <p>Beneficiary Bank: Bank of China, Shanghai Branch</p>
+            <p>IBAN: (Placeholder)</p>
+            <p>SWIFT Code: (Placeholder) | Account No: (Placeholder)</p>
+          </div>
+          <div class="sig-box" style="position:relative;height:90px">
+            <p style="margin:0">Authorized Signature & Stamp</p>
+            <img src="sello_1_2_12_chinafootwear.svg" alt="China Footwear Stamp" style="position:absolute;top:15px;left:50%;transform:translateX(-50%) rotate(-2deg);height:75px;width:auto">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Factura 2: FOB TOTAL (CONSOLIDADO) -->
+    <section class="invoice" id="consolidatedInvoice">
+      <div>
+        <div class="inv-header">
+          <div class="logo-area"><img src="logo_chinafootwear.svg" alt="China Footwear Logo"></div>
+          <div class="inv-title">
+            <h2>COMMERCIAL INVOICE</h2>
+            <p>Invoice No: <strong class="outInvNum2">INV-2026-0789</strong></p>
+            <p>Date: <span class="outInvFechaAdj">July 18, 2026</span></p>
+          </div>
+        </div>
+
+        <div class="inv-parties">
+          <div class="party">
+            <h3>Bill To (Buyer)</h3>
+            <p><strong id="outImpNomCons">ZAPATILLAS DEL PACÍFICO S.A.C.</strong></p>
+            <p id="outImpDirCons">Lima, Perú</p>
+          </div>
+          <div class="party">
+            <h3>Shipper / Exporter</h3>
+            <p><strong>CHINA FOOTWEAR MANUFACTURING CO., LTD.</strong></p>
+            <p>Guangdong, China. Email: exports@chinafootwear.com</p>
+          </div>
+        </div>
+
+        <div class="inv-meta">
+          <div class="meta-item" style="grid-column: span 2">
+            <span>INCOTERM</span>
+            <strong id="outIncotermFob">FOB SHANGHAI, CHINA - INCOTERMS® 2020</strong>
+          </div>
+          <div class="meta-item" style="grid-column: span 2">
+            <span>HS Code</span>
+            <strong class="outHsCode">6404.11.00.00</strong>
+          </div>
+        </div>
+
+        <table class="inv-table">
+          <thead>
+            <tr>
+              <th style="width: 8%">#</th>
+              <th>Description</th>
+              <th class="num-col">Amount (USD)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>01</td>
+              <td>FOB Principal (Zapatillas deportivas textiles) • Cantidad: 1,000 pares</td>
+              <td class="num-col" id="outValFobP">$20,000.00</td>
+            </tr>
+            <tr>
+              <td>02</td>
+              <td>Comisión de Venta • Intermediación del agente comercial en origen</td>
+              <td class="num-col" id="outValCom2">$800.00</td>
+            </tr>
+            <tr>
+              <td>03</td>
+              <td>Embalaje Especial • Reforzamiento de cajas para transporte marítimo</td>
+              <td class="num-col" id="outValEmb2">$500.00</td>
+            </tr>
+            <tr>
+              <td>04</td>
+              <td>Cánones y Regalías (Royalty) • Pago al titular de licencia ($1.50 USD x 1,000 pares)</td>
+              <td class="num-col" id="outValReg2">$1,500.00</td>
+            </tr>
+            <tr>
+              <td>05</td>
+              <td>Ingeniería y Diseño (Asistencias) • Modelado de suela ergonómica (suministro gratuito)</td>
+              <td class="num-col" id="outValDis2">$1,200.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <div class="inv-summary">
+          <div>
+            <p>Contact details: [Placeholder]</p>
+          </div>
+          <div class="summary-right">
+            <table>
+              <tr>
+                <td>Subtotal Mercancía:</td>
+                <td class="val" id="outSubtotalCons">$20,000.00</td>
+              </tr>
+              <tr>
+                <td>Total Ajustes al Valor Aduanero (Art. 8 OMC):</td>
+                <td class="val" id="outTotAjusCons">$4,000.00</td>
+              </tr>
+              <tr class="total">
+                <td>Total FOB Value:</td>
+                <td class="val" id="outTotalFobCons" style="font-weight: 800; font-size: 13px">**$24,000.00**</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="signature-section">
+          <div></div>
+          <div class="sig-box" style="position:relative;height:90px">
+            <p style="margin:0">Authorized Signature & Stamp</p>
+            <img src="sello_1_2_12_chinafootwear.svg" alt="China Footwear Stamp" style="position:absolute;top:15px;left:50%;transform:translateX(-50%) rotate(1.5deg);height:75px;width:auto">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Factura 3: Comisión de Venta -->
+    <section class="invoice" id="invComision">
+      <div>
+        <div class="inv-header">
+          <div class="logo-area"><img src="logo_agentchinacommerce.svg" alt="Agent China Commerce Logo"></div>
+          <div class="inv-title">
+            <h2>COMMISSION INVOICE</h2>
+            <p>Invoice No: <strong>COMM-3412</strong></p>
+            <p>Date: <span class="outInvFechaAdj">July 18, 2026</span></p>
+          </div>
+        </div>
+        <div class="inv-parties">
+          <div class="party">
+            <h3>Service Provider</h3>
+            <p><strong>Agent China Commerce Ltd.</strong></p>
+            <p>Room 402, Trade Tower, Guangzhou, China</p>
+          </div>
+          <div class="party">
+            <h3>Bill To</h3>
+            <p><strong class="outImpNom2">ZAPATILLAS DEL PACÍFICO S.A.C.</strong></p>
+            <p class="outImpDir2">Av. Argentina 2020, Callao, Lima - Perú</p>
+          </div>
+        </div>
+        <table class="inv-table">
+          <thead>
+            <tr>
+              <th>Description of Services</th>
+              <th class="num-col">Reference Invoice</th>
+              <th class="num-col">Total (USD)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Selling Commission (Commercial Intermediation):</strong> Brokerage and commercial facilitation services for the acquisition of 1,000 pairs of athletic training shoes from supplier China Footwear Manufacturing.</td>
+              <td class="num-col" class="outInvNum2">INV-2026-0789</td>
+              <td class="num-col" id="outValCom">$800.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="inv-summary">
+          <div><p style="font-size:9.5px;color:var(--gris)">* Selling commission as per Art. 8.1.a.i of the WTO Valuation Agreement. Mandatory addition to the primary FOB value at customs.</p></div>
+          <div class="summary-right">
+            <table>
+              <tr class="total">
+                <td>Total Due:</td>
+                <td class="val" id="outTotalCom">$800.00</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="signature-section">
+          <div></div>
+          <div class="sig-box" style="position:relative;height:90px">
+            <p style="margin:0">Authorized Signature & Stamp</p>
+            <img src="sello_3_agentchinacommerce.svg" alt="Agent Stamp" style="position:absolute;top:15px;left:50%;transform:translateX(-50%) rotate(-3deg);height:75px;width:auto">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Factura 4: Embalaje -->
+    <section class="invoice" id="invEmbalaje">
+      <div>
+        <div class="inv-header">
+          <div class="logo-area"><img src="logo_pacificpackaging.svg" alt="Pacific Packaging Logo"></div>
+          <div class="inv-title">
+            <h2>COMMERCIAL INVOICE</h2>
+            <p>Invoice No: <strong>INV-2026-0790</strong></p>
+            <p>Date: <span id="outFembDate">July 19, 2026</span></p>
+          </div>
+        </div>
+        <div class="inv-parties">
+          <div class="party">
+            <h3>Exporter / Shipper</h3>
+            <p><strong>Pacific Packaging & Export Services Co., Ltd.</strong></p>
+            <p>Guangdong, China. Phone: +86-755-XXXX-XXXX. Email: exports@pacificpackaging.com</p>
+          </div>
+          <div class="party">
+            <h3>Bill To</h3>
+            <p><strong class="outImpNom3">ZAPATILLAS DEL PACÍFICO S.A.C.</strong></p>
+            <p class="outImpDir3">Av. Argentina 2020, Callao, Lima - Perú</p>
+          </div>
+        </div>
+        <table class="inv-table">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th class="num-col">Quantity</th>
+              <th class="num-col">Total (USD)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Special Packing (Export strengthening box enhancement and palletization for 1,000 pairs of shoes):</strong> Ref: principal invoice INV-2026-0789.</td>
+              <td class="num-col">1 Service</td>
+              <td class="num-col" id="outValEmb">$500.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="inv-summary">
+          <div><p style="font-size:9.5px;color:var(--gris)">* Cost of containers and packing material as per Art. 8.1.a.ii of the WTO Valuation Agreement.</p></div>
+          <div class="summary-right">
+            <table>
+              <tr class="total">
+                <td>Total Invoice:</td>
+                <td class="val" id="outTotalEmb">$500.00</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="signature-section">
+          <div class="payment-details">
+            <p>Beneficiary Bank: Bank of China, Shanghai Branch</p>
+            <p>SWIFT Code: (Placeholder) | Account No: (Placeholder)</p>
+          </div>
+          <div class="sig-box" style="position:relative;height:90px">
+            <p style="margin:0">Authorized Signature & Stamp</p>
+            <img src="sello_4_pacificpackaging.svg" alt="Pacific Packaging Stamp" style="position:absolute;top:15px;left:50%;transform:translateX(-50%) rotate(2deg);height:75px;width:auto">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Factura 5: Regalías -->
+    <section class="invoice" id="invRegalia">
+      <div>
+        <div class="inv-header">
+          <div class="logo-area"><img src="logo_brandlicensinggroup.svg" alt="Brand Licensing Group Logo"></div>
+          <div class="inv-title">
+            <h2>ROYALTY INVOICE</h2>
+            <p>Invoice No: <strong>ROY-2026-05</strong></p>
+            <p>Date: <span class="outInvFechaAdj">July 18, 2026</span></p>
+          </div>
+        </div>
+        <div class="inv-parties">
+          <div class="party">
+            <h3>Licensor</h3>
+            <p><strong>BrandLicensing Corp.</strong></p>
+            <p>Hong Kong Centre, Wanchai, HK</p>
+          </div>
+          <div class="party">
+            <h3>Licensee</h3>
+            <p><strong class="outImpNom4">ZAPATILLAS DEL PACÍFICO S.A.C.</strong></p>
+            <p class="outImpDir4">Av. Argentina 2020, Callao, Lima - Perú</p>
+          </div>
+        </div>
+        <table class="inv-table">
+          <thead>
+            <tr>
+              <th>License and Brand Authorization</th>
+              <th class="num-col">Units</th>
+              <th class="num-col">Rate (USD)</th>
+              <th class="num-col">Total (USD)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Royalties and Trademark License Fees:</strong> Mandatory licensing royalty fee ($1.50 per pair) for importing and commercializing RunMax 2026 athletic shoes in Peru. Ref: Inv INV-2026-0789.</td>
+              <td class="num-col" id="outCantReg">1,000</td>
+              <td class="num-col" id="outRateReg">$1.50</td>
+              <td class="num-col" id="outValReg">$1,500.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="inv-summary">
+          <div><p style="font-size:9.5px;color:var(--gris)">* Royalties and license fees under Art. 8.1.c of the WTO Valuation Agreement. Mandatory condition of sale.</p></div>
+          <div class="summary-right">
+            <table>
+              <tr class="total">
+                <td>Total Royalty:</td>
+                <td class="val" id="outTotalReg">$1,500.00</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="signature-section">
+          <div></div>
+          <div class="sig-box" style="position:relative;height:90px">
+            <p style="margin:0">Authorized Signature & Stamp</p>
+            <img src="sello_5_brandlicensinggroup.svg" alt="Brand Licensing Stamp" style="position:absolute;top:15px;left:50%;transform:translateX(-50%) rotate(-1deg);height:75px;width:auto">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Factura 6: Asistencias -->
+    <section class="invoice" id="invDiseno">
+      <div>
+        <div class="inv-header">
+          <div class="logo-area"><img src="logo_guangdongergonomic.svg" alt="Guangdong Ergonomic Logo"></div>
+          <div class="inv-title">
+            <h2>DESIGN & ENGINEERING INVOICE</h2>
+            <p>Invoice No: <strong>DESIGN-773</strong></p>
+            <p>Date: <span class="outInvFechaAdj">July 18, 2026</span></p>
+          </div>
+        </div>
+        <div class="inv-parties">
+          <div class="party">
+            <h3>Studio</h3>
+            <p><strong>Guangdong Ergonomic Design Studio</strong></p>
+            <p>Design District, Guangzhou, China</p>
+          </div>
+          <div class="party">
+            <h3>Client</h3>
+            <p><strong class="outImpNom5">ZAPATILLAS DEL PACÍFICO S.A.C.</strong></p>
+            <p class="outImpDir5">Av. Argentina 2020, Callao, Lima - Perú</p>
+          </div>
+        </div>
+        <table class="inv-table">
+          <thead>
+            <tr>
+              <th>Design & Technical Assist Description</th>
+              <th class="num-col">Reference Contract</th>
+              <th class="num-col">Total (USD)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Engineering and Mold Design Assistance:</strong> 3D CAD modeling and outsole engineering mold design services provided free of charge to manufacturer China Footwear Manufacturing for product tooling.</td>
+              <td class="num-col">CONT-DES-2026</td>
+              <td class="num-col" id="outValDis">$1,200.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="inv-summary">
+          <div><p style="font-size:9.5px;color:var(--gris)">* Assists (design/engineering undertaken outside Peru) under Art. 8.1.b.iv of the WTO Valuation Agreement.</p></div>
+          <div class="summary-right">
+            <table>
+              <tr class="total">
+                <td>Total Invoice:</td>
+                <td class="val" id="outTotalDis">$1,200.00</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="signature-section">
+          <div></div>
+          <div class="sig-box" style="position:relative;height:90px">
+            <p style="margin:0">Authorized Signature & Stamp</p>
+            <img src="sello_6_guandong.svg" alt="Guangdong Design Stamp" style="position:absolute;top:15px;left:50%;transform:translateX(-50%) rotate(2.5deg);height:75px;width:auto">
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  function formatMoney(value) {
+    return '$' + parseFloat(value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+  }
+
+  function formatDateString(dateStr) {
+    if (!dateStr) return '';
+    const dateVal = new Date(dateStr + 'T00:00:00');
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return dateVal.toLocaleDateString('en-US', options);
+  }
+
+  function updateDocuments() {
+    const invNum = document.getElementById('invNum').value;
+    const invFecha = document.getElementById('invFecha').value;
+    const invIncoterm = document.getElementById('invIncoterm').value;
+    const invIncotermFob = document.getElementById('invIncotermFob').value;
+    const invPago = document.getElementById('invPago').value;
+    const hsCode = document.getElementById('hsCode').value;
+    const expNom = document.getElementById('expNom').value;
+    const expDir = document.getElementById('expDir').value;
+    const impNom = document.getElementById('impNom').value;
+    const impNomCons = document.getElementById('impNomCons').value;
+    const impRuc = document.getElementById('impRuc').value;
+    const impDir = document.getElementById('impDir').value;
+    const prodDesc = document.getElementById('prodDesc').value;
+    const prodCant = parseFloat(document.getElementById('prodCant').value) || 0;
+    const prodPrec = parseFloat(document.getElementById('prodPrec').value) || 0;
+    const fleteInfo = parseFloat(document.getElementById('fleteInfo').value) || 0;
+    const seguroInfo = parseFloat(document.getElementById('seguroInfo').value) || 0;
+    const adjCom = parseFloat(document.getElementById('adjCom').value) || 0;
+    const adjEmb = parseFloat(document.getElementById('adjEmb').value) || 0;
+    const adjReg = parseFloat(document.getElementById('adjReg').value) || 0;
+    const adjDis = parseFloat(document.getElementById('adjDis').value) || 0;
+
+    // Calculo subtotal factura principal
+    const prodTotalVal = prodCant * prodPrec;
+
+    const formattedDate = formatDateString(invFecha);
+
+    // Calculo de fecha de embalaje (+1 dia)
+    let packDateStr = "";
+    if(invFecha) {
+      const d = new Date(invFecha + 'T00:00:00');
+      d.setDate(d.getDate() + 1);
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      packDateStr = d.toLocaleDateString('en-US', options);
+    }
+
+    // Rellenar Facturas
+    document.getElementById('outInvNum').innerText = invNum;
+    document.querySelectorAll('.outInvNum2').forEach(el => el.innerText = invNum);
+    document.getElementById('outInvFecha').innerText = formattedDate;
+    document.getElementById('outFembDate').innerText = packDateStr;
+    
+    // EXW Incoterm
+    let incoCode = invIncoterm.toUpperCase().replace('INCOTERMS® 2020', '').trim();
+    document.getElementById('outIncoterm').innerText = incoCode + ' - INCOTERMS® 2020';
+
+    // FOB Incoterm
+    let incoFobCode = invIncotermFob.toUpperCase().replace('INCOTERMS® 2020', '').trim();
+    document.getElementById('outIncotermFob').innerText = incoFobCode + ' - INCOTERMS® 2020';
+    
+    document.getElementById('outPago').innerText = invPago;
+    document.querySelectorAll('.outHsCode').forEach(el => el.innerText = hsCode);
+    document.getElementById('outExpNom').innerText = expNom;
+    document.getElementById('outExpDir').innerText = expDir;
+    document.getElementById('outImpNom').innerText = impNom;
+    document.getElementById('outImpNomCons').innerText = impNomCons;
+    document.getElementById('outImpRuc').innerText = impRuc;
+    document.getElementById('outImpDir').innerText = impDir;
+    
+    // Nombres cons
+    document.getElementById('outImpDirCons').innerText = impDir.split(',').pop().trim(); // Lima, Perú
+
+    document.getElementById('outProdDesc').innerText = prodDesc;
+    document.getElementById('outProdCant').innerText = prodCant.toLocaleString('en-US') + ' PARES';
+    document.getElementById('outProdPrec').innerText = formatMoney(prodPrec);
+    document.getElementById('outProdTotal').innerText = formatMoney(prodTotalVal);
+    document.getElementById('outSubtotal').innerText = formatMoney(prodTotalVal);
+    document.getElementById('outTotal').innerText = formatMoney(prodTotalVal);
+
+    document.getElementById('outFleteInfo').innerText = formatMoney(fleteInfo);
+    document.getElementById('outSeguroInfo').innerText = formatMoney(seguroInfo);
+
+    // Actualizar fechas de invoices de Ajuste
+    document.querySelectorAll('.outInvFechaAdj').forEach(el => el.innerText = formattedDate);
+
+    // Actualizar segundas referencias de RUC e Importador en los invoices de Ajuste
+    document.querySelectorAll('.outImpNom2, .outImpNom3, .outImpNom4, .outImpNom5').forEach(el => el.innerText = impNom);
+    document.querySelectorAll('.outImpDir2, .outImpDir3, .outImpDir4, .outImpDir5').forEach(el => el.innerText = impDir);
+
+    // Actualizar montos en Ajustes
+    document.getElementById('outValCom').innerText = formatMoney(adjCom);
+    document.getElementById('outTotalCom').innerText = formatMoney(adjCom);
+    
+    document.getElementById('outValEmb').innerText = formatMoney(adjEmb);
+    document.getElementById('outTotalEmb').innerText = formatMoney(adjEmb);
+
+    document.getElementById('outCantReg').innerText = prodCant.toLocaleString('en-US');
+    const rateReg = adjReg / prodCant;
+    document.getElementById('outRateReg').innerText = formatMoney(rateReg);
+    document.getElementById('outValReg').innerText = formatMoney(adjReg);
+    document.getElementById('outTotalReg').innerText = formatMoney(adjReg);
+
+    document.getElementById('outValDis').innerText = formatMoney(adjDis);
+    document.getElementById('outTotalDis').innerText = formatMoney(adjDis);
+
+    // Rellenar FOB TOTAL Consolidado
+    document.getElementById('outValFobP').innerText = formatMoney(prodTotalVal);
+    document.getElementById('outValCom2').innerText = formatMoney(adjCom);
+    document.getElementById('outValEmb2').innerText = formatMoney(adjEmb);
+    document.getElementById('outValReg2').innerText = formatMoney(adjReg);
+    document.getElementById('outValDis2').innerText = formatMoney(adjDis);
+    document.getElementById('outSubtotalCons').innerText = formatMoney(prodTotalVal);
+    
+    const totAjustes = adjCom + adjEmb + adjReg + adjDis;
+    document.getElementById('outTotAjusCons').innerText = formatMoney(totAjustes);
+    
+    const totFob = prodTotalVal + totAjustes;
+    document.getElementById('outTotalFobCons').innerText = '**' + formatMoney(totFob) + '**';
+  }
+
+  // Event Listeners for inputs
+  const inputs = document.querySelectorAll('.panel input, .panel select');
+  inputs.forEach(input => {
+    input.addEventListener('input', updateDocuments);
+  });
+
+  function resetForm() {
+    document.getElementById('invNum').value = "INV-2026-0789";
+    document.getElementById('invFecha').value = "2026-07-18";
+    document.getElementById('invIncoterm').value = "EXW GUANGDONG";
+    document.getElementById('invIncotermFob').value = "FOB SHANGHAI";
+    document.getElementById('invPago').value = "Net 30 Days";
+    document.getElementById('hsCode').value = "6404.11.00.00";
+    document.getElementById('expNom').value = "China Footwear Manufacturing Co., Ltd.";
+    document.getElementById('expDir').value = "Guangdong, China. Phone: +86-755-XXXX-XXXX. Email: exports@chinafootwear.com";
+    document.getElementById('impNom').value = "Zapatillas del Pacífico S.A.C.";
+    document.getElementById('impNomCons').value = "ZAPATILLAS DEL PACÍFICO S.A.C.";
+    document.getElementById('impRuc').value = "20601234567";
+    document.getElementById('impDir').value = "Av. Argentina 2020, Callao, Lima - Perú";
+    document.getElementById('prodDesc').value = "Principal (Zapatillas deportivas textiles)";
+    document.getElementById('prodCant').value = "1000";
+    document.getElementById('prodPrec').value = "20.00";
+    document.getElementById('fleteInfo').value = "1800";
+    document.getElementById('seguroInfo').value = "200";
+    document.getElementById('adjCom').value = "800";
+    document.getElementById('adjEmb').value = "500";
+    document.getElementById('adjReg').value = "1500";
+    document.getElementById('adjDis').value = "1200";
+    updateDocuments();
+  }
+
+  // Initialize
+  updateDocuments();
+</script>
+</body>
+</html>

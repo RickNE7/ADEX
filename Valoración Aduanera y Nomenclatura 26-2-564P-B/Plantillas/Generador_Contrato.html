@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contrato de Licencia y Regalías — Generador</title>
+<style>
+  :root{
+    --tinta:#0a2540; --azul:#123a6b; --acento:#b5651d; --linea:#1f2d3d;
+    --gris:#5b6b7b; --panel:#0f2036; --panel2:#16304f; --bg:#eef1f5;
+    --casTitulo:#123a6b; --admin:#f5f7f9;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:#12212f}
+  .app{display:flex;min-height:100vh}
+
+  /* ---------- PANEL ---------- */
+  .panel{width:390px;flex:0 0 390px;background:var(--panel);color:#dce6f2;padding:18px 16px;overflow-y:auto;height:100vh;position:sticky;top:0}
+  .panel h1{font-size:16px;margin:0 0 2px}
+  .panel .sub{font-size:11px;color:#8fa6c0;margin-bottom:14px;line-height:1.4}
+  .grp{background:var(--panel2);border-radius:8px;padding:10px 11px;margin-bottom:11px;border:0}
+  .grp>.leg{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#7fd4e6;margin-bottom:8px;display:block}
+  .fld{margin-bottom:8px}
+  .fld label{display:block;font-size:11px;color:#a9bdd6;margin-bottom:3px}
+  .fld input,.fld select{width:100%;padding:6px 7px;border:1px solid #2c4a6e;border-radius:5px;background:#0b1a2d;color:#eaf2fb;font-size:12px}
+  .fld input:focus,.fld select:focus{outline:none;border-color:#3aa6bf}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .btns{display:flex;gap:8px;margin-top:6px}
+  .btn{flex:1;border:0;border-radius:6px;padding:10px;font-size:12px;font-weight:700;cursor:pointer}
+  .btn-print{background:#0b7285;color:#fff}.btn-print:hover{background:#0a8298}
+  .btn-reset{background:#33445a;color:#dce6f2}.btn-reset:hover{background:#3d5069}
+
+  /* ---------- DOCUMENTOS ---------- */
+  .docs{flex:1;padding:26px 30px;display:flex;flex-direction:column;align-items:center;gap:26px}
+  .contract{width:794px;height:1123px;background:#fff;border:1.5px solid #000;box-shadow:0 3px 14px rgba(10,37,64,.14);font-size:8px;color:#12212f;padding:20px 30px;position:relative;display:flex;flex-direction:column;justify-content:space-between;line-height:1.25}
+  
+  .contract-header{display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--linea);padding-bottom:8px;margin-bottom:12px}
+  .logo-area{display:flex;align-items:center;gap:15px}
+  .logo-area img{height:45px;max-height:45px;width:auto;object-fit:contain}
+  .contract-title{text-align:right}
+  .contract-title h2{margin:0;font-size:11px;font-weight:800;color:var(--tinta);text-transform:uppercase}
+  
+  .parties-box{background:#f5f7f9;border:1px solid #d3dbe4;border-radius:6px;padding:8px 12px;margin-bottom:10px;font-size:8px}
+  .parties-box p{margin:4px 0}
+  
+  .clauses-container{flex:1;overflow:hidden;margin-bottom:12px}
+  .clause-title{font-weight:800;color:var(--azul);margin-top:6px;margin-bottom:2px;text-transform:uppercase}
+  .clause-body{margin-bottom:4px;text-align:justify}
+  
+  .signatures-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;border-top:1px solid #d3dbe4;padding-top:10px;margin-top:10px}
+  .sig-col{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .sig-line{width:160px;border-top:1px solid #9aa8b6;margin-top:35px;margin-bottom:3px}
+  
+  @media (max-width:1240px){
+    .app{flex-direction:column}
+    .panel{width:100%;flex:none;height:auto;position:static}
+    .docs{padding:16px}.contract{width:100%;height:auto;min-height:1123px;padding:20px}
+  }
+
+  @media print{
+    @page{size:A4 portrait;margin:0}
+    html,body{background:#fff;width:100%;height:100%}
+    .no-print{display:none!important}
+    .app{display:block}
+    .docs{padding:0;gap:0;display:block}
+    .contract{width:210mm!important;height:297mm!important;max-height:297mm!important;min-height:297mm!important;box-shadow:none!important;border:1.5px solid #000!important;
+              page-break-after:always;break-after:page;padding:15mm 15mm;margin:0!important;page-break-inside:avoid;break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ============ PANEL ============ -->
+  <aside class="panel no-print">
+    <h1>Contrato de Regalías</h1>
+    <div class="sub">Genera el contrato oficial de Licencia de Propiedad Intelectual y Regalías correspondiente al caso de estudio de ADEX.</div>
+
+    <fieldset class="grp">
+      <span class="leg">Partes Contratantes</span>
+      <div class="fld"><label>Licenciante (Exportador)</label><input id="licNom" value="China Footwear Manufacturing Co., Ltd."></div>
+      <div class="fld"><label>Dirección Licenciante</label><input id="licDir" value="Guangdong, China. Phone: +86-755-XXXX-XXXX"></div>
+      <div class="fld"><label>Licenciatario (Importador)</label><input id="liceNom" value="Zapatillas del Pacífico S.A.C."></div>
+      <div class="fld"><label>Dirección Licenciatario</label><input id="liceDir" value="Lima, Perú. RUC: 20601234567"></div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">Detalles del Acuerdo</span>
+      <div class="row2">
+        <div class="fld"><label>Tasa de Regalías</label><input id="rateReg" value="5% sobre ventas netas"></div>
+        <div class="fld"><label>Pago Mínimo Anual</label><input id="minReg" value="$10,000 USD"></div>
+      </div>
+      <div class="row2">
+        <div class="fld"><label>Licencia Moldes</label><input id="moldVal" value="$1,200.00 USD"></div>
+        <div class="fld"><label>Fecha Contrato</label><input id="fechaCont" type="date" value="2026-07-10"></div>
+      </div>
+    </fieldset>
+
+    <div class="btns">
+      <button class="btn btn-print" onclick="window.print()">Imprimir Contrato</button>
+      <button class="btn btn-reset" onclick="resetForm()">Reset</button>
+    </div>
+  </aside>
+
+  <!-- ============ DOCUMENTOS ============ -->
+  <main class="docs">
+
+    <section class="contract" id="mainContract">
+      <div>
+        <div class="contract-header">
+          <div class="logo-area">
+            <img src="logo_chinafootwear.svg" alt="China Footwear Logo">
+            <img src="logo_zapatillaspacifico.svg" alt="Zapatillas del Pacífico Logo">
+          </div>
+          <div class="contract-title">
+            <h2>CONTRATO DE LICENCIA DE PROPIEDAD INTELECTUAL Y REGALÍAS</h2>
+            <p style="font-size:7px;color:var(--gris)">DISEÑO E INGENIERÍA DE SUELAS ERGONÓMICAS · TLC PERÚ - CHINA</p>
+          </div>
+        </div>
+
+        <div class="parties-box">
+          <p><strong>LICENCIANTE:</strong> <span id="outLicNom">China Footwear Manufacturing Co., Ltd.</span>, con domicilio legal en <span id="outLicDir">Guangdong, China. Phone: +86-755-XXXX-XXXX</span>.</p>
+          <p><strong>LICENCIATARIO:</strong> <span id="outLiceNom">Zapatillas del Pacífico S.A.C.</span>, con domicilio legal en <span id="outLiceDir">Lima, Perú. RUC: 20601234567</span>.</p>
+        </div>
+
+        <div class="clauses-container">
+          <p style="font-style:italic;margin-bottom:6px">Conste por el presente documento el Contrato de Licencia de Propiedad Intelectual y Regalías que celebran de común acuerdo y bajo los términos siguientes:</p>
+
+          <div class="clause-title">CLÁUSULA PRIMERA: OBJETO DEL CONTRATO (Suelas Ergonómicas y Tecnología)</div>
+          <div class="clause-body">El Licenciante otorga al Licenciatario el derecho de uso y explotación del diseño de "Suelas Ergonómicas Licenciadas" que incluye especificaciones técnicas, ingeniería de moldes, archivos CAD de diseño en 3D y especificaciones de materiales para el modelo RunMax 2026.</div>
+
+          <div class="clause-title">CLÁUSULA SEGUNDA: CONCESIÓN DE LICENCIA (Alcance y Territorio)</div>
+          <div class="clause-body">El Licenciante concede una licencia no exclusiva, intransferible y con derecho de comercialización en el territorio de la República del Perú. Queda prohibida la sublicencia a terceros sin el consentimiento expreso y por escrito del Licenciante.</div>
+
+          <div class="clause-title">CLÁUSULA TERCERA: REGALÍAS Y PAGOS</div>
+          <div class="clause-body">
+            3.1 <strong>Regalía sobre Ventas Netas:</strong> El Licenciatario pagará una regalía del <span id="outRateReg">5% sobre ventas netas</span> de los productos importados que incorporen las suelas ergonómicas licenciadas, equivalente a un cobro estimado de $1.50 USD por cada par adquirido.<br>
+            3.2 <strong>Pago Mínimo Anual Garantizado:</strong> El Licenciatario garantiza un pago mínimo de regalía anual al Licenciante de <span id="outMinReg">$10,000 USD</span>, independientemente del volumen de ventas netas alcanzado.<br>
+            3.3 <strong>Calendario de Pagos:</strong> Los pagos de regalías se liquidarán de manera trimestral dentro de los 30 días posteriores al cierre de cada periodo.<br>
+            3.4 <strong>Derecho de Auditoría:</strong> El Licenciante tendrá derecho de auditar los libros contables y registros de importación del Licenciatario una vez al año para verificar el correcto cálculo de regalías.
+          </div>
+
+          <div class="clause-title">CLÁUSULA CUARTA: ASISTENCIA TÉCNICA Y DOCUMENTACIÓN (Ajustes de Valoración Aduanera)</div>
+          <div class="clause-body">El Licenciante transferirá planos técnicos y archivos CAD en 3D para el modelado de la suela ergonómica. Dicho soporte e ingeniería de diseño constituyen una asistencia suministrada de forma gratuita por el importador al fabricante, valorada en <span id="outMoldVal">$1,200.00 USD</span>, la cual debe declararse como ajuste según el Art. 8.1.b.iv del Acuerdo de Valoración de la OMC.</div>
+
+          <div class="clause-title">CLÁUSULA QUINTO: CONTROL DE CALIDAD</div>
+          <div class="clause-body">El Licenciatario se compromete a mantener los estándares de calidad del Licenciante. El Licenciante tiene el derecho de inspeccionar muestras del calzado deportivo RunMax 2026 antes de su despacho aduanero y comercialización.</div>
+
+          <div class="clause-title">CLÁLSULA SEXTA: PROTECCIÓN DE LA PROPIEDAD INTELECTUAL</div>
+          <div class="clause-body">El Licenciatario reconoce que todas las patentes, marcas y diseños de suelas RunMax pertenecen exclusivamente al Licenciante, y se compromete a no registrar derechos análogos en el Territorio.</div>
+
+          <div class="clause-title">CLÁUSULA SÉPTIMA: VIGENCIA Y RESOLUCIÓN DE CONFLICTOS</div>
+          <div class="clause-body">El presente contrato tendrá una vigencia de 5 años. Cualquier controversia derivada del mismo se resolverá mediante arbitraje comercial bajo las reglas de la Cámara de Comercio Internacional (CCI). El contrato se rige por las leyes de la República del Perú.</div>
+        </div>
+      </div>
+
+      <div>
+        <p style="font-size:7.5px;text-align:right">Suscrito en la fecha: <span id="outFechaCont">July 10, 2026</span></p>
+        <div class="signatures-grid">
+          <div class="sig-col" style="position:relative;height:95px">
+            <img src="sello_1_2_12_chinafootwear.svg" alt="Licenciante Stamp" style="position:absolute;top:5px;height:60px;width:auto;transform:rotate(-1.5deg)">
+            <div class="sig-line" style="margin-top:60px"></div>
+            <p><strong>Licenciante</strong></p>
+            <p style="font-size:7px;color:var(--gris)">China Footwear Manufacturing Co., Ltd.</p>
+          </div>
+          <div class="sig-col" style="position:relative;height:95px">
+            <img src="sello_13_zapatillaspacifico.svg" alt="Licenciatario Stamp" style="position:absolute;top:5px;height:60px;width:auto;transform:rotate(2deg)">
+            <div class="sig-line" style="margin-top:60px"></div>
+            <p><strong>Licenciatario</strong></p>
+            <p style="font-size:7px;color:var(--gris)">Zapatillas del Pacífico S.A.C.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  function formatDateString(dateStr) {
+    if (!dateStr) return '';
+    const dateVal = new Date(dateStr + 'T00:00:00');
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return dateVal.toLocaleDateString('es-ES', options).toUpperCase();
+  }
+
+  function updateContract() {
+    document.getElementById('outLicNom').innerText = document.getElementById('licNom').value;
+    document.getElementById('outLicDir').innerText = document.getElementById('licDir').value;
+    document.getElementById('outLiceNom').innerText = document.getElementById('liceNom').value;
+    document.getElementById('outLiceDir').innerText = document.getElementById('liceDir').value;
+    document.getElementById('outRateReg').innerText = document.getElementById('rateReg').value;
+    document.getElementById('outMinReg').innerText = document.getElementById('minReg').value;
+    document.getElementById('outMoldVal').innerText = document.getElementById('moldVal').value;
+    document.getElementById('outFechaCont').innerText = formatDateString(document.getElementById('fechaCont').value);
+  }
+
+  // Event Listeners
+  document.querySelectorAll('.panel input').forEach(input => {
+    input.addEventListener('input', updateContract);
+  });
+
+  function resetForm() {
+    document.getElementById('licNom').value = "China Footwear Manufacturing Co., Ltd.";
+    document.getElementById('licDir').value = "Guangdong, China. Phone: +86-755-XXXX-XXXX";
+    document.getElementById('liceNom').value = "Zapatillas del Pacífico S.A.C.";
+    document.getElementById('liceDir').value = "Lima, Perú. RUC: 20601234567";
+    document.getElementById('rateReg').value = "5% sobre ventas netas";
+    document.getElementById('minReg').value = "$10,000 USD";
+    document.getElementById('moldVal').value = "$1,200.00 USD";
+    document.getElementById('fechaCont').value = "2026-07-10";
+    updateContract();
+  }
+
+  // Initialize
+  updateContract();
+</script>
+</body>
+</html>

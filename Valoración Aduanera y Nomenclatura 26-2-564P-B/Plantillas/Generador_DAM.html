@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generador de DAM — Declaración Aduanera de Mercancías (Formatos A · B · C)</title>
+<style>
+  :root{
+    --tinta:#0a2540; --azul:#123a6b; --acento:#0b7285; --linea:#1f2d3d;
+    --gris:#5b6b7b; --panel:#0f2036; --panel2:#16304f; --bg:#eef1f5;
+    --casTitulo:#0b7285; --admin:#f5f7f9;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:#12212f}
+  .app{display:flex;min-height:100vh}
+
+  /* ---------- PANEL ---------- */
+  .panel{width:390px;flex:0 0 390px;background:var(--panel);color:#dce6f2;padding:18px 16px;overflow-y:auto;height:100vh;position:sticky;top:0}
+  .panel h1{font-size:16px;margin:0 0 2px}
+  .panel .sub{font-size:11px;color:#8fa6c0;margin-bottom:14px;line-height:1.4}
+  .grp{background:var(--panel2);border-radius:8px;padding:10px 11px;margin-bottom:11px;border:0}
+  .grp>.leg{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#7fd4e6;margin-bottom:8px;display:block}
+  .fld{margin-bottom:8px}
+  .fld label{display:block;font-size:11px;color:#a9bdd6;margin-bottom:3px}
+  .fld input,.fld select{width:100%;padding:6px 7px;border:1px solid #2c4a6e;border-radius:5px;background:#0b1a2d;color:#eaf2fb;font-size:12px}
+  .fld input:focus,.fld select:focus{outline:none;border-color:#3aa6bf}
+  .fld input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1);cursor:pointer}
+  .fld select{cursor:pointer}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+  .num input{text-align:right;font-variant-numeric:tabular-nums}
+  .toggle{display:flex;align-items:center;gap:8px;background:#0b1a2d;border:1px solid #2c4a6e;border-radius:5px;padding:8px;cursor:pointer}
+  .toggle input{width:auto}
+  .toggle label{margin:0;color:#eaf2fb;font-size:12px;cursor:pointer}
+  .btns{display:flex;gap:8px;margin-top:6px}
+  .btn{flex:1;border:0;border-radius:6px;padding:10px;font-size:12px;font-weight:700;cursor:pointer}
+  .btn-print{background:#0b7285;color:#fff}.btn-print:hover{background:#0a8298}
+  .btn-reset{background:#33445a;color:#dce6f2}.btn-reset:hover{background:#3d5069}
+  .hint{font-size:10.5px;color:#7f95af;margin-top:9px;line-height:1.45}
+  details.grp>summary{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#7fd4e6;cursor:pointer;list-style:none}
+  details.grp>summary::-webkit-details-marker{display:none}
+  details.grp>summary::before{content:"▸ ";color:#3aa6bf}
+  details.grp[open]>summary::before{content:"▾ "}
+  details.grp>summary{margin-bottom:0}
+  details.grp[open]>summary{margin-bottom:8px}
+
+  /* ---------- DOCUMENTOS ---------- */
+  .docs{flex:1;padding:26px 30px;display:flex;flex-direction:column;align-items:center;gap:26px}
+  .dam{width:820px;max-width:100%;background:#fff;border:2px solid var(--linea);box-shadow:0 3px 14px rgba(10,37,64,.14);font-size:10.5px;color:#12212f}
+  .dam-head{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--linea);padding:6px 12px;background:var(--tinta);color:#fff}
+  .dam-head .t{font-size:14px;font-weight:800;letter-spacing:.05em}
+  .dam-head .badge{font-size:9.5px;background:#0b7285;padding:2px 8px;border-radius:10px}
+  .dam-sub{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:9.5px;color:#43566a;padding:3px 12px;border-bottom:1px solid #c3ced9;background:#f4f7fa}
+
+  .sec{border-bottom:1px solid #b9c4cf}
+  .sec-tit{background:var(--casTitulo);color:#fff;font-size:10px;font-weight:700;letter-spacing:.03em;padding:2px 12px;text-transform:uppercase;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+  .sec-tit .n{background:#fff;color:var(--casTitulo);border-radius:3px;padding:0 5px;font-weight:800}
+  .sec-tit .free{font-weight:400;text-transform:none}
+  .grid{display:grid;gap:0}
+  .c{border-right:1px solid #d3dbe4;border-bottom:1px solid #d3dbe4;padding:3px 7px 4px;position:relative;min-height:30px}
+  .c:last-child{border-right:0}
+  .c .k{font-size:8.3px;color:#5b6b7b;line-height:1.12;display:block;margin-bottom:1px}
+  .c .k b{color:var(--acento);font-weight:800}
+  .c .v{font-size:10.5px;font-weight:600;color:#0a2540;word-break:break-word;min-height:12px}
+  .c .v.big{font-size:12px;font-weight:800}
+  .c.admin{background:var(--admin)}
+  .c .na{font-size:8px;color:#9aa8b6;font-style:italic;font-weight:500}
+  .money{font-variant-numeric:tabular-nums;text-align:right;display:block}
+  .g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}.g5{grid-template-columns:repeat(5,1fr)}
+  .g6{grid-template-columns:repeat(6,1fr)}
+  .g-2-1{grid-template-columns:2fr 1fr}.g-1-2{grid-template-columns:1fr 2fr}
+  .g-3-1{grid-template-columns:3fr 1fr}.g-2-1-1{grid-template-columns:2fr 1fr 1fr}
+  .tot{background:#eef7f9}.tot .v{color:#0b7285}
+  .warn{background:#fff6e6}
+  .liq .c{min-height:22px}.liq .v{text-align:right}
+  .footnote{font-size:8.6px;color:#5b6b7b;padding:5px 12px;background:#f4f7fa;line-height:1.4}
+  .ajuste-row .k b{color:#b5651d}
+  .qbox .v{font-weight:700}
+  .c.firma{min-height:42px}
+  .firma{position:relative}
+  .firma .fl{position:absolute;right:7px;bottom:3px;width:88px;text-align:center;font-size:6.8px;
+             color:#5b6b7b;border-top:1px solid #9aa8b6;padding-top:1px;letter-spacing:.03em;text-transform:uppercase}
+  .c.tall{min-height:60px}
+  .c.tall.firma{min-height:84px}
+  .colwrap{display:flex;flex-direction:column}
+
+  @media (max-width:1240px){
+    .app{flex-direction:column}
+    .panel{width:100%;flex:none;height:auto;position:static}
+    .docs{padding:16px}.dam{width:100%}
+  }
+
+  /* ---------- IMPRESIÓN VERTICAL — cada formato en 1 hoja A4 ---------- */
+  @media print{
+    @page{size:A4 portrait;margin:5mm}
+    html,body{background:#fff;width:100%}
+    .no-print{display:none!important}
+    .app{display:block}
+    .docs{padding:0;gap:0;display:block}
+    /* cada .dam se escala por JS (zoom) para caber en una hoja; page-break lo aísla */
+    .dam{width:100%;font-size:9px;line-height:1.12;box-shadow:none;border:1.2px solid #000;
+         page-break-after:always;break-after:page;page-break-inside:auto;margin:0}
+    .dam:last-child{page-break-after:auto;break-after:auto}
+    .sec,.grid{page-break-inside:avoid;break-inside:avoid}
+    .dam-head{padding:4px 10px}
+    .dam-head .t{font-size:12px}
+    .dam-head .badge{font-size:8px;padding:1px 6px}
+    .dam-sub{padding:2px 10px;font-size:8px}
+    .sec-tit{padding:2px 10px;font-size:8.6px}
+    .c{min-height:0;padding:2px 5px}
+    .c .k{font-size:7.4px;margin-bottom:0}
+    .c .v{font-size:9px;min-height:10px}
+    .c .v.big{font-size:11px}
+    .c .na{font-size:7px}
+    .liq .c{min-height:0}
+    .c.firma{min-height:26px}
+    .firma .fl{font-size:5.8px;width:74px;bottom:2px}
+    .c.tall{min-height:44px}
+    .c.tall.firma{min-height:52px}
+    /* Formatos A y B: reparte el espacio sobrante entre filas para llenar la página */
+    .dam.fill-page{display:flex;flex-direction:column}
+    .dam.fill-page>.dam-head,.dam.fill-page>.dam-sub,.dam.fill-page>.sec-tit,.dam.fill-page>.footnote{flex:0 0 auto}
+    .dam.fill-page>.grid{flex:1 1 auto;min-height:0}
+    .footnote{padding:3px 10px;font-size:7.4px;line-height:1.3}
+    .c.admin,.tot,.warn,.dam-sub,.footnote{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .dam-head,.sec-tit{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ============ PANEL ============ -->
+  <aside class="panel no-print">
+    <h1>Generador de DAM</h1>
+    <div class="sub">Declaración Aduanera de Mercancías · Formatos A · B · C — estructura completa de casillas (SUNAT DESPA-IT.00.04, act. RSN 000349-2025). Se muestran <b>todas</b> las casillas; las vacías o de uso aduanero quedan en blanco. Imprime en <b>vertical</b> → “Guardar como PDF”.</div>
+
+    <fieldset class="grp">
+      <span class="leg">Encabezado</span>
+      <div class="row2">
+        <div class="fld"><label>Aduana</label><input id="aduana" value="118 - Marítima del Callao"></div>
+        <div class="fld"><label>N° Orden</label><input id="norden" value="2026-000123"></div>
+      </div>
+      <div class="row3">
+        <div class="fld"><label>Destinación</label><input id="regimen" value="10 - Imp. Consumo"></div>
+        <div class="fld"><label>Modalidad</label><input id="modalidad" value="0-0 Excepcional"></div>
+        <div class="fld"><label>Tipo Desp.</label><input id="tipoDesp" value=""></div>
+      </div>
+      <div class="row2">
+        <div class="fld"><label>N° Declaración</label><input id="numdam" value="118-2026-10-123456"></div>
+        <div class="fld"><label>Canal</label>
+          <select id="canal">
+            <option value="Verde">Verde</option>
+            <option value="Naranja" selected>Naranja</option>
+            <option value="Rojo">Rojo</option>
+          </select>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="fld"><label>Fecha numeración</label><input type="date" id="fechaNum" value="2026-07-25"></div>
+        <div class="fld"><label>N° Orden Embarque (export.)</label><input id="nOrdEmb" value=""></div>
+      </div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">1. Identificación</span>
+      <div class="fld"><label>1.1 Importador</label><input id="impNom" value="Zapatillas del Pacífico S.A.C."></div>
+      <div class="row3">
+        <div class="fld"><label>1.2 Cód.doc</label><input id="impDocCod" value="4"></div>
+        <div class="fld"><label>N° RUC</label><input id="impRuc" value="20601234567"></div>
+        <div class="fld"><label>1.4 UBIGEO</label><input id="ubigeo" value="070101"></div>
+      </div>
+      <div class="fld"><label>1.3 Dirección</label><input id="impDir" value="Av. Argentina 2020, Callao, Lima - Perú"></div>
+      <div class="fld"><label>1.3 (Fmt.B) Nivel comercial</label><input id="nivelCom" value="2 - Mayorista"></div>
+    </fieldset>
+
+    <details class="grp"><summary>3. Transporte · 4. Almacén</summary>
+      <div class="row2">
+        <div class="fld"><label>3.1 Empresa transp./RUC</label><input id="transp" value="Maersk Perú S.A.C."></div>
+        <div class="fld"><label>3.2 N° Manifiesto</label><input id="manifiesto" value="118-2026-1234"></div>
+      </div>
+      <div class="row2">
+        <div class="fld"><label>3.3 Vía transporte</label><input id="via" value="1 - Marítimo"></div>
+        <div class="fld"><label>3.4 F. térm. descarga</label><input type="date" id="fTermDesc" value="2026-08-24"></div>
+      </div>
+      <div class="row2">
+        <div class="fld"><label>4.1 Depósito temporal/RUC</label><input id="almacen" value="APM Terminals Callao"></div>
+        <div class="fld"><label>4.3 Plazo solicitado</label><input id="plazo" value=""></div>
+      </div>
+    </details>
+
+    <details class="grp"><summary>5. Transacción (A) · 3-4 Proveedor (B)</summary>
+      <div class="row2">
+        <div class="fld"><label>5.1 Entidad financiera</label><input id="entFin" value=""></div>
+        <div class="fld"><label>5.2 Modalidad de pago</label><input id="modPago" value="1 - Contado"></div>
+      </div>
+      <div class="fld"><label>3.1 Proveedor</label><input id="provNom" value="China Footwear Manufacturing Co., Ltd."></div>
+      <div class="row2">
+        <div class="fld"><label>3.2 Condición</label><input id="provCond" value="1 - Fabricante"></div>
+        <div class="fld"><label>3.5 País</label><input id="provPais" value="CN - China"></div>
+      </div>
+      <div class="row2">
+        <div class="fld"><label>3.3 Dirección</label><input id="provDir" value="Guangdong, China"></div>
+        <div class="fld"><label>3.4 Ciudad</label><input id="provCiudad" value="Guangdong"></div>
+      </div>
+      <div class="row2">
+        <div class="fld"><label>4.1 Naturaleza transacción</label><input id="natTrans" value="11 - Compra/venta firme"></div>
+        <div class="fld"><label>4.2 Forma de envío</label><input id="formaEnvio" value="1/1"></div>
+      </div>
+    </details>
+
+    <details class="grp"><summary>5/7. Mercancía y serie</summary>
+      <div class="fld"><label>5.12 Nombre / 7.35 Descripción</label><input id="descMerc" value="Zapatillas de entrenamiento RunMax 2026 (parte sup. textil, suela caucho/plástico)"></div>
+      <div class="row2">
+        <div class="fld"><label>7.19/5.19 Subpartida Nac.</label><input id="subpartida" value="6404.11.20.00"></div>
+        <div class="fld"><label>DV</label><input id="dv" value="0"></div>
+      </div>
+      <div class="row2">
+        <div class="fld"><label>5.13 Marca</label><input id="marca" value="RunMax"></div>
+        <div class="fld"><label>5.14 Modelo</label><input id="modelo" value="2026"></div>
+      </div>
+      <div class="row3">
+        <div class="fld"><label>5.15 Año/Aro</label><input id="anioAro" value="2026"></div>
+        <div class="fld"><label>5.16 Estado</label><input id="estado" value="10 - Nuevo"></div>
+        <div class="fld"><label>5.6 Tipo valor</label><input id="tipoValor" value="1 - Definitivo"></div>
+      </div>
+      <div class="row3">
+        <div class="fld"><label>7.26/5.7 P.Origen</label><input id="pOrigen" value="CN"></div>
+        <div class="fld"><label>7.27 P.Adquis.</label><input id="pAdquis" value="CN"></div>
+        <div class="fld"><label>5.8 P.Embarque</label><input id="pEmbarque" value="CN"></div>
+      </div>
+      <div class="row3">
+        <div class="fld num"><label>7.10/5.11 Cant.comercial</label><input id="cant" value="1000"></div>
+        <div class="fld"><label>Unidad</label><input id="unidad" value="2U-Par"></div>
+        <div class="fld"><label>7.1 N° Serie</label><input id="nSerie" value="1/1"></div>
+      </div>
+      <div class="row3">
+        <div class="fld num"><label>7.12 Bultos</label><input id="bultos" value="100"></div>
+        <div class="fld"><label>7.13 Clase</label><input id="claseBultos" value="CT-Cartón"></div>
+        <div class="fld"><label>7.16 U.Física</label><input id="unidadFisica" value="2U-Par"></div>
+      </div>
+      <div class="row3">
+        <div class="fld num"><label>7.14 Peso Neto</label><input id="pesoNeto" value="1150"></div>
+        <div class="fld num"><label>7.15 Peso Bruto</label><input id="pesoBruto" value="1200"></div>
+        <div class="fld num"><label>7.16 Cant.Física</label><input id="cantFisica" value="1000"></div>
+      </div>
+      <div class="row3">
+        <div class="fld"><label>Incoterm</label>
+          <select id="incoterm">
+            <option value="EXW" selected>EXW</option><option value="FCA">FCA</option>
+            <option value="FAS">FAS</option><option value="FOB">FOB</option>
+            <option value="CFR">CFR</option><option value="CIF">CIF</option>
+            <option value="CPT">CPT</option><option value="CIP">CIP</option>
+            <option value="DPU">DPU</option><option value="DAP">DAP</option><option value="DDP">DDP</option>
+          </select>
+        </div>
+        <div class="fld"><label>Ciudad</label><input id="incoCity" value="Guangdong"></div>
+        <div class="fld"><label>Versión</label><input id="incoVer" value="4-2020"></div>
+      </div>
+    </details>
+
+    <details class="grp"><summary>Documentos y contenedor</summary>
+      <div class="row2">
+        <div class="fld"><label>7.6 Puerto embarque</label><input id="ptoEmb" value="Nansha (Guangzhou)"></div>
+        <div class="fld"><label>7.7 Fecha embarque</label><input type="date" id="fEmb" value="2026-07-22"></div>
+      </div>
+      <div class="row2">
+        <div class="fld"><label>7.8 Doc. transporte (B/L)</label><input id="bl" value="MSK-99012345"></div>
+        <div class="fld"><label>5.2/7.36 N° Factura</label><input id="nFactura" value="INV-2026-0789"></div>
+      </div>
+      <div class="row2">
+        <div class="fld"><label>5.3 Fecha factura</label><input type="date" id="fFactura" value="2026-07-18"></div>
+        <div class="fld"><label>7.9 N° Cert. Origen</label><input id="coNum" value="CO-CN-26-004455"></div>
+      </div>
+      <div class="row2">
+        <div class="fld"><label>7.9 Fecha C.O.</label><input type="date" id="coFecha" value="2026-07-20"></div>
+        <div class="fld"><label>7.23 TPI (pref.)</label><input id="tpi" value="19 - TLC Perú-China"></div>
+      </div>
+      <div class="row2">
+        <div class="fld"><label>9. N° Contenedor</label><input id="contenedor" value="MSKU-123456-7"></div>
+        <div class="fld"><label>9. Precinto</label><input id="precinto" value="SL-8891234"></div>
+      </div>
+    </details>
+
+    <fieldset class="grp">
+      <span class="leg">8.1 Base de cálculo (US$)</span>
+      <div class="fld num"><label>8.1.1 Precio neto s/factura</label><input id="v_factura" value="20000"></div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">8.2 Adiciones · Ajustes Art.8 (US$)</span>
+      <div class="fld num"><label>8.2.1 Comisiones / corretajes</label><input id="a_com" value="800"></div>
+      <div class="fld num"><label>8.2.2 Envases y embalajes</label><input id="a_emb" value="500"></div>
+      <div class="fld num"><label>8.2.3.1 Materiales incorporados</label><input id="a_mat" value="0"></div>
+      <div class="fld num"><label>8.2.3.2 Herramientas / moldes</label><input id="a_her" value="0"></div>
+      <div class="fld num"><label>8.2.3.3 Materiales consumidos</label><input id="a_con" value="0"></div>
+      <div class="fld num"><label>8.2.3.4 Ingeniería / diseño</label><input id="a_ing" value="1200"></div>
+      <div class="fld num"><label>8.2.4 Cánones y regalías</label><input id="a_can" value="1500"></div>
+      <div class="fld num"><label>8.2.5 Reversión al vendedor</label><input id="a_rev" value="0"></div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">8.3 / 8.4 / 8.5 (US$)</span>
+      <div class="row2">
+        <div class="fld num"><label>8.3.1 Flete intern.</label><input id="flete" value="1800"></div>
+        <div class="fld num"><label>8.4 Seguro</label><input id="seguro" value="200"></div>
+      </div>
+      <div class="row2">
+        <div class="fld num"><label>8.5.4 Intereses</label><input id="d_int" value="0"></div>
+        <div class="fld num"><label>8.5.5 Otros gastos</label><input id="d_otr" value="0"></div>
+      </div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">Liquidación de tributos (%)</span>
+      <div class="toggle" onclick="document.getElementById('tlc').click()">
+        <input type="checkbox" id="tlc"><label>Aplicar TLC (Ad Valorem 0%)</label>
+      </div>
+      <div class="row2" style="margin-top:8px">
+        <div class="fld num"><label>Ad Valorem %</label><input id="p_adv" value="6"></div>
+        <div class="fld num"><label>ISC %</label><input id="p_isc" value="0"></div>
+      </div>
+      <div class="row3">
+        <div class="fld num"><label>IGV %</label><input id="p_igv" value="16"></div>
+        <div class="fld num"><label>IPM %</label><input id="p_ipm" value="2"></div>
+        <div class="fld num"><label>Percep. %</label><input id="p_per" value="3.5"></div>
+      </div>
+      <div class="fld num"><label>Servicio despacho (US$)</label><input id="servDesp" value="0"></div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">8. Declarante</span>
+      <div class="row2">
+        <div class="fld"><label>Agente de aduana</label><input id="declarante" value="Despachadores Asociados S.A."></div>
+        <div class="fld"><label>RUC</label><input id="rucDecl" value="20512345678"></div>
+      </div>
+      <div class="fld"><label>Fecha declaración</label><input type="date" id="fDecl" value="2026-07-25"></div>
+    </fieldset>
+
+    <div class="btns">
+      <button class="btn btn-print" onclick="window.print()">🖨 Imprimir / PDF</button>
+      <button class="btn btn-reset" onclick="location.reload()">↺ Restaurar</button>
+    </div>
+    <div class="hint">⚠ Herramienta académica y de simulación. Reproduce la estructura de casillas y las fórmulas oficiales, pero no genera una declaración con validez legal ni reemplaza al SIGAD. Las casillas marcadas <i>(uso aduana)</i> o <i>(no llenar)</i> se muestran en blanco por fidelidad al formato.</div>
+  </aside>
+
+  <!-- ============ FORMATO A ============ -->
+  <main class="docs">
+    <section class="dam fill-page" id="formA">
+      <div class="dam-head"><span class="t">DECLARACIÓN ADUANERA DE MERCANCÍAS</span><span class="badge">FORMATO A · Ingreso</span></div>
+      <div class="grid" style="grid-template-columns:1.5fr 1fr 1fr 1fr 1fr 1.2fr">
+        <div class="c"><span class="k">Aduana - Código</span><span class="v" id="oA_aduana"></span></div>
+        <div class="c"><span class="k">N° Orden</span><span class="v" id="oA_norden"></span></div>
+        <div class="c"><span class="k">Destinación</span><span class="v" id="oA_regimen"></span></div>
+        <div class="c"><span class="k">Modalidad</span><span class="v" id="oA_modalidad"></span></div>
+        <div class="c"><span class="k">Tipo Despacho</span><span class="v" id="oA_tipoDesp"></span></div>
+        <div class="c"><span class="k">N° Orden de Embarque</span><span class="v" id="oA_nOrdEmb"></span></div>
+      </div>
+
+      <div class="grid" style="grid-template-columns:2.3fr 1fr">
+        <div style="border-right:1px solid #b9c4cf">
+          <div class="sec-tit"><span class="n">1</span> Identificación</div>
+          <div class="grid"><div class="c" style="border-right:0"><span class="k"><b>1.1</b> Importador</span><span class="v" id="oA_impNom"></span></div></div>
+          <div class="grid g3">
+            <div class="c"><span class="k"><b>1.2</b> Cód. / N° Doc.</span><span class="v"><span id="oA_impDocCod"></span> · <span id="oA_impRuc"></span></span></div>
+            <div class="c"><span class="k"><b>1.3</b> Dirección del importador</span><span class="v" id="oA_impDir"></span></div>
+            <div class="c" style="border-right:0"><span class="k"><b>1.4</b> Cód. Ubic. Geográfica</span><span class="v" id="oA_ubigeo"></span></div>
+          </div>
+        </div>
+        <div>
+          <div class="sec-tit"><span class="n">2</span> Registro de Aduana</div>
+          <div class="grid"><div class="c admin" style="border-right:0"><span class="k">N° Declaración</span><span class="v" id="oA_numdam"></span></div></div>
+          <div class="grid"><div class="c admin" style="border-right:0"><span class="k">Fecha Numeración</span><span class="v" id="oA_fechaNum"></span></div></div>
+          <div class="grid"><div class="c admin" style="border-right:0"><span class="k">Sujeto a (canal)</span><span class="v" id="oA_canal"></span></div></div>
+        </div>
+      </div>
+
+      <div class="sec-tit"><span class="n">3</span> Transporte</div>
+      <div class="grid g4">
+        <div class="c"><span class="k"><b>3.1</b> Empresa transporte - RUC</span><span class="v" id="oA_transp"></span></div>
+        <div class="c"><span class="k"><b>3.2</b> N° Manifiesto</span><span class="v" id="oA_manifiesto"></span></div>
+        <div class="c"><span class="k"><b>3.3</b> Vía transporte</span><span class="v" id="oA_via"></span></div>
+        <div class="c"><span class="k"><b>3.4</b> Fecha térm. descarga</span><span class="v" id="oA_fTermDesc"></span></div>
+      </div>
+      <div class="grid g3">
+        <div class="c"><span class="k"><b>3.5</b> Empresa transp. (Tránsito/Reemb.)</span><span class="v"><span class="na">(según régimen)</span></span></div>
+        <div class="c"><span class="k"><b>3.6</b> Unidad transporte (Tránsito/Reemb.)</span><span class="v"><span class="na">(según régimen)</span></span></div>
+        <div class="c"><span class="k"><b>3.7</b> Aduana destino/salida</span><span class="v"><span class="na">(según régimen)</span></span></div>
+      </div>
+
+      <div class="sec-tit"><span class="n">4</span> Almacén Aduanero</div>
+      <div class="grid g3">
+        <div class="c"><span class="k"><b>4.1</b> Depósito temporal - RUC</span><span class="v" id="oA_almacen"></span></div>
+        <div class="c"><span class="k"><b>4.2</b> Depósito aduanero - RUC</span><span class="v"><span class="na">(rég. depósito)</span></span></div>
+        <div class="c"><span class="k"><b>4.3</b> Plazo solicitado</span><span class="v" id="oA_plazo"></span></div>
+      </div>
+
+      <div class="sec-tit"><span class="n">5</span> Transacción</div>
+      <div class="grid g2">
+        <div class="c"><span class="k"><b>5.1</b> Entidad financiera - Código</span><span class="v" id="oA_entFin"></span></div>
+        <div class="c"><span class="k"><b>5.2</b> Modalidad de pago - Código</span><span class="v" id="oA_modPago"></span></div>
+      </div>
+
+      <div class="sec-tit"><span class="n">6</span> Valor en Aduana <span class="free">(resumen, US$)</span></div>
+      <div class="grid g4">
+        <div class="c"><span class="k"><b>6.1</b> FOB</span><span class="v big money" id="oA_fob"></span></div>
+        <div class="c"><span class="k"><b>6.2</b> Flete</span><span class="v money" id="oA_flete"></span></div>
+        <div class="c"><span class="k"><b>6.3</b> Seguro</span><span class="v money" id="oA_seguro"></span></div>
+        <div class="c"><span class="k"><b>6.4</b> Total Ajustes</span><span class="v money" id="oA_ajuste"></span></div>
+      </div>
+      <div class="grid tot"><div class="c" style="border-right:0"><span class="k"><b>6.5</b> VALOR EN ADUANA (6.1+6.2+6.3+6.4)</span><span class="v big money" id="oA_va"></span></div></div>
+
+      <div class="sec-tit"><span class="n">7</span> Declaración de Mercancías <span class="free">(serie 1)</span></div>
+      <div class="grid g5">
+        <div class="c"><span class="k"><b>7.1</b> N° Serie/Total</span><span class="v" id="oA_nSerie"></span></div>
+        <div class="c"><span class="k"><b>7.2</b> Ítems Formato B</span><span class="v" id="oA_itemsB"></span></div>
+        <div class="c"><span class="k"><b>7.3</b> N° Decl. precedente-Serie</span><span class="v"></span></div>
+        <div class="c"><span class="k"><b>7.4</b> N° Cert. Reposición-Ítem</span><span class="v"></span></div>
+        <div class="c"><span class="k"><b>7.5</b> Cód. ultractividad</span><span class="v"></span></div>
+      </div>
+      <div class="grid g4">
+        <div class="c"><span class="k"><b>7.6</b> Puerto embarque</span><span class="v" id="oA_ptoEmb"></span></div>
+        <div class="c"><span class="k"><b>7.7</b> Fecha embarque</span><span class="v" id="oA_fEmb"></span></div>
+        <div class="c"><span class="k"><b>7.8</b> Doc. transporte - Detalle</span><span class="v" id="oA_bl"></span></div>
+        <div class="c"><span class="k"><b>7.9</b> N° Cert. Origen / Fecha</span><span class="v" id="oA_co"></span></div>
+      </div>
+      <div class="grid g4">
+        <div class="c"><span class="k"><b>7.10</b> Cant. U. comercial</span><span class="v" id="oA_cant"></span></div>
+        <div class="c"><span class="k"><b>7.11</b></span><span class="v"><span class="na">(no llenar)</span></span></div>
+        <div class="c"><span class="k"><b>7.12</b> Cant. de bultos</span><span class="v" id="oA_bultos"></span></div>
+        <div class="c"><span class="k"><b>7.13</b> Clase de bultos</span><span class="v" id="oA_claseBultos"></span></div>
+      </div>
+      <div class="grid g5">
+        <div class="c"><span class="k"><b>7.14</b> Peso neto (kg)</span><span class="v" id="oA_pesoNeto"></span></div>
+        <div class="c"><span class="k"><b>7.15</b> Peso bruto (kg)</span><span class="v" id="oA_pesoBruto"></span></div>
+        <div class="c"><span class="k"><b>7.16</b> Cant. U. física - Unidad</span><span class="v" id="oA_cantFisica"></span></div>
+        <div class="c"><span class="k"><b>7.17</b> Cant. U. equiv./producción</span><span class="v"><span class="na">(rég. CIP)</span></span></div>
+        <div class="c"><span class="k"><b>7.18</b> Ítem CIP</span><span class="v"><span class="na">(rég. CIP)</span></span></div>
+      </div>
+      <div class="grid g3">
+        <div class="c"><span class="k"><b>7.19</b> Subpartida Nacional - DV</span><span class="v" id="oA_subpartida"></span></div>
+        <div class="c"><span class="k"><b>7.20</b> Tipo</span><span class="v"></span></div>
+        <div class="c"><span class="k"><b>7.21</b> Subpartida NALADISA/NABANDINA - DV</span><span class="v"></span></div>
+      </div>
+      <div class="grid g4">
+        <div class="c"><span class="k"><b>7.22</b> TM</span><span class="v"></span></div>
+        <div class="c"><span class="k"><b>7.23</b> TPI</span><span class="v" id="oA_tpi"></span></div>
+        <div class="c"><span class="k"><b>7.24</b> TPN</span><span class="v"></span></div>
+        <div class="c"><span class="k"><b>7.25</b> Cód. Liberatorio</span><span class="v"></span></div>
+      </div>
+      <div class="grid g4">
+        <div class="c"><span class="k"><b>7.26</b> País de origen</span><span class="v" id="oA_pOrigen"></span></div>
+        <div class="c"><span class="k"><b>7.27</b> País de adquisición</span><span class="v" id="oA_pAdquis"></span></div>
+        <div class="c"><span class="k"><b>7.28</b> Régimen aplicable</span><span class="v"><span class="na">(no llenar)</span></span></div>
+        <div class="c"><span class="k"><b>7.29</b> FOB Moneda Transacc. - Cód.</span><span class="v" id="oA_fobMon"></span></div>
+      </div>
+      <div class="grid g5">
+        <div class="c"><span class="k"><b>7.30</b> FOB US$</span><span class="v money" id="oA_fob2"></span></div>
+        <div class="c"><span class="k"><b>7.31</b> Flete US$</span><span class="v money" id="oA_flete2"></span></div>
+        <div class="c"><span class="k"><b>7.32</b> Seguro US$ - Tipo</span><span class="v money" id="oA_seguro2"></span></div>
+        <div class="c"><span class="k"><b>7.33</b> Ajuste Valor US$</span><span class="v money" id="oA_ajuste2"></span></div>
+        <div class="c"><span class="k"><b>7.34</b> Valor Aduana US$</span><span class="v money" id="oA_va2"></span></div>
+      </div>
+      <div class="grid"><div class="c" style="border-right:0"><span class="k"><b>7.35</b> Descripción de la mercancía</span><span class="v" id="oA_descMerc"></span></div></div>
+      <div class="grid g2">
+        <div class="c"><span class="k"><b>7.36</b> N° Factura comercial - Fecha</span><span class="v" id="oA_factCom"></span></div>
+        <div class="c"><span class="k"><b>7.37</b> Información complementaria</span><span class="v"></span></div>
+      </div>
+      <div class="grid g2">
+        <div class="c"><span class="k"><b>7.38</b> Observación</span><span class="v"><span class="na">(diligencia)</span></span></div>
+        <div class="c"><span class="k"><b>7.39</b> Tipo de observación</span><span class="v"><span class="na">(diligencia)</span></span></div>
+      </div>
+
+      <!-- Fila: 8 Declarante | 9 Contenedores/Precintos — misma altura -->
+      <div class="grid g2">
+        <div class="colwrap" style="border-right:1px solid #b9c4cf">
+          <div class="sec-tit"><span class="n">8</span> Declarante</div>
+          <div class="grid g-1-2">
+            <div class="c"><span class="k"><b>8.1</b> Código</span><span class="v" id="oA_codDecl"></span></div>
+            <div class="c" style="border-right:0"><span class="k"><b>8.2</b> Nombre o Razón Social</span><span class="v" id="oA_declarante"></span></div>
+          </div>
+          <div class="grid g2" style="flex:1">
+            <div class="c"><span class="k"><b>8.3</b> Fecha</span><span class="v" id="oA_fDecl"></span></div>
+            <div class="c firma" style="border-right:0;position:relative;height:55px"><span class="fl" style="font-size:7px">Firma y sello</span><img src="sello_14_DAM.svg" alt="Customs Broker Stamp" style="position:absolute;top:5px;right:10px;height:45px;width:auto;transform:rotate(-2deg)"></div>
+          </div>
+        </div>
+        <div class="colwrap">
+          <div class="sec-tit"><span class="n">9</span> N° Contenedores / Precintos</div>
+          <div class="grid" style="flex:1"><div class="c firma" style="border-right:0"><span class="k">Marcas / N° Contenedor / Precinto</span><span class="v"><span id="oA_contenedor"></span> · <span id="oA_precinto"></span></span></div></div>
+        </div>
+      </div>
+
+      <!-- 10 Diligencia Aduanera (ancho completo) -->
+      <div class="grid" style="grid-template-columns:1fr 2fr">
+        <div style="border-right:1px solid #b9c4cf">
+          <div class="sec-tit"><span class="n">10</span> Diligencia Aduanera</div>
+          <div class="grid"><div class="c admin" style="border-right:0"><span class="k"><b>10.1</b> Cód. Especialista</span><span class="v"><span class="na">(uso aduana)</span></span></div></div>
+          <div class="grid"><div class="c admin" style="border-right:0"><span class="k"><b>10.2</b> Fecha Vencimiento</span><span class="v"></span></div></div>
+          <div class="grid"><div class="c admin" style="border-right:0"><span class="k"><b>10.3</b> Plazo Autorizado</span><span class="v"></span></div></div>
+          <div class="grid"><div class="c admin" style="border-right:0"><span class="k"><b>10.4</b> Fecha</span><span class="v"></span></div></div>
+        </div>
+        <div class="c admin firma"><span class="k na">Revisión documentaria / reconocimiento físico</span><span class="fl">Firma y sello</span></div>
+      </div>
+
+      <!-- 11 Control Oficial | 12 Regularización — altura x2 -->
+      <div class="grid g2">
+        <div style="border-right:1px solid #b9c4cf">
+          <div class="sec-tit"><span class="n">11</span> Control Oficial de Aduanas</div>
+          <div class="grid g2">
+            <div class="c admin tall"><span class="k"><b>11.1</b> Código</span><span class="v"></span></div>
+            <div class="c admin firma tall" style="border-right:0"><span class="k"><b>11.2</b> Fecha</span><span class="fl">Firma y sello</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="sec-tit"><span class="n">12</span> Regularización / Control de Embarque / Tornaguía</div>
+          <div class="grid g2">
+            <div class="c admin tall"><span class="k"><b>12.1</b> Código</span><span class="v"></span></div>
+            <div class="c admin firma tall" style="border-right:0"><span class="k"><b>12.2</b> Fecha</span><span class="fl">Firma y sello</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 13 Depósito Aduanero | 14 Transportista — altura x2 -->
+      <div class="grid g2">
+        <div style="border-right:1px solid #b9c4cf">
+          <div class="sec-tit"><span class="n">13</span> Depósito Aduanero · Zona Primaria</div>
+          <div class="grid g3">
+            <div class="c admin tall"><span class="k"><b>13.1</b> Fecha Térm. Recepción</span><span class="v"></span></div>
+            <div class="c admin tall"><span class="k"><b>13.2</b> Cantidad y Clase de Bulto</span><span class="v"></span></div>
+            <div class="c admin firma tall" style="border-right:0"><span class="k"><b>13.3</b> Peso Bruto (kg)</span><span class="fl">Firma y sello</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="sec-tit"><span class="n">14</span> Transportista</div>
+          <div class="grid"><div class="c admin firma tall" style="border-right:0"><span class="k"><b>14.1</b> Fecha Término de Recepción</span><span class="fl">Firma y sello</span></div></div>
+        </div>
+      </div>
+
+      <!-- 15 Validación de Datos — altura x2 -->
+      <div class="grid" style="grid-template-columns:auto 1fr">
+        <div class="sec-tit"><span class="n">15</span> Validación de Datos</div>
+        <div class="c admin tall" style="border-right:0"><span class="k"><b>15.1</b> Clave de Validación</span><span class="v"><span class="na">(SIGAD)</span></span></div>
+      </div>
+
+      <div class="footnote">Formato A generado con fines de estudio (curso Valoración Aduanera y Nomenclatura). Estructura conforme al instructivo SUNAT DESPA-IT.00.04. Las casillas 10–15 son de uso exclusivo de la autoridad aduanera.</div>
+    </section>
+
+    <!-- ============ FORMATO B ============ -->
+    <section class="dam fill-page" id="formB">
+      <div class="dam-head"><span class="t">DECLARACIÓN JURADA DEL VALOR</span><span class="badge">FORMATO B · Método 1</span></div>
+      <div class="dam-sub"><span>N° Declaración: <b id="oB_numdam"></b></span><span>Aduana: <b id="oB_aduana"></b></span></div>
+
+      <div class="sec-tit"><span class="n">1</span> Identificación</div>
+      <div class="grid g3">
+        <div class="c"><span class="k"><b>1.1</b> Importador</span><span class="v" id="oB_impNom"></span></div>
+        <div class="c"><span class="k"><b>1.2</b> Cód. / N° Documento</span><span class="v"><span id="oB_impDocCod"></span> · <span id="oB_impRuc"></span></span></div>
+        <div class="c"><span class="k"><b>1.3</b> Nivel comercial</span><span class="v" id="oB_nivelCom"></span></div>
+      </div>
+
+      <div class="sec-tit"><span class="n">2</span> Registro de Aduana <span class="free">· uso aduana</span></div>
+      <div class="grid g3">
+        <div class="c admin"><span class="k">N° Declaración</span><span class="v" id="oB_numdam2"></span></div>
+        <div class="c admin"><span class="k">Fecha Numeración</span><span class="v" id="oB_fechaNum"></span></div>
+        <div class="c admin"><span class="k">Canal</span><span class="v" id="oB_canal"></span></div>
+      </div>
+
+      <div class="sec-tit"><span class="n">3</span> Proveedor</div>
+      <div class="grid g-2-1">
+        <div class="c"><span class="k"><b>3.1</b> Nombre o razón social - Código</span><span class="v" id="oB_provNom"></span></div>
+        <div class="c"><span class="k"><b>3.2</b> Condición</span><span class="v" id="oB_provCond"></span></div>
+      </div>
+      <div class="grid g4">
+        <div class="c"><span class="k"><b>3.3</b> Dirección</span><span class="v" id="oB_provDir"></span></div>
+        <div class="c"><span class="k"><b>3.4</b> Ciudad</span><span class="v" id="oB_provCiudad"></span></div>
+        <div class="c"><span class="k"><b>3.5</b> País</span><span class="v" id="oB_provPais"></span></div>
+        <div class="c"><span class="k"><b>3.6</b> Teléfono</span><span class="v"></span></div>
+      </div>
+      <div class="grid g3">
+        <div class="c"><span class="k"><b>3.7</b> Fax</span><span class="v"></span></div>
+        <div class="c"><span class="k"><b>3.8</b> Página web</span><span class="v"></span></div>
+        <div class="c"><span class="k"><b>3.9</b> E-mail</span><span class="v"></span></div>
+      </div>
+
+      <div class="sec-tit"><span class="n">4</span> Transacción</div>
+      <div class="grid g2">
+        <div class="c"><span class="k"><b>4.1</b> Naturaleza de la transacción</span><span class="v" id="oB_natTrans"></span></div>
+        <div class="c"><span class="k"><b>4.2</b> Forma de envío</span><span class="v" id="oB_formaEnvio"></span></div>
+      </div>
+
+      <div class="sec-tit"><span class="n">5</span> Descripción de la Mercancía <span class="free">(ítem 1/1)</span></div>
+      <div class="grid g4">
+        <div class="c"><span class="k"><b>5.1</b> N° Ítem / Total</span><span class="v" id="oB_nItem"></span></div>
+        <div class="c"><span class="k"><b>5.2</b> N° Factura comercial</span><span class="v" id="oB_nFactura"></span></div>
+        <div class="c"><span class="k"><b>5.3</b> Fecha factura</span><span class="v" id="oB_fFactura"></span></div>
+        <div class="c"><span class="k"><b>5.4</b> Incoterm - Ciudad</span><span class="v" id="oB_incoterm"></span></div>
+      </div>
+      <div class="grid g4">
+        <div class="c"><span class="k"><b>5.5</b> Cód. Moneda</span><span class="v" id="oB_moneda"></span></div>
+        <div class="c"><span class="k"><b>5.6</b> Tipo valor declarado</span><span class="v" id="oB_tipoValor"></span></div>
+        <div class="c"><span class="k"><b>5.7</b> País origen</span><span class="v" id="oB_pOrigen"></span></div>
+        <div class="c"><span class="k"><b>5.8</b> País embarque</span><span class="v" id="oB_pEmbarque"></span></div>
+      </div>
+      <div class="grid g4">
+        <div class="c"><span class="k"><b>5.9</b> FOB unitario US$</span><span class="v money" id="oB_fobUnit"></span></div>
+        <div class="c"><span class="k"><b>5.10</b> Ajuste unitario US$</span><span class="v money" id="oB_ajusUnit"></span></div>
+        <div class="c"><span class="k"><b>5.11</b> Cant. U. comercial - Unidad</span><span class="v" id="oB_cant"></span></div>
+        <div class="c"><span class="k"><b>5.12</b> Nombre del producto</span><span class="v" id="oB_nombreProd"></span></div>
+      </div>
+      <div class="grid g5">
+        <div class="c"><span class="k"><b>5.13</b> Marca comercial</span><span class="v" id="oB_marca"></span></div>
+        <div class="c"><span class="k"><b>5.14</b> Modelo</span><span class="v" id="oB_modelo"></span></div>
+        <div class="c"><span class="k"><b>5.15</b> Año/Aro</span><span class="v" id="oB_anioAro"></span></div>
+        <div class="c"><span class="k"><b>5.16</b> Estado</span><span class="v" id="oB_estado"></span></div>
+        <div class="c"><span class="k"><b>5.19</b> Subpartida Nac.</span><span class="v" id="oB_subpartida"></span></div>
+      </div>
+      <div class="grid"><div class="c" style="border-right:0"><span class="k"><b>5.17+</b> Características (tipo, clase, variedad, uso/aplicación, presentación, materia)</span><span class="v" id="oB_carac"></span></div></div>
+
+      <div class="sec-tit"><span class="n">6</span> Intermediario entre comprador y vendedor</div>
+      <div class="grid g4">
+        <div class="c qbox"><span class="k"><b>6.1</b> ¿Participó intermediario?</span><span class="v" id="oB_q61">NO</span></div>
+        <div class="c"><span class="k"><b>6.2</b> Nombre</span><span class="v"></span></div>
+        <div class="c"><span class="k"><b>6.3/6.4</b> Dirección / Ciudad</span><span class="v"></span></div>
+        <div class="c"><span class="k"><b>6.5/6.6</b> País / Tipo</span><span class="v"></span></div>
+      </div>
+
+      <div class="sec-tit"><span class="n">7</span> Condiciones de la Transacción</div>
+      <div class="grid g2">
+        <div class="c qbox"><span class="k"><b>7.1</b> ¿Vinculación importador–proveedor?</span><span class="v">NO</span></div>
+        <div class="c qbox"><span class="k"><b>7.2</b> ¿Influyó la vinculación en el precio?</span><span class="v">N/A</span></div>
+      </div>
+      <div class="grid g2">
+        <div class="c qbox"><span class="k"><b>7.3</b> ¿Se aproxima a un valor criterio (Art.1.2.b)?</span><span class="v">N/A</span></div>
+        <div class="c qbox"><span class="k"><b>7.4</b> ¿Puede disponer libremente de la mercancía?</span><span class="v">SÍ</span></div>
+      </div>
+      <div class="grid g2">
+        <div class="c qbox"><span class="k"><b>7.5</b> ¿Venta sujeta a condiciones/contraprestaciones?</span><span class="v">NO</span></div>
+        <div class="c qbox"><span class="k"><b>7.6</b> ¿Puede determinarse el valor de esas condiciones?</span><span class="v">N/A</span></div>
+      </div>
+      <div class="grid g2">
+        <div class="c qbox"><span class="k"><b>7.7</b> ¿Existen pagos indirectos?</span><span class="v">NO</span></div>
+        <div class="c qbox"><span class="k"><b>7.8</b> ¿Existen descuentos retroactivos?</span><span class="v">NO</span></div>
+      </div>
+      <div class="grid g2">
+        <div class="c qbox"><span class="k"><b>7.9</b> ¿Cánones/regalías como condición de venta?</span><span class="v" id="oB_q79">SÍ</span></div>
+        <div class="c qbox"><span class="k"><b>7.10</b> ¿Reversión posterior al proveedor?</span><span class="v" id="oB_q710">NO</span></div>
+      </div>
+      <div class="grid g2">
+        <div class="c qbox"><span class="k"><b>7.11</b> ¿Existe contrato además de la factura?</span><span class="v">SÍ</span></div>
+        <div class="c qbox"><span class="k"><b>7.12</b> ¿Contrato global de larga duración?</span><span class="v">NO</span></div>
+      </div>
+      <div class="grid g3">
+        <div class="c qbox"><span class="k"><b>7.13</b> ¿Cláusula de revisión de precio?</span><span class="v">NO</span></div>
+        <div class="c qbox"><span class="k"><b>7.14</b> ¿Intermediario importando p/cliente?</span><span class="v">NO</span></div>
+        <div class="c qbox"><span class="k"><b>7.15</b> ¿Valor de verificadora difiere?</span><span class="v">NO</span></div>
+      </div>
+
+      <div class="sec-tit"><span class="n">8</span> Determinación del Valor <span class="free">(Método del Valor de Transacción, US$)</span></div>
+      <div class="grid g-3-1"><div class="c"><span class="k"><b>8.1.1</b> Precio neto según factura (Incoterm pactado)</span><span class="v big money" id="oB_factura"></span></div><div class="c"><span class="k">8.1 Base</span><span class="v"></span></div></div>
+      <div class="grid g4">
+        <div class="c"><span class="k"><b>8.1.2</b> Descuentos aceptables incluidos</span><span class="v money" id="oB_812"></span></div>
+        <div class="c"><span class="k"><b>8.1.3</b> Distribuidos y deducidos</span><span class="v money" id="oB_813"></span></div>
+        <div class="c"><span class="k"><b>8.1.4</b> Descuentos no aceptables</span><span class="v money" id="oB_814"></span></div>
+        <div class="c"><span class="k"><b>8.1.5/8.1.6</b> Otros</span><span class="v money" id="oB_816"></span></div>
+      </div>
+      <div class="grid g-3-1 ajuste-row"><div class="c"><span class="k"><b>8.2.1</b> Comisiones y corretajes (excepto compra)</span><span class="v money" id="oB_com"></span></div><div class="c"><span class="k">Adición</span><span class="v">+</span></div></div>
+      <div class="grid g-3-1 ajuste-row"><div class="c"><span class="k"><b>8.2.2</b> Envases y embalajes</span><span class="v money" id="oB_emb"></span></div><div class="c"><span class="k">Adición</span><span class="v">+</span></div></div>
+      <div class="grid g-3-1 ajuste-row"><div class="c"><span class="k"><b>8.2.3.1</b> Materiales incorporados</span><span class="v money" id="oB_mat"></span></div><div class="c"><span class="k">Adición</span><span class="v">+</span></div></div>
+      <div class="grid g-3-1 ajuste-row"><div class="c"><span class="k"><b>8.2.3.2</b> Herramientas, matrices, moldes</span><span class="v money" id="oB_her"></span></div><div class="c"><span class="k">Adición</span><span class="v">+</span></div></div>
+      <div class="grid g-3-1 ajuste-row"><div class="c"><span class="k"><b>8.2.3.3</b> Materiales consumidos</span><span class="v money" id="oB_con"></span></div><div class="c"><span class="k">Adición</span><span class="v">+</span></div></div>
+      <div class="grid g-3-1 ajuste-row"><div class="c"><span class="k"><b>8.2.3.4</b> Ingeniería, diseño, planos (fuera del Perú)</span><span class="v money" id="oB_ing"></span></div><div class="c"><span class="k">Adición</span><span class="v">+</span></div></div>
+      <div class="grid g-3-1 ajuste-row"><div class="c"><span class="k"><b>8.2.4</b> Cánones y derechos de licencia</span><span class="v money" id="oB_can"></span></div><div class="c"><span class="k">Adición</span><span class="v">+</span></div></div>
+      <div class="grid g-3-1 ajuste-row"><div class="c"><span class="k"><b>8.2.5</b> Reversión al vendedor</span><span class="v money" id="oB_rev"></span></div><div class="c"><span class="k">Adición</span><span class="v">+</span></div></div>
+      <div class="grid g-3-1 tot"><div class="c"><span class="k"><b>5.10 / 6.4</b> TOTAL ADICIONES (Ajuste de valor)</span><span class="v big money" id="oB_totAdic"></span></div><div class="c"><span class="k">Σ 8.2</span><span class="v" id="oB_totAdic2"></span></div></div>
+      <div class="grid g-3-1"><div class="c"><span class="k"><b>8.3.1</b> Gastos de transporte (flete internacional)</span><span class="v money" id="oB_flete"></span></div><div class="c"><span class="k">8.3</span><span class="v">+</span></div></div>
+      <div class="grid g-3-1"><div class="c"><span class="k"><b>8.3.2</b> Carga, descarga, manipulación en destino</span><span class="v money" id="oB_832"></span></div><div class="c"><span class="k">8.3</span><span class="v">+</span></div></div>
+      <div class="grid g-3-1"><div class="c"><span class="k"><b>8.4</b> Total gastos de seguro</span><span class="v money" id="oB_seguro"></span></div><div class="c"><span class="k">8.4</span><span class="v">+</span></div></div>
+      <div class="grid g4 warn">
+        <div class="c"><span class="k"><b>8.5.1</b> Entrega post-import.</span><span class="v money" id="oB_851"></span></div>
+        <div class="c"><span class="k"><b>8.5.2</b> Construcción/montaje</span><span class="v money" id="oB_852"></span></div>
+        <div class="c"><span class="k"><b>8.5.3</b> Derechos/tributos Perú</span><span class="v money" id="oB_853"></span></div>
+        <div class="c"><span class="k"><b>8.5.4/8.5.5</b> Intereses/otros</span><span class="v money" id="oB_deduc"></span></div>
+      </div>
+      <div class="grid tot"><div class="c" style="border-right:0"><span class="k"><b>VALOR EN ADUANA</b> = FOB + Flete + Seguro + Ajustes − Deducciones</span><span class="v big money" id="oB_va"></span></div></div>
+      <div class="footnote"><b>Declarante del Formato B:</b> el importador/beneficiario (o su representante legal) es responsable de la exactitud e integridad de la información. En ningún caso se considera declarante del Formato B al agente de aduana.</div>
+    </section>
+
+    <!-- ============ FORMATO C ============ -->
+    <section class="dam" id="formC">
+      <div class="dam-head"><span class="t">LIQUIDACIÓN DE LA DEUDA TRIBUTARIA</span><span class="badge">FORMATO C</span></div>
+      <div class="grid g5">
+        <div class="c"><span class="k">Aduana - Código</span><span class="v" id="oC_aduana"></span></div>
+        <div class="c"><span class="k">N° Orden</span><span class="v" id="oC_norden"></span></div>
+        <div class="c"><span class="k">Destinación</span><span class="v" id="oC_regimen"></span></div>
+        <div class="c"><span class="k">Modalidad</span><span class="v" id="oC_modalidad"></span></div>
+        <div class="c"><span class="k">Tipo Despacho</span><span class="v" id="oC_tipoDesp"></span></div>
+      </div>
+
+      <div class="sec-tit"><span class="n">1</span> Identificación &nbsp;·&nbsp; <span class="n">2</span> Registro de Aduana</div>
+      <div class="grid g4">
+        <div class="c"><span class="k"><b>1.1</b> Importador</span><span class="v" id="oC_impNom"></span></div>
+        <div class="c"><span class="k"><b>1.2</b> Cód. / N° Doc.</span><span class="v"><span id="oC_impDocCod"></span> · <span id="oC_impRuc"></span></span></div>
+        <div class="c"><span class="k"><b>1.3</b> Almacén / Depósito - RUC</span><span class="v" id="oC_almacen"></span></div>
+        <div class="c admin"><span class="k"><b>2.</b> N° Declaración / Canal</span><span class="v"><span id="oC_numdam"></span> · <span id="oC_canal"></span></span></div>
+      </div>
+
+      <div class="sec-tit"><span class="n">3</span> Valor en Aduana <span class="free">(base imponible, US$)</span></div>
+      <div class="grid g4">
+        <div class="c"><span class="k"><b>3.1</b> FOB</span><span class="v money" id="oC_fob"></span></div>
+        <div class="c"><span class="k"><b>3.2</b> Flete</span><span class="v money" id="oC_flete"></span></div>
+        <div class="c"><span class="k"><b>3.3</b> Seguro</span><span class="v money" id="oC_seguro"></span></div>
+        <div class="c"><span class="k"><b>3.4</b> Ajuste valor</span><span class="v money" id="oC_ajuste"></span></div>
+      </div>
+      <div class="grid tot"><div class="c" style="border-right:0"><span class="k"><b>3.5</b> VALOR EN ADUANA (CIF ajustado)</span><span class="v big money" id="oC_va"></span></div></div>
+
+      <div class="sec-tit"><span class="n">4</span> Liquidación de la Deuda Tributaria Aduanera y Recargos <span class="free">(US$)</span></div>
+      <div class="grid g2 liq">
+        <div class="c"><span class="k"><b>4.1</b> Ad Valorem <span id="oC_advPct"></span></span><span class="v money" id="oC_adv"></span></div>
+        <div class="c"><span class="k"><b>4.2</b> Sobretasa Ad Valorem</span><span class="v money" id="oC_sobre"></span></div>
+      </div>
+      <div class="grid g2 liq">
+        <div class="c"><span class="k"><b>4.3</b> Derecho Específico</span><span class="v money" id="oC_espec"></span></div>
+        <div class="c"><span class="k"><b>4.4</b> Impuesto Selectivo al Consumo (ISC) <span id="oC_iscPct"></span></span><span class="v money" id="oC_isc"></span></div>
+      </div>
+      <div class="grid g2 liq">
+        <div class="c"><span class="k"><b>4.5</b> Impuesto de Promoción Municipal (IPM) <span id="oC_ipmPct"></span></span><span class="v money" id="oC_ipm"></span></div>
+        <div class="c"><span class="k"><b>4.6</b> Impuesto General a las Ventas (IGV) <span id="oC_igvPct"></span></span><span class="v money" id="oC_igv"></span></div>
+      </div>
+      <div class="grid g2 liq">
+        <div class="c"><span class="k"><b>4.7</b> Derechos Antidumping</span><span class="v money" id="oC_anti"></span></div>
+        <div class="c"><span class="k"><b>4.8</b> Servicio de Despacho</span><span class="v money" id="oC_serv"></span></div>
+      </div>
+      <div class="grid g2 liq">
+        <div class="c"><span class="k"><b>4.9</b> Interés Compensatorio</span><span class="v money" id="oC_interes"></span></div>
+        <div class="c"><span class="k"><b>+</b> Percepción del IGV <span id="oC_perPct"></span></span><span class="v money" id="oC_per"></span></div>
+      </div>
+      <div class="grid g3 liq">
+        <div class="c"><span class="k"><b>4.10</b></span><span class="v"></span></div>
+        <div class="c"><span class="k"><b>4.11</b></span><span class="v"></span></div>
+        <div class="c"><span class="k"><b>4.12</b></span><span class="v"></span></div>
+      </div>
+      <div class="grid tot liq"><div class="c" style="border-right:0"><span class="k"><b>4.13</b> TOTAL A PAGAR (tributos + percepción)</span><span class="v big money" id="oC_total"></span></div></div>
+
+      <div class="sec-tit"><span class="n">5</span> Formas de Pago &nbsp;·&nbsp; <span class="n">6</span> Declarante</div>
+      <div class="grid g4">
+        <div class="c"><span class="k"><b>5.</b> Forma de pago</span><span class="v">4 - Pago electrónico</span></div>
+        <div class="c"><span class="k"><b>5.</b> T/C venta (soles)</span><span class="v"><span class="na">(fecha de pago)</span></span></div>
+        <div class="c"><span class="k"><b>6.</b> Declarante - RUC</span><span class="v"><span id="oC_declarante"></span></span></div>
+        <div class="c" style="position:relative;height:55px"><span class="k"><b>6.</b> Fecha / firma y sello</span><span class="v" id="oC_fDecl" style="font-size:8px"></span><img src="sello_14_DAM.svg" alt="Customs Broker Stamp" style="position:absolute;bottom:2px;right:10px;height:38px;width:auto;transform:rotate(1.8deg)"></div>
+      </div>
+
+      <div class="grid g2">
+        <div class="c admin"><span class="k"><b>7.</b> Para ser llenado por Aduanas (Fianzas)</span><span class="v"><span class="na">(uso aduana)</span></span></div>
+        <div class="c admin"><span class="k"><b>8.</b> Para ser llenado por Banco / Caja</span><span class="v"><span class="na">(uso recaudador)</span></span></div>
+      </div>
+
+      <div class="sec-tit"><span class="free">Anexo analítico — Comparativo Régimen General vs. TLC (no forma parte del formato oficial)</span></div>
+      <div class="grid g3">
+        <div class="c"><span class="k">Total con Ad Valorem general</span><span class="v money" id="oC_cmpGen"></span></div>
+        <div class="c"><span class="k">Total con TLC (AdV 0%)</span><span class="v money" id="oC_cmpTlc"></span></div>
+        <div class="c tot"><span class="k">Ahorro por TLC</span><span class="v big money" id="oC_ahorro"></span></div>
+      </div>
+      <div class="footnote">Cifras en US$; la cancelación se realiza en soles al T/C venta de la fecha de pago. Formato C con fines de estudio.</div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const num = id => { const e=$(id); if(!e) return 0; const v=parseFloat(e.value.replace(/,/g,'')); return isNaN(v)?0:v; };
+const val = id => { const e=$(id); return e?e.value.toUpperCase():''; };
+const dateVal = id => {
+  const e=$(id); if(!e||!e.value) return '';
+  const [y,m,d]=e.value.split('-'); return `${d}.${m}.${y}`;
+};
+const fmt = n => n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const setT = (id,v) => { const e=$(id); if(e) e.textContent = v; };
+
+function calc(){
+  const factura=num('v_factura');
+  const com=num('a_com'),emb=num('a_emb'),mat=num('a_mat'),her=num('a_her'),
+        con=num('a_con'),ing=num('a_ing'),can=num('a_can'),rev=num('a_rev');
+  const flete=num('flete'),seguro=num('seguro'),dInt=num('d_int'),dOtr=num('d_otr');
+  const inco=val('incoterm');
+
+  const ajuste=com+emb+mat+her+con+ing+can+rev;
+  const deduc=dInt+dOtr;
+
+  let fob=factura-deduc;
+  if(['CFR','CPT'].includes(inco))            fob=factura-flete-deduc;
+  else if(['CIF','CIP'].includes(inco))       fob=factura-flete-seguro-deduc;
+  else if(['DPU','DAP','DDP'].includes(inco)) fob=factura-flete-seguro-deduc;
+  if(fob<0) fob=0;
+  const va=fob+flete+seguro+ajuste;
+
+  const pAdvGen=num('p_adv');
+  const advPct=$('tlc').checked?0:pAdvGen;
+  const iscPct=num('p_isc'),igvPct=num('p_igv'),ipmPct=num('p_ipm'),perPct=num('p_per');
+  const servDesp=num('servDesp');
+
+  function liq(advP){
+    const adv=va*advP/100, isc=(va+adv)*iscPct/100, base=va+adv+isc;
+    const igv=base*igvPct/100, ipm=base*ipmPct/100, sub=adv+isc+igv+ipm+servDesp;
+    const per=(va+sub)*perPct/100;
+    return {adv,isc,igv,ipm,sub,per,total:sub+per};
+  }
+  const L=liq(advPct), Lgen=liq(pAdvGen), Ltlc=liq(0);
+  const ahorro=Lgen.total-Ltlc.total;
+
+  const cant=num('cant');
+  const fobUnit=cant>0?fob/cant:0, ajusUnit=cant>0?ajuste/cant:0;
+
+  const cantU = cant.toLocaleString('en-US')+' '+val('unidad');
+
+  /* ---- FORMATO A ---- */
+  setT('oA_aduana',val('aduana')); setT('oA_norden',val('norden'));
+  setT('oA_regimen',val('regimen')); setT('oA_modalidad',val('modalidad')); setT('oA_tipoDesp',val('tipoDesp')||'—');
+  setT('oA_nOrdEmb',val('nOrdEmb')||'—');
+  setT('oA_numdam',val('numdam')); setT('oA_fechaNum',dateVal('fechaNum')); setT('oA_canal',val('canal'));
+  setT('oA_impNom',val('impNom')); setT('oA_impDocCod',val('impDocCod')); setT('oA_impRuc',val('impRuc'));
+  setT('oA_ubigeo',val('ubigeo')); setT('oA_impDir',val('impDir'));
+  setT('oA_transp',val('transp')); setT('oA_manifiesto',val('manifiesto')); setT('oA_via',val('via')); setT('oA_fTermDesc',dateVal('fTermDesc'));
+  setT('oA_almacen',val('almacen')); setT('oA_plazo',val('plazo')||'—');
+  setT('oA_entFin',val('entFin')||'—'); setT('oA_modPago',val('modPago'));
+  setT('oA_fob',fmt(fob)); setT('oA_flete',fmt(flete)); setT('oA_seguro',fmt(seguro));
+  setT('oA_ajuste',fmt(ajuste)); setT('oA_va',fmt(va));
+  setT('oA_nSerie',val('nSerie')); setT('oA_itemsB','1');
+  setT('oA_ptoEmb',val('ptoEmb')); setT('oA_fEmb',dateVal('fEmb')); setT('oA_bl',val('bl'));
+  setT('oA_co',val('coNum')+' / '+dateVal('coFecha'));
+  setT('oA_cant',cantU); setT('oA_bultos',num('bultos').toLocaleString('en-US'));
+  setT('oA_claseBultos',val('claseBultos'));
+  setT('oA_pesoNeto',num('pesoNeto').toLocaleString('en-US')+' kg');
+  setT('oA_pesoBruto',num('pesoBruto').toLocaleString('en-US')+' kg');
+  setT('oA_cantFisica',num('cantFisica').toLocaleString('en-US')+' '+val('unidadFisica'));
+  setT('oA_subpartida',val('subpartida')+' - '+val('dv'));
+  setT('oA_tpi',val('tpi')); setT('oA_pOrigen',val('pOrigen')); setT('oA_pAdquis',val('pAdquis'));
+  setT('oA_fobMon',fmt(fob)+' USD');
+  setT('oA_fob2',fmt(fob)); setT('oA_flete2',fmt(flete)); setT('oA_seguro2',fmt(seguro)+' (2)');
+  setT('oA_ajuste2',fmt(ajuste)); setT('oA_va2',fmt(va));
+  setT('oA_descMerc',val('descMerc'));
+  setT('oA_factCom',val('nFactura')+' / '+dateVal('fFactura'));
+  setT('oA_codDecl',val('rucDecl')); setT('oA_declarante',val('declarante')); setT('oA_fDecl',dateVal('fDecl'));
+  setT('oA_contenedor',val('contenedor')); setT('oA_precinto',val('precinto'));
+
+  /* ---- FORMATO B ---- */
+  setT('oB_numdam',val('numdam')); setT('oB_numdam2',val('numdam')); setT('oB_aduana',val('aduana'));
+  setT('oB_fechaNum',dateVal('fechaNum')); setT('oB_canal',val('canal'));
+  setT('oB_impNom',val('impNom')); setT('oB_impDocCod',val('impDocCod')); setT('oB_impRuc',val('impRuc'));
+  setT('oB_nivelCom',val('nivelCom'));
+  setT('oB_provNom',val('provNom')); setT('oB_provCond',val('provCond'));
+  setT('oB_provDir',val('provDir')); setT('oB_provCiudad',val('provCiudad')); setT('oB_provPais',val('provPais'));
+  setT('oB_natTrans',val('natTrans')); setT('oB_formaEnvio',val('formaEnvio'));
+  setT('oB_nItem','1 / 1'); setT('oB_nFactura',val('nFactura')); setT('oB_fFactura',dateVal('fFactura'));
+  setT('oB_incoterm',inco.toUpperCase()+' - '+val('incoCity').toUpperCase()+' (INCOTERMS® 2020)');
+  setT('oB_moneda','USD'); setT('oB_tipoValor',val('tipoValor'));
+  setT('oB_pOrigen',val('pOrigen')); setT('oB_pEmbarque',val('pEmbarque'));
+  setT('oB_fobUnit',fmt(fobUnit)); setT('oB_ajusUnit',fmt(ajusUnit));
+  setT('oB_cant',cantU); setT('oB_nombreProd',val('descMerc').split('(')[0].trim());
+  setT('oB_marca',val('marca')); setT('oB_modelo',val('modelo'));
+  setT('oB_anioAro',val('anioAro')); setT('oB_estado',val('estado')); setT('oB_subpartida',val('subpartida'));
+  setT('oB_carac',val('descMerc'));
+  setT('oB_q79', can>0?'SÍ':'NO'); setT('oB_q710', rev>0?'SÍ':'NO');
+  setT('oB_factura',fmt(factura));
+  setT('oB_812','0.00'); setT('oB_813','0.00'); setT('oB_814','0.00'); setT('oB_816','0.00');
+  setT('oB_com',fmt(com)); setT('oB_emb',fmt(emb)); setT('oB_mat',fmt(mat)); setT('oB_her',fmt(her));
+  setT('oB_con',fmt(con)); setT('oB_ing',fmt(ing)); setT('oB_can',fmt(can)); setT('oB_rev',fmt(rev));
+  setT('oB_totAdic',fmt(ajuste)); setT('oB_totAdic2',fmt(ajuste));
+  setT('oB_flete',fmt(flete)); setT('oB_832','0.00'); setT('oB_seguro',fmt(seguro));
+  setT('oB_851','0.00'); setT('oB_852','0.00'); setT('oB_853','0.00'); setT('oB_deduc',fmt(deduc));
+  setT('oB_va',fmt(va));
+
+  /* ---- FORMATO C ---- */
+  setT('oC_aduana',val('aduana')); setT('oC_norden',val('norden')); setT('oC_regimen',val('regimen'));
+  setT('oC_modalidad',val('modalidad')); setT('oC_tipoDesp',val('tipoDesp')||'—');
+  setT('oC_impNom',val('impNom')); setT('oC_impDocCod',val('impDocCod')); setT('oC_impRuc',val('impRuc'));
+  setT('oC_almacen',val('almacen')); setT('oC_numdam',val('numdam')); setT('oC_canal',val('canal'));
+  setT('oC_fob',fmt(fob)); setT('oC_flete',fmt(flete)); setT('oC_seguro',fmt(seguro));
+  setT('oC_ajuste',fmt(ajuste)); setT('oC_va',fmt(va));
+  setT('oC_advPct','('+advPct+'%)'); setT('oC_iscPct','('+iscPct+'%)');
+  setT('oC_igvPct','('+igvPct+'%)'); setT('oC_ipmPct','('+ipmPct+'%)'); setT('oC_perPct','('+perPct+'%)');
+  setT('oC_adv',fmt(L.adv)); setT('oC_sobre','0.00'); setT('oC_espec','0.00');
+  setT('oC_isc',fmt(L.isc)); setT('oC_ipm',fmt(L.ipm)); setT('oC_igv',fmt(L.igv));
+  setT('oC_anti','0.00'); setT('oC_serv',fmt(servDesp)); setT('oC_interes','0.00');
+  setT('oC_per',fmt(L.per)); setT('oC_total',fmt(L.total));
+  setT('oC_declarante',val('declarante')+' · '+val('rucDecl')); setT('oC_fDecl',dateVal('fDecl'));
+  setT('oC_cmpGen',fmt(Lgen.total)); setT('oC_cmpTlc',fmt(Ltlc.total)); setT('oC_ahorro',fmt(ahorro));
+}
+
+document.querySelectorAll('.panel input, .panel select').forEach(el=>{
+  el.addEventListener('input',calc); el.addEventListener('change',calc);
+});
+calc();
+
+/* ---- Auto-ajuste de impresión: garantiza que cada formato quepa en 1 hoja A4 ----
+   Mide cada formato con el tamaño de impresión y, solo si excede la altura útil de
+   la hoja, lo reduce proporcionalmente con `zoom` (afecta el layout en Chromium/Edge). */
+const PRINT_SIM = `
+  .app{display:block!important}.docs{padding:0!important;gap:0!important;display:block!important}
+  .no-print{display:none!important}
+  .dam{width:756px!important;font-size:9px!important;line-height:1.12!important;margin:0!important}
+  .dam-head{padding:4px 10px!important}.dam-head .t{font-size:12px!important}
+  .dam-head .badge{font-size:8px!important;padding:1px 6px!important}
+  .dam-sub{padding:2px 10px!important;font-size:8px!important}.sec-tit{padding:2px 10px!important;font-size:8.6px!important}
+  .c{min-height:0!important;padding:2px 5px!important}.c .k{font-size:7.4px!important;margin-bottom:0!important}
+  .c .v{font-size:9px!important;min-height:10px!important}.c .v.big{font-size:11px!important}
+  .c .na{font-size:7px!important}.liq .c{min-height:0!important}
+  .c.firma{min-height:26px!important}.c.tall{min-height:44px!important}.c.tall.firma{min-height:52px!important}
+  .footnote{padding:3px 10px!important;font-size:7.4px!important;line-height:1.3!important}
+`;
+const A4_USABLE_H = (297 - 10) * 3.779528 * 0.97; // alto útil A4 (margen 5mm) con 3% de seguridad
+
+function fitPrint(){
+  const sim = document.createElement('style');
+  sim.id = 'print-sim-measure'; sim.textContent = PRINT_SIM;
+  document.head.appendChild(sim);
+  document.querySelectorAll('.dam').forEach(dam=>{
+    dam.style.zoom = ''; dam.style.height='';   // medir sin zoom ni altura forzada
+    const h = dam.offsetHeight;
+    const z = Math.min(A4_USABLE_H / h, 1);
+    dam.dataset.fitZoom = z.toFixed(4);
+  });
+  sim.remove();
+  document.querySelectorAll('.dam').forEach(dam=>{
+    const z = parseFloat(dam.dataset.fitZoom);
+    dam.style.zoom = dam.dataset.fitZoom;
+    // Formatos marcados fill-page (A y B): fuerzan altura de página completa para
+    // que las filas (flex:1 en @media print) se repartan el espacio sobrante y
+    // queden con altura uniforme, llenando la hoja de arriba a abajo.
+    if(dam.classList.contains('fill-page')) dam.style.height = (A4_USABLE_H / z) + 'px';
+  });
+}
+function unfitPrint(){ document.querySelectorAll('.dam').forEach(dam=>{ dam.style.zoom=''; dam.style.height=''; }); }
+window.addEventListener('beforeprint', fitPrint);
+window.addEventListener('afterprint', unfitPrint);
+</script>
+</body>
+</html>
