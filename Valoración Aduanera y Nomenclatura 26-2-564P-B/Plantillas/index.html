@@ -199,7 +199,7 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
-    margin-bottom: 6px;
+    margin-bottom: 12px;
   }
 
   .time-date {
@@ -211,11 +211,34 @@
     font-weight: 700;
   }
 
-  .time-content p {
-    font-size: 0.88rem;
+  .timeline-list {
+    list-style: none;
+    margin: 0 0 16px 0;
+    padding: 0;
+    font-size: 0.85rem;
     color: var(--text-muted);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .timeline-list li {
     line-height: 1.45;
-    margin-bottom: 12px;
+  }
+
+  .timeline-list li strong {
+    color: var(--text-main);
+  }
+
+  .timeline-list li em {
+    color: var(--accent);
+    font-style: normal;
+    font-size: 0.75rem;
+    background: rgba(245, 158, 11, 0.1);
+    padding: 1px 5px;
+    border-radius: 4px;
+    margin-left: 5px;
+    font-weight: 700;
   }
 
   .time-links {
@@ -395,11 +418,17 @@
       <h2>Interactive Import Timeline & Document Trail</h2>
       <div class="timeline">
         
+        <!-- Fase 1 -->
         <div class="timeline-item">
           <div class="time-node">1</div>
           <div class="time-content">
             <h3>Fase 1: Compra y Despacho en Origen <span class="time-date">10/07 - 20/07</span></h3>
-            <p>Negociación y firma de contrato de regalías sobre el modelado de suela RunMax. Emisión de la Factura Comercial principal (término EXW) y complementación de embalajes especiales y Certificado de Origen.</p>
+            <ul class="timeline-list">
+              <li><strong>• Emisión de OC (10/07/2026):</strong> Zapatillas del Pacífico S.A.C. emite la Orden de Compra formal al fabricante chino. <em>Contrato de Regalías</em></li>
+              <li><strong>• Pago de Factura (18/07/2026):</strong> Transferencia bancaria por el valor EXW de USD 20,000 (1,000 pares). <em>Factura Comercial</em></li>
+              <li><strong>• Ajustes en Origen (19/07/2026):</strong> Pago de comisiones, regalías y embalaje hacia el puerto. <em>Factura de Embalaje</em></li>
+              <li><strong>• Entrega al Transportista (20/07/2026):</strong> La carga es consolidada y entregada al transportista marítimo en Cantón. <em>Certificado de Origen</em></li>
+            </ul>
             <div class="time-links">
               <a href="Generador_Contrato.html" class="time-badge">📄 Contrato de Regalías (10/07)</a>
               <a href="Generador_Factura.html" class="time-badge">🧾 Factura Comercial EXW (18/07)</a>
@@ -408,11 +437,17 @@
           </div>
         </div>
 
+        <!-- Fase 2 -->
         <div class="timeline-item">
           <div class="time-node">2</div>
           <div class="time-content">
-            <h3>Fase 2: Embarque y Tránsito Internacional <span class="time-date">22/07 - 24/08</span></h3>
-            <p>Consolidación y estiba de contenedores a bordo de la nave de Maersk Line. Contratación simultánea de póliza de seguro marítimo contra todo riesgo y travesía transoceánica hacia el Callao.</p>
+            <h3>Fase 2: Tránsito y Trámites de Destino <span class="time-date">22/07 - 24/08</span></h3>
+            <ul class="timeline-list">
+              <li><strong>• Embarque de Mercancía (22/07/2026):</strong> Estiba y aseguramiento de los contenedores a bordo del buque carguero. <em>Bill of Lading</em></li>
+              <li><strong>• Tránsito Internacional (23/07/2026):</strong> Viaje marítimo y contratación simultánea del seguro internacional. <em>Certificado de Seguro</em></li>
+              <li><strong>• Llegada al Callao (24/08/2026):</strong> Arribo de la nave al terminal de destino APM Terminals en Perú. <em>Volante de Despacho</em></li>
+              <li><strong>• Descarga en Almacén (24/08/2026):</strong> Traslado y descarga de la mercancía hacia el Depósito Temporal para su resguardo físico.</li>
+            </ul>
             <div class="time-links">
               <a href="Generador_Transporte_Seguro.html" class="time-badge">🚢 Conocimiento de Embarque B/L (22/07)</a>
               <a href="Generador_Transporte_Seguro.html" class="time-badge">🛡️ Póliza de Seguro Rímac (23/07)</a>
@@ -420,22 +455,34 @@
           </div>
         </div>
 
+        <!-- Fase 3 -->
         <div class="timeline-item">
           <div class="time-node">3</div>
           <div class="time-content">
-            <h3>Fase 3: Numeración de la DAM y Liquidación <span class="time-date">24/08 - 25/08</span></h3>
-            <p>Arribo de la nave y descarga. Endoso y entrega de documentación original al Agente de Aduanas. Transmisión del despacho de importación, numeración aduanera de la DAM y cancelación de los tributos liquidados.</p>
+            <h3>Fase 3: Transmisión de la DAM y Liquidación <span class="time-date">24/08 - 25/08</span></h3>
+            <ul class="timeline-list">
+              <li><strong>• Entrega de Documentos (24/08/2026):</strong> Endoso del conocimiento de embarque y entrega al Agente de Aduanas. <em>B/L Endosado</em></li>
+              <li><strong>• Numeración de la DAM (25/08/2026):</strong> El agente transmite la Declaración Aduanera ante el sistema SUNAT. <em>DAM Formatos A y B</em></li>
+              <li><strong>• Cálculo de Liquidación (25/08/2026):</strong> Determinación de tributos (Ad Valorem, IGV, IPM, Percepción) sobre CIF. <em>DAM Formato C</em></li>
+              <li><strong>• Pago de Deuda Tributaria (25/08/2026):</strong> El importador cancela el monto exacto de los tributos en la red bancaria. <em>Comprobante de Pago</em></li>
+            </ul>
             <div class="time-links">
               <a href="Generador_DAM.html" class="time-badge">📑 Declaración Aduanera (DAM) (25/08)</a>
             </div>
           </div>
         </div>
 
+        <!-- Fase 4 -->
         <div class="timeline-item">
           <div class="time-node">4</div>
           <div class="time-content">
-            <h3>Fase 4: Control Aduanero, Ajuste y Levante <span class="time-date">25/08 - 27/08</span></h3>
-            <p>SUNAT asigna Canal Naranja. Fiscalización del valor FOB de transacción declarado (sospecha de subvaluación / duda razonable). Despacho sustentado exitosamente mediante las facturas de ajustes y contratos de origen, obteniendo el Levante.</p>
+            <h3>Fase 4: Canales de Control y Levante <span class="time-date">25/08 - 27/08</span></h3>
+            <ul class="timeline-list">
+              <li><strong>• Asignación de Canal (25/08/2026):</strong> El sistema asigna canal de control: Verde, Naranja o Rojo. <em>Gestión de Canal</em></li>
+              <li><strong>• Atención de Duda Razonable (26/08/2026):</strong> Si SUNAT observa el valor FOB, se sustenta con transferencias y contratos. <em>Facturas de Ajuste y Contrato</em></li>
+              <li><strong>• Levante Autorizado (27/08/2026):</strong> SUNAT otorga el permiso oficial ("Levante") tras confirmar conformidad. <em>DAM con Levante</em></li>
+              <li><strong>• Retiro de Carga (27/08/2026):</strong> La empresa coordina el transporte local para retirar la carga del almacén.</li>
+            </ul>
             <div class="time-links">
               <a href="Generador_Factura.html" class="time-badge">🧮 Ajustes Declarados (FOB Total)</a>
               <a href="Generador_DAM.html" class="time-badge">📊 Sustento de Valoración (Formato B)</a>
