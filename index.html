@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADEX Ciclo V - Módulo B Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(22, 30, 49, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            
+            --color-comercio-1: #00f2fe;
+            --color-comercio-2: #4facfe;
+            --color-valoracion-1: #b92b27;
+            --color-valoracion-2: #1565c0;
+            --color-english-1: #f857a6;
+            --color-english-2: #ff5858;
+            
+            --accent-comercio: #38bdf8;
+            --accent-valoracion: #6366f1;
+            --accent-english: #f43f5e;
+            
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(244, 63, 94, 0.08) 0%, transparent 45%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+
+        header {
+            text-align: center;
+            padding: 5rem 2rem 3rem 2rem;
+            position: relative;
+        }
+
+        .logo-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo-text {
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ffffff 40%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        main {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            width: 100%;
+            margin-bottom: 4rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 3rem 2.5rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 320px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px -15px rgba(0,0,0,0.3);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            transition: var(--transition);
+        }
+
+        /* Card themes */
+        .card.comercio::before {
+            background: linear-gradient(90deg, var(--color-comercio-1), var(--color-comercio-2));
+        }
+        .card.comercio:hover {
+            border-color: rgba(56, 189, 248, 0.4);
+            box-shadow: 0 20px 40px -15px rgba(56, 189, 248, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .card.valoracion::before {
+            background: linear-gradient(90deg, var(--color-valoracion-1), var(--color-valoracion-2));
+        }
+        .card.valoracion:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .card.english::before {
+            background: linear-gradient(90deg, var(--color-english-1), var(--color-english-2));
+        }
+        .card.english:hover {
+            border-color: rgba(244, 63, 94, 0.4);
+            box-shadow: 0 20px 40px -15px rgba(244, 63, 94, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .subject-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .subject-badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            align-self: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .comercio .subject-badge {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent-comercio);
+        }
+
+        .valoracion .subject-badge {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--accent-valoracion);
+        }
+
+        .english .subject-badge {
+            background: rgba(244, 63, 94, 0.1);
+            color: var(--accent-english);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 0.75rem;
+            color: #ffffff;
+        }
+
+        .code {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-family: monospace;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-portal {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            width: 100%;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .comercio .btn-portal {
+            background: linear-gradient(135deg, var(--color-comercio-1), var(--color-comercio-2));
+            color: #0b0f19;
+        }
+        .comercio .btn-portal:hover {
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+            transform: scale(1.02);
+        }
+
+        .valoracion .btn-portal {
+            background: linear-gradient(135deg, var(--color-valoracion-1), var(--color-valoracion-2));
+            color: #ffffff;
+        }
+        .valoracion .btn-portal:hover {
+            box-shadow: 0 0 20px rgba(21, 101, 192, 0.4);
+            transform: scale(1.02);
+        }
+
+        .english .btn-portal {
+            background: linear-gradient(135deg, var(--color-english-1), var(--color-english-2));
+            color: #ffffff;
+        }
+        .english .btn-portal:hover {
+            box-shadow: 0 0 20px rgba(244, 63, 94, 0.4);
+            transform: scale(1.02);
+        }
+
+        .btn-portal span {
+            margin-left: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .btn-portal:hover span {
+            transform: translateX(4px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(11, 15, 25, 0.8);
+            backdrop-filter: blur(10px);
+            width: 100%;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.4rem;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            header {
+                padding: 3rem 1rem 1.5rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <span class="logo-text">ADEX • Ciclo V</span>
+        </div>
+        <h1>Módulo B - Portal de Recursos</h1>
+        <p class="subtitle">Acceso centralizado a los portales de cada asignatura.</p>
+    </header>
+
+    <main>
+        <div class="grid">
+            
+            <!-- COMERCIALIZACIÓN INTERNACIONAL -->
+            <div class="card comercio">
+                <div class="subject-info">
+                    <div class="subject-badge">Comercio Exterior</div>
+                    <h2>Comercialización Internacional</h2>
+                    <div class="code">ID: 26-2-564P-B</div>
+                </div>
+                <a href="Comercialización%20Internacional%2026-2-564P-B/comercializacion.html" class="btn-portal">
+                    Abrir Ficha de Curso <span>➔</span>
+                </a>
+            </div>
+
+            <!-- VALORACIÓN ADUANERA Y NOMENCLATURA -->
+            <div class="card valoracion">
+                <div class="subject-info">
+                    <div class="subject-badge">Aduanas y Nomenclatura</div>
+                    <h2>Valoración Aduanera</h2>
+                    <div class="code">ID: 26-2-564P-B</div>
+                </div>
+                <a href="Valoración%20Aduanera%20y%20Nomenclatura%2026-2-564P-B/valoracion.html" class="btn-portal">
+                    Abrir Ficha de Curso <span>➔</span>
+                </a>
+            </div>
+
+            <!-- WRITING INTERNAL DOCUMENTS IN ENGLISH -->
+            <div class="card english">
+                <div class="subject-info">
+                    <div class="subject-badge">Business English</div>
+                    <h2>Writing Internal Documents</h2>
+                    <div class="code">ID: 26-2-561A</div>
+                </div>
+                <a href="Writing%20Internal%20Documents%20in%20English%2026-2-561A/english.html" class="btn-portal">
+                    Abrir Ficha de Curso <span>➔</span>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 ADEX - Ciclo V • Módulo B. Diseñado para Eric M.</p>
+    </footer>
+
+</body>
+</html>

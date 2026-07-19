@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writing Internal Documents in English - ADEX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(22, 30, 49, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --accent: #f43f5e;
+            --accent-grad: linear-gradient(135deg, #f857a6, #ff5858);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: radial-gradient(circle at 10% 20%, rgba(244, 63, 94, 0.1) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        header {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 3rem 2rem 1.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            transition: var(--transition);
+            margin-bottom: 2rem;
+        }
+
+        .btn-back:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent);
+        }
+
+        .btn-back span {
+            margin-right: 0.5rem;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: var(--accent-grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        main {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem;
+            flex-grow: 1;
+        }
+
+        .content-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 2.5rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 10px 30px -15px rgba(0,0,0,0.3);
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            margin-top: 1rem;
+            margin-bottom: 1.25rem;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 0.5rem;
+        }
+
+        .link-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .link-item a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #d1d5db;
+            font-size: 1rem;
+            padding: 1rem 1.25rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            transition: var(--transition);
+        }
+
+        .link-item a:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(244, 63, 94, 0.4);
+            box-shadow: 0 5px 15px rgba(244, 63, 94, 0.08);
+            transform: translateX(4px);
+        }
+
+        .link-icon {
+            margin-right: 1rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .link-text {
+            flex-grow: 1;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            margin-left: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-pdf {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .link-arrow {
+            font-size: 0.9rem;
+            margin-left: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .link-item a:hover .link-arrow {
+            transform: translateX(4px);
+        }
+
+        .empty-state {
+            color: var(--text-secondary);
+            font-style: italic;
+            font-size: 0.95rem;
+            padding: 2rem;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px dashed rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="../index.html" class="btn-back">
+            <span>←</span> Volver al Hub
+        </a>
+        <h1>Writing Internal Documents in English</h1>
+        <p class="subtitle">Documentos de estudio, teoría y multimedia</p>
+    </header>
+
+    <main>
+        <div class="content-card">
+            <div class="section-title">Clases y Teoría (PDF)</div>
+            <ul class="link-list">
+                <li class="link-item">
+                    <a href="Semana%201/561%20Session%2001%20and%2002.pdf" target="_blank">
+                        <span class="link-icon">📘</span>
+                        <span class="link-text">Session 01 and 02 - Material Principal</span>
+                        <span class="badge badge-pdf">PDF</span>
+                        <span class="link-arrow">➔</span>
+                    </a>
+                </li>
+                <li class="link-item">
+                    <a href="teoria/PPT%20Session%201%20-%20Key%20ideas.pdf" target="_blank">
+                        <span class="link-icon">📕</span>
+                        <span class="link-text">PPT Session 1 - Key Ideas</span>
+                        <span class="badge badge-pdf">PDF</span>
+                        <span class="link-arrow">➔</span>
+                    </a>
+                </li>
+                <li class="link-item">
+                    <a href="teoria/PPT%20Session%202%20-%20Key%20ideas.pdf" target="_blank">
+                        <span class="link-icon">📕</span>
+                        <span class="link-text">PPT Session 2 - Key Ideas</span>
+                        <span class="badge badge-pdf">PDF</span>
+                        <span class="link-arrow">➔</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="section-title" style="margin-top: 2rem;">Sílaba y Grabaciones</div>
+            <ul class="link-list">
+                <li class="link-item">
+                    <a href="silabo/EES%20P%20Sílabo%20UD%20Writing%20Internal%20Documents%20in%20English.pdf" target="_blank">
+                        <span class="link-icon">📋</span>
+                        <span class="link-text">Sílabo de la Asignatura</span>
+                        <span class="badge badge-pdf">PDF</span>
+                        <span class="link-arrow">➔</span>
+                    </a>
+                </li>
+                <li class="link-item">
+                    <a href="Semana%201/GMT20260715-233529_Recording_1686x768.mp4" target="_blank">
+                        <span class="link-icon">🎥</span>
+                        <span class="link-text">Grabación de Clase (Session 1)</span>
+                        <span class="badge" style="background:rgba(16,185,129,0.15); color:#10b981; border:1px solid rgba(16,185,129,0.2)">MP4</span>
+                        <span class="link-arrow">➔</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 ADEX - Ciclo V • Módulo B</p>
+    </footer>
+
+</body>
+</html>
