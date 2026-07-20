@@ -94,13 +94,13 @@
   /* ---------- IMPRESIÓN VERTICAL — cada formato en 1 hoja A4 ---------- */
   @media print{
     @page{size:A4 portrait;margin:5mm}
-    html,body{background:#fff;width:100%}
+    html,body{background:#fff;width:100%;height:auto!important;min-height:0!important;overflow:visible!important}
     .no-print{display:none!important}
-    .app{display:block}
-    .docs{padding:0;gap:0;display:block}
+    .app{display:block!important;height:auto!important;min-height:0!important;overflow:visible!important;position:static!important}
+    .docs{padding:0!important;gap:0!important;display:block!important;height:auto!important;min-height:0!important;overflow:visible!important;position:static!important}
     /* cada .dam se escala por JS (zoom) para caber en una hoja; page-break lo aísla */
     .dam{width:100%;font-size:9px;line-height:1.12;box-shadow:none;border:1.2px solid #000;
-         page-break-after:always;break-after:page;page-break-inside:auto;margin:0}
+         page-break-after:always;break-after:page;page-break-inside:avoid;margin:0}
     .dam:last-child{page-break-after:auto;break-after:auto}
     .sec,.grid{page-break-inside:avoid;break-inside:avoid}
     .dam-head{padding:4px 10px}
@@ -339,7 +339,7 @@
     </fieldset>
 
     <div class="btns">
-      <button class="btn btn-print" onclick="window.print()">🖨 Imprimir / PDF</button>
+      <button class="btn btn-print" onclick="prepareAndPrint()">🖨 Imprimir / PDF</button>
       <button class="btn btn-reset" onclick="location.reload()">↺ Restaurar</button>
     </div>
     <div class="hint">⚠ Herramienta académica y de simulación. Reproduce la estructura de casillas y las fórmulas oficiales, pero no genera una declaración con validez legal ni reemplaza al SIGAD. Las casillas marcadas <i>(uso aduana)</i> o <i>(no llenar)</i> se muestran en blanco por fidelidad al formato.</div>
@@ -931,8 +931,13 @@ function fitPrint(){
   });
 }
 function unfitPrint(){ document.querySelectorAll('.dam').forEach(dam=>{ dam.style.zoom=''; dam.style.height=''; }); }
-window.addEventListener('beforeprint', fitPrint);
-window.addEventListener('afterprint', unfitPrint);
+function prepareAndPrint() {
+  fitPrint();
+  setTimeout(() => {
+    window.print();
+    unfitPrint();
+  }, 200);
+}
 </script>
 </body>
 </html>
