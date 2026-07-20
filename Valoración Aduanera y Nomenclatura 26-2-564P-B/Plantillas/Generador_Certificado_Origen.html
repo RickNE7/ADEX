@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Certificate of Origin Generator: Peru - China FTA</title>
+<title>Generador de Certificado de Origen — TLC Perú-China</title>
 <style>
   :root{
     --tinta:#0a2540; --azul:#123a6b; --acento:#0b7285; --linea:#1f2d3d;
@@ -23,44 +23,68 @@
   .fld{margin-bottom:8px}
   .fld label{display:block;font-size:11px;color:#a9bdd6;margin-bottom:3px}
   .fld input,.fld select{width:100%;padding:6px 7px;border:1px solid #2c4a6e;border-radius:5px;background:#0b1a2d;color:#eaf2fb;font-size:12px}
+  .fld input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1);cursor:pointer}
   .fld input:focus,.fld select:focus{outline:none;border-color:#3aa6bf}
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
   .btns{display:flex;gap:8px;margin-top:6px}
   .btn{flex:1;border:0;border-radius:6px;padding:10px;font-size:12px;font-weight:700;cursor:pointer}
   .btn-print{background:#0b7285;color:#fff}.btn-print:hover{background:#0a8298}
   .btn-reset{background:#33445a;color:#dce6f2}.btn-reset:hover{background:#3d5069}
+  .hint{font-size:10.5px;color:#7f95af;margin-top:9px;line-height:1.45}
 
-  /* ---------- CERTIFICADO DE ORIGEN ---------- */
+  /* ---------- CERTIFICADO DE ORIGEN (12 campos, modelo CAN/TLC) ---------- */
   .docs{flex:1;padding:26px 30px;display:flex;flex-direction:column;align-items:center;gap:26px}
-  .co{width:794px;height:1123px;background:#fff;border:1.5px solid #000;box-shadow:0 3px 14px rgba(10,37,64,.14);font-size:9px;color:#12212f;padding:25px 30px;position:relative;display:flex;flex-direction:column;justify-content:space-between;text-transform:uppercase}
-  .co-header{display:grid;grid-template-columns:3fr 1fr;border-bottom:1px solid var(--linea);padding-bottom:10px;margin-bottom:10px}
-  .co-header h2{margin:0;font-size:14px;color:var(--tinta);font-weight:800;letter-spacing:.02em;text-transform:uppercase}
-  .co-header p{margin:3px 0 0;font-size:10px;color:var(--gris)}
-  .co-num-box{border:1px solid var(--linea);padding:6px;text-align:center;background:#f5f7f9}
-  .co-num-box span{display:block;font-size:7.5px;color:var(--gris);text-transform:uppercase;font-weight:700}
+  .co{width:794px;min-height:1123px;background:#fff;border:1.5px solid #000;box-shadow:0 3px 14px rgba(10,37,64,.14);font-size:9px;color:#12212f;padding:25px 30px;position:relative;display:flex;flex-direction:column;gap:8px}
+
+  .co-head{text-align:center;border-bottom:2px solid var(--linea);padding-bottom:8px;margin-bottom:4px}
+  .co-head h1{margin:0;font-size:16px;color:var(--tinta);font-weight:800;letter-spacing:.03em;text-transform:uppercase}
+  .co-head h2{margin:3px 0 0;font-size:11px;color:var(--azul);font-weight:700;text-transform:uppercase}
+  .co-head p{margin:2px 0 0;font-size:8.5px;color:var(--gris)}
+  .co-numrow{display:flex;justify-content:flex-end;margin-top:4px}
+  .co-num-box{border:1px solid var(--linea);padding:4px 10px;text-align:center;background:#f5f7f9}
+  .co-num-box span{display:block;font-size:7px;color:var(--gris);text-transform:uppercase;font-weight:700}
   .co-num-box strong{font-size:11px;color:var(--azul)}
 
-  .co-grid{display:grid;grid-template-columns:1fr 1fr;border:1.2px solid var(--linea);border-bottom:0}
-  .co-cell{border-right:1px solid var(--linea);border-bottom:1px solid var(--linea);padding:6px 8px;min-height:65px}
-  .co-cell:nth-child(even){border-right:0}
-  .co-cell span{display:block;font-size:8px;color:var(--gris);text-transform:uppercase;font-weight:700;margin-bottom:3px}
-  .co-cell p{margin:0;font-size:9.5px;font-weight:600;line-height:1.4}
+  .co-grid{display:grid;border:1.2px solid var(--linea)}
+  .co-cell{border-right:1px solid var(--linea);border-bottom:1px solid var(--linea);padding:5px 7px;min-height:52px}
+  .co-cell:last-child{border-right:0}
+  .co-cell .lbl{display:block;font-size:7.3px;color:var(--gris);text-transform:uppercase;font-weight:700;margin-bottom:2px;line-height:1.25}
+  .co-cell .lbl i{font-style:normal;font-weight:400;text-transform:none;color:#9aa8b6}
+  .co-cell p{margin:0;font-size:8.8px;font-weight:600;line-height:1.35;text-transform:uppercase}
+  .co-cell p.small{font-size:8px;font-weight:500;text-transform:none}
 
-  .co-table{width:100%;border-collapse:collapse;border:1.2px solid var(--linea);border-top:0;margin-bottom:15px}
-  .co-table th{background:#f5f7f9;border-bottom:1px solid var(--linea);border-right:1px solid var(--linea);padding:6px;font-size:7.8px;text-transform:uppercase;font-weight:700;text-align:left}
-  .co-table td{border-bottom:1px solid var(--linea);border-right:1px solid var(--linea);padding:10px 8px;font-size:9.5px;font-weight:600;line-height:1.4}
+  .r1{grid-template-columns:2fr 1fr}
+  .r2{grid-template-columns:1fr 1fr;border-top:0}
+  .r34{grid-template-columns:1fr 1fr;border-top:0}
+
+  .co-table{width:100%;border-collapse:collapse;border:1.2px solid var(--linea);border-top:0}
+  .co-table th{background:#f5f7f9;border-bottom:1px solid var(--linea);border-right:1px solid var(--linea);padding:4px 5px;font-size:7px;text-transform:uppercase;font-weight:700;text-align:left;line-height:1.2}
+  .co-table td{border-bottom:1px solid var(--linea);border-right:1px solid var(--linea);padding:8px 6px;font-size:8.6px;font-weight:600;line-height:1.35;text-transform:uppercase;vertical-align:top}
   .co-table th:last-child,.co-table td:last-child{border-right:0}
-  
-  .co-signatures{display:grid;grid-template-columns:1fr 1fr;border:1.2px solid var(--linea);border-top:0}
-  .co-sig-box{border-right:1px solid var(--linea);padding:10px;min-height:130px;position:relative}
-  .co-sig-box:last-child{border-right:0}
-  .co-sig-box span{display:block;font-size:8px;color:var(--gris);text-transform:uppercase;font-weight:700;margin-bottom:8px}
-  .co-sig-box p{margin:0;font-size:9px;line-height:1.45}
-  
+
+  .co-cert{border:1.2px solid var(--linea);border-top:0;padding:8px 10px}
+  .co-cert .lbl{display:block;font-size:8px;color:var(--gris);text-transform:uppercase;font-weight:700;margin-bottom:5px}
+  .co-cert ul{margin:0 0 6px;padding-left:14px;font-size:7.6px;line-height:1.5;text-transform:none;color:#1c2b3a}
+  .co-cert ul li{margin-bottom:4px}
+  .co-cert .hojas{font-size:8px;text-transform:none;margin-bottom:6px}
+  .co-sig-grid{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--linea);margin-top:4px}
+  .co-sig-cell{border-right:1px solid var(--linea);padding:6px 8px 4px;min-height:38px}
+  .co-sig-cell:last-child{border-right:0}
+  .co-sig-cell .lbl{display:block;font-size:7px;color:var(--gris);text-transform:uppercase;font-weight:700;margin-bottom:2px}
+  .co-sig-cell p{margin:0;font-size:8.6px;font-weight:600;text-transform:uppercase}
+  .co-sigline{border-top:1px solid var(--linea)}
+
+  .co-obs{border:1.2px solid var(--linea);border-top:0;padding:6px 10px;min-height:32px}
+  .co-obs .lbl{display:block;font-size:7.3px;color:var(--gris);text-transform:uppercase;font-weight:700;margin-bottom:2px}
+  .co-obs p{margin:0;font-size:8.8px;font-weight:600;text-transform:uppercase}
+
+  .co-footnote{font-size:7px;color:#9aa8b6;text-align:center;margin-top:auto;padding-top:6px;text-transform:none}
+
   @media (max-width:1240px){
     .app{flex-direction:column}
     .panel{width:100%;flex:none;height:auto;position:static}
-    .docs{padding:16px}.co{width:100%;height:auto;min-height:1123px;padding:20px}
+    .docs{padding:16px}.co{width:100%;padding:20px}
   }
 
   @media print{
@@ -69,8 +93,8 @@
     .no-print{display:none!important}
     .app{display:block}
     .docs{padding:0;gap:0;display:block}
-    .co{width:210mm!important;height:297mm!important;max-height:297mm!important;min-height:297mm!important;box-shadow:none!important;border:1.5px solid #000!important;
-        page-break-after:always;break-after:page;padding:15mm;margin:0!important;page-break-inside:avoid;break-inside:avoid}
+    .co{width:210mm!important;min-height:297mm!important;box-shadow:none!important;border:1.5px solid #000!important;
+        page-break-after:always;break-after:page;padding:14mm;margin:0!important}
   }
 </style>
 </head>
@@ -79,187 +103,250 @@
 
   <!-- ============ PANEL ============ -->
   <aside class="panel no-print">
-    <h1>Certificate of Origin</h1>
-    <div class="sub">Emits the Certificate of Origin for the China-Peru Free Trade Agreement. Defaults set to align with "China Footwear Manufacturing Co., Ltd." and "Zapatillas del Pacífico S.A.C." case study.</div>
+    <h1>Generador de Certificado de Origen</h1>
+    <div class="sub">TLC Perú - China. Estructura de 12 campos basada en el formato oficial CAN/TLC (Exportador, Período cubierto, Productor, Importador, Descripción, Clasificación Arancelaria, Criterio Preferencial, Valor de Contenido Regional, Factura, País de Origen, Certificación, Observaciones).</div>
 
     <fieldset class="grp">
-      <span class="leg">Certificate Details</span>
+      <span class="leg">Certificado</span>
       <div class="row2">
-        <div class="fld"><label>Certificate No.</label><input id="coNum" value="CO-CN-26-004455"></div>
-        <div class="fld"><label>Issue Date</label><input id="coFecha" type="date" value="2026-07-20"></div>
+        <div class="fld"><label>N° de Certificado</label><input id="coNum" value="CO-CN-26-004455"></div>
+        <div class="fld"><label>Fecha de emisión</label><input type="date" id="coFecha" value="2026-07-20"></div>
       </div>
       <div class="row2">
-        <div class="fld"><label>Origin Criterion</label><input id="coCrit" value="PSR (Product Specific Rule)"></div>
-        <div class="fld"><label>HS Tariff Code</label><input id="coPartida" value="6404.11.20.00"></div>
+        <div class="fld"><label>Criterio preferencial (campo 7)</label><input id="coCrit" value="PSR"></div>
+        <div class="fld"><label>Valor Cont. Regional (campo 8)</label><input id="coVCR" value="NO"></div>
+      </div>
+      <div class="fld"><label>Clasificación arancelaria (campo 6)</label><input id="coPartida" value="6404.11.20.00"></div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">1. Exportador</span>
+      <div class="fld"><label>Razón social</label><input id="expNom" value="China Footwear Manufacturing Co., Ltd."></div>
+      <div class="fld"><label>Dirección</label><input id="expDir" value="Guangdong, China"></div>
+      <div class="row2">
+        <div class="fld"><label>Teléfono</label><input id="expTel" value="+86-755-XXXX-XXXX"></div>
+        <div class="fld"><label>Correo electrónico</label><input id="expEmail" value="exports@chinafootwear.com"></div>
       </div>
     </fieldset>
 
     <fieldset class="grp">
-      <span class="leg">Partes</span>
-      <div class="fld"><label>Exporter Name</label><input id="expNom" value="China Footwear Manufacturing Co., Ltd."></div>
-      <div class="fld"><label>Exporter Address</label><input id="expDir" value="Guangdong, China"></div>
-      <div class="fld"><label>Consignee (Importer)</label><input id="impNom" value="Zapatillas del Pacífico S.A.C."></div>
-      <div class="fld"><label>Consignee Address</label><input id="impDir" value="Av. Argentina 2020, Callao, Lima - Perú"></div>
+      <span class="leg">2. Período cubierto (opcional)</span>
+      <div class="row2">
+        <div class="fld"><label>Desde</label><input type="date" id="perDesde" value=""></div>
+        <div class="fld"><label>Hasta</label><input type="date" id="perHasta" value=""></div>
+      </div>
+      <div class="hint">Se deja en blanco: el certificado ampara un solo embarque.</div>
     </fieldset>
 
     <fieldset class="grp">
-      <span class="leg">Item Details</span>
-      <div class="fld"><label>Description of Goods</label><input id="coDesc" value="Principal (Zapatillas deportivas textiles) - 1,000 pares"></div>
+      <span class="leg">3. Productor</span>
+      <div class="fld"><label>Razón social (o "El mismo exportador")</label><input id="prodNom" value="El mismo exportador"></div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">4. Importador</span>
+      <div class="fld"><label>Razón social</label><input id="impNom" value="Zapatillas del Pacífico S.A.C."></div>
+      <div class="fld"><label>Dirección</label><input id="impDir" value="Av. Argentina 2020, Callao, Lima - Perú"></div>
       <div class="row2">
-        <div class="fld"><label>Invoice No.</label><input id="invNum" value="INV-2026-0789"></div>
-        <div class="fld"><label>Invoice Date</label><input id="invFecha" type="date" value="2026-07-18"></div>
+        <div class="fld"><label>RUC</label><input id="impRuc" value="20601234567"></div>
+        <div class="fld"><label>Teléfono</label><input id="impTel" value="+51-1-XXX-XXXX"></div>
       </div>
+      <div class="fld"><label>Correo electrónico</label><input id="impEmail" value="compras@zapatillasdelpacifico.com.pe"></div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">5-6-9-10. Mercancía y factura</span>
+      <div class="fld"><label>Descripción de la mercancía</label><input id="coDesc" value="Zapatillas de entrenamiento RunMax 2026 (1,000 pares)"></div>
+      <div class="row2">
+        <div class="fld"><label>N° Factura</label><input id="invNum" value="INV-2026-0789"></div>
+        <div class="fld"><label>Fecha factura</label><input type="date" id="invFecha" value="2026-07-18"></div>
+      </div>
+      <div class="fld"><label>País de origen</label><input id="paisOrigen" value="China"></div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">11. Certificación de origen</span>
+      <div class="fld"><label>Nombre de la empresa (emisor)</label><input id="certEmpresa" value="China Footwear Manufacturing Co., Ltd."></div>
+      <div class="row2">
+        <div class="fld"><label>Nombre del firmante</label><input id="certNombre" value="Wei Chen"></div>
+        <div class="fld"><label>Cargo</label><input id="certCargo" value="Gerente de Exportaciones"></div>
+      </div>
+      <div class="row2">
+        <div class="fld"><label>Fecha de firma</label><input type="date" id="certFecha" value="2026-07-20"></div>
+        <div class="fld"><label>Teléfono / Fax</label><input id="certTel" value="+86-755-XXXX-XXXX"></div>
+      </div>
+      <div class="fld"><label>N° de hojas (incl. anexos)</label><input id="nHojas" value="1"></div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">12. Observaciones</span>
+      <div class="fld"><input id="obs" value="Ninguna"></div>
     </fieldset>
 
     <div class="btns">
-      <button class="btn btn-print" onclick="window.print()">Print Document</button>
-      <button class="btn btn-reset" onclick="resetForm()">Reset</button>
+      <button class="btn btn-print" onclick="window.print()">🖨 Imprimir / PDF</button>
+      <button class="btn btn-reset" onclick="location.reload()">↺ Restaurar</button>
     </div>
+    <div class="hint">⚠ Documento con fines académicos. Estructura de 12 campos adaptada del formato oficial de Certificado de Origen (modelo CAN/TLC) al caso Perú-China de la Tarea 1.</div>
   </aside>
 
-  <!-- ============ DOCUMENTOS ============ -->
+  <!-- ============ DOCUMENTO ============ -->
   <main class="docs">
-
     <section class="co">
       <div>
-        <div class="co-header">
-          <div>
-            <h2>CERTIFICATE OF ORIGIN</h2>
-            <p>China - Peru Free Trade Agreement / Tratado de Libre Comercio Perú - China</p>
-          </div>
-          <div class="co-num-box">
-            <span>Certificate No.</span>
-            <strong id="outCoNum">CO-CN-26-004455</strong>
+        <div class="co-head">
+          <h1>Certificado de Origen</h1>
+          <h2>Tratado de Libre Comercio Perú - China</h2>
+          <p>Certificate of Origin / Peru - China Free Trade Agreement</p>
+          <div class="co-numrow">
+            <div class="co-num-box"><span>N° de Certificado</span><strong id="outCoNum">CO-CN-26-004455</strong></div>
           </div>
         </div>
 
-        <div class="co-grid">
+        <div class="co-grid r1">
           <div class="co-cell">
-            <span>1. Exporter's name, address, country</span>
-            <p><strong id="outExpNom">CHINA FOOTWEAR MANUFACTURING CO., LTD.</strong></p>
-            <p id="outExpDir">Guangdong, China</p>
+            <span class="lbl">1. Razón social, dirección, teléfono y correo electrónico del exportador <i>/ Exporter's name, address, telephone and e-mail</i></span>
+            <p id="outExpNom">CHINA FOOTWEAR MANUFACTURING CO., LTD.</p>
+            <p class="small" id="outExpContacto">Guangdong, China · +86-755-XXXX-XXXX · exports@chinafootwear.com</p>
           </div>
           <div class="co-cell">
-            <span>2. Consignee's name, address, country</span>
-            <p><strong id="outImpNom">ZAPATILLAS DEL PACÍFICO S.A.C.</strong></p>
-            <p id="outImpDir">Av. Argentina 2020, Callao, Lima - Perú</p>
+            <span class="lbl">2. Período cubierto <i>/ Blanket period</i></span>
+            <p class="small">Desde (DD/MM/AA): <span id="outPerDesde">—</span></p>
+            <p class="small">Hasta (DD/MM/AA): <span id="outPerHasta">—</span></p>
+          </div>
+        </div>
+
+        <div class="co-grid r2">
+          <div class="co-cell">
+            <span class="lbl">3. Razón social, dirección, teléfono y correo electrónico del productor <i>/ Producer's name, address, telephone and e-mail</i></span>
+            <p id="outProdNom">EL MISMO EXPORTADOR</p>
           </div>
           <div class="co-cell">
-            <span>3. Producer's name, address, country</span>
-            <p>SAME AS EXPORTER</p>
-          </div>
-          <div class="co-cell">
-            <span>4. Means of transport and route (as far as known)</span>
-            <p>From: Nansha Port, Guangzhou, China<br>To: Port of Callao, Lima, Peru<br>Carrier: Sea Freight / Marítimo</p>
+            <span class="lbl">4. Razón social, dirección, teléfono y correo electrónico del importador <i>/ Importer's name, address, telephone and e-mail</i></span>
+            <p id="outImpNom">ZAPATILLAS DEL PACÍFICO S.A.C.</p>
+            <p class="small" id="outImpContacto">Lima, Perú · RUC 20601234567 · +51-1-XXX-XXXX · compras@empresaimportadora.com.pe</p>
           </div>
         </div>
 
         <table class="co-table">
           <thead>
             <tr>
-              <th style="width:6%">5. Item</th>
-              <th style="width:12%">6. HS Code (6-digit)</th>
-              <th style="width:40%">7. Description of Goods</th>
-              <th style="width:18%">8. Origin Criterion</th>
-              <th style="width:24%">9. Invoice No. & Date</th>
+              <th style="width:26%">5. Descripción de la mercancía / Description of goods</th>
+              <th style="width:13%">6. Clasificación arancelaria / HS Tariff Classification</th>
+              <th style="width:11%">7. Criterio preferencial / Preference Criterion</th>
+              <th style="width:13%">8. Valor Cont. Regional / Regional Value Content</th>
+              <th style="width:19%">9. Factura N° y Fecha / Invoice No. Date</th>
+              <th style="width:18%">10. País de Origen / Country of Origin</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>1</td>
-              <td id="outCoPartida">6404.11</td>
-              <td id="outCoDesc">Principal (Zapatillas deportivas textiles) - 1,000 pares</td>
+              <td id="outCoDesc">Zapatillas de entrenamiento RunMax 2026 (1,000 pares)</td>
+              <td id="outCoPartida">6404.11.20.00</td>
               <td id="outCoCrit">PSR</td>
-              <td>No: <span id="outInvNum">INV-2026-0789</span><br>Date: <span id="outInvFecha">July 18, 2026</span> (EXW - INCOTERMS® 2020)</td>
+              <td id="outCoVCR">NO</td>
+              <td id="outInvInfo">INV-2026-0789<br>18/07/2026</td>
+              <td id="outPaisOrigen">CHINA</td>
             </tr>
           </tbody>
         </table>
-      </div>
 
-      <div class="co-signatures">
-        <div class="co-sig-box" style="position:relative">
-          <span>10. Declaration by the Exporter</span>
-          <p>The undersigned hereby declares that the above details and statements are correct, and that the goods described above originate in: <strong>CHINA</strong></p>
-          <img src="sello_10_certificadoorigen.svg" alt="Exporter Signature" style="position:absolute;bottom:15px;left:20px;height:45px;width:auto;transform:rotate(1deg)">
-          <p style="margin-top:40px;border-top:1px solid #9aa8b6;padding-top:2px;font-size:7.5px;text-transform:uppercase">Guangzhou, CN - <span id="outCoFecha">July 20, 2026</span> / Authorized Signature</p>
-        </div>
-        <div class="co-sig-box" style="position:relative">
-          <span>11. Certification by Issuing Authority</span>
-          <p>It is hereby certified, on the basis of control carried out, that the declaration by the exporter is correct. Certification Body:</p>
-          <div style="display:flex;align-items:center;gap:10px;margin-top:5px">
-            <img src="logo_CCPIT.svg" alt="CCPIT Logo" style="height:35px;max-height:35px;width:auto;object-fit:contain">
-            <p style="font-weight:700;color:var(--azul)">CCPIT CHINA COUNCIL FOR PROMOTION</p>
+        <div class="co-cert">
+          <span class="lbl">11. Certificación de Origen / Certification of Origin</span>
+          <ul>
+            <li>Declaro bajo la gravedad de juramento que la información contenida en este certificado es verdadera y exacta, y me hago responsable de comprobar lo aquí declarado.</li>
+            <li>Me comprometo a conservar y presentar, en caso de ser requerido, los documentos necesarios que respalden el contenido del presente certificado.</li>
+            <li>Las mercancías descritas son originarias del territorio de las Partes y cumplen con los requisitos de origen aplicables conforme al Tratado de Libre Comercio Perú - China.</li>
+            <li>Las mercancías no han sido objeto de procesamiento ulterior o de cualquier otra operación fuera de los territorios de las Partes.</li>
+          </ul>
+          <p class="hojas">Esta certificación se compone de <strong id="outNHojas">1</strong> hoja(s), incluyendo todos sus anexos.</p>
+
+          <div class="co-sig-grid">
+            <div class="co-sig-cell">
+              <span class="lbl">Firma autorizada / Authorized signature</span>
+              <p class="co-sigline">&nbsp;</p>
+            </div>
+            <div class="co-sig-cell">
+              <span class="lbl">Nombre de la empresa / Company's name</span>
+              <p id="outCertEmpresa">CHINA FOOTWEAR MANUFACTURING CO., LTD.</p>
+            </div>
+            <div class="co-sig-cell">
+              <span class="lbl">Nombre / Name</span>
+              <p id="outCertNombre">WEI CHEN</p>
+            </div>
+            <div class="co-sig-cell">
+              <span class="lbl">Cargo / Title</span>
+              <p id="outCertCargo">GERENTE DE EXPORTACIONES</p>
+            </div>
+            <div class="co-sig-cell">
+              <span class="lbl">Fecha (DD/MM/AA) / Date</span>
+              <p id="outCertFecha">20/07/2026</p>
+            </div>
+            <div class="co-sig-cell">
+              <span class="lbl">Teléfono y fax / Telephone and Fax</span>
+              <p id="outCertTel">+86-755-XXXX-XXXX</p>
+            </div>
           </div>
-          <img src="sello_11_CCPIT.svg" alt="CCPIT Seal" style="position:absolute;bottom:15px;right:20px;height:65px;width:auto;transform:rotate(-3deg)">
-          <p style="margin-top:25px;border-top:1px solid #9aa8b6;padding-top:2px;font-size:7.5px;text-transform:uppercase">Beijing, China - Seal and Signature</p>
+        </div>
+
+        <div class="co-obs">
+          <span class="lbl">12. Observaciones / Remarks</span>
+          <p id="outObs">NINGUNA</p>
         </div>
       </div>
-    </section>
 
+      <div class="co-footnote">Documento generado con fines de estudio (curso Valoración Aduanera y Nomenclatura) · Estructura basada en el formato oficial de Certificado de Origen (CAN / Acuerdos de Libre Comercio)</div>
+    </section>
   </main>
 </div>
 
 <script>
-  function formatDateString(dateStr) {
-    if (!dateStr) return '';
-    const dateVal = new Date(dateStr + 'T00:00:00');
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return dateVal.toLocaleDateString('en-US', options);
-  }
+  const $ = id => document.getElementById(id);
+  const val = id => { const e=$(id); return e ? e.value.toUpperCase() : ''; };
+  const rawVal = id => { const e=$(id); return e ? e.value : ''; };
+  const setT = (id,v) => { const e=$(id); if(e) e.textContent = v; };
+
+  const dateVal = id => {
+    const e=$(id); if(!e||!e.value) return '';
+    const [y,m,d]=e.value.split('-'); return `${d}/${m}/${y}`;
+  };
 
   function updateDocuments() {
-    const coNum = document.getElementById('coNum').value;
-    const coFecha = document.getElementById('coFecha').value;
-    const coCrit = document.getElementById('coCrit').value;
-    const coPartida = document.getElementById('coPartida').value;
-    const expNom = document.getElementById('expNom').value;
-    const expDir = document.getElementById('expDir').value;
-    const impNom = document.getElementById('impNom').value;
-    const impDir = document.getElementById('impDir').value;
-    const coDesc = document.getElementById('coDesc').value;
-    const invNum = document.getElementById('invNum').value;
-    const invFecha = document.getElementById('invFecha').value;
+    setT('outCoNum', rawVal('coNum'));
 
-    // Rellenar CO
-    document.getElementById('outCoNum').innerText = coNum;
-    document.getElementById('outCoFecha').innerText = formatDateString(coFecha);
-    
-    // Mostramos los primeros 6 dígitos de la partida en el casillero arancelario del CO conforme a normas de TLC
-    const hs6 = coPartida.replace(/\./g, '').substring(0, 6);
-    document.getElementById('outCoPartida').innerText = hs6.substring(0, 4) + '.' + hs6.substring(4, 6);
-    
-    document.getElementById('outCoCrit').innerText = coCrit.split(' ')[0]; // PSR, WO, etc.
-    document.getElementById('outExpNom').innerText = expNom;
-    document.getElementById('outExpDir').innerText = expDir;
-    document.getElementById('outImpNom').innerText = impNom;
-    document.getElementById('outImpDir').innerText = impDir;
-    document.getElementById('outCoDesc').innerText = coDesc;
-    document.getElementById('outInvNum').innerText = invNum;
-    document.getElementById('outInvFecha').innerText = formatDateString(invFecha);
+    setT('outExpNom', val('expNom'));
+    setT('outExpContacto', `${rawVal('expDir')} · ${rawVal('expTel')} · ${rawVal('expEmail')}`.toUpperCase());
+
+    setT('outPerDesde', dateVal('perDesde') || '—');
+    setT('outPerHasta', dateVal('perHasta') || '—');
+
+    setT('outProdNom', val('prodNom'));
+
+    setT('outImpNom', val('impNom'));
+    setT('outImpContacto', `${rawVal('impDir')} · RUC ${rawVal('impRuc')} · ${rawVal('impTel')} · ${rawVal('impEmail')}`.toUpperCase());
+
+    setT('outCoDesc', val('coDesc'));
+    setT('outCoPartida', rawVal('coPartida'));
+    setT('outCoCrit', val('coCrit'));
+    setT('outCoVCR', val('coVCR'));
+    setT('outInvInfo', `${rawVal('invNum')}<br>${dateVal('invFecha')}`);
+    document.getElementById('outInvInfo').innerHTML = `${val('invNum')}<br>${dateVal('invFecha')}`;
+    setT('outPaisOrigen', val('paisOrigen'));
+
+    setT('outNHojas', rawVal('nHojas'));
+    setT('outCertEmpresa', val('certEmpresa'));
+    setT('outCertNombre', val('certNombre'));
+    setT('outCertCargo', val('certCargo'));
+    setT('outCertFecha', dateVal('certFecha'));
+    setT('outCertTel', rawVal('certTel'));
+
+    setT('outObs', val('obs'));
   }
 
-  // Event Listeners for inputs
-  const inputs = document.querySelectorAll('.panel input');
-  inputs.forEach(input => {
-    input.addEventListener('input', updateDocuments);
+  document.querySelectorAll('.panel input').forEach(el => {
+    el.addEventListener('input', updateDocuments);
   });
 
-  function resetForm() {
-    document.getElementById('coNum').value = "CO-CN-26-004455";
-    document.getElementById('coFecha').value = "2026-07-20";
-    document.getElementById('coCrit').value = "PSR (Product Specific Rule)";
-    document.getElementById('coPartida').value = "6404.11.20.00";
-    document.getElementById('expNom').value = "China Footwear Manufacturing Co., Ltd.";
-    document.getElementById('expDir').value = "Guangdong, China";
-    document.getElementById('impNom').value = "Zapatillas del Pacífico S.A.C.";
-    document.getElementById('impDir').value = "Av. Argentina 2020, Callao, Lima - Perú";
-    document.getElementById('coDesc').value = "Principal (Zapatillas deportivas textiles) - 1,000 pares";
-    document.getElementById('invNum').value = "INV-2026-0789";
-    document.getElementById('invFecha').value = "2026-07-18";
-    updateDocuments();
-  }
-
-  // Initialize
   updateDocuments();
 </script>
 </body>
