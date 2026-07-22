@@ -28,17 +28,19 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        html {
-            font-size: 100%; /* Tamaño base estándar para evitar desbordamientos en 100vh */
+        html, body {
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+            padding: 0;
+            overflow: hidden !important;
+            font-size: clamp(14px, 1.05vw, 18px); /* Escala responsiva fluida calibrada para presentación a pantalla completa */
         }
 
         body {
             font-family: var(--font-body);
             background-color: var(--bg-page);
             color: var(--text-main);
-            overflow: hidden;
-            height: 100vh;
-            width: 100vw;
             position: relative;
         }
 
@@ -71,15 +73,17 @@
         .slide {
             position: absolute;
             top: 0; left: 0;
-            width: 100%; height: 100%;
+            width: 100vw; height: 100vh;
             opacity: 0;
             visibility: hidden;
             transform: translateX(40px) scale(0.99);
             transition: opacity 0.45s ease, transform 0.45s ease, visibility 0.45s;
-            padding: 1.8rem 3.5rem 4.2rem 3.5rem;
+            padding: 1.2vh 3vw 5vh 3vw;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            box-sizing: border-box;
+            overflow: hidden !important;
         }
 
         .slide.active {
@@ -97,68 +101,32 @@
 
         /* Header común */
         .slide-header {
+            flex: 0 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid #E5EBE2;
-            padding-bottom: 0.8rem;
-            margin-bottom: 1rem;
+            padding-bottom: 0.3rem;
+            margin-bottom: 0.5rem;
         }
-
-        .slide-title-container {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .slide-tag {
-            background: linear-gradient(135deg, var(--gold) 0%, #A66E19 100%);
-            color: #FFFFFF;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-family: var(--font-display);
-            white-space: nowrap;
-        }
-
-        .slide-title {
-            font-family: var(--font-display);
-            font-size: 1.65rem;
-            font-weight: 800;
-            color: var(--primary);
-            line-height: 1.2;
-        }
-
-        .logo-mark {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: var(--font-display);
-            font-weight: 800;
-            font-size: 1.15rem;
-            color: var(--primary);
-        }
-        .logo-mark span { color: var(--gold); }
 
         .slide-body {
-            flex-grow: 1;
+            flex: 1 1 auto;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            overflow: hidden;
+            min-height: 0;
+            overflow: hidden !important;
         }
 
         .slide-footer {
+            flex: 0 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-top: 1px solid #E5EBE2;
-            padding-top: 0.75rem;
-            margin-top: 0.8rem;
-            font-size: 0.8rem;
+            padding-top: 0.3rem;
+            margin-top: 0.4rem;
+            font-size: 0.75rem;
             color: var(--text-light);
         }
 
@@ -252,28 +220,54 @@
         .grid-2col {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.2rem;
-            align-items: stretch;
+            gap: 1rem;
+            height: 100%;
+            min-height: 0;
         }
 
         .grid-3col {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 1rem;
-            align-items: stretch;
+            height: 100%;
+            min-height: 0;
         }
 
-        /* Tarjetas Estáticas Didácticas */
+        /* Evita que las celdas de grid se desborden reteniendo su min-height:auto por defecto */
+        .grid-2col > div, .grid-3col > div {
+            min-height: 0;
+        }
+
+        /* Tarjetas Estáticas Didácticas: tamaño natural según contenido, sin estirar */
         .card {
             background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 1rem 1.2rem;
+            border-radius: 10px;
+            padding: 1rem 1.3rem;
             border-left: 5px solid var(--primary);
             box-shadow: 0 4px 14px rgba(0,0,0,0.03);
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            flex: 0 0 auto;
         }
         .card:last-child { margin-bottom: 0; }
+
+        /* Columna de fichas: centra el bloque compacto de tarjetas en el alto disponible */
+        .card-col {
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+            height: 100%;
+            justify-content: center;
+        }
+
+        /* Columna de imagen: la foto ocupa todo el alto/ancho disponible */
+        .image-col {
+            height: 100%;
+            overflow: hidden;
+            border-radius: 14px;
+            min-height: 0;
+        }
         .card.gold { border-left-color: var(--gold); }
         .card.red { border-left-color: var(--accent-red); }
         .card.slate { border-left-color: var(--slate); }
@@ -281,15 +275,16 @@
         .card h4 {
             font-family: var(--font-display);
             color: var(--primary);
-            font-size: 1.05rem;
-            margin-bottom: 0.6rem;
+            font-size: 1.15rem;
+            margin-bottom: 0.55rem;
             font-weight: 700;
+            line-height: 1.25;
         }
         .card.gold h4 { color: #8C5B0D; }
         .card.red h4 { color: var(--accent-red); }
         .card.slate h4 { color: var(--slate); }
 
-        .card p, .card li { font-size: 0.88rem; color: var(--text-main); line-height: 1.5; }
+        .card p, .card li { font-size: 0.92rem; color: var(--text-main); line-height: 1.5; }
         .card ul { padding-left: 1.2rem; margin-top: 0.4rem; }
         .card li { margin-bottom: 6px; }
         .card strong { color: var(--primary); font-weight: 700; }
@@ -328,24 +323,24 @@
             background: #FFFFFF;
             border: 1px solid #E2E8E0;
             border-radius: 12px;
-            padding: 14px 10px;
+            padding: 15px 10px;
             text-align: center;
         }
         .stat-num {
             font-family: var(--font-display);
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             font-weight: 800;
             color: var(--primary);
         }
         .stat-label {
-            font-size: 0.76rem;
+            font-size: 0.8rem;
             color: var(--text-main);
             text-transform: uppercase;
             font-weight: 700;
-            margin-top: 4px;
+            margin-top: 5px;
         }
         .stat-desc {
-            font-size: 0.7rem;
+            font-size: 0.74rem;
             color: var(--text-light);
             margin-top: 5px;
             line-height: 1.3;
@@ -407,12 +402,25 @@
 
         /* Bibliografía APA */
         .apa-ref {
-            font-size: 0.78rem;
+            font-size: 0.8rem;
             line-height: 1.45;
-            margin-bottom: 6px;
+            margin-bottom: 7px;
             padding-left: 1.5rem;
             text-indent: -1.5rem;
             color: #3A4441;
+        }
+
+        /* Ajuste de respaldo para pantallas de menor altura (evita desbordes) */
+        @media (max-height: 650px) {
+            html, body { font-size: clamp(12px, 0.9vw, 15px); }
+            .card { padding: 0.7rem 1rem; }
+            .card h4 { font-size: 1rem; margin-bottom: 0.4rem; }
+            .card p, .card li { font-size: 0.82rem; line-height: 1.35; }
+            .card li { margin-bottom: 4px; }
+            .stat-card { padding: 10px 6px; }
+            .stat-num { font-size: 1.3rem; }
+            .stat-label { font-size: 0.7rem; margin-top: 3px; }
+            .stat-desc { font-size: 0.66rem; margin-top: 3px; }
         }
 
         /* Impresión (PDF) */
@@ -468,45 +476,43 @@
             </div>
             <div class="slide-body">
                 <div class="grid-2col">
-                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div class="card-col">
                         <div class="card">
                             <h4>Ficha Comercial del Producto</h4>
-                            <p style="font-size: 0.85rem;">Pastas alimenticias secas (fusilli y penne) <strong>Gluten-Free</strong> formuladas a base de súper-granos andinos: <strong>Tarwi (Chocho), Quinua y Cañihua</strong>. Diseñadas para responder a la creciente demanda europea por proteína limpia no derivada de la soya ni del trigo.</p>
+                            <p style="font-size: 0.9rem;">Pastas alimenticias secas (fusilli y penne) <strong>Gluten-Free</strong> formuladas a base de súper-granos andinos: <strong>Tarwi (Chocho), Quinua y Cañihua</strong>. Diseñadas para responder a la creciente demanda europea por proteína limpia no derivada de la soya ni del trigo.</p>
                         </div>
-                        <div style="height: 180px; overflow: hidden; border-radius: 12px;">
-                            <img class="slide-image" src="andean_pasta_display.jpg" alt="Pastas Funcionales de Granos Andinos" style="height: 100%; width: 100%; object-fit: cover;" />
-                        </div>
-                    </div>
-                    <div>
-                        <div class="card slate" style="padding: 1.2rem;">
-                            <h4 style="margin-bottom: 0.8rem; text-align: center; font-size: 1.05rem;">Ficha Técnica Comercial</h4>
-                            <table style="width: 100%; border-collapse: collapse; font-size: 0.82rem; text-align: left;">
+                        <div class="card slate" style="padding: 1rem;">
+                            <h4 style="margin-bottom: 0.6rem; text-align: center; font-size: 1.05rem;">Ficha Técnica Comercial</h4>
+                            <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left;">
                                 <thead>
                                     <tr style="background-color: var(--primary); color: #fff;">
-                                        <th style="padding: 8px 12px; border-radius: 6px 0 0 0; width: 35%;">Característica</th>
-                                        <th style="padding: 8px 12px; border-radius: 0 6px 0 0; width: 65%;">Descripción</th>
+                                        <th style="padding: 8px 10px; border-radius: 5px 0 0 0; width: 35%;">Característica</th>
+                                        <th style="padding: 8px 10px; border-radius: 0 5px 0 0; width: 65%;">Descripción</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr style="border-bottom: 1px solid #E2E8E0;">
-                                        <td style="padding: 10px 12px; font-weight: 700; color: var(--primary);">Partida NANDINA</td>
-                                        <td style="padding: 10px 12px;"><span class="badge-hs">1902.19.00.00</span> (Pastas Secas)</td>
+                                        <td style="padding: 9px 10px; font-weight: 700; color: var(--primary);">Partida NANDINA</td>
+                                        <td style="padding: 9px 10px;"><span class="badge-hs">1902.19.00.00</span> (Pastas Secas)</td>
                                     </tr>
                                     <tr style="border-bottom: 1px solid #E2E8E0; background-color: #F8FAF6;">
-                                        <td style="padding: 10px 12px; font-weight: 700; color: var(--primary);">Ingrediente Base</td>
-                                        <td style="padding: 10px 12px;">Tarwi (44% proteína), Quinua, Cañihua</td>
+                                        <td style="padding: 9px 10px; font-weight: 700; color: var(--primary);">Ingrediente Base</td>
+                                        <td style="padding: 9px 10px;">Tarwi (44% proteína), Quinua, Cañihua</td>
                                     </tr>
                                     <tr style="border-bottom: 1px solid #E2E8E0;">
-                                        <td style="padding: 10px 12px; font-weight: 700; color: var(--primary);">Atributo Principal</td>
-                                        <td style="padding: 10px 12px;">Gluten-Free Certificado (&lt; 20 ppm)</td>
+                                        <td style="padding: 9px 10px; font-weight: 700; color: var(--primary);">Atributo Principal</td>
+                                        <td style="padding: 9px 10px;">Gluten-Free Certificado (&lt; 20 ppm)</td>
                                     </tr>
                                     <tr style="border-bottom: 1px solid #E2E8E0; background-color: #F8FAF6;">
-                                        <td style="padding: 10px 12px; font-weight: 700; color: var(--primary);">Ventajas de Salud</td>
-                                        <td style="padding: 10px 12px;">Bajo índice glucémico, OGM-Free, Rico en fibra</td>
+                                        <td style="padding: 9px 10px; font-weight: 700; color: var(--primary);">Ventajas de Salud</td>
+                                        <td style="padding: 9px 10px;">Bajo índice glucémico, OGM-Free, Rico en fibra</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                    <div class="image-col">
+                        <img class="slide-image" src="andean_pasta_display.jpg" alt="Pastas Funcionales de Granos Andinos" style="height: 100%; width: 100%; object-fit: cover;" />
                     </div>
                 </div>
             </div>
@@ -527,26 +533,22 @@
             </div>
             <div class="slide-body">
                 <div class="grid-2col">
-                    <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                    <div class="card-col">
                         <div class="card">
                             <h4>Superación del Comoditi (De Grano a CPG) 💡</h4>
-                            <p style="font-size: 0.83rem;">Exportar materias primas a granel expone al productor a la volatilidad de precios internacionales (~1.8 a 2.4 USD/kg para la quinua).</p>
-                            <p style="font-size: 0.83rem; margin-top: 6px;">Transformar estos granos en <strong>pastas empacadas de consumo masivo (CPG)</strong> duplica el valor FOB exportado (5.50 a 6.20 USD/kg), lo cual <strong>incrementa el margen de beneficio en más de 120%</strong>.</p>
+                            <p>Exportar materias primas a granel expone al productor a la volatilidad de precios internacionales (~1.8 a 2.4 USD/kg para la quinua). Transformar estos granos en <strong>pastas empacadas de consumo masivo (CPG)</strong> duplica el valor FOB exportado (5.50 a 6.20 USD/kg), <strong>incrementando el margen en más de 120%</strong>.</p>
                         </div>
                         <div class="card gold">
                             <h4>El Tarwi: El Súper-Bean Andino</h4>
-                            <p style="font-size: 0.83rem;">El tarwi destaca por su extraordinario perfil nutricional: contiene <strong>44% de proteína vegetal</strong> y grasas saludables. No posee alérgenos tradicionales y es OGM-Free, sustituyendo con ventaja a la soya transgénica en Europa.</p>
-                        </div>
-                    </div>
-                    <div style="display: flex; flex-direction: column; gap: 0.8rem;">
-                        <div style="height: 140px; overflow: hidden; border-radius: 12px;">
-                            <img class="slide-image" src="tarwi_superfood_grain.jpg" alt="Granos Andinos Tarwi y Quinua" style="height: 100%; width: 100%; object-fit: cover;" />
+                            <p>Destaca por su extraordinario perfil nutricional: <strong>44% de proteína vegetal</strong> y grasas saludables. No posee alérgenos tradicionales y es OGM-Free, sustituyendo con ventaja a la soya transgénica en Europa.</p>
                         </div>
                         <div class="card red">
                             <h4>Sostenibilidad Ambiental y Origen Perú</h4>
-                            <p style="font-size: 0.83rem;">Los granos andinos se cultivan bajo <strong>agricultura regenerativa</strong> en Cusco, Junín y Puno.</p>
-                            <p style="font-size: 0.83rem; margin-top: 6px;">El tarwi actúa como <strong>fijador natural de nitrógeno</strong> en los suelos, reduciendo el uso de fertilizantes sintéticos y fortaleciendo el ecosistema.</p>
+                            <p>Se cultiva bajo <strong>agricultura regenerativa</strong> en Cusco, Junín y Puno. El tarwi actúa como <strong>fijador natural de nitrógeno</strong>, reduciendo fertilizantes sintéticos.</p>
                         </div>
+                    </div>
+                    <div class="image-col">
+                        <img class="slide-image" src="tarwi_superfood_grain.jpg" alt="Granos Andinos Tarwi y Quinua" style="height: 100%; width: 100%; object-fit: cover;" />
                     </div>
                 </div>
             </div>
@@ -567,39 +569,39 @@
             </div>
             <div class="slide-body">
                 <div class="grid-2col">
-                    <div style="display: flex; flex-direction: column; gap: 0.8rem;">
-                        <div class="card slate" style="padding: 0.9rem 1.1rem;">
-                            <h4 style="margin-bottom: 0.4rem;">Mercado Seleccionado: Alemania (Unión Europea)</h4>
-                            <p style="font-size: 0.83rem;"><strong>Hub Logístico:</strong> Puerto de Rótterdam (Países Bajos) actúa como punto de entrada marítimo, permitiendo distribución terrestre hacia Alemania y Europa del Norte.</p>
+                    <div class="card-col">
+                        <div class="card slate">
+                            <h4>Mercado Seleccionado: Alemania (Unión Europea)</h4>
+                            <p><strong>Hub Logístico:</strong> Puerto de Rótterdam (Países Bajos) actúa como punto de entrada marítimo, permitiendo distribución terrestre hacia Alemania y Europa del Norte.</p>
                         </div>
-                        
+
                         <div class="stats-grid">
-                            <div class="stat-card" style="padding: 0.6rem;">
-                                <div class="stat-num" style="font-size: 1.3rem;">$51,200</div>
-                                <div class="stat-label" style="font-size: 0.72rem;">PIB per Cápita</div>
-                                <div class="stat-desc" style="font-size: 0.7rem;">Alto poder de compra premium.</div>
+                            <div class="stat-card">
+                                <div class="stat-num">$51,200</div>
+                                <div class="stat-label">PIB per Cápita</div>
+                                <div class="stat-desc">Alto poder de compra premium.</div>
                             </div>
-                            <div class="stat-card" style="padding: 0.6rem;">
-                                <div class="stat-num" style="font-size: 1.3rem;">€15.3B</div>
-                                <div class="stat-label" style="font-size: 0.72rem;">Mercado Orgánico</div>
-                                <div class="stat-desc" style="font-size: 0.7rem;">N°1 orgánico en Europa.</div>
+                            <div class="stat-card">
+                                <div class="stat-num">€15.3B</div>
+                                <div class="stat-label">Mercado Orgánico</div>
+                                <div class="stat-desc">N°1 orgánico en Europa.</div>
                             </div>
-                            <div class="stat-card" style="padding: 0.6rem;">
-                                <div class="stat-num" style="font-size: 1.3rem;">10.4%</div>
-                                <div class="stat-label" style="font-size: 0.72rem;">Población Vegana</div>
-                                <div class="stat-desc" style="font-size: 0.7rem;">>8.8M flexitarianos.</div>
+                            <div class="stat-card">
+                                <div class="stat-num">10.4%</div>
+                                <div class="stat-label">Población Vegana</div>
+                                <div class="stat-desc">>8.8M flexitarianos.</div>
                             </div>
                         </div>
 
-                        <div class="card gold" style="padding: 0.9rem 1.1rem;">
-                            <h4 style="margin-bottom: 0.4rem;">Perfil del Consumidor Objetivo</h4>
-                            <ul style="font-size: 0.83rem;">
-                                <li style="margin-bottom: 4px;"><strong>Comunidad Celíaca:</strong> 1% de la población (~840,000 personas en Alemania) que requieren dietas médicas libres de gluten.</li>
+                        <div class="card gold">
+                            <h4>Perfil del Consumidor Objetivo</h4>
+                            <ul>
+                                <li style="margin-bottom: 6px;"><strong>Comunidad Celíaca:</strong> 1% de la población (~840,000 personas en Alemania) que requieren dietas médicas libres de gluten.</li>
                                 <li><strong>Deportistas y Estilo de Vida Saludable:</strong> Consumidores que buscan proteína limpia para recuperación muscular y nutrición diaria.</li>
                             </ul>
                         </div>
                     </div>
-                    <div style="height: 100%; min-height: 280px; overflow: hidden; border-radius: 12px;">
+                    <div class="image-col">
                         <img class="slide-image" src="germany_market_hub.jpg" alt="Mercado Retail Orgánico en Alemania" style="height: 100%; width: 100%; object-fit: cover;" />
                     </div>
                 </div>
@@ -621,34 +623,33 @@
             </div>
             <div class="slide-body">
                 <div class="grid-2col">
-                    <div style="display: flex; flex-direction: column; gap: 1rem;">
-                        <div class="card gold" style="flex: 1;">
+                    <div class="card-col">
+                        <div class="card gold">
                             <h4>Tratado de Libre Comercio Vigente</h4>
-                            <p><strong>Acuerdo Comercial Perú - Unión Europea</strong> (vigente desde marzo de 2013).</p>
-                            <p style="margin-top: 8px;">Este acuerdo bilateral otorga desgravación arancelaria total a los productos agroindustriales peruanos procesados. Para acogerse a este beneficio, el exportador peruano debe emitir el <strong>Certificado de Origen (Formato EUR.1)</strong>.</p>
+                            <p><strong>Acuerdo Comercial Perú - Unión Europea</strong> (vigente desde marzo de 2013). Otorga desgravación arancelaria total a los productos agroindustriales peruanos procesados. Para acogerse a este beneficio, el exportador debe emitir el <strong>Certificado de Origen (Formato EUR.1)</strong>.</p>
                         </div>
-                        
+
                         <!-- TABLA COMPARATIVA ARANCELARIA DIDÁCTICA -->
-                        <div class="card" style="flex: 1; justify-content: center;">
-                            <h4 style="text-align: center; margin-bottom: 1rem;">Comparativa Arancelaria (Impacto del TLC)</h4>
+                        <div class="card">
+                            <h4 style="text-align: center; margin-bottom: 0.8rem;">Comparativa Arancelaria (Impacto del TLC)</h4>
                             <div style="display: flex; justify-content: space-between; gap: 15px;">
-                                <div style="flex: 1; background: #EAF0E8; padding: 15px 10px; border-radius: 10px; text-align: center; border: 1px solid #BCE0C7;">
+                                <div style="flex: 1; background: #EAF0E8; padding: 14px 10px; border-radius: 10px; text-align: center; border: 1px solid #BCE0C7;">
                                     <div style="font-size: 0.85rem; color: var(--primary); font-weight: 700;">CON TLC PERÚ-UE</div>
-                                    <div style="color: #1a7b37; font-size: 1.8rem; font-weight: 800; margin: 8px 0; font-family: var(--font-display);">0.0%</div>
+                                    <div style="color: #1a7b37; font-size: 1.9rem; font-weight: 800; margin: 7px 0; font-family: var(--font-display);">0.0%</div>
                                     <div style="font-size: 0.8rem; color: var(--text-main); font-weight: 600;">Arancel Preferencial</div>
-                                    <div style="font-size: 0.75rem; color: var(--text-light); margin-top: 4px;">Ahorro de ~$350/Ton</div>
+                                    <div style="font-size: 0.74rem; color: var(--text-light); margin-top: 4px;">Ahorro de ~$350/Ton</div>
                                 </div>
-                                <div style="flex: 1; background: #FDE8E7; padding: 15px 10px; border-radius: 10px; text-align: center; border: 1px solid #F5B7B1;">
+                                <div style="flex: 1; background: #FDE8E7; padding: 14px 10px; border-radius: 10px; text-align: center; border: 1px solid #F5B7B1;">
                                     <div style="font-size: 0.85rem; color: var(--accent-red); font-weight: 700;">SIN TLC (Tarifa NMF)</div>
-                                    <div style="color: var(--accent-red); font-size: 1.8rem; font-weight: 800; margin: 8px 0; font-family: var(--font-display);">6.4%</div>
+                                    <div style="color: var(--accent-red); font-size: 1.9rem; font-weight: 800; margin: 7px 0; font-family: var(--font-display);">6.4%</div>
                                     <div style="font-size: 0.8rem; color: var(--text-main); font-weight: 600;">+ Derechos Específicos</div>
-                                    <div style="font-size: 0.75rem; color: var(--text-light); margin-top: 4px;">Terceros Países</div>
+                                    <div style="font-size: 0.74rem; color: var(--text-light); margin-top: 4px;">Terceros Países</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div style="display: flex; flex-direction: column; gap: 1rem;">
-                        <div class="card slate" style="flex: 1;">
+                    <div class="card-col">
+                        <div class="card slate">
                             <h4>Tendencias Globales de Comercialización</h4>
                             <ul style="margin-top: 10px;">
                                 <li style="margin-bottom: 12px;"><strong>Crecimiento Sostenido (CAGR 8.5%):</strong> El mercado europeo de pastas gluten-free se encuentra en constante expansión proyectada hasta el 2030, abriendo ventanas comerciales para productos andinos.</li>
@@ -675,31 +676,31 @@
                 <div class="logo-mark">ADEX<span>.</span></div>
             </div>
             <div class="slide-body">
-                <div class="card" style="padding: 1.5rem; margin-top: 1rem;">
-                    <h4 style="margin-bottom: 1.2rem; color: var(--primary); text-align: center; font-size: 1.2rem;">Matriz de Exigencias de Acceso al Mercado Alemán</h4>
-                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                <div class="card" style="height: 100%; padding: 1rem; justify-content: center;">
+                    <h4 style="margin-bottom: 0.9rem; color: var(--primary); text-align: center; font-size: 1.1rem;">Matriz de Exigencias de Acceso al Mercado Alemán</h4>
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
                         <thead>
                             <tr style="background-color: var(--primary); color: #fff;">
-                                <th style="padding: 14px 18px; border-radius: 8px 0 0 0; width: 22%;">Tipo de Barrera</th>
-                                <th style="padding: 14px 18px; width: 30%;">Normativa / Entidad</th>
-                                <th style="padding: 14px 18px; border-radius: 0 8px 0 0; width: 48%;">Exigencia Principal</th>
+                                <th style="padding: 10px 12px; border-radius: 6px 0 0 0; width: 22%;">Tipo de Barrera</th>
+                                <th style="padding: 10px 12px; width: 30%;">Normativa / Entidad</th>
+                                <th style="padding: 10px 12px; border-radius: 0 6px 0 0; width: 48%;">Exigencia Principal</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr style="border-bottom: 1px solid #E2E8E0;">
-                                <td style="padding: 16px 18px; font-weight: 700; color: var(--accent-red);">Sanitarias (MSF)</td>
-                                <td style="padding: 16px 18px; font-weight: 600;">Autoridad Europea EFSA<br><span style="font-size: 0.75rem; color: var(--text-light); font-weight: normal;">Reglamento (CE) N° 1881/2006</span></td>
-                                <td style="padding: 16px 18px;">Control estricto de Límites Máximos de Residuos (LMR), control de micotoxinas y proceso de desamargado completo del tarwi para eliminar alcaloides tóxicos (esparteína).</td>
+                                <td style="padding: 11px 12px; font-weight: 700; color: var(--accent-red);">Sanitarias (MSF)</td>
+                                <td style="padding: 11px 12px; font-weight: 600;">Autoridad Europea EFSA<br><span style="font-size: 0.74rem; color: var(--text-light); font-weight: normal;">Reglamento (CE) N° 1881/2006</span></td>
+                                <td style="padding: 11px 12px;">Control estricto de Límites Máximos de Residuos (LMR), control de micotoxinas y proceso de desamargado completo del tarwi para eliminar alcaloides tóxicos (esparteína).</td>
                             </tr>
                             <tr style="border-bottom: 1px solid #E2E8E0; background-color: #F8FAF6;">
-                                <td style="padding: 16px 18px; font-weight: 700; color: var(--gold);">Técnicas (OTC)</td>
-                                <td style="padding: 16px 18px; font-weight: 600;">Reglamento UE N° 828/2014<br><span style="font-size: 0.75rem; color: var(--text-light); font-weight: normal;">Leyes de Etiquetado Alemán</span></td>
-                                <td style="padding: 16px 18px;">Para utilizar el sello "Gluten-Free" se exige un límite máximo &lt; 20 ppm. Es obligatorio el sistema semáforo <em>Nutri-Score</em> y el etiquetado traducido al idioma alemán (Deutsch).</td>
+                                <td style="padding: 11px 12px; font-weight: 700; color: var(--gold);">Técnicas (OTC)</td>
+                                <td style="padding: 11px 12px; font-weight: 600;">Reglamento UE N° 828/2014<br><span style="font-size: 0.74rem; color: var(--text-light); font-weight: normal;">Leyes de Etiquetado Alemán</span></td>
+                                <td style="padding: 11px 12px;">Para utilizar el sello "Gluten-Free" se exige un límite máximo &lt; 20 ppm. Es obligatorio el sistema semáforo <em>Nutri-Score</em> y el etiquetado traducido al idioma alemán (Deutsch).</td>
                             </tr>
                             <tr style="border-bottom: 1px solid #E2E8E0;">
-                                <td style="padding: 16px 18px; font-weight: 700; color: var(--slate);">Certificaciones</td>
-                                <td style="padding: 16px 18px; font-weight: 600;">Retailers y Consumidor<br><span style="font-size: 0.75rem; color: var(--text-light); font-weight: normal;">(Aldi, Rewe, Edeka)</span></td>
-                                <td style="padding: 16px 18px;">Obligatorio sello oficial orgánico europeo <em>EU Organic</em> (Euro Hoja). Alta preferencia por certificaciones de inocuidad (BRCGS/IFS Food) y sello vegano (V-Label).</td>
+                                <td style="padding: 11px 12px; font-weight: 700; color: var(--slate);">Certificaciones</td>
+                                <td style="padding: 11px 12px; font-weight: 600;">Retailers y Consumidor<br><span style="font-size: 0.74rem; color: var(--text-light); font-weight: normal;">(Aldi, Rewe, Edeka)</span></td>
+                                <td style="padding: 11px 12px;">Obligatorio sello oficial orgánico europeo <em>EU Organic</em> (Euro Hoja). Alta preferencia por certificaciones de inocuidad (BRCGS/IFS Food) y sello vegano (V-Label).</td>
                             </tr>
                         </tbody>
                     </table>
@@ -722,19 +723,19 @@
             </div>
             <div class="slide-body">
                 <div class="grid-2col">
-                    <div style="display: flex; flex-direction: column; gap: 1rem;">
-                        <div class="card" style="flex: 1;">
+                    <div class="card-col">
+                        <div class="card">
                             <h4>Conclusiones del Perfil Producto-Mercado (Avance 1)</h4>
                             <ul>
-                                <li style="margin-bottom: 12px;"><strong>Alta Viabilidad de Acceso:</strong> El aprovechamiento pleno del TLC Perú-UE permite ingresar al mercado alemán con 0.0% de arancel, lo que representa una ventaja competitiva directa frente a terceros países y ayuda a compensar los elevados fletes marítimos hacia Rótterdam.</li>
-                                <li style="margin-bottom: 12px;"><strong>Posicionamiento Diferenciado:</strong> Las pastas a base de Tarwi (44% proteína) y Quinua resuelven una necesidad latente y real del consumidor celíaco y vegano europeo, permitiendo posicionarse en el segmento Premium.</li>
-                                <li><strong>Cumplimiento Normativo Crítico:</strong> El éxito comercial dependerá de garantizar las certificaciones EU Organic y mantener estrictos controles de calidad que aseguren un límite de gluten inferior a 20 ppm (según el Reglamento UE 828/2014) y la ausencia de alcaloides en el tarwi.</li>
+                                <li style="margin-bottom: 10px;"><strong>Alta Viabilidad de Acceso:</strong> El aprovechamiento pleno del TLC Perú-UE permite ingresar al mercado alemán con 0.0% de arancel, lo que compensa los elevados fletes marítimos hacia Rótterdam.</li>
+                                <li style="margin-bottom: 10px;"><strong>Posicionamiento Diferenciado:</strong> Las pastas a base de Tarwi (44% proteína) y Quinua resuelven una necesidad real del consumidor celíaco y vegano europeo, en el segmento Premium.</li>
+                                <li><strong>Cumplimiento Normativo Crítico:</strong> El éxito dependerá de las certificaciones EU Organic y un límite de gluten inferior a 20 ppm (Reglamento UE 828/2014).</li>
                             </ul>
                         </div>
                     </div>
-                    <div style="display: flex; flex-direction: column; gap: 1rem;">
-                        <div class="card slate" style="flex: 1; padding: 1.5rem 1.6rem;">
-                            <h4 style="margin-bottom: 1rem; color: var(--gold-light);">Bibliografía (Formato APA 7ma Edición)</h4>
+                    <div class="card-col">
+                        <div class="card slate" style="padding: 1.3rem 1.5rem;">
+                            <h4 style="margin-bottom: 0.8rem; color: var(--gold-light);">Bibliografía (Formato APA 7ma Edición)</h4>
                             <div class="apa-ref">Comisión de Promoción del Perú para la Exportación y el Turismo [PROMPERÚ]. (2024). <i>Reporte de comercio exterior: Superfoods Perú en el mercado europeo</i>. https://www.promperu.gob.pe</div>
                             <div class="apa-ref">European Food Safety Authority [EFSA]. (2023). <i>Maximum residue levels for plant proteins and legumes in the EU</i>. https://www.efsa.europa.eu</div>
                             <div class="apa-ref">International Trade Centre [ITC]. (2024). <i>Trade Map: International trade statistics for HS 190219 (Gluten-free pasta)</i>. https://www.trademap.org</div>
