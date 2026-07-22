@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EA3: Perfil Producto-Mercado - Pastas Funcionales de Granos Andinos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #11381E;       /* Verde Bosque Andino */
+            --primary-light: #1E5631;
+            --gold: #C88A2B;          /* Dorado Quinua / Granos */
+            --gold-light: #E8B968;
+            --accent-red: #B83227;    /* Rojo Terrakota / Cañihua */
+            --slate: #0B1E36;         /* Azul Noche Corporativo */
+            --text-main: #2C3531;
+            --text-light: #5A6561;
+            --bg-slide: #FFFFFF;
+            --bg-page: #F4F6F2;
+            --card-bg: #F8FAF6;
+            --shadow: 0 12px 32px rgba(17, 56, 30, 0.10);
+            --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-display: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            font-size: 118%; /* Escalado optimizado para proyección en aula */
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--bg-slide);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Diapositivas */
+        .slide {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(40px);
+            transition: opacity 0.45s ease, transform 0.45s ease, visibility 0.45s;
+            padding: 2.8rem 5rem 4.5rem 5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+
+        .slide-header, .slide-body, .slide-footer {
+            max-width: 1400px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Header común */
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #E5EBE2;
+            padding-bottom: 0.8rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .slide-title-container {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .slide-tag {
+            background: linear-gradient(135deg, var(--gold) 0%, #A66E19 100%);
+            color: #FFFFFF;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-family: var(--font-display);
+            white-space: nowrap;
+        }
+
+        .slide-title {
+            font-family: var(--font-display);
+            font-size: 1.65rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .logo-mark {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 1.15rem;
+            color: var(--primary);
+        }
+        .logo-mark span { color: var(--gold); }
+
+        .slide-body {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .slide-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #E5EBE2;
+            padding-top: 0.75rem;
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        /* ===== Portada ===== */
+        .slide-cover {
+            background: radial-gradient(circle at 85% 15%, rgba(200, 138, 43, 0.18), transparent 50%),
+                        linear-gradient(145deg, var(--primary) 0%, var(--slate) 100%);
+            color: #FFFFFF;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 3rem 4rem;
+        }
+
+        .cover-badge {
+            background: rgba(200, 138, 43, 0.2);
+            border: 1px solid var(--gold-light);
+            color: var(--gold-light);
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+            font-family: var(--font-display);
+        }
+
+        .cover-title {
+            font-family: var(--font-display);
+            font-size: 2.3rem;
+            font-weight: 800;
+            line-height: 1.18;
+            margin-bottom: 1.2rem;
+            text-transform: uppercase;
+            color: #FFFFFF;
+            max-width: 1000px;
+        }
+
+        .cover-subtitle {
+            font-size: 1.05rem;
+            color: rgba(255, 255, 255, 0.88);
+            margin-bottom: 1.8rem;
+            max-width: 850px;
+            line-height: 1.5;
+        }
+
+        .cover-members {
+            background: rgba(255, 255, 255, 0.07);
+            padding: 1.2rem 2.2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            max-width: 780px;
+            width: 100%;
+            margin-bottom: 1.5rem;
+        }
+
+        .cover-members-title {
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            margin-bottom: 0.8rem;
+            letter-spacing: 1px;
+            font-family: var(--font-display);
+        }
+
+        .members-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 30px;
+            font-size: 0.85rem;
+            text-align: left;
+        }
+        .members-grid li {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            color: rgba(255, 255, 255, 0.95);
+        }
+        .members-grid li b { color: #8DE0A6; }
+        .members-grid li b.pending { color: #FFA080; }
+
+        .cover-institution {
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+        }
+
+        /* Layout Grid */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+            align-items: center;
+        }
+
+        .grid-3col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.4rem;
+        }
+
+        /* Tarjetas */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 14px;
+            padding: 1.3rem 1.5rem;
+            border-left: 5px solid var(--primary);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+            margin-bottom: 1rem;
+        }
+        .card:last-child { margin-bottom: 0; }
+        .card.gold { border-left-color: var(--gold); }
+        .card.red { border-left-color: var(--accent-red); }
+        .card.slate { border-left-color: var(--slate); }
+
+        .card h4 {
+            font-family: var(--font-display);
+            color: var(--primary);
+            font-size: 1.05rem;
+            margin-bottom: 0.4rem;
+            font-weight: 700;
+        }
+        .card.gold h4 { color: #8C5B0D; }
+        .card.red h4 { color: var(--accent-red); }
+        .card.slate h4 { color: var(--slate); }
+
+        .card p, .card li { font-size: 0.88rem; color: var(--text-main); line-height: 1.5; }
+        .card ul { padding-left: 1.2rem; margin-top: 0.4rem; }
+        .card li { margin-bottom: 4px; }
+        .card strong { color: var(--primary); font-weight: 700; }
+
+        .badge-hs {
+            background-color: #E8F3EB;
+            color: var(--primary);
+            border: 1px solid #BCE0C7;
+            font-family: monospace;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 0.92rem;
+        }
+
+        .slide-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 14px;
+            border: 1px solid #DCE4D9;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+            display: block;
+        }
+
+        /* Tablas */
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+            margin-top: 0.5rem;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .custom-table th {
+            background-color: var(--primary);
+            color: #FFFFFF;
+            font-weight: 700;
+            padding: 8px 12px;
+            text-align: left;
+            font-family: var(--font-display);
+        }
+        .custom-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #E2E9E0;
+            background-color: #FFFFFF;
+        }
+        .custom-table tr:nth-child(even) td {
+            background-color: #F8FAF6;
+        }
+
+        /* Listas de Puntos / FODA */
+        .foda-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+        }
+        .foda-box {
+            padding: 1.2rem;
+            border-radius: 12px;
+        }
+        .foda-fortalezas { background-color: #EFF7F2; border-left: 4px solid var(--primary); }
+        .foda-debilidades { background-color: #FFF5F4; border-left: 4px solid var(--accent-red); }
+        .foda-box h5 { font-weight: 800; font-size: 0.98rem; font-family: var(--font-display); margin-bottom: 6px; }
+        .foda-fortalezas h5 { color: var(--primary); }
+        .foda-debilidades h5 { color: var(--accent-red); }
+
+        /* Controles de Navegación */
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            padding: 8px 24px;
+            border-radius: 40px;
+            box-shadow: 0 6px 24px rgba(17, 56, 30, 0.15);
+            border: 1px solid rgba(17, 56, 30, 0.12);
+        }
+
+        .btn-nav {
+            background-color: var(--primary);
+            color: #FFFFFF;
+            border: none;
+            padding: 9px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            display: flex; align-items: center; gap: 6px;
+        }
+        .btn-nav:hover { background-color: var(--gold); color: #FFFFFF; transform: translateY(-2px); }
+        .btn-nav:disabled { background-color: #CED6CB; cursor: not-allowed; transform: none; }
+
+        .slide-counter { font-family: var(--font-display); font-weight: 700; font-size: 0.88rem; color: var(--text-light); }
+
+        .dots { display: flex; gap: 8px; }
+        .dot { width: 9px; height: 9px; border-radius: 50%; background-color: #C6D4C3; cursor: pointer; transition: var(--transition); }
+        .dot.active { background-color: var(--primary); transform: scale(1.3); }
+
+        /* Bibliografía APA */
+        .apa-ref {
+            font-size: 0.78rem;
+            line-height: 1.45;
+            margin-bottom: 6px;
+            padding-left: 1.5rem;
+            text-indent: -1.5rem;
+            color: #3A4441;
+        }
+
+        /* Impresión (PDF) */
+        @media print {
+            body { background-color: #FFFFFF; overflow: visible; height: auto; }
+            .presentation-container { width: 100%; height: auto; box-shadow: none; display: block; }
+            .slide { position: relative; page-break-after: always; opacity: 1 !important; visibility: visible !important; transform: none !important; height: 100vh; display: flex !important; }
+            .nav-controls { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="presentation-container">
+
+        <!-- ===== DIAPOSITIVA 1: Portada ===== -->
+        <div class="slide slide-cover active" id="slide-1">
+            <div class="cover-badge">Comercialización Internacional &bull; EA3</div>
+            <h1 class="cover-title">Perfil Producto-Mercado:<br>Pastas y Harinas Funcionales de Granos Andinos</h1>
+            <p class="cover-subtitle">Informe Ejecutivo de Exportación al Mercado Alemán (Unión Europea)<br><strong>Profesor:</strong> Prof. Rafael Benzaquen</p>
+
+            <div class="cover-members">
+                <div class="cover-members-title">Integrantes del Grupo de Investigación</div>
+                <div class="members-grid">
+                    <ul>
+                        <li>Castillo Paucas, Jahir Azael <b>[100%]</b></li>
+                        <li>Chavez Estela, Jostin Alexander <b>[100%]</b></li>
+                        <li>García Piedra, Yhurem Steven <b class="pending">[0%]</b></li>
+                    </ul>
+                    <ul>
+                        <li>Medina Apolinario, Marilin Andrea <b>[100%]</b></li>
+                        <li>Mozombite, Eric <b>[100%]</b></li>
+                        <li>Ruiz Luna, Maria Fernanda <b>[100%]</b></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="cover-institution">Instituto de Educación Superior Tecnológico ADEX &bull; Ciclo V &bull; 2026</div>
+        </div>
+
+        <!-- ===== DIAPOSITIVA 2: Presentación del Producto ===== -->
+        <div class="slide" id="slide-2">
+            <div class="slide-header">
+                <div class="slide-title-container">
+                    <span class="slide-tag">Diapo 2</span>
+                    <h2 class="slide-title">1. Presentación del Producto y Clasificación Arancelaria</h2>
+                </div>
+                <div class="logo-mark">ADEX<span>.</span></div>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2col">
+                    <div>
+                        <div class="card">
+                            <h4>Descripción del Producto</h4>
+                            <p>Pastas alimenticias secas (fusilli/penne) <strong>Gluten-Free</strong> y harinas extruidas instantáneas elaboradas a base de superalimentos andinos: <strong>Tarwi (Chocho), Quinua y Cañihua</strong>. Diseñadas para consumidores que buscan alto valor proteico y nutricional.</p>
+                        </div>
+                        <div class="card gold">
+                            <h4>Clasificación Arancelaria (NANDINA / HS)</h4>
+                            <p style="margin-bottom: 6px;"><strong>Partida Principal (Pastas):</strong> <span class="badge-hs">1902.19.00.00</span></p>
+                            <p style="font-size: 0.82rem; color: var(--text-light);"><em>"Las demás pastas alimenticias sin cocer, rellenar ni preparar de otra forma"</em> (subpartida para pastas gluten-free de leguminosas y cereales).</p>
+                            <p style="margin-top: 6px; margin-bottom: 4px;"><strong>Partida Complementaria (Harinas extruidas):</strong> <span class="badge-hs">1901.90.90.00</span></p>
+                            <p style="font-size: 0.82rem; color: var(--text-light);"><em>"Las demás preparaciones alimenticias de harina, sémola, almidón o fécula"</em>.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <img class="slide-image" src="andean_pasta_display.jpg" alt="Pastas y Harinas Funcionales de Granos Andinos" style="margin-bottom: 1rem;" />
+                        <div class="card slate">
+                            <h4>Atributos Diferenciadores</h4>
+                            <ul>
+                                <li><strong>Sin Gluten Certificado:</strong> Apto para celíacos (&lt; 20 ppm).</li>
+                                <li><strong>Proteína Completa:</strong> Tarwi aporta hasta 44% de proteína vegetal.</li>
+                                <li><strong>Bajo Índice Glucémico:</strong> Rico en fibra dietética y hierro.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>Comercialización Internacional - Prof. Rafael Benzaquen</span>
+                <span>Diapositiva 2 de 8</span>
+            </div>
+        </div>
+
+        <!-- ===== DIAPOSITIVA 3: Ventajas Competitivas ===== -->
+        <div class="slide" id="slide-3">
+            <div class="slide-header">
+                <div class="slide-title-container">
+                    <span class="slide-tag">Diapo 3</span>
+                    <h2 class="slide-title">2. Ventajas Competitivas y Estrategia de Valor Agregado</h2>
+                </div>
+                <div class="logo-mark">ADEX<span>.</span></div>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2col">
+                    <div>
+                        <div class="card">
+                            <h4>Superación del Comoditi (De Grano a CPG)</h4>
+                            <p>Exportar quinua o tarwi en grano a granel genera bajos márgenes y alta vulnerabilidad de precios. Procesarlos en <strong>pastas empacadas de consumo masivo (CPG)</strong> incrementa el valor FOB de exportación en más de un <strong>120% por tonelada</strong>.</p>
+                        </div>
+                        <div class="card gold">
+                            <h4>El Tarwi: El Súper-Bean Andino</h4>
+                            <p>El tarwi (<em>Lupinus mutabilis</em>) contiene hasta <strong>44% de proteína vegetal</strong> (superando a la soya) y no contiene alérgenos comunes ni componentes transgénicos (OGM-Free), posicionándolo como el ingrediente estrella para el mercado vegano internacional.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <img class="slide-image" src="tarwi_superfood_grain.jpg" alt="Granos Andinos Tarwi y Quinua" style="margin-bottom: 1rem;" />
+                        <div class="card red">
+                            <h4>Sostenibilidad y Origen Perú</h4>
+                            <p>Cultivados bajo agricultura familiar sostenible en los Andes (Cusco, Junín, Puno). El tarwi actúa como fijador natural de nitrógeno en los suelos, reduciendo la huella de carbono del producto.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>Comercialización Internacional - Prof. Rafael Benzaquen</span>
+                <span>Diapositiva 3 de 8</span>
+            </div>
+        </div>
+
+        <!-- ===== DIAPOSITIVA 4: Mercado de Destino ===== -->
+        <div class="slide" id="slide-4">
+            <div class="slide-header">
+                <div class="slide-title-container">
+                    <span class="slide-tag">Diapo 4</span>
+                    <h2 class="slide-title">3. Descripción y Justificación del Mercado de Destino</h2>
+                </div>
+                <div class="logo-mark">ADEX<span>.</span></div>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2col">
+                    <div>
+                        <div class="card slate">
+                            <h4>Mercado Seleccionado: Alemania (Unión Europea)</h4>
+                            <p><strong>Hub Logístico:</strong> Puerto de Rótterdam (Países Bajos) como puerto de entrada para redistribución hacia Alemania y Europa del Norte.</p>
+                            <p style="margin-top: 6px;"><strong>PIB per Cápita:</strong> 51,200 USD. Alemania representa el mayor mercado minorista de productos orgánicos de la UE (&gt; 15,000 Millones EUR anuales).</p>
+                        </div>
+                        <div class="card gold">
+                            <h4>Perfil del Consumidor Objetivo</h4>
+                            <ul>
+                                <li><strong>Comunidad Celíaca:</strong> 1% de la población europea diagnosticada con celiaquía.</li>
+                                <li><strong>Consumidores Flexitarianos/Veganos:</strong> En Alemania, más del 10% de la población sigue dietas <em>plant-based</em>.</li>
+                                <li><strong>Deportistas de Alto Rendimiento:</strong> Buscan proteínas vegetales limpias y sin carbohidratos simples.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <img class="slide-image" src="germany_market_hub.jpg" alt="Mercado Retail Orgánico en Alemania" style="margin-bottom: 1rem;" />
+                        <div class="card">
+                            <h4>Justificación de Elección</h4>
+                            <p>Alemania posee la mayor disposición a pagar un precio <em>premium</em> por alimentos saludables, sostenibles y funcionales con certificación orgánica y libre de gluten.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>Comercialización Internacional - Prof. Rafael Benzaquen</span>
+                <span>Diapositiva 4 de 8</span>
+            </div>
+        </div>
+
+        <!-- ===== DIAPOSITIVA 5: Entorno Comercial y TLC ===== -->
+        <div class="slide" id="slide-5">
+            <div class="slide-header">
+                <div class="slide-title-container">
+                    <span class="slide-tag">Diapo 5</span>
+                    <h2 class="slide-title">4. Análisis del Entorno Comercial y Preferencias Arancelarias</h2>
+                </div>
+                <div class="logo-mark">ADEX<span>.</span></div>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2col">
+                    <div>
+                        <div class="card gold">
+                            <h4>Tratado de Libre Comercio Vigente</h4>
+                            <p><strong>Acuerdo Comercial Perú - Unión Europea</strong> (vigente desde el 1 de marzo de 2013). Otorga libre acceso para productos agroindustriales y procesados peruanos.</p>
+                        </div>
+                        <div class="card">
+                            <h4>Arancel Preferencial Aplicable</h4>
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Partida NANDINA</th>
+                                        <th>Arancel NMF (Sin TLC)</th>
+                                        <th>Arancel Preferencial TLC UE</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>1902.19.00.00</strong> (Pastas)</td>
+                                        <td>6.4% + EA</td>
+                                        <td><strong>0.0%</strong> (Arancel Cero)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>1901.90.90.00</strong> (Mezclas)</td>
+                                        <td>7.7% + EA</td>
+                                        <td><strong>0.0%</strong> (Arancel Cero)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p style="font-size: 0.78rem; color: var(--text-light); margin-top: 6px;">*Requiere Certificado de Origen EUR.1 / EUR-MED para acogerse al beneficio.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card slate">
+                            <h4>Tendencias Globales Favorables</h4>
+                            <ul>
+                                <li><strong>CAGR 8.5% (2024-2030):</strong> Crecimiento acelerado del mercado mundial de pastas sin gluten.</li>
+                                <li><strong>Sostenibilidad Ambiental:</strong> Exigencia de empaques compostables o reciclables (Ley de Empaques de Alemania - <em>VerpackG</em>).</li>
+                                <li><strong>Transparencia y Trazabilidad:</strong> Consumidores europeos exigen escaneo QR para conocer el origen andino del cultivo.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>Comercialización Internacional - Prof. Rafael Benzaquen</span>
+                <span>Diapositiva 5 de 8</span>
+            </div>
+        </div>
+
+        <!-- ===== DIAPOSITIVA 6: Barreras No Arancelarias ===== -->
+        <div class="slide" id="slide-6">
+            <div class="slide-header">
+                <div class="slide-title-container">
+                    <span class="slide-tag">Diapo 6</span>
+                    <h2 class="slide-title">5. Barreras No Arancelarias y Exigencias de Acceso</h2>
+                </div>
+                <div class="logo-mark">ADEX<span>.</span></div>
+            </div>
+            <div class="slide-body">
+                <div class="grid-3col">
+                    <div class="card red">
+                        <h4>Barreras Sanitarias (MSF)</h4>
+                        <ul>
+                            <li><strong>Límites de Plaguicidas (LMR):</strong> Control estricto de residuos químicos por la EFSA.</li>
+                            <li><strong>Alcaloides del Tarwi:</strong> Control microbiológico y desamargado completo (Esparteína/Lupinina).</li>
+                            <li><strong>Micotoxinas / Aflatoxinas:</strong> Cumplimiento del Reglamento (CE) 1881/2006.</li>
+                        </ul>
+                    </div>
+                    <div class="card gold">
+                        <h4>Barreras Técnicas (OTC)</h4>
+                        <ul>
+                            <li><strong>Reglamento UE N° 828/2014:</strong> Etiquetado "Gluten-Free" exige contenido &lt; 20 mg/kg (ppm).</li>
+                            <li><strong>Etiquetado Nutricional:</strong> Mención obligatoria de valores nutricionales y Nutri-Score en Alemania.</li>
+                            <li><strong>Lengua Oficial:</strong> Etiquetado completo en idioma Alemán (<em>Deutsch</em>).</li>
+                        </ul>
+                    </div>
+                    <div class="card slate">
+                        <h4>Certificaciones Clave</h4>
+                        <ul>
+                            <li><strong>EU Organic:</strong> Certificación orgánica bajo el Reglamento (UE) 2018/848.</li>
+                            <li><strong>BRCGS / IFS Food:</strong> Normas mundiales de inocuidad alimentaria solicitadas por supermercados.</li>
+                            <li><strong>V-Label Vegan:</strong> Sello europeo de garantía vegana.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>Comercialización Internacional - Prof. Rafael Benzaquen</span>
+                <span>Diapositiva 6 de 8</span>
+            </div>
+        </div>
+
+        <!-- ===== DIAPOSITIVA 7: Análisis de la Competencia ===== -->
+        <div class="slide" id="slide-7">
+            <div class="slide-header">
+                <div class="slide-title-container">
+                    <span class="slide-tag">Diapo 7</span>
+                    <h2 class="slide-title">6. Análisis de la Competencia Directa e Indirecta</h2>
+                </div>
+                <div class="logo-mark">ADEX<span>.</span></div>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2col">
+                    <div>
+                        <div class="card">
+                            <h4>Competidores Directos</h4>
+                            <p><strong>Nacionales:</strong> Procesadoras peruanas de granos andinos (Interlozan, Megabite, marcas de especialidad de quinua que exportan a Europa).</p>
+                            <p style="margin-top: 6px;"><strong>Extranjeros:</strong> Marcas europeas de pasta de legumbres (Barilla Gluten Free, Rummo, Felicia, Explore Cuisine - que utilizan garbanzo y lentejas).</p>
+                        </div>
+                        <div class="card gold">
+                            <h4>Competidores Indirectos / Sustitutos</h4>
+                            <p>Pastas tradicionales de trigo integral, fideos de arroz, pasta de konjac, quinoa en grano a granel y avena sin gluten.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="foda-grid">
+                            <div class="foda-box foda-fortalezas">
+                                <h5>Fortalezas Peruanas</h5>
+                                <ul>
+                                    <li>Perfil proteico superior (Tarwi 44%).</li>
+                                    <li>Historia y storytelling de superalimento andino.</li>
+                                    <li>Arancel 0% vía TLC Perú-UE.</li>
+                                </ul>
+                            </div>
+                            <div class="foda-box foda-debilidades">
+                                <h5>Desafíos / Debilidades</h5>
+                                <ul>
+                                    <li>Costos de flete marítimo internacional.</li>
+                                    <li>Menor escala de producción inicial frente a gigantes italianos.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>Comercialización Internacional - Prof. Rafael Benzaquen</span>
+                <span>Diapositiva 7 de 8</span>
+            </div>
+        </div>
+
+        <!-- ===== DIAPOSITIVA 8: Conclusiones y Bibliografía APA 7 ===== -->
+        <div class="slide" id="slide-8">
+            <div class="slide-header">
+                <div class="slide-title-container">
+                    <span class="slide-tag">Diapo 8</span>
+                    <h2 class="slide-title">7. Conclusiones y Bibliografía (APA 7)</h2>
+                </div>
+                <div class="logo-mark">ADEX<span>.</span></div>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2col">
+                    <div>
+                        <div class="card">
+                            <h4>Conclusiones del Informe Ejecutivo</h4>
+                            <ul>
+                                <li><strong>Viabilidad Comercial:</strong> El mercado alemán ofrece una demanda creciente y un alto poder adquisitivo para alimentos funcionales y gluten-free procesados en origen.</li>
+                                <li><strong>Ventaja Competitiva:</strong> La combinación de Tarwi (alto contenido proteico) y Quinua otorga un atributo nutricional único frente a pastas europeas convencionales.</li>
+                                <li><strong>Estrategia Arancelaria:</strong> El aprovechamiento del TLC Perú-UE (0% arancel) permite compensar los costos logísticos de transporte marítimo.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card slate" style="padding: 1.1rem 1.3rem;">
+                            <h4 style="margin-bottom: 0.5rem; color: var(--gold-light);">Bibliografía (Formato APA 7)</h4>
+                            <div class="apa-ref">Comisión de Promoción del Perú para la Exportación y el Turismo [PROMPERÚ]. (2024). <i>Reporte de comercio exterior: Superfoods Perú en el mercado europeo</i>. https://www.promperu.gob.pe</div>
+                            <div class="apa-ref">European Food Safety Authority [EFSA]. (2023). <i>Maximum residue levels for plant proteins and legumes in the EU</i>. https://www.efsa.europa.eu</div>
+                            <div class="apa-ref">International Trade Centre [ITC]. (2024). <i>Trade Map: International trade statistics for HS 190219 (Gluten-free pasta)</i>. https://www.trademap.org</div>
+                            <div class="apa-ref">Ministerio de Comercio Exterior y Turismo [MINCETUR]. (2023). <i>Guía de acceso al mercado de la Unión Europea para alimentos procesados</i>. https://www.gob.pe/mincetur</div>
+                            <div class="apa-ref">Superintendencia Nacional de Aduanas y de Administración Tributaria [SUNAT]. (2024). <i>Arancel de aduanas del Perú: Partida 1902.19.00.00</i>. https://www.sunat.gob.pe</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>Comercialización Internacional - Prof. Rafael Benzaquen</span>
+                <span>Diapositiva 8 de 8</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- CONTROLES DE NAVEGACIÓN -->
+    <div class="nav-controls">
+        <button class="btn-nav" id="btn-prev" disabled>&larr; Anterior</button>
+        <div class="dots" id="dots"></div>
+        <span class="slide-counter" id="slide-num">Diapositiva 1 de 8</span>
+        <button class="btn-nav" id="btn-next">Siguiente &rarr;</button>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const btnPrev = document.getElementById('btn-prev');
+        const btnNext = document.getElementById('btn-next');
+        const slideNum = document.getElementById('slide-num');
+        const dotsContainer = document.getElementById('dots');
+        let currentSlide = 0;
+
+        slides.forEach((_, idx) => {
+            const dot = document.createElement('div');
+            dot.className = 'dot' + (idx === 0 ? ' active' : '');
+            dot.addEventListener('click', () => { currentSlide = idx; updateSlide(); });
+            dotsContainer.appendChild(dot);
+        });
+        const dots = document.querySelectorAll('.dot');
+
+        function updateSlide() {
+            slides.forEach((slide, idx) => slide.classList.toggle('active', idx === currentSlide));
+            dots.forEach((dot, idx) => dot.classList.toggle('active', idx === currentSlide));
+            btnPrev.disabled = currentSlide === 0;
+            btnNext.innerHTML = (currentSlide === slides.length - 1) ? 'Inicio &#10226;' : 'Siguiente &rarr;';
+            slideNum.textContent = `Diapositiva ${currentSlide + 1} de ${slides.length}`;
+        }
+
+        function goNext() { currentSlide = (currentSlide < slides.length - 1) ? currentSlide + 1 : 0; updateSlide(); }
+        function goPrev() { if (currentSlide > 0) currentSlide--; updateSlide(); }
+
+        btnNext.addEventListener('click', goNext);
+        btnPrev.addEventListener('click', goPrev);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goNext(); }
+            else if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); goPrev(); }
+        });
+    </script>
+</body>
+</html>
