@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 220" width="440" height="220">
+  <defs>
+    <filter id="mp_rough">
+      <feTurbulence type="fractalNoise" baseFrequency="0.88" numOctaves="3" seed="43" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+  <g filter="url(#mp_rough)" opacity="0.85">
+    <rect x="14" y="14" width="412" height="192" fill="none" stroke="#1a6b3c" stroke-width="6" rx="4"/>
+    <rect x="26" y="26" width="388" height="168" fill="none" stroke="#1a6b3c" stroke-width="2.5" rx="2"/>
+    <text x="220" y="66" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="30" font-weight="800" fill="#1a6b3c" letter-spacing="3">RECIBIDO</text>
+    <line x1="52" y1="80" x2="388" y2="80" stroke="#1a6b3c" stroke-width="2.5"/>
+    <text x="220" y="104" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#1a6b3c" letter-spacing="1">MESA DE PARTES — SUNAT</text>
+    <text x="220" y="126" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="600" fill="#1a6b3c">Intendencia de Aduana Marítima del Callao</text>
+    <text x="58" y="158" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#1a6b3c">FECHA:</text>
+    <line x1="126" y1="161" x2="382" y2="161" stroke="#1a6b3c" stroke-width="2"/>
+    <text x="58" y="184" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#1a6b3c">EXP. N°:</text>
+    <line x1="132" y1="187" x2="382" y2="187" stroke="#1a6b3c" stroke-width="2"/>
+  </g>
+</svg>

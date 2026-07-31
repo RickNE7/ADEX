@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ciclo del Ajuste de Valor: Duda Razonable, Aforo, Autoliquidación y Devolución</title>
+<style>
+  :root{
+    --tinta:#0a2540; --azul:#123a6b; --acento:#0b7285; --linea:#1f2d3d;
+    --gris:#5b6b7b; --panel:#0f2036; --panel2:#16304f; --bg:#eef1f5;
+    --admin:#f5f7f9; --rojo:#a8112a; --verde:#1a6b3c;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:#12212f}
+  .app{display:flex;min-height:100vh}
+
+  /* ---------- PANEL ---------- */
+  .panel{width:390px;flex:0 0 390px;background:var(--panel);color:#dce6f2;padding:18px 16px;overflow-y:auto;height:100vh;position:sticky;top:0}
+  .panel h1{font-size:16px;margin:0 0 2px}
+  .panel .sub{font-size:11px;color:#8fa6c0;margin-bottom:14px;line-height:1.4}
+  .grp{background:var(--panel2);border-radius:8px;padding:10px 11px;margin-bottom:11px;border:0}
+  .grp>.leg{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#7fd4e6;margin-bottom:8px;display:block}
+  .fld{margin-bottom:8px}
+  .fld label{display:block;font-size:11px;color:#a9bdd6;margin-bottom:3px}
+  .fld input,.fld select,.fld textarea{width:100%;padding:6px 7px;border:1px solid #2c4a6e;border-radius:5px;background:#0b1a2d;color:#eaf2fb;font-size:12px;font-family:inherit}
+  .fld textarea{resize:vertical;min-height:46px;line-height:1.35}
+  .fld input:focus,.fld select:focus,.fld textarea:focus{outline:none;border-color:#3aa6bf}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+  .num input{text-align:right;font-variant-numeric:tabular-nums}
+  .btns{display:flex;gap:8px;margin-top:6px}
+  .btn{flex:1;border:0;border-radius:6px;padding:10px;font-size:12px;font-weight:700;cursor:pointer}
+  .btn-print{background:#0b7285;color:#fff}.btn-print:hover{background:#0a8298}
+  .btn-reset{background:#33445a;color:#dce6f2}.btn-reset:hover{background:#3d5069}
+  .hint{font-size:10px;color:#7f97b3;line-height:1.4;margin-top:4px}
+  .calcbox{background:#0b1a2d;border:1px solid #2c4a6e;border-radius:6px;padding:8px;margin-top:8px;font-size:11px}
+  .calcbox .r{display:flex;justify-content:space-between;padding:2px 0;color:#a9bdd6}
+  .calcbox .r b{color:#7fd4e6;font-variant-numeric:tabular-nums}
+  .calcbox .r.tot{border-top:1px solid #2c4a6e;margin-top:4px;padding-top:5px;color:#eaf2fb;font-weight:700}
+
+  /* ---------- DOCUMENTOS ---------- */
+  .docs{flex:1;padding:26px 30px;display:flex;flex-direction:column;align-items:center;gap:26px}
+  .doc{width:794px;height:1123px;background:#fff;border:1.5px solid #000;box-shadow:0 3px 14px rgba(10,37,64,.14);
+       font-size:10px;color:#12212f;padding:30px 32px;position:relative;display:flex;flex-direction:column}
+
+  .dhead{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid var(--tinta);padding-bottom:10px;margin-bottom:12px}
+  .dhead .lg img{height:56px;width:auto;object-fit:contain}
+  .dhead .ti{text-align:right}
+  .dhead .ti h2{margin:0;font-size:15px;font-weight:800;color:var(--tinta);letter-spacing:.02em}
+  .dhead .ti .num{font-size:12px;font-weight:800;color:var(--acento);margin-top:3px}
+  .dhead .ti .leg{font-size:8.5px;color:var(--gris);margin-top:2px}
+  .dhead.rojo{border-bottom-color:var(--rojo)}
+  .dhead.rojo .ti h2{color:var(--rojo)}
+
+  .secTit{background:var(--admin);border-left:3px solid var(--acento);padding:4px 8px;font-size:9.5px;font-weight:800;
+          text-transform:uppercase;letter-spacing:.05em;color:var(--tinta);margin:11px 0 6px}
+  .secTit.rojo{border-left-color:var(--rojo)}
+
+  .grid{display:grid;border:1px solid var(--linea);border-bottom:0}
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:1fr 1fr 1fr}
+  .g4{grid-template-columns:1fr 1fr 1fr 1fr}
+  .c{border-right:1px solid var(--linea);border-bottom:1px solid var(--linea);padding:5px 7px;min-height:36px}
+  .g2 .c:nth-child(2n),.g3 .c:nth-child(3n),.g4 .c:nth-child(4n){border-right:0}
+  .c .k{display:block;font-size:7.5px;color:var(--gris);text-transform:uppercase;font-weight:700;margin-bottom:2px;letter-spacing:.03em}
+  .c .v{display:block;font-size:10px;font-weight:700;line-height:1.3;color:var(--tinta)}
+  .c .v.big{font-size:11.5px;font-weight:800}
+  .c .v.rojo{color:var(--rojo)}
+  .c.wide{grid-column:1/-1;border-right:0}
+
+  table.tb{width:100%;border-collapse:collapse;border:1px solid var(--linea)}
+  table.tb th{background:var(--admin);border-bottom:1px solid var(--linea);border-right:1px solid var(--linea);
+              padding:5px 6px;font-size:7.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--tinta)}
+  table.tb td{border-bottom:1px solid var(--linea);border-right:1px solid var(--linea);padding:5px 6px;font-size:9.5px;font-weight:600;line-height:1.3}
+  table.tb th:last-child,table.tb td:last-child{border-right:0}
+  table.tb tr:last-child td{border-bottom:0}
+  table.tb td.r{text-align:right;font-variant-numeric:tabular-nums}
+  table.tb td.c{text-align:center}
+  table.tb tr.hl td{background:#fff8e6;font-weight:800}
+  table.tb tr.dif td{background:#fdeaee;font-weight:800;color:var(--rojo)}
+
+  .obs{border:1px solid var(--linea);padding:7px 8px;font-size:9.5px;line-height:1.45}
+  .obs .k{display:block;font-size:7.5px;color:var(--gris);text-transform:uppercase;font-weight:700;margin-bottom:3px}
+
+  .legal{font-size:8px;color:#2a3a4a;line-height:1.5;text-align:justify}
+  .legal b{color:var(--tinta)}
+  ol.leg-list{margin:4px 0 0 14px;padding:0;font-size:8.5px;line-height:1.5}
+  ol.leg-list li{margin-bottom:3px}
+  ul.doc-list{margin:4px 0 0 14px;padding:0;font-size:8.5px;line-height:1.55}
+  ul.doc-list li{margin-bottom:2px}
+
+  .firmas{display:flex;justify-content:space-between;gap:16px;margin-top:auto;padding-top:12px}
+  .fbox{flex:1;text-align:center;position:relative;min-height:100px;display:flex;flex-direction:column;justify-content:flex-end}
+  .fbox img{position:absolute;left:50%;transform:translateX(-50%);bottom:26px;mix-blend-mode:multiply}
+  .fbox .ln{border-top:1px solid var(--tinta);margin:0 6px;padding-top:3px}
+  .fbox .rol{font-size:8.5px;font-weight:800;color:var(--tinta);text-transform:uppercase}
+  .fbox .det{font-size:7.5px;color:var(--gris);line-height:1.3}
+
+  .pie{border-top:1px solid var(--linea);margin-top:9px;padding-top:5px;display:flex;justify-content:space-between;font-size:7px;color:var(--gris)}
+
+  /* Documento denso (Solicitud de Devolución): tipografía comprimida para caber en A4 */
+  .doc.compact .secTit{margin:8px 0 4px;padding:3px 8px}
+  .doc.compact .legal{font-size:7.6px;line-height:1.42}
+  .doc.compact ol.leg-list,.doc.compact ul.doc-list{font-size:7.8px;line-height:1.42;margin-left:13px}
+  .doc.compact ol.leg-list li,.doc.compact ul.doc-list li{margin-bottom:1.5px}
+  .doc.compact .c{min-height:32px;padding:4px 7px}
+  .doc.compact .firmas{min-height:0;padding-top:8px}
+  .doc.compact .fbox{min-height:84px}
+  .doc.compact .fbox img{bottom:22px}
+
+  @media (max-width:1240px){
+    .app{flex-direction:column}
+    .panel{width:100%;flex:none;height:auto;position:static}
+    .docs{padding:16px}.doc{width:100%;height:auto;min-height:1123px;padding:22px}
+  }
+
+  @media print{
+    @page{size:A4 portrait;margin:0}
+    html,body{background:#fff;width:100%;height:100%}
+    .no-print{display:none!important}
+    .app{display:block}
+    .docs{padding:0;gap:0;display:block}
+    .doc{width:210mm!important;height:297mm!important;max-height:297mm!important;min-height:297mm!important;
+         box-shadow:none!important;border:0!important;page-break-after:always;break-after:page;
+         padding:14mm 13mm;margin:0!important;page-break-inside:avoid;break-inside:avoid}
+    .doc:last-child{page-break-after:auto;break-after:auto}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ============ PANEL ============ -->
+  <aside class="panel no-print">
+    <h1>Ciclo del Ajuste de Valor</h1>
+    <div class="sub">Emite los 4 documentos del núcleo de la Tarea 3: <b>Notificación de Duda Razonable</b>, <b>Acta de Aforo Físico</b> (canal rojo), <b>Autoliquidación</b> y <b>Solicitud de Devolución</b> de tributos. Los tributos se recalculan en vivo.</div>
+
+    <fieldset class="grp">
+      <span class="leg">Partes y Referencias</span>
+      <div class="fld"><label>Importador</label><input id="impNom" value="Corporación Textil Andina S.A.C."></div>
+      <div class="row2">
+        <div class="fld"><label>RUC</label><input id="impRuc" value="20602847513"></div>
+        <div class="fld"><label>Representante Legal</label><input id="repLegal" value="Carlos Mendoza Silva"></div>
+      </div>
+      <div class="fld"><label>Dirección Fiscal</label><input id="impDir" value="Av. Separadora Industrial 1234, Urb. Santa Raquel, Ate, Lima - Perú"></div>
+      <div class="fld"><label>Agente de Aduana</label><input id="agente" value="CACH Agentes de Aduana S.A.C."></div>
+      <div class="fld"><label>Exportador / Proveedor</label><input id="expNom" value="Tirupur Knitwear Exports Pvt. Ltd."></div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">Declaración y Mercancía</span>
+      <div class="row2">
+        <div class="fld"><label>N° DAM</label><input id="damNum" value="118-2026-10-004123"></div>
+        <div class="fld"><label>Fecha Numeración</label><input id="fDam" type="date" value="2026-07-09"></div>
+      </div>
+      <div class="fld"><label>Descripción de la Mercancía</label><input id="mercDesc" value="Polos de algodón 100% para hombres o mujeres"></div>
+      <div class="row2">
+        <div class="fld"><label>Subpartida Nacional</label><input id="subpartida" value="6109.10.00.39"></div>
+        <div class="fld"><label>Cantidad (unidades)</label><input id="cantidad" type="number" class="num" value="8000"></div>
+      </div>
+      <div class="fld"><label>Unidad Comercial</label><input id="unidad" value="UNIDADES"></div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">Valor Declarado vs. Valor Ajustado</span>
+      <div class="row3">
+        <div class="fld"><label>FOB (USD)</label><input id="fob" type="number" class="num" value="17600"></div>
+        <div class="fld"><label>Flete (USD)</label><input id="flete" type="number" class="num" value="1450"></div>
+        <div class="fld"><label>Seguro (USD)</label><input id="seguro" type="number" class="num" value="396"></div>
+      </div>
+      <div class="fld"><label>Precio unitario de referencia SIVEP (USD)</label><input id="precioRef" type="number" step="0.01" class="num" value="3.50"></div>
+      <div class="calcbox">
+        <div class="r"><span>Precio unitario declarado</span><b id="cbPrecioDecl">—</b></div>
+        <div class="r"><span>CIF declarado</span><b id="cbCifDecl">—</b></div>
+        <div class="r"><span>CIF ajustado (según SIVEP)</span><b id="cbCifAjus">—</b></div>
+        <div class="r tot"><span>Ajuste de valor</span><b id="cbAjuste">—</b></div>
+      </div>
+      <div class="hint">El valor ajustado se calcula aplicando el precio de referencia SIVEP a la cantidad declarada, más flete y seguro.</div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">Tasas Tributarias</span>
+      <div class="row3">
+        <div class="fld"><label>Ad Valorem %</label><input id="tAdv" type="number" step="0.1" class="num" value="11"></div>
+        <div class="fld"><label>ISC %</label><input id="tIsc" type="number" step="0.1" class="num" value="0"></div>
+        <div class="fld"><label>IGV %</label><input id="tIgv" type="number" step="0.1" class="num" value="15.5"></div>
+      </div>
+      <div class="row3">
+        <div class="fld"><label>IPM %</label><input id="tIpm" type="number" step="0.1" class="num" value="2.5"></div>
+        <div class="fld"><label>Percepción %</label><input id="tPerc" type="number" step="0.1" class="num" value="10"></div>
+        <div class="fld"><label>T/C</label><input id="tc" type="number" step="0.001" class="num" value="3.40"></div>
+      </div>
+      <div class="hint">IGV 15.5% + IPM 2.5% conforme a la Ley N.° 32387 (vigente 2026). No debe haber arancel cero.</div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">Duda Razonable y Aforo</span>
+      <div class="row2">
+        <div class="fld"><label>N° Notificación</label><input id="notifNum" value="118-2026-000-NDR-3271"></div>
+        <div class="fld"><label>Fecha Notificación</label><input id="fNotif" type="date" value="2026-07-15"></div>
+      </div>
+      <div class="row2">
+        <div class="fld"><label>N° Acta de Aforo</label><input id="actaNum" value="118-2026-AF-1194"></div>
+        <div class="fld"><label>Fecha del Aforo</label><input id="fActa" type="date" value="2026-07-15"></div>
+      </div>
+      <div class="row2">
+        <div class="fld"><label>Especialista SUNAT</label><input id="especialista" value="Patricia Salazar Vega — Especialista en Aduanas"></div>
+        <div class="fld"><label>Plazo de respuesta (días hábiles)</label><input id="plazoDias" type="number" class="num" value="5"></div>
+      </div>
+      <div class="fld"><label>Indicadores de riesgo detectados</label><textarea id="indicadores">Precio declarado significativamente inferior al valor de referencia registrado en el SIVEP para mercancía idéntica de la misma procedencia. Proveedor sin antecedentes de operaciones previas con el importador. No se acredita documentalmente la forma de pago al proveedor extranjero.</textarea></div>
+      <div class="fld"><label>Resultado del reconocimiento físico</label><textarea id="resultadoAforo">Se verificó la totalidad de los bultos declarados. La mercancía reconocida corresponde en especie, cantidad, calidad y estado a la consignada en la declaración. La clasificación arancelaria declarada es correcta. No se detectaron mercancías no declaradas. La observación se circunscribe exclusivamente al valor declarado.</textarea></div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">Autoliquidación y Devolución</span>
+      <div class="row2">
+        <div class="fld"><label>N° Autoliquidación</label><input id="autoNum" value="118-2026-AL-0862"></div>
+        <div class="fld"><label>Fecha Autoliquidación</label><input id="fAuto" type="date" value="2026-07-17"></div>
+      </div>
+      <div class="row2">
+        <div class="fld"><label>N° Expediente Devolución</label><input id="devNum" value="000-URD-2026-041755"></div>
+        <div class="fld"><label>Fecha Solicitud</label><input id="fDev" type="date" value="2026-07-24"></div>
+      </div>
+      <div class="fld"><label>Fecha de Levante</label><input id="fLevante" type="date" value="2026-07-17"></div>
+    </fieldset>
+
+    <div class="btns">
+      <button class="btn btn-print" onclick="window.print()">Imprimir (4 páginas A4)</button>
+      <button class="btn btn-reset" onclick="resetForm()">Restablecer</button>
+    </div>
+  </aside>
+
+  <!-- ============ DOCUMENTOS ============ -->
+  <main class="docs">
+
+    <!-- ========== 1. NOTIFICACIÓN DE DUDA RAZONABLE ========== -->
+    <section class="doc">
+      <div class="dhead rojo">
+        <div class="lg"><img src="logo_sunat.svg" alt="SUNAT"></div>
+        <div class="ti">
+          <h2>NOTIFICACIÓN DE DUDA RAZONABLE</h2>
+          <div class="num">N° <span id="d1_notifNum">118-2026-000-NDR-3271</span></div>
+          <div class="leg">Intendencia de Aduana Marítima del Callao · División de Valoración</div>
+        </div>
+      </div>
+
+      <div class="secTit rojo">1. Identificación del Administrado y de la Declaración</div>
+      <div class="grid g3">
+        <div class="c"><span class="k">Importador</span><span class="v big" id="d1_impNom">CORPORACIÓN TEXTIL ANDINA S.A.C.</span></div>
+        <div class="c"><span class="k">RUC</span><span class="v" id="d1_impRuc">20602847513</span></div>
+        <div class="c"><span class="k">Fecha de Notificación</span><span class="v big" id="d1_fNotif">15/07/2026</span></div>
+        <div class="c"><span class="k">N° DAM</span><span class="v" id="d1_damNum">118-2026-10-485126</span></div>
+        <div class="c"><span class="k">Fecha de Numeración</span><span class="v" id="d1_fDam">09/07/2026</span></div>
+        <div class="c"><span class="k">Canal de Control</span><span class="v rojo">ROJO — AFORO FÍSICO</span></div>
+        <div class="c wide"><span class="k">Domicilio Fiscal</span><span class="v" id="d1_impDir">Av. Separadora Industrial 1234, Urb. Santa Raquel, Ate, Lima - Perú</span></div>
+      </div>
+
+      <div class="secTit rojo">2. Mercancía Objeto de la Duda Razonable</div>
+      <div class="grid g4">
+        <div class="c"><span class="k">Descripción</span><span class="v" id="d1_mercDesc">Polos de algodón 100% para hombres o mujeres</span></div>
+        <div class="c"><span class="k">Subpartida Nacional</span><span class="v" id="d1_subpartida">6109.10.00.39</span></div>
+        <div class="c"><span class="k">Cantidad</span><span class="v" id="d1_cantidad">1,000 PARES</span></div>
+        <div class="c"><span class="k">Proveedor</span><span class="v" id="d1_expNom">Tirupur Knitwear Exports Pvt. Ltd.</span></div>
+      </div>
+
+      <div class="secTit rojo">3. Comparación de Valores</div>
+      <table class="tb">
+        <thead>
+          <tr>
+            <th style="width:34%">Concepto</th>
+            <th style="width:22%">Valor Declarado</th>
+            <th style="width:22%">Valor de Referencia (SIVEP)</th>
+            <th style="width:22%">Diferencia</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Precio unitario (USD)</td>
+            <td class="r" id="d1_puDecl">20.00</td>
+            <td class="r" id="d1_puRef">27.50</td>
+            <td class="r" id="d1_puDif">7.50</td>
+          </tr>
+          <tr>
+            <td>Valor FOB total (USD)</td>
+            <td class="r" id="d1_fobDecl">20,000.00</td>
+            <td class="r" id="d1_fobRef">27,500.00</td>
+            <td class="r" id="d1_fobDif">7,500.00</td>
+          </tr>
+          <tr class="dif">
+            <td>Valor CIF total (USD)</td>
+            <td class="r" id="d1_cifDecl">22,000.00</td>
+            <td class="r" id="d1_cifRef">29,500.00</td>
+            <td class="r" id="d1_cifDif">7,500.00</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="secTit rojo">4. Indicadores de Riesgo que Sustentan la Duda</div>
+      <div class="obs" style="min-height:56px">
+        <span class="k">Fundamentos de Hecho</span>
+        <span id="d1_indicadores">Precio declarado significativamente inferior al valor de referencia registrado en el SIVEP para mercancía idéntica de la misma procedencia.</span>
+      </div>
+
+      <div class="secTit rojo">5. Base Legal</div>
+      <div class="legal">
+        Acuerdo relativo a la Aplicación del Artículo VII del GATT de 1994 (Acuerdo de Valoración de la OMC); Decisión 6.1 del Comité de Valoración en Aduana de la OMC; Decisión 571 de la Comunidad Andina — Valor en Aduana de las Mercancías Importadas; Resolución 1684 de la Secretaría General de la CAN; Reglamento para la Valoración de Mercancías aprobado por Decreto Supremo N.° 186-99-EF y normas modificatorias; y Ley General de Aduanas, Decreto Legislativo N.° 1053.
+      </div>
+
+      <div class="secTit rojo">6. Requerimiento al Importador</div>
+      <div class="legal">
+        Habiéndose generado <b>duda razonable</b> respecto del valor declarado, se requiere al administrado que, dentro del plazo de <b><span id="d1_plazo">cinco (5)</span> días hábiles</b> contados desde el día siguiente de la notificación —prorrogable a solicitud de parte— presente la documentación e información que acredite que el valor declarado corresponde al <b>precio realmente pagado o por pagar</b> por las mercancías importadas, conforme al Primer Método de Valoración (Valor de Transacción). Documentación requerida:
+        <ul class="doc-list">
+          <li>Lista de precios vigente del proveedor extranjero.</li>
+          <li>Documentos bancarios que acrediten el pago efectivo al proveedor (transferencias, cartas de crédito, estados de cuenta).</li>
+          <li>Contrato de compraventa internacional u orden de compra aceptada.</li>
+          <li>Packing list y correspondencia comercial de la negociación.</li>
+          <li>Estados financieros y registros contables de la operación.</li>
+        </ul>
+        <p style="margin:6px 0 0">Para disponer del levante de la mercancía mientras se resuelve la controversia, el importador podrá optar por <b>constituir garantía</b> por la diferencia de tributos, o por <b>autoliquidarse</b> la diferencia y solicitar posteriormente su devolución de acreditar el valor declarado. De no presentarse sustento en el plazo otorgado, se procederá a determinar el valor en aduana aplicando los métodos secundarios en orden sucesivo.</p>
+      </div>
+
+      <div class="firmas">
+        <div class="fbox">
+          <img src="sello_17_sunat.svg" style="height:66px;transform:rotate(-2deg)" alt="Sello SUNAT">
+          <div class="ln"><div class="rol">Especialista en Aduanas</div><div class="det" id="d1_especialista">Especialista en Aduanas Reg. 6478</div></div>
+        </div>
+        <div class="fbox">
+          <div class="ln"><div class="rol">Notificado al Administrado</div><div class="det">Buzón electrónico SOL · Constancia de notificación</div></div>
+        </div>
+      </div>
+
+      <div class="pie"><span>Notificación de Duda Razonable — SUNAT</span><span>Documento elaborado con fines académicos — ADEX, Valoración Aduanera y Nomenclatura</span></div>
+    </section>
+
+    <!-- ========== 2. ACTA DE AFORO FÍSICO ========== -->
+    <section class="doc">
+      <div class="dhead rojo">
+        <div class="lg"><img src="logo_sunat.svg" alt="SUNAT"></div>
+        <div class="ti">
+          <h2>ACTA DE RECONOCIMIENTO FÍSICO (AFORO)</h2>
+          <div class="num">N° <span id="d2_actaNum">118-2026-AF-1194</span></div>
+          <div class="leg">Canal Rojo · Reconocimiento físico y revisión documentaria</div>
+        </div>
+      </div>
+
+      <div class="secTit rojo">1. Datos Generales de la Diligencia</div>
+      <div class="grid g3">
+        <div class="c"><span class="k">N° DAM</span><span class="v big" id="d2_damNum">118-2026-10-485126</span></div>
+        <div class="c"><span class="k">Canal Asignado</span><span class="v big rojo">ROJO</span></div>
+        <div class="c"><span class="k">Fecha del Aforo</span><span class="v big" id="d2_fActa">15/07/2026</span></div>
+        <div class="c"><span class="k">Importador</span><span class="v" id="d2_impNom">CORPORACIÓN TEXTIL ANDINA S.A.C.</span></div>
+        <div class="c"><span class="k">RUC</span><span class="v" id="d2_impRuc">20602847513</span></div>
+        <div class="c"><span class="k">Régimen</span><span class="v">IMPORTACIÓN PARA EL CONSUMO (10)</span></div>
+        <div class="c"><span class="k">Lugar de la Diligencia</span><span class="v">Terminal Andino S.A.C. — Cód. 3049</span></div>
+        <div class="c"><span class="k">Modalidad de Despacho</span><span class="v">ANTICIPADO</span></div>
+        <div class="c"><span class="k">Tipo de Carga</span><span class="v">CONSOLIDADA (LCL)</span></div>
+      </div>
+
+      <div class="secTit rojo">2. Participantes en la Diligencia</div>
+      <table class="tb">
+        <thead>
+          <tr><th style="width:34%">Interviniente</th><th style="width:33%">Representación</th><th style="width:33%">Calidad</th></tr>
+        </thead>
+        <tbody>
+          <tr><td id="d2_especialista">Especialista en Aduanas Reg. 6478</td><td>SUNAT — Aduana Marítima del Callao</td><td>Conduce el reconocimiento</td></tr>
+          <tr><td id="d2_agente">CACH Agentes de Aduana S.A.C.</td><td>Despachador de Aduana</td><td>Representa al importador</td></tr>
+          <tr><td>Terminal Andino S.A.C.</td><td>Depósito Temporal Cód. 3049</td><td>Custodia de la mercancía</td></tr>
+        </tbody>
+      </table>
+
+      <div class="secTit rojo">3. Mercancía Sometida a Reconocimiento</div>
+      <table class="tb">
+        <thead>
+          <tr>
+            <th style="width:32%">Descripción</th>
+            <th style="width:18%">Subpartida</th>
+            <th style="width:17%">Cant. Declarada</th>
+            <th style="width:17%">Cant. Verificada</th>
+            <th style="width:16%">Resultado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hl">
+            <td id="d2_mercDesc">Polos de algodón 100% para hombres o mujeres</td>
+            <td class="c" id="d2_subpartida">6109.10.00.39</td>
+            <td class="c" id="d2_cantDecl">1,000 PARES</td>
+            <td class="c" id="d2_cantVerif">1,000 PARES</td>
+            <td class="c">CONFORME</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="secTit rojo">4. Resultado del Reconocimiento Físico y Documentario</div>
+      <div class="obs" style="min-height:62px">
+        <span class="k">Constatación</span>
+        <span id="d2_resultadoAforo">Se verificó la totalidad de los bultos declarados.</span>
+      </div>
+
+      <div class="secTit rojo">5. Observación Formulada — Valor en Aduana</div>
+      <div class="legal">
+        Sin perjuicio de la conformidad establecida respecto de la <b>especie, cantidad, calidad, estado y clasificación arancelaria</b> de la mercancía reconocida, el especialista actuante formula observación respecto del <b>valor declarado</b>, por cuanto el precio unitario consignado en la declaración resulta sustancialmente inferior a los valores de referencia registrados en el Sistema de Verificación de Precios (SIVEP) para mercancías idénticas o similares de la misma procedencia y período.
+        <p style="margin:6px 0 0">En consecuencia, se genera <b>duda razonable</b> conforme a la Decisión 6.1 del Comité de Valoración en Aduana de la OMC y al Reglamento aprobado por Decreto Supremo N.° 186-99-EF, dando origen a la Notificación de Duda Razonable <b><span id="d2_notifNum">118-2026-000-NDR-3271</span></b>, a efectos de que el importador acredite documentalmente el precio realmente pagado o por pagar.</p>
+      </div>
+
+      <div class="secTit rojo">6. Cierre de la Diligencia</div>
+      <div class="grid g3">
+        <div class="c"><span class="k">Estado de los Precintos</span><span class="v">VERIFICADOS — CONFORMES</span></div>
+        <div class="c"><span class="k">Mercancía No Declarada</span><span class="v">NO SE DETECTÓ</span></div>
+        <div class="c"><span class="k">Resultado del Aforo</span><span class="v rojo">CONFORME CON OBSERVACIÓN DE VALOR</span></div>
+      </div>
+
+      <div class="firmas">
+        <div class="fbox">
+          <img src="sello_17_sunat.svg" style="height:62px;transform:rotate(-1.5deg)" alt="Sello SUNAT">
+          <div class="ln"><div class="rol">Especialista en Aduanas</div><div class="det">SUNAT — Aduana Marítima del Callao</div></div>
+        </div>
+        <div class="fbox">
+          <img src="sello_19_agenteaduana.svg" style="height:62px;transform:rotate(1.5deg)" alt="Sello Agente">
+          <div class="ln"><div class="rol">Agente de Aduana</div><div class="det" id="d2_agenteF">CACH Agentes de Aduana S.A.C.</div></div>
+        </div>
+        <div class="fbox">
+          <img src="sello_15_terminalandino.svg" style="height:58px;transform:rotate(-1deg)" alt="Sello Depósito">
+          <div class="ln"><div class="rol">Depósito Temporal</div><div class="det">Terminal Andino S.A.C. — Cód. 3049</div></div>
+        </div>
+      </div>
+
+      <div class="pie"><span>Acta de Reconocimiento Físico — Canal Rojo</span><span>Documento elaborado con fines académicos — ADEX, Valoración Aduanera y Nomenclatura</span></div>
+    </section>
+
+    <!-- ========== 3. AUTOLIQUIDACIÓN ========== -->
+    <section class="doc">
+      <div class="dhead">
+        <div class="lg"><img src="logo_textilandina.svg" alt="Importador"></div>
+        <div class="ti">
+          <h2>AUTOLIQUIDACIÓN DE TRIBUTOS</h2>
+          <div class="num">N° <span id="d3_autoNum">118-2026-AL-0862</span></div>
+          <div class="leg">Diferencia de tributos derivada del ajuste de valor · Pago voluntario bajo protesto</div>
+        </div>
+      </div>
+
+      <div class="secTit">1. Referencias</div>
+      <div class="grid g4">
+        <div class="c"><span class="k">Importador</span><span class="v" id="d3_impNom">CORPORACIÓN TEXTIL ANDINA S.A.C.</span></div>
+        <div class="c"><span class="k">RUC</span><span class="v" id="d3_impRuc">20602847513</span></div>
+        <div class="c"><span class="k">N° DAM</span><span class="v" id="d3_damNum">118-2026-10-485126</span></div>
+        <div class="c"><span class="k">Fecha</span><span class="v big" id="d3_fAuto">17/07/2026</span></div>
+        <div class="c"><span class="k">Notificación de Origen</span><span class="v" id="d3_notifNum">118-2026-000-NDR-3271</span></div>
+        <div class="c"><span class="k">Subpartida</span><span class="v" id="d3_subpartida">6109.10.00.39</span></div>
+        <div class="c"><span class="k">Ad Valorem Aplicable</span><span class="v" id="d3_tAdv">6.0%</span></div>
+        <div class="c"><span class="k">Tipo de Cambio</span><span class="v" id="d3_tc">3.400</span></div>
+      </div>
+
+      <div class="secTit">2. Determinación de la Base Imponible</div>
+      <table class="tb">
+        <thead>
+          <tr>
+            <th style="width:40%">Concepto</th>
+            <th style="width:20%">Valor Declarado</th>
+            <th style="width:20%">Valor Ajustado</th>
+            <th style="width:20%">Diferencia</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Valor FOB</td><td class="r" id="d3_fobD">20,000.00</td><td class="r" id="d3_fobA">27,500.00</td><td class="r" id="d3_fobDif">7,500.00</td></tr>
+          <tr><td>Flete internacional</td><td class="r" id="d3_fleteD">1,800.00</td><td class="r" id="d3_fleteA">1,800.00</td><td class="r">0.00</td></tr>
+          <tr><td>Seguro</td><td class="r" id="d3_seguroD">200.00</td><td class="r" id="d3_seguroA">200.00</td><td class="r">0.00</td></tr>
+          <tr class="dif"><td><b>VALOR CIF (Base Imponible)</b></td><td class="r" id="d3_cifD">22,000.00</td><td class="r" id="d3_cifA">29,500.00</td><td class="r" id="d3_cifDif">7,500.00</td></tr>
+        </tbody>
+      </table>
+
+      <div class="secTit">3. Liquidación Comparativa de Tributos (USD)</div>
+      <table class="tb">
+        <thead>
+          <tr>
+            <th style="width:34%">Tributo</th>
+            <th style="width:11%">Tasa</th>
+            <th style="width:18%">Sobre Valor Declarado</th>
+            <th style="width:18%">Sobre Valor Ajustado</th>
+            <th style="width:19%">Diferencia a Pagar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Derechos Ad Valorem</td><td class="c" id="d3_rAdv">6.0%</td><td class="r" id="d3_advD">1,320.00</td><td class="r" id="d3_advA">1,770.00</td><td class="r" id="d3_advDif">450.00</td></tr>
+          <tr><td>Impuesto Selectivo al Consumo</td><td class="c" id="d3_rIsc">0.0%</td><td class="r" id="d3_iscD">0.00</td><td class="r" id="d3_iscA">0.00</td><td class="r" id="d3_iscDif">0.00</td></tr>
+          <tr><td>IGV</td><td class="c" id="d3_rIgv">15.5%</td><td class="r" id="d3_igvD">3,615.00</td><td class="r" id="d3_igvA">4,847.00</td><td class="r" id="d3_igvDif">1,232.00</td></tr>
+          <tr><td>IPM</td><td class="c" id="d3_rIpm">2.5%</td><td class="r" id="d3_ipmD">583.00</td><td class="r" id="d3_ipmA">782.00</td><td class="r" id="d3_ipmDif">199.00</td></tr>
+          <tr class="hl"><td><b>TOTAL TRIBUTOS</b></td><td class="c">—</td><td class="r" id="d3_totD">5,518.00</td><td class="r" id="d3_totA">7,399.00</td><td class="r" id="d3_totDif">1,881.00</td></tr>
+          <tr><td>Percepción del IGV</td><td class="c" id="d3_rPerc">3.5%</td><td class="r" id="d3_percD">963.13</td><td class="r" id="d3_percA">1,291.47</td><td class="r" id="d3_percDif">328.34</td></tr>
+          <tr class="dif"><td><b>TOTAL A AUTOLIQUIDAR</b></td><td class="c">—</td><td class="r" id="d3_granD">6,481.13</td><td class="r" id="d3_granA">8,690.47</td><td class="r" id="d3_granDif">2,209.34</td></tr>
+        </tbody>
+      </table>
+
+      <div class="secTit">4. Monto Autoliquidado</div>
+      <div class="grid g3">
+        <div class="c"><span class="k">Diferencia de Tributos (USD)</span><span class="v big" id="d3_difUsd">US$ 1,881.00</span></div>
+        <div class="c"><span class="k">Diferencia de Percepción (USD)</span><span class="v big" id="d3_difPercUsd">US$ 328.34</span></div>
+        <div class="c"><span class="k">Total Autoliquidado (USD)</span><span class="v big rojo" id="d3_difTotUsd">US$ 2,209.34</span></div>
+        <div class="c wide"><span class="k">Total Autoliquidado en Moneda Nacional (T/C <span id="d3_tc2">3.400</span>)</span><span class="v big rojo" id="d3_difSoles">S/ 7,511.76</span></div>
+      </div>
+
+      <div class="secTit">5. Reserva de Derechos</div>
+      <div class="legal">
+        El importador procede a <b>autoliquidarse y cancelar</b> la diferencia de tributos determinada como consecuencia del ajuste de valor practicado por la Administración Aduanera, con la exclusiva finalidad de <b>obtener el levante de la mercancía</b> y evitar mayores gastos de almacenaje y sobrestadía, sin que ello implique aceptación ni allanamiento respecto del valor determinado por la Aduana.
+        <p style="margin:6px 0 0">En tal sentido, el importador <b>formula expresa reserva de su derecho</b> a solicitar la <b>devolución de los tributos pagados en exceso</b>, con los intereses que correspondan, dentro del plazo de prescripción de <b>cuatro (4) años</b>, una vez acreditado documentalmente que el valor declarado constituye el precio realmente pagado o por pagar por las mercancías importadas, conforme al Primer Método de Valoración.</p>
+      </div>
+
+      <div class="firmas">
+        <div class="fbox">
+          <img src="sello_20_textilandina.svg" style="height:60px;transform:rotate(-1.5deg)" alt="Sello Importador">
+          <div class="ln"><div class="rol">Importador</div><div class="det" id="d3_repLegal">Carlos Mendoza Silva — Representante Legal</div></div>
+        </div>
+        <div class="fbox">
+          <img src="sello_19_agenteaduana.svg" style="height:62px;transform:rotate(1.5deg)" alt="Sello Agente">
+          <div class="ln"><div class="rol">Agente de Aduana</div><div class="det" id="d3_agenteF">CACH Agentes de Aduana S.A.C.</div></div>
+        </div>
+      </div>
+
+      <div class="pie"><span>Autoliquidación de Tributos — Ajuste de Valor</span><span>Pago bajo reserva de solicitar devolución</span></div>
+    </section>
+
+    <!-- ========== 4. SOLICITUD DE DEVOLUCIÓN ========== -->
+    <section class="doc compact">
+      <div class="dhead">
+        <div class="lg"><img src="logo_textilandina.svg" alt="Importador"></div>
+        <div class="ti">
+          <h2>SOLICITUD DE DEVOLUCIÓN DE TRIBUTOS</h2>
+          <div class="num">EXP. N° <span id="d4_devNum">000-URD-2026-041755</span></div>
+          <div class="leg">Pagados indebidamente o en exceso · Art. 156 Ley General de Aduanas</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:14px;align-items:flex-start;margin-bottom:8px">
+        <div style="flex:1">
+          <div class="secTit" style="margin-top:0">Sumilla</div>
+          <div class="legal" style="font-size:9px"><b>SOLICITA DEVOLUCIÓN DE TRIBUTOS PAGADOS EN EXCESO POR AJUSTE DE VALOR, CON INTERESES.</b></div>
+        </div>
+        <div style="width:170px;text-align:center">
+          <img src="sello_18_mesadepartes.svg" style="height:76px;mix-blend-mode:multiply;transform:rotate(-2deg)" alt="Recibido">
+        </div>
+      </div>
+
+      <div class="legal" style="font-size:9px;margin-bottom:4px">
+        <b>SEÑOR INTENDENTE DE LA ADUANA MARÍTIMA DEL CALLAO — SUPERINTENDENCIA NACIONAL DE ADUANAS Y DE ADMINISTRACIÓN TRIBUTARIA</b>
+      </div>
+
+      <div class="secTit">1. Identificación del Solicitante</div>
+      <div class="grid g3">
+        <div class="c"><span class="k">Razón Social</span><span class="v" id="d4_impNom">CORPORACIÓN TEXTIL ANDINA S.A.C.</span></div>
+        <div class="c"><span class="k">RUC</span><span class="v" id="d4_impRuc">20602847513</span></div>
+        <div class="c"><span class="k">Fecha de Presentación</span><span class="v big" id="d4_fDev">24/07/2026</span></div>
+        <div class="c wide"><span class="k">Domicilio Fiscal</span><span class="v" id="d4_impDir">Av. Separadora Industrial 1234, Urb. Santa Raquel, Ate, Lima - Perú</span></div>
+        <div class="c wide"><span class="k">Representante Legal</span><span class="v" id="d4_repLegal">Carlos Mendoza Silva</span></div>
+      </div>
+
+      <div class="secTit">2. Petitorio</div>
+      <div class="legal">
+        Que, al amparo del artículo 156° de la Ley General de Aduanas (Decreto Legislativo N.° 1053) y de los artículos 38° y 43° del Código Tributario, solicito la <b>devolución de los tributos pagados en exceso</b> mediante la Autoliquidación N.° <b><span id="d4_autoNum">118-2026-AL-0862</span></b>, ascendente a <b><span id="d4_montoUsd">US$ 2,209.34</span></b> (<span id="d4_montoSoles">S/ 7,511.76</span>), <b>más los intereses</b> que se devenguen hasta la fecha efectiva de devolución.
+      </div>
+
+      <div class="secTit">3. Fundamentos de Hecho</div>
+      <ol class="leg-list">
+        <li>Mediante la DAM N.° <b><span id="d4_damNum">118-2026-10-485126</span></b>, numerada el <span id="d4_fDam">09/07/2026</span> bajo la modalidad de despacho anticipado, mi representada destinó al régimen de Importación para el Consumo la mercancía consistente en <span id="d4_mercDesc">polos de algodón 100% para hombres o mujeres</span>, subpartida nacional <span id="d4_subpartida">6109.10.00.39</span>.</li>
+        <li>Asignado el canal rojo, el reconocimiento físico concluyó <b>conforme</b> en especie, cantidad, calidad, estado y clasificación arancelaria, según Acta N.° <b><span id="d4_actaNum">118-2026-AF-1194</span></b>, formulándose observación únicamente respecto del valor declarado.</li>
+        <li>Mediante Notificación de Duda Razonable N.° <b><span id="d4_notifNum">118-2026-000-NDR-3271</span></b> se ajustó el valor en aduana de <span id="d4_cifD">US$ 22,000.00</span> a <span id="d4_cifA">US$ 29,500.00</span>, sobre la base de valores de referencia del SIVEP.</li>
+        <li>A fin de obtener el levante y evitar mayores gastos de almacenaje, mi representada se autoliquidó la diferencia de tributos <b>bajo expresa reserva</b> de solicitar su devolución, sin allanarse al valor determinado.</li>
+        <li>Se acredita documentalmente que el valor declarado constituye el <b>precio realmente pagado</b> al proveedor, conforme al Primer Método de Valoración, no existiendo vinculación entre las partes ni condiciones o contraprestaciones que afecten el precio.</li>
+      </ol>
+
+      <div class="secTit">4. Fundamentos de Derecho</div>
+      <div class="legal">
+        El artículo 1° del Acuerdo de Valoración de la OMC establece que el valor en aduana es, en primer término, el <b>valor de transacción</b>, esto es, el precio realmente pagado o por pagar por las mercancías, siempre que se cumplan los requisitos allí previstos. Los valores de referencia del SIVEP constituyen únicamente <b>indicadores de riesgo</b> para el control, y no pueden sustituir al valor de transacción debidamente acreditado, conforme a la Decisión 6.1 del Comité de Valoración de la OMC y al artículo 13° del Reglamento aprobado por Decreto Supremo N.° 186-99-EF. Acreditado el precio realmente pagado, corresponde la devolución de lo pagado en exceso, dentro del plazo de prescripción de cuatro (4) años, con los intereses previstos en el artículo 38° del Código Tributario.
+      </div>
+
+      <div class="secTit">5. Medios Probatorios que se Adjuntan</div>
+      <ul class="doc-list">
+        <li>Lista de precios vigente del proveedor <span id="d4_expNom">Tirupur Knitwear Exports Pvt. Ltd.</span>, coincidente en códigos y precios con la factura declarada.</li>
+        <li>Factura comercial y packing list del embarque.</li>
+        <li>Comprobantes de transferencia bancaria internacional acreditando el pago íntegro al proveedor.</li>
+        <li>Contrato de compraventa internacional y correspondencia comercial de la negociación.</li>
+        <li>Estados financieros y registro contable de la operación.</li>
+        <li>Copia de la DAM, del Acta de Aforo, de la Notificación de Duda Razonable y de la Autoliquidación cancelada.</li>
+      </ul>
+
+      <div class="legal" style="margin-top:8px"><b>POR TANTO:</b> solicito a usted, señor Intendente, tener por presentada la presente solicitud, admitirla a trámite y, en su oportunidad, declararla <b>fundada</b>, disponiendo la devolución del monto solicitado más los intereses de ley.</div>
+
+      <div class="firmas">
+        <div class="fbox">
+          <img src="sello_20_textilandina.svg" style="height:60px;transform:rotate(-1.5deg)" alt="Sello Importador">
+          <div class="ln"><div class="rol">Representante Legal</div><div class="det" id="d4_repLegalF">Carlos Mendoza Silva — Corporación Textil Andina S.A.C.</div></div>
+        </div>
+        <div class="fbox">
+          <img src="sello_19_agenteaduana.svg" style="height:60px;transform:rotate(1.5deg)" alt="Sello Agente">
+          <div class="ln"><div class="rol">Agente de Aduana</div><div class="det" id="d4_agenteF">CACH Agentes de Aduana S.A.C.</div></div>
+        </div>
+      </div>
+
+      <div class="pie"><span>Solicitud de Devolución de Tributos — Art. 156 LGA</span><span>Documento elaborado con fines académicos — ADEX, Valoración Aduanera y Nomenclatura</span></div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  const $ = id => document.getElementById(id);
+  const val = id => $(id).value;
+  const numv = id => parseFloat($(id).value) || 0;
+  function setT(id, t){ const e=$(id); if(e) e.innerText = t; }
+
+  const M = n => n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+  const N = n => n.toLocaleString('es-PE');
+
+  function fmtDate(s){ if(!s) return ''; const [y,m,d]=s.split('-'); return `${d}/${m}/${y}`; }
+
+  const NUMEROS = {1:'un (1)',2:'dos (2)',3:'tres (3)',4:'cuatro (4)',5:'cinco (5)',6:'seis (6)',7:'siete (7)',8:'ocho (8)',10:'diez (10)',15:'quince (15)'};
+
+  // Motor de liquidación — misma metodología verificada en clase
+  const cents = x => Math.round(x * 100) / 100;   // importes monetarios al céntimo
+  function liquidar(cif, tAdv, tIsc, tIgv, tIpm, tPerc){
+    const adv  = cents(cif * tAdv/100);
+    const isc  = cents((cif + adv) * tIsc/100);
+    const base = cif + adv + isc;
+    const igv  = Math.round(base * tIgv/100);   // IGV e IPM se redondean a entero
+    const ipm  = Math.round(base * tIpm/100);
+    const tot  = cents(adv + isc + igv + ipm);
+    const perc = cents((cif + tot) * tPerc/100); // Percepción conserva decimales (al céntimo)
+    return {adv, isc, igv, ipm, tot, perc, gran: cents(tot + perc)};
+  }
+
+  function update(){
+    // --- lecturas ---
+    const impNom = val('impNom').toUpperCase(), impRuc = val('impRuc'), impDir = val('impDir');
+    const repLegal = val('repLegal'), agente = val('agente'), expNom = val('expNom');
+    const damNum = val('damNum'), fDam = fmtDate(val('fDam'));
+    const mercDesc = val('mercDesc'), subpartida = val('subpartida');
+    const cantidad = numv('cantidad'), unidad = val('unidad').toUpperCase();
+    const fob = numv('fob'), flete = numv('flete'), seguro = numv('seguro'), precioRef = numv('precioRef');
+    const tAdv = numv('tAdv'), tIsc = numv('tIsc'), tIgv = numv('tIgv'), tIpm = numv('tIpm'), tPerc = numv('tPerc');
+    const tc = numv('tc');
+    const notifNum = val('notifNum'), fNotif = fmtDate(val('fNotif'));
+    const actaNum = val('actaNum'), fActa = fmtDate(val('fActa'));
+    const especialista = val('especialista'), plazoDias = numv('plazoDias');
+    const indicadores = val('indicadores'), resultadoAforo = val('resultadoAforo');
+    const autoNum = val('autoNum'), fAuto = fmtDate(val('fAuto'));
+    const devNum = val('devNum'), fDev = fmtDate(val('fDev'));
+
+    // --- valores ---
+    const puDecl  = cantidad > 0 ? fob / cantidad : 0;
+    const fobAjus = precioRef * cantidad;
+    const cifDecl = fob + flete + seguro;
+    const cifAjus = fobAjus + flete + seguro;
+    const ajuste  = cifAjus - cifDecl;
+
+    const LD = liquidar(cifDecl, tAdv, tIsc, tIgv, tIpm, tPerc);
+    const LA = liquidar(cifAjus, tAdv, tIsc, tIgv, tIpm, tPerc);
+    const difTrib = LA.tot - LD.tot;
+    const difPerc = LA.perc - LD.perc;
+    const difGran = LA.gran - LD.gran;
+
+    // --- caja de cálculo del panel ---
+    setT('cbPrecioDecl','US$ '+M(puDecl)); setT('cbCifDecl','US$ '+M(cifDecl));
+    setT('cbCifAjus','US$ '+M(cifAjus));  setT('cbAjuste','US$ '+M(ajuste));
+
+    // ===== 1. DUDA RAZONABLE =====
+    setT('d1_notifNum',notifNum); setT('d1_impNom',impNom); setT('d1_impRuc',impRuc);
+    setT('d1_fNotif',fNotif); setT('d1_damNum',damNum); setT('d1_fDam',fDam); setT('d1_impDir',impDir);
+    setT('d1_mercDesc',mercDesc); setT('d1_subpartida',subpartida);
+    setT('d1_cantidad',N(cantidad)+' '+unidad); setT('d1_expNom',expNom);
+    setT('d1_puDecl',M(puDecl)); setT('d1_puRef',M(precioRef)); setT('d1_puDif',M(precioRef-puDecl));
+    setT('d1_fobDecl',M(fob)); setT('d1_fobRef',M(fobAjus)); setT('d1_fobDif',M(fobAjus-fob));
+    setT('d1_cifDecl',M(cifDecl)); setT('d1_cifRef',M(cifAjus)); setT('d1_cifDif',M(ajuste));
+    setT('d1_indicadores',indicadores); setT('d1_especialista',especialista);
+    setT('d1_plazo', NUMEROS[plazoDias] || (plazoDias+' ('+plazoDias+')'));
+
+    // ===== 2. ACTA DE AFORO =====
+    setT('d2_actaNum',actaNum); setT('d2_damNum',damNum); setT('d2_fActa',fActa);
+    setT('d2_impNom',impNom); setT('d2_impRuc',impRuc);
+    setT('d2_especialista',especialista); setT('d2_agente',agente); setT('d2_agenteF',agente);
+    setT('d2_mercDesc',mercDesc); setT('d2_subpartida',subpartida);
+    setT('d2_cantDecl',N(cantidad)+' '+unidad); setT('d2_cantVerif',N(cantidad)+' '+unidad);
+    setT('d2_resultadoAforo',resultadoAforo); setT('d2_notifNum',notifNum);
+
+    // ===== 3. AUTOLIQUIDACIÓN =====
+    setT('d3_autoNum',autoNum); setT('d3_impNom',impNom); setT('d3_impRuc',impRuc);
+    setT('d3_damNum',damNum); setT('d3_fAuto',fAuto); setT('d3_notifNum',notifNum);
+    setT('d3_subpartida',subpartida);
+    setT('d3_tAdv',tAdv.toFixed(1)+'%'); setT('d3_tc',tc.toFixed(3)); setT('d3_tc2',tc.toFixed(3));
+    setT('d3_fobD',M(fob)); setT('d3_fobA',M(fobAjus)); setT('d3_fobDif',M(fobAjus-fob));
+    setT('d3_fleteD',M(flete)); setT('d3_fleteA',M(flete));
+    setT('d3_seguroD',M(seguro)); setT('d3_seguroA',M(seguro));
+    setT('d3_cifD',M(cifDecl)); setT('d3_cifA',M(cifAjus)); setT('d3_cifDif',M(ajuste));
+
+    setT('d3_rAdv',tAdv.toFixed(1)+'%'); setT('d3_rIsc',tIsc.toFixed(1)+'%');
+    setT('d3_rIgv',tIgv.toFixed(1)+'%'); setT('d3_rIpm',tIpm.toFixed(1)+'%'); setT('d3_rPerc',tPerc.toFixed(1)+'%');
+    setT('d3_advD',M(LD.adv)); setT('d3_advA',M(LA.adv)); setT('d3_advDif',M(LA.adv-LD.adv));
+    setT('d3_iscD',M(LD.isc)); setT('d3_iscA',M(LA.isc)); setT('d3_iscDif',M(LA.isc-LD.isc));
+    setT('d3_igvD',M(LD.igv)); setT('d3_igvA',M(LA.igv)); setT('d3_igvDif',M(LA.igv-LD.igv));
+    setT('d3_ipmD',M(LD.ipm)); setT('d3_ipmA',M(LA.ipm)); setT('d3_ipmDif',M(LA.ipm-LD.ipm));
+    setT('d3_totD',M(LD.tot)); setT('d3_totA',M(LA.tot)); setT('d3_totDif',M(difTrib));
+    setT('d3_percD',M(LD.perc)); setT('d3_percA',M(LA.perc)); setT('d3_percDif',M(difPerc));
+    setT('d3_granD',M(LD.gran)); setT('d3_granA',M(LA.gran)); setT('d3_granDif',M(difGran));
+
+    setT('d3_difUsd','US$ '+M(difTrib)); setT('d3_difPercUsd','US$ '+M(difPerc));
+    setT('d3_difTotUsd','US$ '+M(difGran)); setT('d3_difSoles','S/ '+M(difGran*tc));
+    setT('d3_repLegal',repLegal+' — Representante Legal'); setT('d3_agenteF',agente);
+
+    // ===== 4. SOLICITUD DE DEVOLUCIÓN =====
+    setT('d4_devNum',devNum); setT('d4_impNom',impNom); setT('d4_impRuc',impRuc);
+    setT('d4_fDev',fDev); setT('d4_impDir',impDir); setT('d4_repLegal',repLegal);
+    setT('d4_autoNum',autoNum);
+    setT('d4_montoUsd','US$ '+M(difGran)); setT('d4_montoSoles','S/ '+M(difGran*tc));
+    setT('d4_damNum',damNum); setT('d4_fDam',fDam);
+    setT('d4_mercDesc',mercDesc.toLowerCase()); setT('d4_subpartida',subpartida);
+    setT('d4_actaNum',actaNum); setT('d4_notifNum',notifNum);
+    setT('d4_cifD','US$ '+M(cifDecl)); setT('d4_cifA','US$ '+M(cifAjus));
+    setT('d4_expNom',expNom);
+    setT('d4_repLegalF',repLegal+' — '+val('impNom'));
+    setT('d4_agenteF',agente);
+  }
+
+  const DEF = {
+    impNom:"Corporación Textil Andina S.A.C.", impRuc:"20602847513",
+    repLegal:"Carlos Mendoza Silva", impDir:"Av. Separadora Industrial 1234, Urb. Santa Raquel, Ate, Lima - Perú",
+    agente:"CACH Agentes de Aduana S.A.C.", expNom:"Tirupur Knitwear Exports Pvt. Ltd.",
+    damNum:"118-2026-10-004123", fDam:"2026-07-09",
+    mercDesc:"Polos de algodón 100% para hombres o mujeres", subpartida:"6109.10.00.39",
+    cantidad:"8000", unidad:"UNIDADES",
+    fob:"17600", flete:"1450", seguro:"396", precioRef:"3.50",
+    tAdv:"11", tIsc:"0", tIgv:"15.5", tIpm:"2.5", tPerc:"10", tc:"3.40",
+    notifNum:"118-2026-000-NDR-3271", fNotif:"2026-07-15",
+    actaNum:"118-2026-AF-1194", fActa:"2026-07-15",
+    especialista:"Patricia Salazar Vega — Especialista en Aduanas", plazoDias:"5",
+    indicadores:"Precio declarado significativamente inferior al valor de referencia registrado en el SIVEP para mercancía idéntica de la misma procedencia. Proveedor sin antecedentes de operaciones previas con el importador. No se acredita documentalmente la forma de pago al proveedor extranjero.",
+    resultadoAforo:"Se verificó la totalidad de los bultos declarados. La mercancía reconocida corresponde en especie, cantidad, calidad y estado a la consignada en la declaración. La clasificación arancelaria declarada es correcta. No se detectaron mercancías no declaradas. La observación se circunscribe exclusivamente al valor declarado.",
+    autoNum:"118-2026-AL-0862", fAuto:"2026-07-17",
+    devNum:"000-URD-2026-041755", fDev:"2026-07-24", fLevante:"2026-07-17"
+  };
+
+  function resetForm(){
+    Object.keys(DEF).forEach(k => { if($(k)) $(k).value = DEF[k]; });
+    update();
+  }
+
+  document.querySelectorAll('.panel input, .panel textarea').forEach(el => el.addEventListener('input', update));
+  update();
+</script>
+</body>
+</html>

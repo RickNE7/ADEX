@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T3 · Generador de Factura Comercial — FOB Chennai</title>
+<style>
+  :root{
+    --tinta:#0a2540; --azul:#123a6b; --acento:#0b7285; --linea:#1f2d3d;
+    --gris:#5b6b7b; --panel:#0f2036; --panel2:#16304f; --bg:#eef1f5;
+    --admin:#f5f7f9;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:#12212f}
+  .app{display:flex;min-height:100vh}
+
+  /* ---------- PANEL ---------- */
+  .panel{width:390px;flex:0 0 390px;background:var(--panel);color:#dce6f2;padding:18px 16px;overflow-y:auto;height:100vh;position:sticky;top:0}
+  .panel h1{font-size:16px;margin:0 0 2px}
+  .panel .sub{font-size:11px;color:#8fa6c0;margin-bottom:14px;line-height:1.4}
+  .grp{background:var(--panel2);border-radius:8px;padding:10px 11px;margin-bottom:11px;border:0}
+  .grp>.leg{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#7fd4e6;margin-bottom:8px;display:block}
+  .fld{margin-bottom:8px}
+  .fld label{display:block;font-size:11px;color:#a9bdd6;margin-bottom:3px}
+  .fld input,.fld textarea{width:100%;padding:6px 7px;border:1px solid #2c4a6e;border-radius:5px;background:#0b1a2d;color:#eaf2fb;font-size:12px;font-family:inherit}
+  .fld textarea{resize:vertical;min-height:44px;line-height:1.35}
+  .fld input:focus,.fld textarea:focus{outline:none;border-color:#3aa6bf}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+  .num input{text-align:right;font-variant-numeric:tabular-nums}
+  .btns{display:flex;gap:8px;margin-top:6px}
+  .btn{flex:1;border:0;border-radius:6px;padding:10px;font-size:12px;font-weight:700;cursor:pointer}
+  .btn-print{background:#0b7285;color:#fff}.btn-print:hover{background:#0a8298}
+  .btn-reset{background:#33445a;color:#dce6f2}.btn-reset:hover{background:#3d5069}
+  .hint{font-size:10px;color:#7f97b3;line-height:1.4;margin-top:4px}
+
+  /* ---------- DOCUMENTO ---------- */
+  .docs{flex:1;padding:26px 30px;display:flex;flex-direction:column;align-items:center;gap:26px}
+  .invoice{width:794px;height:1123px;background:#fff;border:1.5px solid #000;box-shadow:0 3px 14px rgba(10,37,64,.14);
+            font-size:10.5px;color:#12212f;padding:30px 34px;position:relative;display:flex;flex-direction:column}
+
+  .inv-head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid var(--tinta);padding-bottom:12px;margin-bottom:14px}
+  .inv-head .brand{font-size:26px;font-weight:800;letter-spacing:.06em;color:var(--tinta)}
+  .inv-head .ti{text-align:right}
+  .inv-head .ti .num{font-size:12px;font-weight:800;color:var(--acento);margin-top:3px}
+  .inv-head .ti .dt{font-size:10.5px;color:var(--gris);margin-top:1px}
+
+  .parties{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:12px}
+  .party{border:1px solid #d3dbe4;border-radius:6px;padding:9px 11px}
+  .party h3{margin:0 0 5px;font-size:9px;text-transform:uppercase;letter-spacing:.05em;color:var(--gris);border-bottom:1px solid #e3e9ee;padding-bottom:4px}
+  .party p{margin:2px 0;line-height:1.4;font-size:10px}
+  .party p.name{font-weight:800;color:var(--tinta);font-size:11.5px}
+
+  .meta{background:var(--admin);border:1px solid #d3dbe4;border-radius:6px;padding:9px 12px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+  .meta-item span{display:block;font-size:8.3px;color:var(--gris);text-transform:uppercase;letter-spacing:.03em}
+  .meta-item strong{font-size:10.3px;color:var(--tinta)}
+
+  .tbl{width:100%;border-collapse:collapse;margin-bottom:10px}
+  .tbl th{background:var(--tinta);color:#fff;text-align:left;padding:6px 9px;font-size:8.8px;text-transform:uppercase;letter-spacing:.03em}
+  .tbl td{padding:8px 9px;border-bottom:1px solid #d3dbe4;line-height:1.4;vertical-align:top}
+  .tbl th.r,.tbl td.r{text-align:right;font-variant-numeric:tabular-nums}
+  .tbl td .desc-sub{display:block;font-size:8.8px;color:var(--gris);margin-top:2px}
+
+  .delivery-box{background:#fff8e6;border:1px solid #e8c97a;border-radius:6px;padding:8px 11px;font-size:9.3px;color:#6b5211;margin-bottom:12px}
+  .delivery-box b{color:#8a6a1f}
+
+  .totals{display:flex;justify-content:flex-end;margin-bottom:12px}
+  .totals table{border-collapse:collapse;width:280px}
+  .totals td{padding:5px 9px;border-bottom:1px solid #eef1f5;font-size:10px}
+  .totals td.lbl{color:var(--gris)}
+  .totals td.val{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+  .totals tr.tot td{font-size:13px;font-weight:800;color:var(--tinta);border-bottom:2px double var(--linea);background:var(--admin)}
+
+  .remarks{font-size:9px;color:var(--gris);line-height:1.55;border-top:1px solid #d3dbe4;padding-top:8px;margin-bottom:10px}
+  .remarks b{color:var(--tinta)}
+  .remarks ul{margin:3px 0 0 15px;padding:0}
+
+  .carrier{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;background:var(--admin);border:1px solid #d3dbe4;border-radius:6px;padding:9px 11px;margin-bottom:auto}
+  .carrier div span{display:block;font-size:8.3px;color:var(--gris);text-transform:uppercase}
+  .carrier div strong{font-size:9.8px;color:var(--tinta)}
+
+  .sign-section{margin-top:14px;display:flex;justify-content:space-between;align-items:flex-end}
+  .payinfo{font-size:8.8px;color:var(--gris);line-height:1.5}
+  .sig-box{width:220px;text-align:center;position:relative;height:78px}
+  .sig-box p{margin:0;font-size:9px;text-transform:uppercase;color:var(--gris);border-top:1px solid #9aa8b6;padding-top:4px;position:absolute;bottom:0;left:0;right:0}
+  .sig-box img{position:absolute;top:0;left:50%;transform:translateX(-50%);height:60px;width:auto;mix-blend-mode:multiply}
+
+  @media (max-width:1240px){
+    .app{flex-direction:column}
+    .panel{width:100%;flex:none;height:auto;position:static}
+    .docs{padding:16px}.invoice{width:100%;height:auto;min-height:1123px;padding:22px}
+  }
+
+  @media print{
+    @page{size:A4 portrait;margin:0}
+    html,body{background:#fff;width:100%;height:100%}
+    .no-print{display:none!important}
+    .app{display:block}
+    .docs{padding:0;gap:0;display:block}
+    .invoice{width:210mm!important;height:297mm!important;max-height:297mm!important;min-height:297mm!important;
+             box-shadow:none!important;border:1.5px solid #000!important;
+             page-break-after:always;break-after:page;padding:18mm 15mm;margin:0!important;page-break-inside:avoid;break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ============ PANEL ============ -->
+  <aside class="panel no-print">
+    <h1>Generador de Factura Comercial</h1>
+    <div class="sub">Factura FOB de una sola página, adaptada al caso "Corporación Textil Andina S.A.C." / "Tirupur Knitwear Exports Pvt. Ltd." (Tarea 3). Sin ajustes Art. 8 OMC — no aplican en este caso.</div>
+
+    <fieldset class="grp">
+      <span class="leg">Datos de la Factura</span>
+      <div class="row2">
+        <div class="fld"><label>N° de Factura</label><input id="invNum" value="TKE-2026-001"></div>
+        <div class="fld"><label>Fecha de Emisión</label><input id="invFecha" type="date" value="2026-05-25"></div>
+      </div>
+      <div class="row2">
+        <div class="fld"><label>Incoterm</label><input id="incoterm" value="FOB Chennai, India"></div>
+        <div class="fld"><label>Plazo de Pago (días)</label><input id="plazoPago" type="number" class="num" value="30"></div>
+      </div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">Exportador</span>
+      <div class="fld"><label>Razón Social</label><input id="expNom" value="Tirupur Knitwear Exports Pvt. Ltd."></div>
+      <div class="fld"><label>Dirección</label><input id="expDir" value="SF No. 45/1, Avinashi Road, Tirupur - 641654, Tamil Nadu, India"></div>
+      <div class="fld"><label>GSTIN</label><input id="expGstin" value="33AABCT1234C1ZK"></div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">Importador</span>
+      <div class="fld"><label>Razón Social</label><input id="impNom" value="Corporación Textil Andina S.A.C."></div>
+      <div class="fld"><label>Dirección</label><input id="impDir" value="Av. Separadora Industrial N° 1234, Urb. Santa Raquel, Ate, Lima - Peru"></div>
+      <div class="fld"><label>RUC</label><input id="impRuc" value="20602847513"></div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">Pago Bancario</span>
+      <div class="fld"><label>Forma de Pago</label><input id="formaPago" value="Bank Transfer"></div>
+      <div class="row2">
+        <div class="fld"><label>Banco</label><input id="banco" value="HDFC Bank Ltd."></div>
+        <div class="fld"><label>SWIFT</label><input id="swift" value="HDFCINBB"></div>
+      </div>
+      <div class="fld"><label>N° de Cuenta</label><input id="cuenta" value="50200012345678"></div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">Mercancía</span>
+      <div class="fld"><label>Descripción</label><input id="prodDesc" value="100% Cotton T-Shirts for Men or Women"></div>
+      <div class="row2">
+        <div class="fld"><label>Subpartida Nacional</label><input id="subpartida" value="6109.10.00.39"></div>
+        <div class="fld"><label>País de Origen</label><input id="paisOrigen" value="India"></div>
+      </div>
+      <div class="row3">
+        <div class="fld"><label>Cantidad</label><input id="prodCant" type="number" class="num" value="8000"></div>
+        <div class="fld"><label>Precio Unit. (USD)</label><input id="prodPrec" type="number" step="0.01" class="num" value="2.20"></div>
+        <div class="fld"><label>Marca</label><input id="marca" value="TKE"></div>
+      </div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">Embarque y Carga</span>
+      <div class="row2">
+        <div class="fld"><label>Puerto de Embarque</label><input id="ptoEmb" value="Chennai, India"></div>
+        <div class="fld"><label>Puerto de Destino</label><input id="ptoDest" value="Callao, Peru"></div>
+      </div>
+      <div class="row2">
+        <div class="fld"><label>Transportista (Consolidador)</label><input id="carrier" value="Oceanic Shipping Lines Pvt. Ltd."></div>
+        <div class="fld"><label>Contenedor</label><input id="contInfo" value="40' HC (LCL)"></div>
+      </div>
+      <div class="row3">
+        <div class="fld"><label>Bultos</label><input id="bultos" value="80 cartons (CTNS)"></div>
+        <div class="fld num"><label>Peso Bruto (kg)</label><input id="pesoBruto" type="number" class="num" value="1750"></div>
+        <div class="fld num"><label>Peso Neto (kg)</label><input id="pesoNeto" type="number" class="num" value="1600"></div>
+      </div>
+      <div class="hint">El peso corresponde solo a nuestros 8,000 polos (80 cajas), no al contenedor consolidado completo — evita el error de confundir unidades con kilos.</div>
+    </fieldset>
+
+    <fieldset class="grp">
+      <span class="leg">Observaciones</span>
+      <div class="fld"><label>Notas (una por línea)</label><textarea id="remarks">Incoterm: FOB Chennai (INCOTERMS® 2020)
+Shipped from Chennai, India — Destination: Callao, Peru
+Goods travel under consolidated cargo (LCL), 40' HC container, shared with other importers
+Freight and insurance costs are not included in this invoice — contracted separately</textarea></div>
+    </fieldset>
+
+    <div class="btns">
+      <button class="btn btn-print" onclick="window.print()">Imprimir / PDF</button>
+      <button class="btn btn-reset" onclick="resetForm()">Restablecer</button>
+    </div>
+  </aside>
+
+  <!-- ============ DOCUMENTO ============ -->
+  <main class="docs">
+    <section class="invoice">
+      <div>
+        <div class="inv-head">
+          <div>
+            <img src="logo_tirupurknitwear.svg" alt="Tirupur Knitwear" style="height:56px;width:auto;object-fit:contain">
+          </div>
+          <div class="ti">
+            <div style="font-size:20px;font-weight:800;color:var(--tinta)">COMMERCIAL INVOICE</div>
+            <div class="num">N° <span id="outInvNum">TKE-2026-001</span></div>
+            <div class="dt">Date: <span id="outInvFecha">25 de mayo de 2026</span></div>
+          </div>
+        </div>
+
+        <div class="parties">
+          <div class="party">
+            <h3>Exporter / Ship From</h3>
+            <p class="name" id="outExpNom">TIRUPUR KNITWEAR EXPORTS PVT. LTD.</p>
+            <p id="outExpDir">SF No. 45/1, Avinashi Road, Tirupur - 641654, Tamil Nadu, India</p>
+            <p>GSTIN: <span id="outExpGstin">33AABCT1234C1ZK</span></p>
+          </div>
+          <div class="party">
+            <h3>Importer / Ship To</h3>
+            <p class="name" id="outImpNom">CORPORACIÓN TEXTIL ANDINA S.A.C.</p>
+            <p id="outImpDir">Av. Separadora Industrial N° 1234, Urb. Santa Raquel, Ate, Lima - Perú</p>
+            <p>Tax ID (RUC): <span id="outImpRuc">20602847513</span></p>
+          </div>
+        </div>
+
+        <div class="meta">
+          <div class="meta-item"><span>Incoterm</span><strong id="outIncoterm">FOB CHENNAI, INDIA</strong></div>
+          <div class="meta-item"><span>Country of Origin</span><strong id="outPaisOrigen">INDIA</strong></div>
+          <div class="meta-item"><span>Payment Terms</span><strong id="outFormaPago">TRANSFERENCIA BANCARIA — 30 DÍAS</strong></div>
+          <div class="meta-item"><span>Payment Due Date</span><strong id="outFPago">24 DE JUNIO DE 2026</strong></div>
+        </div>
+
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th style="width:14%">HS Code</th>
+              <th>Description</th>
+              <th class="r" style="width:12%">Quantity</th>
+              <th class="r" style="width:14%">Unit Price (USD)</th>
+              <th class="r" style="width:14%">Total (USD)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="outSubpartida">6109.10.00.39</td>
+              <td>
+                <strong id="outProdDesc">Polos de algodón 100% para hombres o mujeres</strong>
+                <span class="desc-sub">Brand: <span id="outMarca">TKE</span></span>
+              </td>
+              <td class="r" id="outProdCant">8,000 unidades</td>
+              <td class="r" id="outProdPrec">$2.20</td>
+              <td class="r" id="outProdTotal">$17,600.00</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="delivery-box">
+          <b>Delivery Terms:</b> Freight &amp; Insurance NOT included (FOB) — international freight and insurance are contracted separately and are not included in this invoice.
+        </div>
+      </div>
+
+      <div>
+        <div class="totals">
+          <table>
+            <tr><td class="lbl">FOB Chennai (Total):</td><td class="val" id="outFobTotal">$17,600.00</td></tr>
+            <tr><td class="lbl">Freight:</td><td class="val">—</td></tr>
+            <tr><td class="lbl">Insurance:</td><td class="val">—</td></tr>
+            <tr class="tot"><td>Total Invoice Amount:</td><td class="val" id="outTotalFinal">$17,600.00</td></tr>
+          </table>
+        </div>
+
+        <div class="remarks">
+          <b>Remarks:</b>
+          <ul id="outRemarksList"></ul>
+        </div>
+
+        <div class="carrier">
+          <div><span>Carrier (Consolidator)</span><strong id="outCarrier">Oceanic Shipping Lines Pvt. Ltd.</strong></div>
+          <div><span>Container</span><strong id="outContInfo">40' HC (LCL)</strong></div>
+          <div><span>Packages / Net Weight</span><strong style="white-space:nowrap"><span id="outBultos" style="display:inline">80 cajas (CJS)</span>&nbsp;·&nbsp;<span id="outPesoNeto" style="display:inline">1,600.00 kg</span></strong></div>
+        </div>
+
+        <div class="sign-section">
+          <div class="payinfo">
+            <p>Beneficiary Bank: <strong id="outBanco">HDFC Bank Ltd.</strong></p>
+            <p>SWIFT: <strong id="outSwift">HDFCINBB</strong> · Account: <strong id="outCuenta">50200012345678</strong></p>
+          </div>
+          <div class="sig-box">
+            <img src="sello_21_tirupurknitwear.svg" alt="Authorized Signature">
+            <p>Authorized Signature</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  const $ = id => document.getElementById(id);
+  const val = id => $(id).value;
+  const numv = id => parseFloat($(id).value) || 0;
+  function setT(id, t){ const e=$(id); if(e) e.innerText = t; }
+
+  const M = n => '$' + n.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+
+  function fmtDateEs(dateStr){
+    if(!dateStr) return '';
+    const d = new Date(dateStr + 'T00:00:00');
+    return d.toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'});
+  }
+  function addDays(dateStr, days){
+    if(!dateStr) return '';
+    const d = new Date(dateStr + 'T00:00:00');
+    d.setDate(d.getDate() + days);
+    return d.toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'});
+  }
+
+  function update(){
+    const invNum = val('invNum'), invFecha = val('invFecha'), incoterm = val('incoterm'), plazoPago = numv('plazoPago');
+    const expNom = val('expNom'), expDir = val('expDir'), expGstin = val('expGstin');
+    const impNom = val('impNom'), impDir = val('impDir'), impRuc = val('impRuc');
+    const formaPago = val('formaPago'), banco = val('banco'), swift = val('swift'), cuenta = val('cuenta');
+    const prodDesc = val('prodDesc'), subpartida = val('subpartida'), paisOrigen = val('paisOrigen');
+    const prodCant = numv('prodCant'), prodPrec = numv('prodPrec'), marca = val('marca');
+    const ptoEmb = val('ptoEmb'), ptoDest = val('ptoDest'), carrier = val('carrier'), contInfo = val('contInfo');
+    const bultos = val('bultos'), pesoBruto = numv('pesoBruto'), pesoNeto = numv('pesoNeto');
+    const remarksText = val('remarks');
+
+    const total = prodCant * prodPrec;
+
+    setT('outInvNum', invNum);
+    setT('outInvFecha', fmtDateEs(invFecha));
+    setT('outExpNom', expNom.toUpperCase());
+    setT('outExpDir', expDir);
+    setT('outExpGstin', expGstin);
+    setT('outImpNom', impNom.toUpperCase());
+    setT('outImpDir', impDir);
+    setT('outImpRuc', impRuc);
+    setT('outIncoterm', incoterm.toUpperCase());
+    setT('outPaisOrigen', paisOrigen.toUpperCase());
+    setT('outFormaPago', formaPago.toUpperCase() + ' — ' + plazoPago + ' DAYS');
+    setT('outFPago', addDays(invFecha, plazoPago).toUpperCase());
+    setT('outSubpartida', subpartida);
+    setT('outProdDesc', prodDesc);
+    setT('outMarca', marca);
+    setT('outProdCant', prodCant.toLocaleString('en-US') + ' units');
+    setT('outProdPrec', M(prodPrec));
+    setT('outProdTotal', M(total));
+    setT('outFobTotal', M(total));
+    setT('outTotalFinal', M(total));
+    setT('outCarrier', carrier);
+    setT('outContInfo', contInfo);
+    setT('outBultos', bultos);
+    setT('outPesoNeto', pesoNeto.toLocaleString('en-US', {minimumFractionDigits:2}) + ' kg');
+    setT('outBanco', banco);
+    setT('outSwift', swift);
+    setT('outCuenta', cuenta);
+
+    const ul = $('outRemarksList');
+    ul.innerHTML = '';
+    remarksText.split('\n').filter(l => l.trim()).forEach(line => {
+      const li = document.createElement('li');
+      li.textContent = line.trim();
+      ul.appendChild(li);
+    });
+  }
+
+  const DEF = {
+    invNum:"TKE-2026-001", invFecha:"2026-05-25", incoterm:"FOB Chennai, India", plazoPago:"30",
+    expNom:"Tirupur Knitwear Exports Pvt. Ltd.", expDir:"SF No. 45/1, Avinashi Road, Tirupur - 641654, Tamil Nadu, India", expGstin:"33AABCT1234C1ZK",
+    impNom:"Corporación Textil Andina S.A.C.", impDir:"Av. Separadora Industrial N° 1234, Urb. Santa Raquel, Ate, Lima - Peru", impRuc:"20602847513",
+    formaPago:"Bank Transfer", banco:"HDFC Bank Ltd.", swift:"HDFCINBB", cuenta:"50200012345678",
+    prodDesc:"100% Cotton T-Shirts for Men or Women", subpartida:"6109.10.00.39", paisOrigen:"India",
+    prodCant:"8000", prodPrec:"2.20", marca:"TKE",
+    ptoEmb:"Chennai, India", ptoDest:"Callao, Peru", carrier:"Oceanic Shipping Lines Pvt. Ltd.", contInfo:"40' HC (LCL)",
+    bultos:"80 cartons (CTNS)", pesoBruto:"1750", pesoNeto:"1600",
+    remarks:"Incoterm: FOB Chennai (INCOTERMS® 2020)\nShipped from Chennai, India — Destination: Callao, Peru\nGoods travel under consolidated cargo (LCL), 40' HC container, shared with other importers\nFreight and insurance costs are not included in this invoice — contracted separately"
+  };
+
+  function resetForm(){
+    Object.keys(DEF).forEach(k => { if($(k)) $(k).value = DEF[k]; });
+    update();
+  }
+
+  document.querySelectorAll('.panel input, .panel textarea').forEach(el => el.addEventListener('input', update));
+  update();
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="300" height="300">
+  <defs>
+    <path id="ta_arc_top" d="M 150,150 m -114,0 a 114,114 0 0 1 228,0" fill="none"/>
+    <path id="ta_arc_bot" d="M 150,150 m -108,0 a 108,108 0 0 0 216,0" fill="none"/>
+    <filter id="ta_rough">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.1" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+  <g filter="url(#ta_rough)" opacity="0.88" fill="none" stroke="#12439e" stroke-width="5">
+    <circle cx="150" cy="150" r="126"/>
+    <circle cx="150" cy="150" r="118" stroke-width="2.5"/>
+    <circle cx="150" cy="150" r="84" stroke-width="2.5"/>
+  </g>
+  <g filter="url(#ta_rough)" opacity="0.88" fill="#12439e">
+    <text font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="800" letter-spacing="2.4">
+      <textPath href="#ta_arc_top" startOffset="50%" text-anchor="middle">TERMINAL ANDINO S.A.C.</textPath>
+    </text>
+    <text font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="1.8">
+      <textPath href="#ta_arc_bot" startOffset="50%" text-anchor="middle">DEPÓSITO TEMPORAL · CÓD. 3049</textPath>
+    </text>
+    <text x="150" y="132" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="800" letter-spacing="1">ALMACÉN</text>
+    <text x="150" y="156" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="800" letter-spacing="1">ADUANERO</text>
+    <text x="150" y="182" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700">CALLAO — PERÚ</text>
+    <rect x="96" y="140" width="108" height="2" opacity="0"/>
+  </g>
+  <g filter="url(#ta_rough)" opacity="0.88" stroke="#12439e" stroke-width="2.5">
+    <line x1="98" y1="141" x2="202" y2="141" opacity="0"/>
+    <line x1="104" y1="164" x2="196" y2="164"/>
+  </g>
+</svg>

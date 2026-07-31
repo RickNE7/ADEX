@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 230" width="420" height="230">
+  <defs>
+    <filter id="aa_rough">
+      <feTurbulence type="fractalNoise" baseFrequency="0.86" numOctaves="3" seed="57" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="1.9" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+  <!-- Firma manuscrita del despachador -->
+  <g fill="none" stroke="#12439e" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.9">
+    <path d="M40 88 C50 40, 72 30, 84 48 C96 66, 76 106, 62 118 C50 128, 46 112, 66 92 C92 66, 124 62, 140 78 C152 90, 138 108, 128 100 C120 94, 134 74, 158 68"/>
+    <path d="M156 68 C186 60, 212 72, 214 90 C216 106, 198 114, 192 102 C186 90, 208 70, 240 66 C272 62, 296 78, 314 66 C332 54, 352 62, 358 78"/>
+    <path d="M84 126 C150 112, 258 106, 344 96" stroke-width="3"/>
+  </g>
+  <!-- Recuadro de identificación -->
+  <g filter="url(#aa_rough)" opacity="0.86">
+    <rect x="22" y="140" width="376" height="72" fill="none" stroke="#12439e" stroke-width="3.5" rx="3"/>
+    <text x="210" y="164" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="800" fill="#12439e" letter-spacing="0.8">CACH AGENTES DE ADUANA S.A.C.</text>
+    <text x="210" y="185" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#12439e">DESPACHADOR OFICIAL · REG. 6478</text>
+    <text x="210" y="204" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="600" fill="#12439e">FIRMA Y SELLO AUTORIZADO</text>
+  </g>
+</svg>

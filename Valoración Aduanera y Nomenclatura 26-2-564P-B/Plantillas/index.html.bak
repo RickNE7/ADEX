@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADEX Customs Documentation Hub — Import & Valuation</title>
+<style>
+  :root {
+    --bg-dark: #0a0f1d;
+    --card-bg: #13192e;
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --primary: #0284c7;
+    --primary-hover: #0369a1;
+    --accent: #f59e0b;
+    --border: #1e293b;
+    --glass: rgba(19, 25, 46, 0.7);
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Outfit', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-x: hidden;
+  }
+
+  .header {
+    background: radial-gradient(circle at top right, rgba(2, 132, 199, 0.15), transparent 60%);
+    padding: 50px 20px 30px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    background: linear-gradient(to right, #f1f5f9, #0284c7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+  }
+
+  .header p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    flex: 1;
+    width: 100%;
+  }
+
+  .case-summary {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .case-summary h2 {
+    font-size: 1.25rem;
+    color: var(--accent);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .grid-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .info-card {
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid var(--border);
+    padding: 16px;
+    border-radius: 10px;
+  }
+
+  .info-card span {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    letter-spacing: 0.03em;
+  }
+
+  .info-card strong {
+    font-size: 1.05rem;
+    color: var(--text-main);
+  }
+
+  /* ---------- TIMELINE ---------- */
+  .timeline-section {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .timeline-section h2 {
+    font-size: 1.25rem;
+    color: var(--primary);
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 5px;
+    bottom: 5px;
+    width: 2px;
+    background: var(--border);
+  }
+
+  .timeline-item {
+    position: relative;
+  }
+
+  .time-node {
+    position: absolute;
+    left: -32px;
+    top: 2px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--bg-dark);
+    border: 3px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 800;
+    transition: all 0.3s ease;
+  }
+
+  .timeline-item:hover .time-node {
+    border-color: var(--primary);
+    box-shadow: 0 0 10px rgba(2, 132, 199, 0.5);
+  }
+
+  .time-content {
+    background: rgba(30, 41, 59, 0.2);
+    border: 1px solid var(--border);
+    padding: 16px 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .timeline-item:hover .time-content {
+    background: rgba(30, 41, 59, 0.4);
+    border-color: rgba(2, 132, 199, 0.2);
+  }
+
+  .time-content h3 {
+    font-size: 1.05rem;
+    color: var(--text-main);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .time-date {
+    font-size: 0.8rem;
+    background: rgba(2, 132, 199, 0.15);
+    color: var(--primary);
+    padding: 3px 8px;
+    border-radius: 50px;
+    font-weight: 700;
+  }
+
+  .timeline-list {
+    list-style: none;
+    margin: 0 0 16px 0;
+    padding: 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .timeline-list li {
+    line-height: 1.45;
+  }
+
+  .timeline-list li strong {
+    color: var(--text-main);
+  }
+
+  .timeline-list li em {
+    color: var(--accent);
+    font-style: normal;
+    font-size: 0.75rem;
+    background: rgba(245, 158, 11, 0.1);
+    padding: 1px 5px;
+    border-radius: 4px;
+    margin-left: 5px;
+    font-weight: 700;
+  }
+
+  .time-links {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .time-badge {
+    display: inline-flex;
+    align-items: center;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-main);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    gap: 4px;
+  }
+
+  .time-badge:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(245, 158, 11, 0.05);
+    transform: translateY(-1px);
+  }
+
+  /* ---------- DOC CARDS ---------- */
+  .grid-docs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    margin-top: 20px;
+  }
+
+  .doc-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .doc-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--primary);
+    opacity: 0.6;
+    transition: all 0.3s ease;
+  }
+
+  .doc-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(2, 132, 199, 0.4);
+    box-shadow: 0 12px 30px rgba(2, 132, 199, 0.15);
+  }
+
+  .doc-card:hover::before {
+    width: 6px;
+    opacity: 1;
+    background: var(--accent);
+  }
+
+  .doc-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    color: var(--text-main);
+  }
+
+  .doc-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 24px;
+    flex: 1;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: 0;
+    width: 100%;
+  }
+
+  .btn-primary {
+    background-color: var(--primary);
+    color: #fff;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--primary-hover);
+    transform: scale(1.02);
+  }
+
+  .footer {
+    text-align: center;
+    padding: 30px 20px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    background: rgba(10, 15, 29, 0.8);
+  }
+
+  .footer a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  .footer a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+  <header class="header">
+    <h1>ADEX CUSTOMS HUB</h1>
+    <p>Interactive Import Valuation & Documentation generators for the athletic footwear case study (Tariff Subheading 6404.11.20.00). Built strictly under WTO valuation principles and INCOTERMS® 2020 rules.</p>
+  </header>
+
+  <div class="container">
+    
+    <!-- Case Study Reference -->
+    <section class="case-summary">
+      <h2>Case Details Reference Sheet</h2>
+      <div class="grid-info">
+        <div class="info-card">
+          <span>Importer (Buyer)</span>
+          <strong>ZAPATILLAS DEL PACÍFICO S.A.C.</strong>
+        </div>
+        <div class="info-card">
+          <span>Exporter (Seller)</span>
+          <strong>CHINA FOOTWEAR MANUFACTURING CO., LTD.</strong>
+        </div>
+        <div class="info-card">
+          <span>Tariff Code (Subheading)</span>
+          <strong>6404.11.20.00</strong>
+        </div>
+        <div class="info-card">
+          <span>Product / Quantity</span>
+          <strong>1,000 PAIRS (RUNMAX 2026)</strong>
+        </div>
+        <div class="info-card">
+          <span>Primary FOB Value</span>
+          <strong>$20,000.00 USD</strong>
+        </div>
+        <div class="info-card">
+          <span>WTO Art. 8 Adjustments</span>
+          <strong>$4,000.00 USD (Royalty, Commission, etc.)</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visual Interactive Timeline -->
+    <section class="timeline-section">
+      <h2>Interactive Import Timeline & Document Trail</h2>
+      <div class="timeline">
+        
+        <!-- Fase 1 -->
+        <div class="timeline-item">
+          <div class="time-node">1</div>
+          <div class="time-content">
+            <h3>Fase 1: Compra y Despacho en Origen <span class="time-date">10/07 - 20/07</span></h3>
+            <ul class="timeline-list">
+              <li><strong>• Emisión de OC (10/07/2026):</strong> Zapatillas del Pacífico S.A.C. emite la Orden de Compra formal al fabricante chino. <em>Contrato de Regalías</em></li>
+              <li><strong>• Pago de Factura (18/07/2026):</strong> Transferencia bancaria por el valor EXW de USD 20,000 (1,000 pares). <em>Factura Comercial</em></li>
+              <li><strong>• Ajustes en Origen (19/07/2026):</strong> Pago de comisiones, regalías y embalaje hacia el puerto. <em>Factura de Embalaje</em></li>
+              <li><strong>• Entrega al Transportista (20/07/2026):</strong> La carga es consolidada y entregada al transportista marítimo en Cantón. <em>Certificado de Origen</em></li>
+            </ul>
+            <div class="time-links">
+              <a href="Generador_Contrato.html" class="time-badge">📄 Contrato de Regalías (10/07)</a>
+              <a href="Generador_Factura.html" class="time-badge">🧾 Factura Comercial EXW (18/07)</a>
+              <a href="Generador_Certificado_Origen.html" class="time-badge">📜 Certificado de Origen TLC (20/07)</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fase 2 -->
+        <div class="timeline-item">
+          <div class="time-node">2</div>
+          <div class="time-content">
+            <h3>Fase 2: Tránsito y Trámites de Destino <span class="time-date">22/07 - 24/08</span></h3>
+            <ul class="timeline-list">
+              <li><strong>• Embarque de Mercancía (22/07/2026):</strong> Estiba y aseguramiento de los contenedores a bordo del buque carguero. <em>Bill of Lading</em></li>
+              <li><strong>• Tránsito Internacional (23/07/2026):</strong> Viaje marítimo y contratación simultánea del seguro internacional. <em>Certificado de Seguro</em></li>
+              <li><strong>• Llegada al Callao (24/08/2026):</strong> Arribo de la nave al terminal de destino APM Terminals en Perú. <em>Volante de Despacho</em></li>
+              <li><strong>• Descarga en Almacén (24/08/2026):</strong> Traslado y descarga de la mercancía hacia el Depósito Temporal para su resguardo físico.</li>
+            </ul>
+            <div class="time-links">
+              <a href="Generador_Transporte_Seguro.html" class="time-badge">🚢 Conocimiento de Embarque B/L (22/07)</a>
+              <a href="Generador_Transporte_Seguro.html" class="time-badge">🛡️ Póliza de Seguro Rímac (23/07)</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fase 3 -->
+        <div class="timeline-item">
+          <div class="time-node">3</div>
+          <div class="time-content">
+            <h3>Fase 3: Transmisión de la DAM y Liquidación <span class="time-date">24/08 - 25/08</span></h3>
+            <ul class="timeline-list">
+              <li><strong>• Entrega de Documentos (24/08/2026):</strong> Endoso del conocimiento de embarque y entrega al Agente de Aduanas. <em>B/L Endosado</em></li>
+              <li><strong>• Numeración de la DAM (25/08/2026):</strong> El agente transmite la Declaración Aduanera ante el sistema SUNAT. <em>DAM Formatos A y B</em></li>
+              <li><strong>• Cálculo de Liquidación (25/08/2026):</strong> Determinación de tributos (Ad Valorem, IGV, IPM, Percepción) sobre CIF. <em>DAM Formato C</em></li>
+              <li><strong>• Pago de Deuda Tributaria (25/08/2026):</strong> El importador cancela el monto exacto de los tributos en la red bancaria. <em>Comprobante de Pago</em></li>
+            </ul>
+            <div class="time-links">
+              <a href="Generador_DAM.html" class="time-badge">📑 Declaración Aduanera (DAM) (25/08)</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fase 4 -->
+        <div class="timeline-item">
+          <div class="time-node">4</div>
+          <div class="time-content">
+            <h3>Fase 4: Canales de Control y Levante <span class="time-date">25/08 - 27/08</span></h3>
+            <ul class="timeline-list">
+              <li><strong>• Asignación de Canal (25/08/2026):</strong> El sistema asigna canal de control: Verde, Naranja o Rojo. <em>Gestión de Canal</em></li>
+              <li><strong>• Atención de Duda Razonable (26/08/2026):</strong> Si SUNAT observa el valor FOB, se sustenta con transferencias y contratos. <em>Facturas de Ajuste y Contrato</em></li>
+              <li><strong>• Levante Autorizado (27/08/2026):</strong> SUNAT otorga el permiso oficial ("Levante") tras confirmar conformidad. <em>DAM con Levante</em></li>
+              <li><strong>• Retiro de Carga (27/08/2026):</strong> La empresa coordina el transporte local para retirar la carga del almacén.</li>
+            </ul>
+            <div class="time-links">
+              <a href="Generador_Factura.html" class="time-badge">🧮 Ajustes Declarados (FOB Total)</a>
+              <a href="Generador_DAM.html" class="time-badge">📊 Sustento de Valoración (Formato B)</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Document Selection Grid -->
+    <div class="grid-docs">
+      
+      <!-- Card 1: Invoices -->
+      <article class="doc-card">
+        <div>
+          <h3>Invoices & Adjustments</h3>
+          <p>Generates the main Commercial Invoice (EXW terms) listing freight and insurance as informational notes under INCOTERMS® 2020. Includes the 4 supporting adjustment invoices for commissions, packing, royalties, and design assistance.</p>
+        </div>
+        <a href="Generador_Factura.html" class="btn btn-primary">Open Invoice Generator →</a>
+      </article>
+
+      <!-- Card 2: Transport & Insurance -->
+      <article class="doc-card">
+        <div>
+          <h3>Shipping & Insurance</h3>
+          <p>Generates the Bill of Lading (B/L) issued by Maersk Line with container details and prepaid ocean freight. Also generates the Marine Cargo Insurance Certificate issued by Rimac Insurance with All Risks ICC-A coverage.</p>
+        </div>
+        <a href="Generador_Transporte_Seguro.html" class="btn btn-primary">Open Transport & Insurance →</a>
+      </article>
+
+      <!-- Card 3: Certificate of Origin -->
+      <article class="doc-card">
+        <div>
+          <h3>Certificate of Origin</h3>
+          <p>Generates the official Certificate of Origin for the Peru-China Free Trade Agreement (FTA), enabling the 0% Ad Valorem preferential tariff treatment. Certified by CCPIT China.</p>
+        </div>
+        <a href="Generador_Certificado_Origen.html" class="btn btn-primary">Open Certificate of Origin →</a>
+      </article>
+
+      <!-- Card 4: Contrato de Regalías -->
+      <article class="doc-card">
+        <div>
+          <h3>Regalías & Licencia Contrato</h3>
+          <p>Generates the official Intellectual Property and Trademark License Contract ("Contrato de Suelas") detailing royalties rate (5%), minimum annual guarantees ($10,000), and mold design technical assists.</p>
+        </div>
+        <a href="Generador_Contrato.html" class="btn btn-primary">Open Contract Generator →</a>
+      </article>
+
+      <!-- Card 5: DAM -->
+      <article class="doc-card" style="border-color: rgba(245, 158, 11, 0.3); grid-column: span 1;">
+        <div>
+          <h3>DAM (Formats A, B & C)</h3>
+          <p>Generates the official Declaración Aduanera de Mercancías (Format A for general cargo, Format B for value declaration and WTO adjustments, and Format C for tax settlement and comparison).</p>
+        </div>
+        <a href="Generador_DAM.html" class="btn btn-primary" style="background-color: var(--accent); color: #0a0f1d;">Open DAM Generator →</a>
+      </article>
+
+      <!-- Card 6: Documentos Operativos (Tarea 3) -->
+      <article class="doc-card" style="border-color: rgba(16, 185, 129, 0.35);">
+        <div>
+          <h3>Documentos Operativos <span style="font-size:.7rem;background:rgba(16,185,129,.15);color:#34d399;padding:2px 8px;border-radius:20px;vertical-align:middle">TAREA 3</span></h3>
+          <p>Genera los cuatro documentos que emiten el <strong>transportista internacional</strong> y el <strong>depósito temporal</strong>: Manifiesto de Carga, Nota de Tarja, Nota de Tarja al Detalle y Volante de Despacho. Preparado para carga consolidada (LCL) con tres consignatarios.</p>
+        </div>
+        <a href="T3 Generador_Operativos.html" class="btn btn-primary" style="background-color:#10b981;color:#04231a">Abrir Documentos Operativos →</a>
+      </article>
+
+      <!-- Card 7: Ciclo del Ajuste de Valor (Tarea 3) -->
+      <article class="doc-card" style="border-color: rgba(239, 68, 68, 0.35);">
+        <div>
+          <h3>Ciclo del Ajuste de Valor <span style="font-size:.7rem;background:rgba(239,68,68,.15);color:#f87171;padding:2px 8px;border-radius:20px;vertical-align:middle">TAREA 3</span></h3>
+          <p>Genera la <strong>Notificación de Duda Razonable</strong>, el <strong>Acta de Aforo Físico</strong> (canal rojo), la <strong>Autoliquidación</strong> de la diferencia de tributos y la <strong>Solicitud de Devolución</strong>. Recalcula la liquidación comparativa (declarado vs. ajustado) en vivo.</p>
+        </div>
+        <a href="T3 Generador_Ajuste_Valor.html" class="btn btn-primary" style="background-color:#ef4444;color:#fff">Abrir Ciclo de Ajuste →</a>
+      </article>
+
+      <!-- Card 8: Factura (Tarea 3) -->
+      <article class="doc-card" style="border-color: rgba(16, 185, 129, 0.35);">
+        <div>
+          <h3>Factura Comercial FOB <span style="font-size:.7rem;background:rgba(16,185,129,.15);color:#34d399;padding:2px 8px;border-radius:20px;vertical-align:middle">TAREA 3</span></h3>
+          <p>Genera la <strong>Factura Comercial</strong> del caso Corporación Textil Andina / Tirupur Knitwear Exports (FOB Chennai), sin ajustes Art. 8 OMC. Incluye datos bancarios, subpartida 6109.10.00.39 y peso neto real de la mercancía (1,600 kg).</p>
+        </div>
+        <a href="T3 Generador_Factura.html" class="btn btn-primary" style="background-color:#10b981;color:#04231a">Abrir Factura Comercial →</a>
+      </article>
+
+      <!-- Card 9: Transporte y Seguro (Tarea 3) -->
+      <article class="doc-card" style="border-color: rgba(16, 185, 129, 0.35);">
+        <div>
+          <h3>Transporte y Seguro <span style="font-size:.7rem;background:rgba(16,185,129,.15);color:#34d399;padding:2px 8px;border-radius:20px;vertical-align:middle">TAREA 3</span></h3>
+          <p>Genera el <strong>Bill of Lading</strong> (Maersk Line, Chennai → Callao Muelle Sur) y el <strong>Certificado de Seguro Marítimo</strong> (Rímac) para la carga consolidada LCL de Corporación Textil Andina.</p>
+        </div>
+        <a href="T3 Generador_Transporte_Seguro.html" class="btn btn-primary" style="background-color:#10b981;color:#04231a">Abrir Transporte y Seguro →</a>
+      </article>
+
+      <!-- Card 10: DAM (Tarea 3) -->
+      <article class="doc-card" style="border-color: rgba(16, 185, 129, 0.35);">
+        <div>
+          <h3>DAM (Formatos A, B y C) <span style="font-size:.7rem;background:rgba(16,185,129,.15);color:#34d399;padding:2px 8px;border-radius:20px;vertical-align:middle">TAREA 3</span></h3>
+          <p>Copia del generador de DAM adaptable al caso Tarea 3. <strong>Pendiente de actualizar</strong> con los datos de Corporación Textil Andina — actualmente conserva los valores por defecto de Tarea 1 (Zapatillas del Pacífico).</p>
+        </div>
+        <a href="T3 Generador_DAM.html" class="btn btn-primary" style="background-color:#10b981;color:#04231a">Abrir DAM (T3) →</a>
+      </article>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>ADEX Módulo B — Valoración Aduanera y Nomenclatura | 5to Ciclo</p>
+    <p style="margin-top: 5px; color: var(--text-muted);">Developed for student group presentation: Eric Mozombite, Anderson Quispe, Nicolas Castro, Marilin Medina.</p>
+  </footer>
+
+</body>
+</html>

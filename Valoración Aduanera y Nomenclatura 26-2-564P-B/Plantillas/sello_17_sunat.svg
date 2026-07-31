@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="300" height="300">
+  <defs>
+    <path id="sn_arc_top" d="M 150,150 m -116,0 a 116,116 0 0 1 232,0" fill="none"/>
+    <path id="sn_arc_bot" d="M 150,150 m -110,0 a 110,110 0 0 0 220,0" fill="none"/>
+    <filter id="sn_rough">
+      <feTurbulence type="fractalNoise" baseFrequency="0.92" numOctaves="3" seed="31" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+  <g filter="url(#sn_rough)" opacity="0.85" fill="none" stroke="#a8112a" stroke-width="5">
+    <circle cx="150" cy="150" r="128"/>
+    <circle cx="150" cy="150" r="120" stroke-width="2.5"/>
+    <circle cx="150" cy="150" r="86" stroke-width="2.5"/>
+  </g>
+  <g filter="url(#sn_rough)" opacity="0.85" fill="#a8112a">
+    <text font-family="Segoe UI, Arial, sans-serif" font-size="19" font-weight="800" letter-spacing="1.6">
+      <textPath href="#sn_arc_top" startOffset="50%" text-anchor="middle">ADUANA MARÍTIMA DEL CALLAO</textPath>
+    </text>
+    <text font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="1.4">
+      <textPath href="#sn_arc_bot" startOffset="50%" text-anchor="middle">DIVISIÓN DE VALORACIÓN · 118</textPath>
+    </text>
+    <text x="150" y="128" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="800" letter-spacing="1.5">SUNAT</text>
+    <text x="150" y="154" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">ESPECIALISTA EN</text>
+    <text x="150" y="172" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">ADUANAS</text>
+    <text x="150" y="196" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="700">REG. 6478</text>
+  </g>
+  <g filter="url(#sn_rough)" opacity="0.85" stroke="#a8112a" stroke-width="2.5">
+    <line x1="106" y1="136" x2="194" y2="136"/>
+    <line x1="106" y1="180" x2="194" y2="180"/>
+  </g>
+</svg>

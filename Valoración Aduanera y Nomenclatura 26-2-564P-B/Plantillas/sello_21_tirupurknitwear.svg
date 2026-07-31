@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 220" width="420" height="220">
+  <defs>
+    <filter id="tk_rough">
+      <feTurbulence type="fractalNoise" baseFrequency="0.87" numOctaves="3" seed="83" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="1.9" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+  <!-- Firma manuscrita del exportador -->
+  <g fill="none" stroke="#123a6b" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.9">
+    <path d="M38 90 C46 42, 68 30, 82 48 C96 66, 78 108, 64 120 C52 130, 48 114, 66 94 C90 68, 122 62, 138 78 C150 90, 136 108, 126 100 C118 94, 132 74, 156 68"/>
+    <path d="M154 68 C184 60, 210 72, 212 90 C214 106, 196 114, 190 102 C184 90, 206 70, 238 66 C270 62, 294 78, 312 66 C330 54, 350 62, 356 78"/>
+    <path d="M82 128 C148 114, 254 108, 342 98" stroke-width="3"/>
+  </g>
+  <!-- Recuadro de identificación -->
+  <g filter="url(#tk_rough)" opacity="0.86">
+    <rect x="20" y="140" width="380" height="72" fill="none" stroke="#123a6b" stroke-width="3.5" rx="3"/>
+    <text x="210" y="164" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="800" fill="#123a6b" letter-spacing="0.5">TIRUPUR KNITWEAR EXPORTS PVT. LTD.</text>
+    <text x="210" y="185" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="12.5" font-weight="700" fill="#123a6b">TIRUPUR, TAMIL NADU — INDIA</text>
+    <text x="210" y="204" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" font-weight="600" fill="#123a6b">AUTHORIZED SIGNATORY</text>
+  </g>
+</svg>

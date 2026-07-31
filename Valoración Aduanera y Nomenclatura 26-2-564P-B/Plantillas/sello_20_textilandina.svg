@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 230" width="420" height="230">
+  <defs>
+    <filter id="tx_rough">
+      <feTurbulence type="fractalNoise" baseFrequency="0.87" numOctaves="3" seed="71" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="1.9" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+  <!-- Firma manuscrita del representante legal -->
+  <g fill="none" stroke="#12439e" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.9">
+    <path d="M36 92 C44 46, 66 32, 80 50 C94 68, 74 108, 60 120 C48 130, 44 114, 62 94 C86 70, 118 64, 134 80 C146 92, 132 110, 122 102 C114 96, 128 76, 152 70"/>
+    <path d="M150 70 C180 62, 206 74, 210 92 C214 108, 194 116, 188 104 C182 92, 206 72, 238 68 C266 64, 288 80, 306 68 C324 56, 346 64, 354 80"/>
+    <path d="M80 128 C148 114, 256 108, 344 98" stroke-width="3"/>
+  </g>
+  <!-- Recuadro de identificación -->
+  <g filter="url(#tx_rough)" opacity="0.86">
+    <rect x="20" y="140" width="380" height="72" fill="none" stroke="#12439e" stroke-width="3.5" rx="3"/>
+    <text x="210" y="164" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15.5" font-weight="800" fill="#12439e" letter-spacing="0.6">CORPORACIÓN TEXTIL ANDINA S.A.C.</text>
+    <text x="210" y="185" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#12439e">R.U.C. 20602847513</text>
+    <text x="210" y="204" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" font-weight="600" fill="#12439e">REPRESENTANTE LEGAL · FIRMA Y SELLO</text>
+  </g>
+</svg>

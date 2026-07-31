@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 130" width="540" height="130">
+  <defs>
+    <linearGradient id="txGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7a1f3d"/>
+      <stop offset="100%" stop-color="#c0392b"/>
+    </linearGradient>
+  </defs>
+  <!-- Marca: ovillo / trama textil sobre cordillera -->
+  <g>
+    <path d="M16 96 L48 40 L70 74 L88 52 L120 96 Z" fill="url(#txGrad)"/>
+    <g stroke="#ffffff" stroke-width="2.4" opacity="0.55" fill="none">
+      <path d="M26 88 L110 88"/>
+      <path d="M34 78 L102 78"/>
+      <path d="M42 68 L94 68"/>
+    </g>
+    <circle cx="68" cy="30" r="13" fill="none" stroke="#7a1f3d" stroke-width="3.5"/>
+    <path d="M58 24 Q68 34 78 24 M58 36 Q68 26 78 36" stroke="#7a1f3d" stroke-width="2.2" fill="none"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="140" y="56" font-family="Segoe UI, Arial, sans-serif" font-size="33" font-weight="800" fill="#0a2540" letter-spacing="-0.5">CORPORACIÓN</text>
+  <text x="140" y="92" font-family="Segoe UI, Arial, sans-serif" font-size="33" font-weight="300" fill="#c0392b" letter-spacing="5">TEXTIL ANDINA</text>
+  <text x="142" y="112" font-family="Segoe UI, Arial, sans-serif" font-size="10.5" font-weight="600" fill="#5b6b7b" letter-spacing="1.5">IMPORTACIÓN Y DISTRIBUCIÓN DE CONFECCIONES · LIMA — PERÚ</text>
+</svg>

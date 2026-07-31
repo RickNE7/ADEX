@@ -34,14 +34,14 @@
 
   /* ---------- DOCUMENTOS ---------- */
   .docs{flex:1;padding:26px 30px;display:flex;flex-direction:column;align-items:center;gap:26px}
-  
+
   /* Bill of Lading Specific */
   .bol{width:794px;height:1123px;background:#fff;border:1.5px solid #000;box-shadow:0 3px 14px rgba(10,37,64,.14);font-size:10px;color:#12212f;padding:25px 25px;position:relative;display:flex;flex-direction:column;justify-content:space-between;text-transform:uppercase}
   .bol-title-area{display:flex;justify-content:space-between;align-items:center;padding:5px 10px;border-bottom:1px solid var(--linea);margin-bottom:10px}
   .bol-title-area h2{margin:0;font-size:16px;font-weight:800;color:var(--tinta)}
   .logo-area{display:flex;align-items:center;gap:10px}
   .logo-area img{height:50px;max-height:50px;width:auto;object-fit:contain}
-  
+
   .bol-grid{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--linea);border-bottom:0}
   .bol-cell{border-right:1px solid var(--linea);border-bottom:1px solid var(--linea);padding:6px 8px;min-height:55px}
   .bol-cell:nth-child(even){border-right:0}
@@ -52,21 +52,21 @@
   .bol-cargo-table th{background:#f5f7f9;border-bottom:1px solid var(--linea);border-right:1px solid var(--linea);padding:6px;font-size:8px;text-transform:uppercase}
   .bol-cargo-table td{border-bottom:1px solid var(--linea);border-right:1px solid var(--linea);padding:10px 8px;font-size:9.5px;font-weight:600;line-height:1.4}
   .bol-cargo-table th:last-child,.bol-cargo-table td:last-child{border-right:0}
-  
+
   .bol-footer{border:1px solid var(--linea);border-top:0;padding:8px;font-size:8.5px;line-height:1.4;color:var(--gris)}
-  
+
   /* Insurance Policy Specific */
   .policy{width:794px;height:1123px;background:#fff;border:1.5px solid #0056AC;box-shadow:0 3px 14px rgba(10,37,64,.14);font-size:10px;color:#12212f;padding:45px 30px;position:relative;display:flex;flex-direction:column;justify-content:space-between;text-transform:uppercase}
   .pol-header{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #0056AC;padding-bottom:12px;margin-bottom:20px}
   .pol-logo img{height:55px;max-height:55px;width:auto;object-fit:contain}
   .pol-title{text-align:right}
   .pol-title h2{margin:0;font-size:18px;color:var(--tinta)}
-  
+
   .pol-table{width:100%;border-collapse:collapse;margin-bottom:30px}
   .pol-table td{padding:10px 12px;border:1px solid #d3dbe4;font-size:10.5px}
   .pol-table td.lbl{background:#f5f7f9;font-weight:700;color:var(--gris);width:25%}
   .pol-table td.val{font-weight:600;color:var(--tinta)}
-  
+
   @media (max-width:1240px){
     .app{flex-direction:column}
     .panel{width:100%;flex:none;height:auto;position:static}
@@ -349,7 +349,7 @@
     document.getElementById('outBlPtoDesc2').innerText = blPtoDesc;
     document.getElementById('outBlDesc2').innerText = blDesc;
     document.getElementById('outSeguroVal').innerText = formatMoney(seguroVal) + ' USD';
-    
+
     // Suma asegurada aproximada
     const sumaAseg = (20000 + fleteVal) * 1.1;
     document.getElementById('outSumaAseg').innerText = formatMoney(sumaAseg) + ' USD';

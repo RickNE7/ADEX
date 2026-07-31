@@ -41,11 +41,11 @@
   .inv-title{text-align:right}
   .inv-title h2{margin:0;font-size:20px;color:var(--tinta)}
   .inv-title p{margin:4px 0 0;font-size:12px;color:var(--gris);font-variant-numeric:tabular-nums}
-  
+
   .inv-parties{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:20px}
   .party h3{margin:0 0 6px;font-size:11px;text-transform:uppercase;color:var(--gris);border-bottom:1px solid #d3dbe4;padding-bottom:3px}
   .party p{margin:3px 0;line-height:1.4}
-  
+
   .inv-meta{background:#f5f7f9;border:1px solid #d3dbe4;border-radius:6px;padding:10px 15px;display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:20px}
   .meta-item span{display:block;font-size:9.5px;color:var(--gris);text-transform:uppercase}
   .meta-item strong{font-size:11.5px;color:var(--tinta)}
@@ -54,14 +54,14 @@
   .inv-table th{background:var(--azul);color:#fff;text-align:left;padding:8px 10px;font-size:10px;text-transform:uppercase}
   .inv-table td{padding:8px 10px;border-bottom:1px solid #d3dbe4;line-height:1.4}
   .inv-table th.num-col,.inv-table td.num-col{text-align:right;font-variant-numeric:tabular-nums}
-  
+
   .inv-summary{display:grid;grid-template-columns:1.5fr 1fr;gap:40px}
   .summary-left{font-size:10px;color:var(--gris);line-height:1.45}
   .summary-right table{width:100%;border-collapse:collapse}
   .summary-right td{padding:6px 10px;border-bottom:1px solid #eef1f5}
   .summary-right tr.total td{font-size:13px;font-weight:800;color:var(--tinta);border-bottom:2px double var(--linea);background:#f5f7f9}
   .summary-right td.val{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
-  
+
   .signature-section{margin-top:20px;display:flex;justify-content:space-between;align-items:flex-end}
   .payment-details{font-size:9px;color:var(--gris);line-height:1.35}
   .sig-box{width:180px;border-top:1px solid #9aa8b6;padding-top:5px;font-size:9.5px;color:var(--gris);text-transform:uppercase;text-align:center}
@@ -674,7 +674,7 @@
     document.querySelectorAll('.outInvNum2').forEach(el => el.innerText = invNum);
     document.getElementById('outInvFecha').innerText = formattedDate;
     document.getElementById('outFembDate').innerText = packDateStr;
-    
+
     // EXW Incoterm
     let incoCode = invIncoterm.toUpperCase().replace('INCOTERMS® 2020', '').trim();
     document.getElementById('outIncoterm').innerText = incoCode + ' - INCOTERMS® 2020';
@@ -682,7 +682,7 @@
     // FOB Incoterm
     let incoFobCode = invIncotermFob.toUpperCase().replace('INCOTERMS® 2020', '').trim();
     document.getElementById('outIncotermFob').innerText = incoFobCode + ' - INCOTERMS® 2020';
-    
+
     document.getElementById('outPago').innerText = invPago;
     document.querySelectorAll('.outHsCode').forEach(el => el.innerText = hsCode);
     document.getElementById('outExpNom').innerText = expNom;
@@ -691,7 +691,7 @@
     document.getElementById('outImpNomCons').innerText = impNomCons;
     document.getElementById('outImpRuc').innerText = impRuc;
     document.getElementById('outImpDir').innerText = impDir;
-    
+
     // Nombres cons
     document.getElementById('outImpDirCons').innerText = impDir.split(',').pop().trim(); // Lima, Perú
 
@@ -715,7 +715,7 @@
     // Actualizar montos en Ajustes
     document.getElementById('outValCom').innerText = formatMoney(adjCom);
     document.getElementById('outTotalCom').innerText = formatMoney(adjCom);
-    
+
     document.getElementById('outValEmb').innerText = formatMoney(adjEmb);
     document.getElementById('outTotalEmb').innerText = formatMoney(adjEmb);
 
@@ -735,10 +735,10 @@
     document.getElementById('outValReg2').innerText = formatMoney(adjReg);
     document.getElementById('outValDis2').innerText = formatMoney(adjDis);
     document.getElementById('outSubtotalCons').innerText = formatMoney(prodTotalVal);
-    
+
     const totAjustes = adjCom + adjEmb + adjReg + adjDis;
     document.getElementById('outTotAjusCons').innerText = formatMoney(totAjustes);
-    
+
     const totFob = prodTotalVal + totAjustes;
     document.getElementById('outTotalFobCons').innerText = '**' + formatMoney(totFob) + '**';
   }
