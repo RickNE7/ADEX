@@ -371,6 +371,148 @@
   .footer a:hover {
     text-decoration: underline;
   }
+
+  /* ---------- TAREA 3: LÍNEA DE TIEMPO DE DOCUMENTOS ---------- */
+  .t3-section {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .t3-section h2 {
+    font-size: 1.25rem;
+    color: #34d399;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .t3-section h2 .t3-tag {
+    font-size: 0.7rem;
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.03em;
+  }
+
+  .t3-section > p.t3-sub {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+    max-width: 900px;
+  }
+
+  .t3-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 2px;
+    overflow-x: auto;
+    padding-bottom: 12px;
+  }
+
+  .t3-step {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .t3-step-circle {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #10b981;
+    color: #04231a;
+    font-weight: 800;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
+    flex-shrink: 0;
+  }
+
+  .t3-step.t3-edge .t3-step-circle {
+    background: rgba(148, 163, 184, 0.25);
+    color: var(--text-main);
+    box-shadow: 0 0 0 4px rgba(148, 163, 184, 0.08);
+  }
+
+  .t3-step-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 4px;
+    min-height: 2.1em;
+    padding: 0 2px;
+    line-height: 1.15;
+  }
+
+  .t3-step-date {
+    font-size: 0.65rem;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .t3-step-docs {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+    padding: 0 3px;
+  }
+
+  .t3-doc-link {
+    display: block;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 6px 5px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    line-height: 1.2;
+    word-break: break-word;
+  }
+
+  .t3-doc-link:hover {
+    border-color: #34d399;
+    color: #34d399;
+    background: rgba(16, 185, 129, 0.08);
+    transform: translateY(-2px);
+  }
+
+  .t3-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--border);
+    font-size: 1rem;
+    font-weight: 700;
+    padding-top: 17px;
+    width: 14px;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 900px) {
+    .t3-flow { flex-wrap: wrap; overflow-x: visible; }
+    .t3-arrow { display: none; }
+    .t3-step { flex: 1 1 260px; }
+  }
 </style>
 </head>
 <body>
@@ -493,6 +635,96 @@
       </div>
     </section>
 
+    <!-- TAREA 3: Línea de Tiempo de Documentos -->
+    <section class="t3-section">
+      <h2>Línea de Tiempo del Despacho <span class="t3-tag">TAREA 3</span></h2>
+      <p class="t3-sub">Los 12 documentos del caso Corporación Textil Andina S.A.C., ubicados en la etapa del despacho en que se emiten. Haz clic en cualquier documento para verlo (se abre en una pestaña nueva; Chrome lo muestra directamente, sin descargar).</p>
+
+      <div class="t3-flow">
+
+        <div class="t3-step t3-edge">
+          <div class="t3-step-circle">0</div>
+          <div class="t3-step-title">Antes del Despacho</div>
+          <div class="t3-step-date">25/05/2026</div>
+          <div class="t3-step-docs">
+            <a href="../Tarea 3/0_Factura.pdf" target="_blank" rel="noopener" class="t3-doc-link">Factura Comercial</a>
+          </div>
+        </div>
+
+        <div class="t3-arrow">→</div>
+
+        <div class="t3-step">
+          <div class="t3-step-circle">1</div>
+          <div class="t3-step-title">Numeración de la DAM</div>
+          <div class="t3-step-date">09/07/2026</div>
+          <div class="t3-step-docs">
+            <a href="../Tarea 3/1_BL.pdf" target="_blank" rel="noopener" class="t3-doc-link">Bill of Lading</a>
+            <a href="../Tarea 3/1_Seguro.pdf" target="_blank" rel="noopener" class="t3-doc-link">Certificado de Seguro</a>
+            <a href="../Tarea 3/1_DAM(ABC).pdf" target="_blank" rel="noopener" class="t3-doc-link">DAM (Formatos A·B·C)</a>
+          </div>
+        </div>
+
+        <div class="t3-arrow">→</div>
+
+        <div class="t3-step">
+          <div class="t3-step-circle">3</div>
+          <div class="t3-step-title">Llegada y Verificación de Carga</div>
+          <div class="t3-step-date">13-14/07/2026</div>
+          <div class="t3-step-docs">
+            <a href="../Tarea 3/3_ManifiestoCarga.pdf" target="_blank" rel="noopener" class="t3-doc-link">Manifiesto de Carga</a>
+            <a href="../Tarea 3/3_NotaTarja.pdf" target="_blank" rel="noopener" class="t3-doc-link">Nota de Tarja</a>
+            <a href="../Tarea 3/3_TarjaDetalle.pdf" target="_blank" rel="noopener" class="t3-doc-link">Nota de Tarja al Detalle</a>
+          </div>
+        </div>
+
+        <div class="t3-arrow">→</div>
+
+        <div class="t3-step">
+          <div class="t3-step-circle">6</div>
+          <div class="t3-step-title">Ingreso a Bodega</div>
+          <div class="t3-step-date">14/07/2026</div>
+          <div class="t3-step-docs">
+            <a href="../Tarea 3/6_VolanteDespacho.pdf" target="_blank" rel="noopener" class="t3-doc-link">Volante de Despacho</a>
+          </div>
+        </div>
+
+        <div class="t3-arrow">→</div>
+
+        <div class="t3-step">
+          <div class="t3-step-circle">8</div>
+          <div class="t3-step-title">Aforo Físico (Canal Rojo)</div>
+          <div class="t3-step-date">15/07/2026</div>
+          <div class="t3-step-docs">
+            <a href="../Tarea 3/8_ActaAforo.pdf" target="_blank" rel="noopener" class="t3-doc-link">Acta de Aforo</a>
+            <a href="../Tarea 3/8_NotifDudaRazonable.pdf" target="_blank" rel="noopener" class="t3-doc-link">Notif. Duda Razonable</a>
+          </div>
+        </div>
+
+        <div class="t3-arrow">→</div>
+
+        <div class="t3-step">
+          <div class="t3-step-circle">9</div>
+          <div class="t3-step-title">Autoliquidación y Levante</div>
+          <div class="t3-step-date">17/07/2026</div>
+          <div class="t3-step-docs">
+            <a href="../Tarea 3/9_Autoliquidacion.pdf" target="_blank" rel="noopener" class="t3-doc-link">Autoliquidación de Tributos</a>
+          </div>
+        </div>
+
+        <div class="t3-arrow">→</div>
+
+        <div class="t3-step t3-edge">
+          <div class="t3-step-circle">0</div>
+          <div class="t3-step-title">Después del Despacho</div>
+          <div class="t3-step-date">24/07/2026</div>
+          <div class="t3-step-docs">
+            <a href="../Tarea 3/0_SolicitudDevolucion.pdf" target="_blank" rel="noopener" class="t3-doc-link">Solicitud de Devolución</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <!-- Document Selection Grid -->
     <div class="grid-docs">
       
@@ -539,6 +771,51 @@
           <p>Generates the official Declaración Aduanera de Mercancías (Format A for general cargo, Format B for value declaration and WTO adjustments, and Format C for tax settlement and comparison).</p>
         </div>
         <a href="Generador_DAM.html" class="btn btn-primary" style="background-color: var(--accent); color: #0a0f1d;">Open DAM Generator →</a>
+      </article>
+
+      <!-- Card 6: Documentos Operativos (Tarea 3) -->
+      <article class="doc-card" style="border-color: rgba(16, 185, 129, 0.35);">
+        <div>
+          <h3>Documentos Operativos <span style="font-size:.7rem;background:rgba(16,185,129,.15);color:#34d399;padding:2px 8px;border-radius:20px;vertical-align:middle">TAREA 3</span></h3>
+          <p>Genera los cuatro documentos que emiten el <strong>transportista internacional</strong> y el <strong>depósito temporal</strong>: Manifiesto de Carga, Nota de Tarja, Nota de Tarja al Detalle y Volante de Despacho. Preparado para carga consolidada (LCL) con tres consignatarios.</p>
+        </div>
+        <a href="T3 Generador_Operativos.html" class="btn btn-primary" style="background-color:#10b981;color:#04231a">Abrir Documentos Operativos →</a>
+      </article>
+
+      <!-- Card 7: Ciclo del Ajuste de Valor (Tarea 3) -->
+      <article class="doc-card" style="border-color: rgba(239, 68, 68, 0.35);">
+        <div>
+          <h3>Ciclo del Ajuste de Valor <span style="font-size:.7rem;background:rgba(239,68,68,.15);color:#f87171;padding:2px 8px;border-radius:20px;vertical-align:middle">TAREA 3</span></h3>
+          <p>Genera la <strong>Notificación de Duda Razonable</strong>, el <strong>Acta de Aforo Físico</strong> (canal rojo), la <strong>Autoliquidación</strong> de la diferencia de tributos y la <strong>Solicitud de Devolución</strong>. Recalcula la liquidación comparativa (declarado vs. ajustado) en vivo.</p>
+        </div>
+        <a href="T3 Generador_Ajuste_Valor.html" class="btn btn-primary" style="background-color:#ef4444;color:#fff">Abrir Ciclo de Ajuste →</a>
+      </article>
+
+      <!-- Card 8: Factura (Tarea 3) -->
+      <article class="doc-card" style="border-color: rgba(16, 185, 129, 0.35);">
+        <div>
+          <h3>Factura Comercial FOB <span style="font-size:.7rem;background:rgba(16,185,129,.15);color:#34d399;padding:2px 8px;border-radius:20px;vertical-align:middle">TAREA 3</span></h3>
+          <p>Genera la <strong>Factura Comercial</strong> del caso Corporación Textil Andina / Tirupur Knitwear Exports (FOB Chennai), sin ajustes Art. 8 OMC. Incluye datos bancarios, subpartida 6109.10.00.39 y peso neto real de la mercancía (1,600 kg).</p>
+        </div>
+        <a href="T3 Generador_Factura.html" class="btn btn-primary" style="background-color:#10b981;color:#04231a">Abrir Factura Comercial →</a>
+      </article>
+
+      <!-- Card 9: Transporte y Seguro (Tarea 3) -->
+      <article class="doc-card" style="border-color: rgba(16, 185, 129, 0.35);">
+        <div>
+          <h3>Transporte y Seguro <span style="font-size:.7rem;background:rgba(16,185,129,.15);color:#34d399;padding:2px 8px;border-radius:20px;vertical-align:middle">TAREA 3</span></h3>
+          <p>Genera el <strong>Bill of Lading</strong> (Maersk Line, Chennai → Callao Muelle Sur) y el <strong>Certificado de Seguro Marítimo</strong> (Rímac) para la carga consolidada LCL de Corporación Textil Andina.</p>
+        </div>
+        <a href="T3 Generador_Transporte_Seguro.html" class="btn btn-primary" style="background-color:#10b981;color:#04231a">Abrir Transporte y Seguro →</a>
+      </article>
+
+      <!-- Card 10: DAM (Tarea 3) -->
+      <article class="doc-card" style="border-color: rgba(16, 185, 129, 0.35);">
+        <div>
+          <h3>DAM (Formatos A, B y C) <span style="font-size:.7rem;background:rgba(16,185,129,.15);color:#34d399;padding:2px 8px;border-radius:20px;vertical-align:middle">TAREA 3</span></h3>
+          <p>Genera la <strong>Declaración Aduanera de Mercancías</strong> completa (Formato A, B y C) con los datos de Corporación Textil Andina: canal rojo, Ad Valorem 11%, IGV 15.5%, IPM 2.5% y percepción del 10% por primera importación.</p>
+        </div>
+        <a href="T3 Generador_DAM.html" class="btn btn-primary" style="background-color:#10b981;color:#04231a">Abrir DAM (T3) →</a>
       </article>
 
     </div>
