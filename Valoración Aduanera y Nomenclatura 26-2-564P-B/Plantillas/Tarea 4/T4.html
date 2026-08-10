@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADEX Customs Hub — Tarea 4: Regímenes Aduaneros Especiales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-dark: #080c14;
+    --card-bg: #111827;
+    --text-main: #f3f4f6;
+    --text-muted: #9ca3af;
+    --primary: #0284c7;
+    --primary-hover: #0369a1;
+    --accent: #f59e0b;
+    --accent-emerald: #10b981;
+    --accent-rose: #f43f5e;
+    --accent-purple: #8b5cf6;
+    --accent-cyan: #06b6d4;
+    --border: #1e293b;
+    --glass: rgba(17, 24, 39, 0.8);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Outfit', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-x: hidden;
+    background-image: 
+      radial-gradient(circle at 12% 15%, rgba(2, 132, 199, 0.12) 0%, transparent 45%),
+      radial-gradient(circle at 88% 85%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+    background-attachment: fixed;
+    line-height: 1.5;
+  }
+
+  .header {
+    background: radial-gradient(circle at top right, rgba(2, 132, 199, 0.18), transparent 60%);
+    padding: 40px 20px 25px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .btn-back {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    transition: var(--transition);
+    margin-bottom: 20px;
+  }
+
+  .btn-back:hover {
+    color: #ffffff;
+    background: rgba(2, 132, 199, 0.15);
+    border-color: var(--primary);
+    transform: translateX(-3px);
+  }
+
+  .header h1 {
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #ffffff 20%, #38bdf8 60%, #c084fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+  }
+
+  .header p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    max-width: 850px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 35px 20px;
+    flex: 1;
+    width: 100%;
+  }
+
+  /* Summary Section */
+  .case-summary {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    border-radius: 18px;
+    padding: 24px;
+    margin-bottom: 35px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.35);
+  }
+
+  .case-summary h2 {
+    font-size: 1.2rem;
+    color: var(--accent);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .grid-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+
+  .info-card {
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid var(--border);
+    padding: 14px 18px;
+    border-radius: 12px;
+  }
+
+  .info-card span {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    letter-spacing: 0.03em;
+  }
+
+  .info-card strong {
+    font-size: 0.98rem;
+    color: var(--text-main);
+  }
+
+  /* Caso Section Block */
+  .caso-block {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 40px;
+    box-shadow: 0 6px 35px rgba(0, 0, 0, 0.4);
+  }
+
+  .caso-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .caso-title-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .caso-icon {
+    font-size: 2rem;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .caso-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--text-main);
+  }
+
+  .caso-author {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .caso-regimen-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .tag-c1 { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+  .tag-c2 { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+  .tag-c3 { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
+
+  .caso-desc {
+    color: var(--text-muted);
+    font-size: 0.94rem;
+    margin-bottom: 22px;
+    line-height: 1.6;
+  }
+
+  /* Table metrics */
+  .table-metrics {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+    font-size: 0.85rem;
+  }
+
+  .table-metrics th {
+    background: rgba(30, 41, 59, 0.6);
+    color: var(--text-main);
+    text-align: left;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    font-weight: 700;
+  }
+
+  .table-metrics td {
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+  }
+
+  .table-metrics tr:nth-child(even) td {
+    background: rgba(255, 255, 255, 0.015);
+  }
+
+  .table-metrics td strong {
+    color: var(--text-main);
+  }
+
+  /* PDF Docs Grid */
+  .pdf-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin-top: 15px;
+  }
+
+  .pdf-card {
+    background: rgba(30, 41, 59, 0.35);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: var(--transition);
+  }
+
+  .pdf-card:hover {
+    background: rgba(30, 41, 59, 0.65);
+    border-color: rgba(56, 189, 248, 0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+  }
+
+  .pdf-card-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .pdf-icon {
+    font-size: 1.5rem;
+    color: var(--accent-rose);
+  }
+
+  .pdf-info {
+    flex: 1;
+  }
+
+  .pdf-num {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .pdf-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-main);
+    line-height: 1.3;
+    margin-top: 2px;
+  }
+
+  .pdf-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+
+  .pdf-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .btn-pdf {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 16px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: var(--transition);
+    width: 100%;
+    gap: 6px;
+  }
+
+  .btn-pdf-view {
+    background: rgba(2, 132, 199, 0.2);
+    color: #38bdf8;
+    border: 1px solid rgba(2, 132, 199, 0.4);
+  }
+
+  .btn-pdf-view:hover {
+    background: var(--primary);
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
+  }
+
+  .btn-html-sim {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+  }
+
+  .btn-html-sim:hover {
+    background: var(--accent-emerald);
+    color: #04231a;
+  }
+
+  .section-label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 35px 20px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    background: rgba(10, 15, 29, 0.85);
+  }
+
+  @media (max-width: 768px) {
+    .pdf-grid { grid-template-columns: 1fr; }
+    .caso-header { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+  <header class="header">
+    <a href="../../valoracion.html" class="btn-back">
+      <span>←</span> Volver a Módulos de Evaluación
+    </a>
+    <h1>TAREA 4 — REGÍMENES ADUANEROS ESPECIALES</h1>
+    <p>Portal Documentario Oficial y Simuladores interactivos para Admisión Temporal para Reexportación en el Mismo Estado (Régimen 20), Depósito Aduanero con Warrant (Régimen 70) y Exportación Temporal para Perfeccionamiento Pasivo (Régimen 51/10).</p>
+  </header>
+
+  <div class="container">
+    
+    <!-- Resumen General -->
+    <section class="case-summary">
+      <h2> Ficha Resumen de Regímenes Especiales (ADEX 2026)</h2>
+      <div class="grid-info">
+        <div class="info-card">
+          <span>Caso 1: Admisión Temporal</span>
+          <strong>Andina Ingeniería y Construcción S.A.C.</strong>
+        </div>
+        <div class="info-card">
+          <span>Caso 2: Depósito Aduanero</span>
+          <strong>TecnoImport Perú S.A.C.</strong>
+        </div>
+        <div class="info-card">
+          <span>Caso 3: Perfeccionamiento Pasivo</span>
+          <strong>Joyas del Inca S.A.C.</strong>
+        </div>
+        <div class="info-card">
+          <span>Expedientes SUNAT</span>
+          <strong>12 Documentos Oficiales PDF</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASO 1 -->
+    <section class="caso-block">
+      <div class="caso-header">
+        <div class="caso-title-box">
+          <div class="caso-icon">🚜</div>
+          <div>
+            <div class="caso-title">Caso 1: Admisión Temporal para Reexportación en el Mismo Estado</div>
+            <div class="caso-author">Responsables: Eric Mozombite Shishco / Marilin Medina Apolinario</div>
+          </div>
+        </div>
+        <span class="caso-regimen-tag tag-c1">Régimen 20 — Maquinaria Pesada</span>
+      </div>
+      <p class="caso-desc">
+        Importación temporal de 18 Excavadoras Hidráulicas Komatsu PC210 desde Corea del Sur por parte de <strong>Andina Ingeniería y Construcción S.A.C.</strong> para su uso exclusivo en el proyecto vial <em>"Carretera Interoceánica Tramo 4 (Puno)"</em> por un plazo de 18 meses. Cuenta con suspensión total de tributos mediante Carta Fianza Bancaria del BCP.
+      </p>
+
+      <!-- Tabla de Operación Caso 1 -->
+      <table class="table-metrics">
+        <thead>
+          <tr>
+            <th>Etapa / Fecha</th>
+            <th>Operación Aduanera</th>
+            <th>Unidades</th>
+            <th>Tributos Pagados (US$)</th>
+            <th>Garantía BCP Renovable (US$)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>05/08/2026</strong></td>
+            <td>Numeración DAM Admisión Temporal (Régimen 20)</td>
+            <td>18 admitidas</td>
+            <td>US$ 0.00 (Suspendidos)</td>
+            <td><strong>US$ 280,000.00</strong></td>
+          </tr>
+          <tr>
+            <td><strong>20/08/2026</strong></td>
+            <td>1.ª Nacionalización Parcial (Régimen 10)</td>
+            <td>4 nacionalizadas</td>
+            <td>US$ 62,198.40</td>
+            <td><strong>US$ 218,000.00</strong> (Renovada)</td>
+          </tr>
+          <tr>
+            <td><strong>29/08/2026</strong></td>
+            <td>2.ª Nacionalización Parcial (Régimen 10)</td>
+            <td>6 nacionalizadas</td>
+            <td>US$ 93,297.60</td>
+            <td><strong>US$ 124,400.00</strong> (Renovada)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="section-label" style="color: #38bdf8;">
+        <span>📄</span> Documentos Oficiales del Expediente en PDF (4 Archivos)
+      </div>
+      <div class="pdf-grid">
+        
+        <!-- Doc 1 -->
+        <div class="pdf-card">
+          <div>
+            <div class="pdf-card-top">
+              <div class="pdf-icon">📄</div>
+              <div class="pdf-info">
+                <span class="pdf-num">DOCUMENTO 1</span>
+                <div class="pdf-name">Factura Comercial</div>
+              </div>
+            </div>
+            <div class="pdf-desc">Invoice de Komatsu Ltd. por 18 Excavadoras PC210 por un valor CIF total de US$ 1,116,000.00 (US$ 62,000.00/unid).</div>
+          </div>
+          <div class="pdf-actions">
+            <a href="Tarea 4 - Caso 1 - Doc 1 Factura Comercial.pdf" target="_blank" rel="noopener" class="btn-pdf btn-pdf-view">
+              Ver PDF ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- Doc 2 -->
+        <div class="pdf-card">
+          <div>
+            <div class="pdf-card-top">
+              <div class="pdf-icon">📄</div>
+              <div class="pdf-info">
+                <span class="pdf-num">DOCUMENTO 2</span>
+                <div class="pdf-name">BL y Certificado de Seguro</div>
+              </div>
+            </div>
+            <div class="pdf-desc">Bill of Lading Maersk Line (Busan → Callao Muelle Sur) y Póliza de Seguro de Transporte Rímac.</div>
+          </div>
+          <div class="pdf-actions">
+            <a href="Tarea 4 - Caso 1 - Doc 2 BL y Certificado de Seguro.pdf" target="_blank" rel="noopener" class="btn-pdf btn-pdf-view">
+              Ver PDF ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- Doc 3 -->
+        <div class="pdf-card">
+          <div>
+            <div class="pdf-card-top">
+              <div class="pdf-icon">📄</div>
+              <div class="pdf-info">
+                <span class="pdf-num">DOCUMENTO 3</span>
+                <div class="pdf-name">DAM Admisión Temporal</div>
+              </div>
+            </div>
+            <div class="pdf-desc">Declaración Aduanera de Mercancías Formatos A, B y C del Régimen 20 con cálculo de tributos suspendidos por US$ 279,892.80.</div>
+          </div>
+          <div class="pdf-actions">
+            <a href="Tarea 4 - Caso 1 - Doc 3 DAM Admision Temporal.pdf" target="_blank" rel="noopener" class="btn-pdf btn-pdf-view">
+              Ver PDF ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- Doc 4 -->
+        <div class="pdf-card">
+          <div>
+            <div class="pdf-card-top">
+              <div class="pdf-icon">📄</div>
+              <div class="pdf-info">
+                <span class="pdf-num">DOCUMENTO 4</span>
+                <div class="pdf-name">Carta Fianza Bancaria</div>
+              </div>
+            </div>
+            <div class="pdf-desc">Carta Fianza del BCP por US$ 280,000.00 y expedientes de reducción/renovación progresiva por nacionalización parcial.</div>
+          </div>
+          <div class="pdf-actions">
+            <a href="Tarea 4 - Caso 1 - Doc 4 Carta Fianza (original y renovaciones).pdf" target="_blank" rel="noopener" class="btn-pdf btn-pdf-view">
+              Ver PDF ↗
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Simuladores HTML Caso 1 -->
+      <div style="margin-top: 22px; padding-top: 16px; border-top: 1px dashed rgba(255,255,255,0.08); display: flex; gap: 12px; flex-wrap: wrap;">
+        <a href="../../Plantillas/T4 Generador_DAM_Caso1_AdmisionTemporal.html" class="btn-pdf btn-html-sim" style="width: auto;">Simulador DAM Caso 1 →</a>
+        <a href="../../Plantillas/T4 Generador_CartaFianza_Caso1.html" class="btn-pdf btn-html-sim" style="width: auto;">Simulador Carta Fianza →</a>
+        <a href="../../Plantillas/T4 Generador_Factura_Caso1_Excavadoras.html" class="btn-pdf btn-html-sim" style="width: auto;">Simulador Factura →</a>
+      </div>
+    </section>
+
+    <!-- CASO 2 -->
+    <section class="caso-block">
+      <div class="caso-header">
+        <div class="caso-title-box">
+          <div class="caso-icon">🏭</div>
+          <div>
+            <div class="caso-title">Caso 2: Régimen de Depósito Aduanero con Warrant</div>
+            <div class="caso-author">Responsable: Anderson Quispe Sánchez</div>
+          </div>
+        </div>
+        <span class="caso-regimen-tag tag-c2">Régimen 70 — Electrodomésticos</span>
+      </div>
+      <p class="caso-desc">
+        Ingreso a Depósito Aduanero Autorizado por 12 meses de 2,600 Refrigeradoras Side by Side LG Inverter 550L por <strong>TecnoImport Perú S.A.C.</strong> en Almacenera del Sur S.A. Se emite Warrant prendario con el Banco Continental por 400 unidades para obtener financiamiento de capital de trabajo por US$ 45,000.00.
+      </p>
+
+      <!-- Tabla de Operación Caso 2 -->
+      <table class="table-metrics">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Hito Operativo / Financiero</th>
+            <th>Unidades Impactadas</th>
+            <th>Flujo Financiero (US$)</th>
+            <th>Saldo en Depósito</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>07/08/2026</strong></td>
+            <td>Ingreso a Depósito Aduanero (DAM 70)</td>
+            <td>2,600 unidades</td>
+            <td>Tributos suspendidos: US$ 171,598.22</td>
+            <td>2,600 u.</td>
+          </tr>
+          <tr>
+            <td><strong>14/08/2026</strong></td>
+            <td>Emisión de Warrant con Banco Continental</td>
+            <td>400 u. en prenda</td>
+            <td><strong>+US$ 45,000.00</strong> (Préstamo recibido)</td>
+            <td>2,600 u. (400 p.)</td>
+          </tr>
+          <tr>
+            <td><strong>21/08/2026</strong></td>
+            <td>1.ª Nacionalización Parcial (RAM 10)</td>
+            <td>600 u. retiradas</td>
+            <td>−US$ 39,600.00 (Pago tributos con préstamo)</td>
+            <td>2,000 u.</td>
+          </tr>
+          <tr>
+            <td><strong>28/08/2026</strong></td>
+            <td>2.ª Nacionalización Parcial (RAM 10)</td>
+            <td>500 u. retiradas</td>
+            <td>−US$ 33,000.00 (Pago tributos con ventas)</td>
+            <td>1,500 u.</td>
+          </tr>
+          <tr>
+            <td><strong>29/08/2026</strong></td>
+            <td>Cancelación del Warrant al Banco</td>
+            <td>400 u. liberadas</td>
+            <td>−US$ 45,000.00 + intereses pagados</td>
+            <td><strong>1,500 u. libres</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="section-label" style="color: #fbbf24;">
+        <span>📄</span> Documentos Oficiales del Expediente en PDF (4 Archivos)
+      </div>
+      <div class="pdf-grid">
+        
+        <!-- Doc 1 -->
+        <div class="pdf-card">
+          <div>
+            <div class="pdf-card-top">
+              <div class="pdf-icon">📄</div>
+              <div class="pdf-info">
+                <span class="pdf-num">DOCUMENTO 1</span>
+                <div class="pdf-name">Factura Comercial</div>
+              </div>
+            </div>
+            <div class="pdf-desc">Factura #SEK-2026-8812 de LG Electronics por 2,600 refrigeradoras con valor CIF total de US$ 553,900.00.</div>
+          </div>
+          <div class="pdf-actions">
+            <a href="Tarea 4 - Caso 2 - Doc 1 Factura Comercial.pdf" target="_blank" rel="noopener" class="btn-pdf btn-pdf-view">
+              Ver PDF ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- Doc 2 -->
+        <div class="pdf-card">
+          <div>
+            <div class="pdf-card-top">
+              <div class="pdf-icon">📄</div>
+              <div class="pdf-info">
+                <span class="pdf-num">DOCUMENTO 2</span>
+                <div class="pdf-name">BL y Certificado de Seguro</div>
+              </div>
+            </div>
+            <div class="pdf-desc">Bill of Lading HMM Co. (Busan → Callao DP World) y Certificado de Seguro Marítimo de Carga.</div>
+          </div>
+          <div class="pdf-actions">
+            <a href="Tarea 4 - Caso 2 - Doc 2 BL y Certificado de Seguro.pdf" target="_blank" rel="noopener" class="btn-pdf btn-pdf-view">
+              Ver PDF ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- Doc 3 -->
+        <div class="pdf-card">
+          <div>
+            <div class="pdf-card-top">
+              <div class="pdf-icon">📄</div>
+              <div class="pdf-info">
+                <span class="pdf-num">DOCUMENTO 3</span>
+                <div class="pdf-name">DAM Depósito Aduanero</div>
+              </div>
+            </div>
+            <div class="pdf-desc">Declaración Aduanera de Mercancías Régimen 70 autorizando almacenaje sin pago de tributos por 12 meses.</div>
+          </div>
+          <div class="pdf-actions">
+            <a href="Tarea 4 - Caso 2 - Doc 3 DAM Deposito Aduanero.pdf" target="_blank" rel="noopener" class="btn-pdf btn-pdf-view">
+              Ver PDF ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- Doc 4 -->
+        <div class="pdf-card">
+          <div>
+            <div class="pdf-card-top">
+              <div class="pdf-icon">📄</div>
+              <div class="pdf-info">
+                <span class="pdf-num">DOCUMENTO 4</span>
+                <div class="pdf-name">Certificado de Depósito y Warrant</div>
+              </div>
+            </div>
+            <div class="pdf-desc">Título Valor comercial endosado emitido por Almacenera del Sur S.A. registrado ante la SBS.</div>
+          </div>
+          <div class="pdf-actions">
+            <a href="Tarea 4 - Caso 2 - Doc 4 Certificado de Deposito y Warrant.pdf" target="_blank" rel="noopener" class="btn-pdf btn-pdf-view">
+              Ver PDF ↗
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Simuladores HTML Caso 2 -->
+      <div style="margin-top: 22px; padding-top: 16px; border-top: 1px dashed rgba(255,255,255,0.08); display: flex; gap: 12px; flex-wrap: wrap;">
+        <a href="../../Plantillas/T4 Generador_DAM_Caso2_DepositoAduanero.html" class="btn-pdf btn-html-sim" style="width: auto;">Simulador DAM Caso 2 →</a>
+        <a href="../../Plantillas/T4 Generador_Warrant_Caso2.html" class="btn-pdf btn-html-sim" style="width: auto;">Simulador Warrant →</a>
+        <a href="../../Plantillas/T4 Generador_Factura_Caso2_Refrigeradoras.html" class="btn-pdf btn-html-sim" style="width: auto;">Simulador Factura →</a>
+      </div>
+    </section>
+
+    <!-- CASO 3 -->
+    <section class="caso-block">
+      <div class="caso-header">
+        <div class="caso-title-box">
+          <div class="caso-icon">⚙️</div>
+          <div>
+            <div class="caso-title">Caso 3: Exportación Temporal para Perfeccionamiento Pasivo</div>
+            <div class="caso-author">Responsable: Nicolás Castro Polastri</div>
+          </div>
+        </div>
+        <span class="caso-regimen-tag tag-c3">Régimen 51 / 10 — Plata & Joyería</span>
+      </div>
+      <p class="caso-desc">
+        Exportación temporal de 50 kg de plata en bruto (Ley 950, FOB US$ 45,000.00) por <strong>Joyas del Inca S.A.C.</strong> a Valenza, Italia (taller Argenteria Valenza S.r.l.) para manufactura y reimportación de 8,000 piezas de joyería. Tributa únicamente sobre el **valor agregado** (mano de obra $38,000) más fletes y seguros de ida y vuelta.
+      </p>
+
+      <!-- Tabla de Cálculo Caso 3 -->
+      <table class="table-metrics">
+        <thead>
+          <tr>
+            <th>Concepto de Liquidación</th>
+            <th>Base / Fórmula de Cálculo</th>
+            <th>Monto (US$)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Servicio de Perfeccionamiento (Maquila)</strong></td>
+            <td>Factura de Argenteria Valenza S.r.l.</td>
+            <td>US$ 38,000.00</td>
+          </tr>
+          <tr>
+            <td><strong>Fletes Internacionales (Ida + Vuelta)</strong></td>
+            <td>US$ 600.00 (Ida) + US$ 900.00 (Vuelta)</td>
+            <td>US$ 1,500.00</td>
+          </tr>
+          <tr>
+            <td><strong>Seguros Internacionales (Ida + Vuelta)</strong></td>
+            <td>US$ 150.00 (Ida) + US$ 220.00 (Vuelta)</td>
+            <td>US$ 370.00</td>
+          </tr>
+          <tr style="background: rgba(168, 85, 247, 0.15);">
+            <td><strong>BASE IMPONIBLE TOTAL</strong></td>
+            <td><strong>Valor Agregado + Logística Global</strong></td>
+            <td><strong>US$ 39,870.00</strong></td>
+          </tr>
+          <tr>
+            <td>Ad Valorem (11%) + IGV (15.5%) + IPM (2.5%)</td>
+            <td>Subtotal Deuda Tributaria Aduanera</td>
+            <td>US$ 12,351.72</td>
+          </tr>
+          <tr>
+            <td>Percepción del IGV (3.5%)</td>
+            <td>(Base Imponible + Tributos) × 3.5%</td>
+            <td>US$ 1,827.76</td>
+          </tr>
+          <tr style="background: rgba(16, 185, 129, 0.15);">
+            <td><strong>TOTAL A PAGAR EN CAJA SUNAT (OTA)</strong></td>
+            <td><strong>Tributos + Percepción IGV</strong></td>
+            <td><strong>US$ 14,179.48</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="section-label" style="color: #c084fc;">
+        <span>📄</span> Documentos Oficiales del Expediente en PDF (4 Archivos)
+      </div>
+      <div class="pdf-grid">
+        
+        <!-- Doc 1A -->
+        <div class="pdf-card">
+          <div>
+            <div class="pdf-card-top">
+              <div class="pdf-icon">📄</div>
+              <div class="pdf-info">
+                <span class="pdf-num">DOCUMENTO 1A</span>
+                <div class="pdf-name">Factura Exportación Plata</div>
+              </div>
+            </div>
+            <div class="pdf-desc">Factura de salida temporal de materia prima (50 kg de plata 950 en bruto) hacia Arezzo/Valenza, Italia.</div>
+          </div>
+          <div class="pdf-actions">
+            <a href="Tarea 4 - Caso 3 - Doc 1A Factura Exportacion Temporal (Plata).pdf" target="_blank" rel="noopener" class="btn-pdf btn-pdf-view">
+              Ver PDF ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- Doc 1B -->
+        <div class="pdf-card">
+          <div>
+            <div class="pdf-card-top">
+              <div class="pdf-icon">📄</div>
+              <div class="pdf-info">
+                <span class="pdf-num">DOCUMENTO 1B</span>
+                <div class="pdf-name">Factura Servicio Maquila</div>
+              </div>
+            </div>
+            <div class="pdf-desc">Factura del taller Argenteria Valenza por US$ 38,000.00 acreditando el costo de manufactura y diseño.</div>
+          </div>
+          <div class="pdf-actions">
+            <a href="Tarea 4 - Caso 3 - Doc 1B Factura Servicio de Perfeccionamiento.pdf" target="_blank" rel="noopener" class="btn-pdf btn-pdf-view">
+              Ver PDF ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- Doc 2 -->
+        <div class="pdf-card">
+          <div>
+            <div class="pdf-card-top">
+              <div class="pdf-icon">📄</div>
+              <div class="pdf-info">
+                <span class="pdf-num">DOCUMENTO 2</span>
+                <div class="pdf-name">Guía Aérea y Seguro</div>
+              </div>
+            </div>
+            <div class="pdf-desc">Air Waybill Lufthansa Cargo y Póliza de Seguro de Transporte de Valores de ida y retorno.</div>
+          </div>
+          <div class="pdf-actions">
+            <a href="Tarea 4 - Caso 3 - Doc 2 BL y Certificado de Seguro.pdf" target="_blank" rel="noopener" class="btn-pdf btn-pdf-view">
+              Ver PDF ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- Doc 3 -->
+        <div class="pdf-card">
+          <div>
+            <div class="pdf-card-top">
+              <div class="pdf-icon">📄</div>
+              <div class="pdf-info">
+                <span class="pdf-num">DOCUMENTO 3</span>
+                <div class="pdf-name">DAM Producto Compensador</div>
+              </div>
+            </div>
+            <div class="pdf-desc">Declaración Aduanera de Importación para el Consumo liquidando tributos sobre la Base Imponible de US$ 39,870.00.</div>
+          </div>
+          <div class="pdf-actions">
+            <a href="Tarea 4 - Caso 3 - Doc 3 DAM Importacion Producto Compensador.pdf" target="_blank" rel="noopener" class="btn-pdf btn-pdf-view">
+              Ver PDF ↗
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Simuladores HTML Caso 3 -->
+      <div style="margin-top: 22px; padding-top: 16px; border-top: 1px dashed rgba(255,255,255,0.08); display: flex; gap: 12px; flex-wrap: wrap;">
+        <a href="../../Plantillas/T4 Generador_DAM_Caso3_ImportacionCompensador.html" class="btn-pdf btn-html-sim" style="width: auto;">Simulador DAM Caso 3 →</a>
+        <a href="../../Plantillas/T4 Generador_Factura_Caso3A_PlataExportada.html" class="btn-pdf btn-html-sim" style="width: auto;">Factura Plata →</a>
+        <a href="../../Plantillas/T4 Generador_Factura_Caso3B_ServicioPerfeccionamiento.html" class="btn-pdf btn-html-sim" style="width: auto;">Factura Maquila →</a>
+      </div>
+    </section>
+
+    <!-- Presentación PPTX Download Card -->
+    <section class="case-summary" style="border-color: rgba(56, 189, 248, 0.4); background: linear-gradient(135deg, rgba(2, 132, 199, 0.12), rgba(17, 24, 39, 0.9));">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+        <div>
+          <h2 style="color: #38bdf8; margin-bottom: 8px; font-size: 1.3rem;">📊 Presentación Final de la Tarea 4 (PowerPoint)</h2>
+          <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 780px; line-height: 1.5;">
+            Descarga la presentación ejecutiva consolidada de la Tarea 4 con el desarrollo integral de los 3 regímenes aduaneros especiales, guion expositivo, tablas de liquidación y cuadros comparativos.
+          </p>
+        </div>
+        <div>
+          <a href="Tarea4 - Regímenes Aduaneros Especiales.pptx" download="Tarea4 - Regímenes Aduaneros Especiales.pptx" class="btn-pdf" style="background-color: #0284c7; color: #ffffff; font-weight: 800; font-size: 0.95rem; padding: 14px 24px; text-decoration: none; border-radius: 10px; box-shadow: 0 4px 15px rgba(2, 132, 199, 0.35);">
+            📥 Descargar PPTX Tarea 4
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="footer">
+    <p>ADEX Módulo B — Valoración Aduanera y Nomenclatura | 5to Ciclo</p>
+    <p style="margin-top: 5px; color: var(--text-muted);">Developed for student group presentation: Eric Mozombite Shishco, Anderson Quispe Sánchez, Nicolás Castro Polastri, Marilin Medina Apolinario.</p>
+  </footer>
+
+</body>
+</html>
