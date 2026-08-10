@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valoración Aduanera y Nomenclatura — ADEX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #080c14;
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --card-hover: rgba(26, 36, 56, 0.85);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --accent-blue: #3b82f6;
+            --accent-indigo: #6366f1;
+            --accent-purple: #8b5cf6;
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 85% 75%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        header {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 3rem 2rem 1.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.5rem 1.25rem;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            transition: var(--transition);
+            margin-bottom: 2rem;
+        }
+
+        .btn-back:hover {
+            color: #ffffff;
+            background: rgba(99, 102, 241, 0.15);
+            border-color: var(--accent-indigo);
+            transform: translateX(-3px);
+        }
+
+        .btn-back span {
+            margin-right: 0.5rem;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 70%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        main {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 1.5rem 2rem 4rem 2rem;
+            flex-grow: 1;
+        }
+
+        .tasks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .task-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 2.5rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.4);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .task-card.active-card:hover {
+            background: var(--card-hover);
+            border-color: rgba(99, 102, 241, 0.4);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.25);
+        }
+
+        .task-card.disabled-card {
+            opacity: 0.65;
+            cursor: not-allowed;
+            border-style: dashed;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .active-card .card-icon {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.15));
+            border-color: rgba(99, 102, 241, 0.3);
+            color: #a5b4fc;
+        }
+
+        .disabled-card .card-icon {
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-secondary);
+        }
+
+        .status-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.35rem 0.85rem;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .badge-ready {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .badge-pending {
+            background: rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .task-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.01em;
+        }
+
+        .active-card .task-title {
+            color: var(--text-primary);
+        }
+
+        .disabled-card .task-title {
+            color: var(--text-secondary);
+        }
+
+        .task-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .card-action {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 1.25rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .active-card .card-action {
+            color: #818cf8;
+        }
+
+        .active-card:hover .card-action {
+            color: #ffffff;
+        }
+
+        .disabled-card .card-action {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .action-arrow {
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+
+        .active-card:hover .action-arrow {
+            transform: translateX(6px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: auto;
+        }
+
+        @media (max-width: 640px) {
+            .tasks-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="../index.html" class="btn-back">
+            <span>←</span> Volver al Hub
+        </a>
+        <h1>Valoración Aduanera y Nomenclatura</h1>
+        <p class="subtitle">Selección de Módulos de Evaluación — ADEX 2026</p>
+    </header>
+
+    <main>
+        <div class="tasks-grid">
+            <!-- Ficha Tarea 3 -->
+            <a href="Plantillas/index.html" class="task-card active-card">
+                <div>
+                    <div class="card-header">
+                        <div class="card-icon">📑</div>
+                        <span class="status-badge badge-ready">DISPONIBLE</span>
+                    </div>
+                    <h2 class="task-title">Tarea 3</h2>
+                    <p class="task-desc">
+                        Caso Corporación Textil Andina S.A.C. Acceso al Panel Central de Plantillas con simuladores de DAM, ajuste de valor, factura comercial, transporte y seguro.
+                    </p>
+                </div>
+                <div class="card-action">
+                    <span>Ingresar a Tarea 3</span>
+                    <span class="action-arrow">➔</span>
+                </div>
+            </a>
+
+            <!-- Ficha Tarea 4 -->
+            <div class="task-card disabled-card">
+                <div>
+                    <div class="card-header">
+                        <div class="card-icon">⏳</div>
+                        <span class="status-badge badge-pending">PENDIENTE</span>
+                    </div>
+                    <h2 class="task-title">Tarea 4</h2>
+                    <p class="task-desc">
+                        Regímenes Aduaneros Especiales. Este módulo se encuentra en espera de indicaciones.
+                    </p>
+                </div>
+                <div class="card-action">
+                    <span>Esperando indicaciones...</span>
+                    <span class="action-arrow">🔒</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 ADEX — Instituto de Comercio Exterior • Valoración Aduanera y Nomenclatura</p>
+    </footer>
+
+</body>
+</html>
